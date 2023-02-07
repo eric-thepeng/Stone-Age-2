@@ -233,14 +233,17 @@ public class Tetris : MonoBehaviour
 
     private void CreateShadow()
     {
-        shadow = new GameObject("shadow of " + gameObject.name);
-        //shadow.transform.position = gameObject.transform.position + shadowOffsetStandard;
-        shadow.transform.parent = this.transform;
+        //shadow = new GameObject("shadow of " + gameObject.name);
+        shadow = Instantiate(new GameObject("shadow of " + gameObject.name), this.transform);
+        //shadow.transform.parent = this.transform;
         shadow.transform.localPosition = new Vector3(0,0,0) + shadowOffsetStandard;
         shadow.transform.localScale = new Vector3(1, 1, 1); //gameObject.transform.localScale;
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
         shadow.AddComponent<SpriteRenderer>();
         shadow.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
         shadow.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        shadow.GetComponent<SpriteRenderer>().sortingLayerName = "Crafting System";
+        shadow.GetComponent<SpriteRenderer>().sortingOrder = 9;
 
     }
 
@@ -286,7 +289,8 @@ public class Tetris : MonoBehaviour
     private void OnMouseDrag()
     {
         if (stateNow != state.Drag) return;
-        transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
+        transform.position = WorldUtility.GetMouseHitPoint();
+        //transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
     }
 
     private void OnMouseUp() //Real job of combining/calculating crafting and recipe

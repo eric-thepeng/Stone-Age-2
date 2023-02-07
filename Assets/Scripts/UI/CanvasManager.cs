@@ -1,24 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class ProgressControl : MonoBehaviour
+public class CanvasManager : MonoBehaviour
 {
-    static ProgressControl instance;
-
-    public static ProgressControl i
+    static CanvasManager instance;
+    public static CanvasManager i
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<ProgressControl>();
+                instance = FindObjectOfType<CanvasManager>();
             }
             return instance;
         }
     }
-
-
-
-
 }
