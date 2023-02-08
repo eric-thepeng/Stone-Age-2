@@ -289,7 +289,7 @@ public class Tetris : MonoBehaviour
     private void OnMouseDrag()
     {
         if (stateNow != state.Drag) return;
-        transform.position = WorldUtility.GetMouseHitPoint();
+        transform.position = WorldUtility.GetMouseHitPoint(9, true);
         //transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
     }
 

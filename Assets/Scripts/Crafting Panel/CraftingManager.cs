@@ -41,6 +41,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     private void Update()
     {
+        //print(WorldUtility.GetMouseHitPoint());
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (panelOpen)
@@ -112,7 +113,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public void mouseEnterTetris(ItemScriptableObject iso)
     {
-        Vector3 toSet = WorldUtility.GetMouseHitPoint(); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
+        Vector3 toSet = WorldUtility.GetMouseHitPoint(9, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
         PanelTransform.Find("NameUI").transform.position = toSet + new Vector3(0,0.1f,0.1f);
         PanelTransform.Find("NameUI").gameObject.SetActive(true);
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = iso.tetrisHoverName;
