@@ -19,9 +19,24 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    float momentum = 0f;
+    Vector2 direction = new Vector2(0,0);
+
     private void Update()
     {
-        transform.position += new Vector3(GetKeyboardInput().x, 0f, GetKeyboardInput().y) * Time.deltaTime * 10;
+        
+        if(GetKeyboardInput() == new Vector2Int(0,0))
+        {
+            momentum -= Time.deltaTime * 6f;
+            momentum = Mathf.Clamp(momentum, 0, 1f);
+        }
+        else
+        {
+            direction = GetKeyboardInput();
+            direction = direction.normalized;
+            momentum = 1;
+        }
+        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * 10 * momentum;
     }
 
     Vector2Int GetKeyboardInput()

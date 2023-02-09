@@ -33,7 +33,7 @@ public class CharacterIcon : MonoBehaviour
                 else // DRAGGING -> HOME
                 {
                     iconState = IconState.Home;
-                    transform.position = homePosition;
+                    transform.localPosition = homePosition;
                     return;
                 }
             }
