@@ -53,7 +53,8 @@ public class Character : MonoBehaviour
 
     public void YieldResource()
     {
-        print("Obtain " + gatheringSpot.spiritPoint + " Spirit Point.");
+        //print("Obtain " + gatheringSpot.spiritPoint + " Spirit Point.");
+        SpiritPoint.i.Add(gatheringSpot.spiritPoint);
         int roll = Random.Range(0, gatheringSpot.totalWeight);
         //print("dice roll: " + roll);
         int weightCount = 0;
