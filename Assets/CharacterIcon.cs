@@ -10,7 +10,7 @@ public class CharacterIcon : MonoBehaviour
     public Character character;
 
     Vector3 targetPosition;
-    float moveSpeed = 12;
+    float moveSpeed = 15;
 
     Vector3 homePosition;
     Vector3 placeholderPosition;
