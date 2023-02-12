@@ -24,8 +24,11 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        
-        if(GetKeyboardInput() == new Vector2Int(0,0))
+        float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * 2;
+        targetCamHeight = Mathf.Clamp(targetCamHeight, 30, 65);
+        float yTrueDelta = targetCamHeight - transform.position.y;
+        transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
+        if (GetKeyboardInput() == new Vector2Int(0,0))
         {
             momentum -= Time.deltaTime * 6f;
             momentum = Mathf.Clamp(momentum, 0, 1f);
@@ -36,7 +39,7 @@ public class CameraManager : MonoBehaviour
             direction = direction.normalized;
             momentum = 1;
         }
-        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * 10 * momentum;
+        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * 15 * momentum;
     }
 
     Vector2Int GetKeyboardInput()

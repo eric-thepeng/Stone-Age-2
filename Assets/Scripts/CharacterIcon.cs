@@ -21,6 +21,7 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                MouseManager.mouseState = MouseManager.MouseState.Browsing;
                 if(WorldUtility.TryMouseHitPoint(20, true)) // DRAGGING -> PLACED
                 {
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(20, true).GetComponent<ExploreSpot>();
@@ -48,6 +49,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
+        MouseManager.mouseState = MouseManager.MouseState.DraggingCharacterIcon;
         homePosition = transform.localPosition;
         placeholderPosition = homePosition + new Vector3(-10, 0, 0);
         iconState = IconState.Dragging;
