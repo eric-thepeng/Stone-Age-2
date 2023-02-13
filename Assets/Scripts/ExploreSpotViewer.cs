@@ -18,6 +18,7 @@ public class ExploreSpotViewer : MonoBehaviour
     }
 
     GameObject DisplayGO;
+    ExploreSpot DisplayingES;
 
     private void Start()
     {
@@ -26,14 +27,35 @@ public class ExploreSpotViewer : MonoBehaviour
 
     public void DisplayExploreSpot(ExploreSpot es)
     {
+        DisplayingES= es; 
         DisplayGO.transform.position = WorldUtility.GetMouseHitPoint(9, true);
-        DisplayGO.GetComponentInChildren<TextMeshPro>().text = es.GetDisplayInfo();
+        DisplayGO.GetComponentInChildren<TextMeshPro>().text = DisplayingES.GetDisplayInfo();
         DisplayGO.SetActive(true);
+        if (DisplayingES.isUnlocked())
+        {
+            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(false);
+        }
+        else
+        {
+            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(true);
+        }
     }
 
     public void CancelDisplay()
     {
         DisplayGO.SetActive(false);
+    }
+
+    public void UnlockSpot()
+    {
+        if(SpiritPoint.i.Use(DisplayingES.unlockSpiritPoint) == true)
+        {
+            DisplayingES.Unlock();
+        }
+        else
+        {
+            Debug.Log("Do not have enough resource");
+        }
     }
 
 

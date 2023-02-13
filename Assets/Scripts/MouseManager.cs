@@ -21,7 +21,7 @@ public class MouseManager : MonoBehaviour
 
         if(mouseState == MouseState.ViewingExploreSpot)
         {
-            if (!WorldUtility.TryMouseHitPoint(20, true))
+            if (!WorldUtility.TryMouseHitPoint(20, true) && !WorldUtility.TryMouseHitPoint(21, true))
             {
                 ExploreSpotViewer.i.CancelDisplay();
                 mouseState = MouseState.Browsing;

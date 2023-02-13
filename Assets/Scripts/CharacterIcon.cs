@@ -22,21 +22,22 @@ public class CharacterIcon : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 MouseManager.mouseState = MouseManager.MouseState.Browsing;
-                if(WorldUtility.TryMouseHitPoint(20, true)) // DRAGGING -> PLACED
+                if(WorldUtility.TryMouseHitPoint(20, true)) // DRAGGING -> find a explore spot
                 {
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(20, true).GetComponent<ExploreSpot>();
-                    toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
-                    character.StartGather(toExplore, this);
-                    iconState = IconState.Placed;
-                    transform.localPosition = placeholderPosition;
-                    return;
+                    if (toExplore.isUnlocked()) // DRAGGING -> PLACED
+                    {
+                        toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
+                        character.StartGather(toExplore, this);
+                        iconState = IconState.Placed;
+                        transform.localPosition = placeholderPosition;
+                        return;
+                    }
                 }
-                else // DRAGGING -> HOME
-                {
-                    iconState = IconState.Home;
-                    transform.localPosition = homePosition;
-                    return;
-                }
+                 // DRAGGING -> HOME
+                iconState = IconState.Home;
+                transform.localPosition = homePosition;
+                return;
             }
 
             targetPosition = WorldUtility.GetMouseHitPoint(9, true);

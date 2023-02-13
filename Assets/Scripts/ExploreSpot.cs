@@ -14,13 +14,18 @@ public class ExploreSpot : MonoBehaviour
     public Color32 unlockedColor;
     public Color32 lockedColor;
 
-    public int unlockSpiritPoint = 0;
+    public int unlockSpiritPoint = 0 ;
     public string[] unlockResource = new string[0];
     public string[] unlockResrouceAmount = new string[0];
 
-    public bool unlocked = false;
+    [SerializeField] private bool unlocked = false;
 
     private void Start()
+    {
+        SetUp();
+    }
+
+    private void SetUp()
     {
         if (unlocked)
         {
@@ -31,7 +36,7 @@ public class ExploreSpot : MonoBehaviour
             GetComponent<SpriteRenderer>().color = lockedColor;
         }
         totalWeight = 0;
-        foreach(int i in weight)
+        foreach (int i in weight)
         {
             totalWeight += i;
         }
@@ -72,4 +77,13 @@ public class ExploreSpot : MonoBehaviour
         }
         return text;
     }
+
+    public void Unlock()
+    {
+        if (unlocked) { Debug.Log("This Explore Spot is already unlocked"); return; }
+        unlocked = true;
+        SetUp();
+    }
+
+    public bool isUnlocked() { return unlocked; }
 }
