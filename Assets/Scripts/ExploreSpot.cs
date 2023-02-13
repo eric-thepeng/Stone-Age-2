@@ -40,6 +40,7 @@ public class ExploreSpot : MonoBehaviour
         {
             totalWeight += i;
         }
+        print("total weight" + totalWeight);
     }
 
     public void PlaceCharacter(Sprite sp)
@@ -60,9 +61,9 @@ public class ExploreSpot : MonoBehaviour
             text += "Gather reward: " + spiritPoint + " Spirit Points<br>";
             if (resource.Length == 0) return text;
             text += "Possible resources: <br>";
-            foreach (string s in resource)
+            for(int i =0; i<resource.Length; i++)
             {
-                text += "    " +  s + "<br>";
+                text += "    " +  resource[i] + "  " + (int)((weight[i]/1f)/totalWeight * 100) + " %" + "<br>";
             }
         }
         else

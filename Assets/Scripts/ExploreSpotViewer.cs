@@ -29,6 +29,12 @@ public class ExploreSpotViewer : MonoBehaviour
     {
         DisplayingES= es; 
         DisplayGO.transform.position = WorldUtility.GetMouseHitPoint(9, true);
+        RefreshDisplayInfo(es);
+        
+    }
+
+    private void RefreshDisplayInfo(ExploreSpot es)
+    {
         DisplayGO.GetComponentInChildren<TextMeshPro>().text = DisplayingES.GetDisplayInfo();
         DisplayGO.SetActive(true);
         if (DisplayingES.isUnlocked())
@@ -51,6 +57,7 @@ public class ExploreSpotViewer : MonoBehaviour
         if(SpiritPoint.i.Use(DisplayingES.unlockSpiritPoint) == true)
         {
             DisplayingES.Unlock();
+            RefreshDisplayInfo(DisplayingES);
         }
         else
         {
