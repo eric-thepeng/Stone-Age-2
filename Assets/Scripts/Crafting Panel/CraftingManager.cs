@@ -47,19 +47,18 @@ public class CraftingManager : SerializedMonoBehaviour
             if (panelOpen)
             {
                 StartCoroutine(ClosePanel());
-
-                panelOpen = false;
             }
             else
             {
                 StartCoroutine(OpenPanel());
-                panelOpen = true;
             }
         }
     }
 
     IEnumerator OpenPanel()
     {
+        panelOpen = true;
+        InventoryManager.i.OpenPanelIfNot();
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount<timeNeed)
         {
@@ -71,6 +70,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     IEnumerator ClosePanel()
     {
+        panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {
@@ -128,6 +128,10 @@ public class CraftingManager : SerializedMonoBehaviour
     public void mouseExitTetris()
     {
         PanelTransform.Find("NameUI").gameObject.SetActive(false);
+    }
+    public bool isPanelOpen()
+    {
+        return panelOpen;
     }
 
 }
