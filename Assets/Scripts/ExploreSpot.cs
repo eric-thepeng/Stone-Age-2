@@ -40,7 +40,6 @@ public class ExploreSpot : MonoBehaviour
         {
             totalWeight += i;
         }
-        print("total weight" + totalWeight);
     }
 
     public void PlaceCharacter(Sprite sp)

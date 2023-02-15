@@ -21,21 +21,32 @@ public class CameraManager : MonoBehaviour
 
     float momentum = 0f;
     Vector2 direction = new Vector2(0,0);
+    Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
     private void Update()
     {
+        //ZOOMING
         float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * 2;
         targetCamHeight = Mathf.Clamp(targetCamHeight, 30, 65);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
-        if (GetKeyboardInput() == new Vector2Int(0,0))
+
+        //MOVEMENT
+        if (GetKeyboardInput() == new Vector2Int(0,0) && moveByMouseDirection == new Vector2Int(0, 0)) 
         {
             momentum -= Time.deltaTime * 6f;
             momentum = Mathf.Clamp(momentum, 0, 1f);
         }
         else
         {
-            direction = GetKeyboardInput();
+            if(moveByMouseDirection != new Vector2Int(0, 0)) //move by mouse
+            {
+                direction = moveByMouseDirection;
+            }
+            else //move by keyboard
+            {
+                direction = GetKeyboardInput();
+            }
             direction = direction.normalized;
             momentum = 1;
         }
@@ -51,4 +62,15 @@ public class CameraManager : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) ip.x += 1;
         return ip;
     }
+
+    public void SetMoveByMouse(Vector2Int toWhich)
+    {
+        moveByMouseDirection = toWhich;
+    }
+
+    public void CancelMoveByMouse(Vector2Int fromWhich)
+    {
+        if(moveByMouseDirection == fromWhich) moveByMouseDirection = new Vector2Int(0, 0);
+    }
+
 }
