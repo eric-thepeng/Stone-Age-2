@@ -39,7 +39,7 @@ TextureImporter:
       213: 8071477894747692127
     second: bushNtree_11
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -98,6 +99,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -125,6 +127,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -280,15 +306,23 @@ TextureImporter:
       tessellationDetail: 0
       bones:
       - name: bone_1
+        guid: 
         position: {x: 8.168907, y: 0.28424954, z: 0}
         rotation: {x: 0, y: 0, z: 0.7101467, w: 0.7040537}
         length: 3.8294773
         parentId: -1
+        color:
+          serializedVersion: 2
+          rgba: 0
       - name: bone_2
+        guid: 
         position: {x: 3.8294773, y: 0.000000014236607, z: 0}
         rotation: {x: 0, y: 0, z: -0.0021405225, w: 0.9999978}
         length: 7.328631
         parentId: 0
+        color:
+          serializedVersion: 2
+          rgba: 0
       spriteID: b17a658d26cdd4c60800000000000000
       internalID: 7804136046397400859
       vertices:
@@ -581,15 +615,23 @@ TextureImporter:
       tessellationDetail: 0
       bones:
       - name: bone_1
+        guid: 
         position: {x: 8.168915, y: 0.28424954, z: 0}
         rotation: {x: 0, y: 0, z: 0.7101468, w: 0.7040537}
         length: 3.8294773
         parentId: -1
+        color:
+          serializedVersion: 2
+          rgba: 0
       - name: bone_2
+        guid: 
         position: {x: 3.8294768, y: 0.00001622352, z: 0}
         rotation: {x: 0, y: 0, z: -0.0021405641, w: 0.99999774}
         length: 7.328631
         parentId: 0
+        color:
+          serializedVersion: 2
+          rgba: 0
       spriteID: f5c9ad87166a30070800000000000000
       internalID: 8071477894747692127
       vertices:
@@ -792,6 +834,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      bushNtree_8: 5153649336777815046
+      bushNtree_9: -2797180640648985290
+      bushNtree_5: -5205308466512899474
+      bushNtree_10: -805820924610882507
+      bushNtree_6: 7804136046397400859
+      bushNtree_7: -2438458265337499438
+      bushNtree_2: 4062189638431573667
+      bushNtree_3: -4983052610011532614
+      bushNtree_11: 8071477894747692127
+      bushNtree_1: -5485516717310685142
+      bushNtree_0: -4915713396057999515
+      bushNtree_4: -612966501919628236
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
