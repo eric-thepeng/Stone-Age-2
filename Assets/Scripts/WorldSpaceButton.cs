@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+
+public class WorldSpaceButton : MonoBehaviour
+{
+    [SerializeField] UnityEvent clickEvent;
+    [SerializeField] UnityEvent doubleClickEvent;
+    [SerializeField] protected Color32 normalColor;
+    [SerializeField] protected Color32 hoverColor;
+    [SerializeField] protected Color32 pressColor;
+
+    bool waitingSecondClick = false;
+    float waitTime = 0.2f;
+
+    protected void OnMouseEnter()
+    {
+        GetComponent<SpriteRenderer>().color = hoverColor;
+    }
+
+    private void OnMouseExit()
+    {
+        GetComponent<SpriteRenderer>().color = normalColor;
+    }
+
+    private void OnMouseDown()
+    {
+        GetComponent<SpriteRenderer>().color = pressColor;
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        if (waitingSecondClick)
+        {
+            doubleClickEvent.Invoke();
+            StopAllCoroutines();
+            print("double click");
+            afterClick();
+        }
+        else
+        {
+            StartCoroutine(WaitForSecondClick());
+        }
+        GetComponent<SpriteRenderer>().color = normalColor;
+
+    }
+
+    private void afterClick()
+    {
+        waitingSecondClick = false;
+    }
+
+    IEnumerator WaitForSecondClick()
+    {
+        waitingSecondClick = true;
+        float timeCount = 0f;
+        while(timeCount < waitTime)
+        {
+            timeCount += Time.deltaTime;
+            yield return 0; 
+        }
+        afterClick();
+        clickEvent.Invoke();
+    }
+}
