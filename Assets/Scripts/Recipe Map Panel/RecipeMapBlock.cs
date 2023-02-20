@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class RecipeMapBlock : MonoBehaviour
 {
-    enum State { Unlocked, Locked, Unknown };
+    enum State { Unknown , Locked , Unlocked };
     [SerializeField]
     private State state = State.Unknown;
 
-    //
+    // Name
     public new string name;
 
     // Components
@@ -21,7 +21,9 @@ public class RecipeMapBlock : MonoBehaviour
     private RecipeLevel recipeLevel = RecipeLevel.Name;
 
     // Path
-    public RecipeMapBlock[] adjacentBlocks;
+    public RecipeMapBlock[] adjacentBlocks = new RecipeMapBlock[4];
+
+    public SpriteRenderer[] blockLines = new SpriteRenderer[4];
 
     // Color
     public Color32 unlockedColor;
@@ -94,9 +96,10 @@ public class RecipeMapBlock : MonoBehaviour
             state = State.Unlocked;
             recipeLevel = RecipeLevel.Graph; // turn the level the highest
 
-            foreach (RecipeMapBlock recipeMapBlock in adjacentBlocks)
-            {
-                recipeMapBlock.RecipeDiscover();
+            for (int count = 0; count < 4; count ++) {
+                if (adjacentBlocks[count] != null) {
+                    adjacentBlocks[count].RecipeDiscover();
+                }
             }
 
             ColorUpdate();
@@ -119,18 +122,50 @@ public class RecipeMapBlock : MonoBehaviour
             spriteRenderer.color = unknownColor;
         }
 
-        // BG Color
+        // BG & Lines Color
         if (state == State.Unlocked)
         {
             background.GetComponent<SpriteRenderer>().color = unlockedPathColor;
+
+            for (int count = 0; count < 4; count++)
+            {
+                if (adjacentBlocks[count] != null)
+                {
+                    blockLines[count].color = unlockedPathColor;
+                }
+            }
         }
         else if (state == State.Locked)
         {
             background.GetComponent<SpriteRenderer>().color = lockedPathColor;
+
+            for (int count = 0; count < 4; count++)
+            {
+                if (adjacentBlocks[count] != null)
+                {
+                    blockLines[count].color = lockedPathColor;
+                }
+            }
         }
         else
         {
             background.GetComponent<SpriteRenderer>().color = unknownPathColor;
+
+            for (int count = 0; count < 4; count++)
+            {
+                if (adjacentBlocks[count] != null)
+                {
+                    blockLines[count].color = unknownPathColor;
+                }
+            }
+        }
+
+        for (int count = 0; count < 4; count++)
+        {
+            if (adjacentBlocks[count] == null)
+            {
+                blockLines[count].color = unknownPathColor;
+            }
         }
     }
 }
