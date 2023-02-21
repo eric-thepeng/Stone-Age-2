@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class UI_InventoryPanel : MonoBehaviour
 {
     Transform PanelTransform, OpenPanelTransform, ClosePanelTransform;
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
-    static InventoryManager instance;
-    public static InventoryManager i
+    static UI_InventoryPanel instance;
+    public static UI_InventoryPanel i
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<InventoryManager>();
+                instance = FindObjectOfType<UI_InventoryPanel>();
             }
             return instance;
         }
