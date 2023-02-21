@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RecipeMapBlock : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class RecipeMapBlock : MonoBehaviour
     // Components
     private SpriteRenderer spriteRenderer;
     private GameObject background;
+    private TextMeshPro levelText;
 
     // RecipeLevel
     enum RecipeLevel { Name, Mats, Description, Graph };
@@ -39,6 +41,8 @@ public class RecipeMapBlock : MonoBehaviour
 
         background = transform.Find("Background").gameObject;
 
+        levelText = transform.Find("Level").gameObject.GetComponent<TextMeshPro>();
+
         ColorUpdate();
     }
 
@@ -60,6 +64,32 @@ public class RecipeMapBlock : MonoBehaviour
         }
     }
 
+    private void LevelTextUpdate()
+    {
+        if (state == State.Locked)
+        {
+            if (recipeLevel == RecipeLevel.Name)
+            {
+                levelText.text = "1";
+            }
+            else if (recipeLevel == RecipeLevel.Mats)
+            {
+                levelText.text = "2";
+            }
+            else if (recipeLevel == RecipeLevel.Description)
+            {
+                levelText.text = "3";
+            }
+            else if (recipeLevel == RecipeLevel.Graph)
+            {
+                levelText.text = "4";
+            }
+        }
+        else {
+            levelText.text = "";
+        }
+    }
+
     private void RecipeLevelUp()
     {
         if (recipeLevel == RecipeLevel.Name)
@@ -76,6 +106,7 @@ public class RecipeMapBlock : MonoBehaviour
         }
 
         ColorUpdate();
+        LevelTextUpdate();
     }
 
     // Discover a recipe, change it from unknown to locked
@@ -85,6 +116,7 @@ public class RecipeMapBlock : MonoBehaviour
         {
             state = State.Locked;
             ColorUpdate();
+            LevelTextUpdate();
         }
     }
 
@@ -103,6 +135,7 @@ public class RecipeMapBlock : MonoBehaviour
             }
 
             ColorUpdate();
+            LevelTextUpdate();
         }
     }
 
@@ -160,6 +193,7 @@ public class RecipeMapBlock : MonoBehaviour
             }
         }
 
+        // Set line color when the adjacent block is null
         for (int count = 0; count < 4; count++)
         {
             if (adjacentBlocks[count] == null)
