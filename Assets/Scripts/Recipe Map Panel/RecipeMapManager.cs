@@ -9,6 +9,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
+    [TableMatrix(HorizontalTitle = "Square Celled Matrix", SquareCells = true)]
+    public Sprite[,] awert;
+
     static RecipeMapManager instance;
 
     public static RecipeMapManager i
@@ -23,8 +26,21 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
     }
 
+    [OnInspectorInit]
     private void Start()
     {
+        awert = new Sprite[8, 4]
+    {
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+        { null, null, null, null },
+    };
+
         PanelTransform = transform.Find("Recipe Map Panel");
         OpenPanelTransform = transform.Find("Open Panel Transform");
         ClosePanelTransform = transform.Find("Close Panel Transform");

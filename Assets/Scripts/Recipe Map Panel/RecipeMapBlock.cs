@@ -43,6 +43,7 @@ public class RecipeMapBlock : MonoBehaviour
 
         levelText = transform.Find("Level").gameObject.GetComponent<TextMeshPro>();
 
+        LevelTextUpdate();
         ColorUpdate();
     }
 
@@ -61,32 +62,6 @@ public class RecipeMapBlock : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             RecipeUnlock();
-        }
-    }
-
-    private void LevelTextUpdate()
-    {
-        if (state == State.Locked)
-        {
-            if (recipeLevel == RecipeLevel.Name)
-            {
-                levelText.text = "1";
-            }
-            else if (recipeLevel == RecipeLevel.Mats)
-            {
-                levelText.text = "2";
-            }
-            else if (recipeLevel == RecipeLevel.Description)
-            {
-                levelText.text = "3";
-            }
-            else if (recipeLevel == RecipeLevel.Graph)
-            {
-                levelText.text = "4";
-            }
-        }
-        else {
-            levelText.text = "";
         }
     }
 
@@ -200,6 +175,33 @@ public class RecipeMapBlock : MonoBehaviour
             {
                 blockLines[count].color = unknownPathColor;
             }
+        }
+    }
+
+    private void LevelTextUpdate()
+    {
+        if (state == State.Locked)
+        {
+            if (recipeLevel == RecipeLevel.Name)
+            {
+                levelText.text = "1";
+            }
+            else if (recipeLevel == RecipeLevel.Mats)
+            {
+                levelText.text = "2";
+            }
+            else if (recipeLevel == RecipeLevel.Description)
+            {
+                levelText.text = "3";
+            }
+            else if (recipeLevel == RecipeLevel.Graph)
+            {
+                levelText.text = "4";
+            }
+        }
+        else
+        {
+            levelText.text = "";
         }
     }
 }
