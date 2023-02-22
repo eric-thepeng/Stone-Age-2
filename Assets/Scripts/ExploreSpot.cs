@@ -6,7 +6,7 @@ public class ExploreSpot : MonoBehaviour
 {
     public string spotName;
     public int spiritPoint = 1;
-    public string[] resource = new string[0];
+    public InventoryItemSO[] resource = new InventoryItemSO[0];
     public int[] weight = new int[0];
     public int totalWeight;
     public int gatherTime;
@@ -15,7 +15,7 @@ public class ExploreSpot : MonoBehaviour
     public Color32 lockedColor;
 
     public int unlockSpiritPoint = 0 ;
-    public string[] unlockResource = new string[0];
+    public InventoryItemSO[] unlockResource = new InventoryItemSO[0];
     public string[] unlockResrouceAmount = new string[0];
 
     [SerializeField] private bool unlocked = false;
@@ -62,7 +62,7 @@ public class ExploreSpot : MonoBehaviour
             text += "Possible resources: <br>";
             for(int i =0; i<resource.Length; i++)
             {
-                text += "    " +  resource[i] + "  " + (int)((weight[i]/1f)/totalWeight * 100) + " %" + "<br>";
+                text += "    " +  resource[i].name + "  " + (int)((weight[i]/1f)/totalWeight * 100) + " %" + "<br>";
             }
         }
         else
@@ -72,7 +72,7 @@ public class ExploreSpot : MonoBehaviour
             text += "And: <br>";
             for(int i =0; i<unlockResource.Length; i++)
             {
-                text += "    " + unlockResrouceAmount[i] + "x" + unlockResource[i] + "<br>";
+                text += "    " + unlockResrouceAmount[i] + "x" + unlockResource[i].name + "<br>";
             }
         }
         return text;

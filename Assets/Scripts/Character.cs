@@ -63,7 +63,8 @@ public class Character : MonoBehaviour
             weightCount += gatheringSpot.weight[i];
             if (roll < weightCount)
             {
-                print("Obtain 1 " + gatheringSpot.resource[i]);
+                Inventory.i.AddInventoryItem(gatheringSpot.resource[i]);
+                //print("Obtain 1 " + gatheringSpot.resource[i]);
                 return;
             }
         }
