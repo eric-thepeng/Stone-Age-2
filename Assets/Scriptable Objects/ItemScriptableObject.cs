@@ -18,6 +18,7 @@ public class ItemScriptableObject : SerializedScriptableObject
     public List<Recipe> allRecipes = new List<Recipe>();
     public Sprite objectSprite;
     public Sprite tetrisSprite;
+    public Sprite iconSprite;
     public List<KeyValuePair<Vector2, ScriptableObject>> FormationRecipeCoord
     {
         get

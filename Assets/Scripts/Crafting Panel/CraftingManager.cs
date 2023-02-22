@@ -58,7 +58,7 @@ public class CraftingManager : SerializedMonoBehaviour
     IEnumerator OpenPanel()
     {
         panelOpen = true;
-        UI_InventoryPanel.i.OpenPanelIfNot();
+        UI_InventoryPanel.i.OpenPanel();
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount<timeNeed)
         {
@@ -71,6 +71,7 @@ public class CraftingManager : SerializedMonoBehaviour
     IEnumerator ClosePanel()
     {
         panelOpen = false;
+        UI_InventoryPanel.i.ClosePanel();
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {

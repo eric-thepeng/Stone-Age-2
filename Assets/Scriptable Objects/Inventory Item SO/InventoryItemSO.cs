@@ -7,6 +7,7 @@ public class InventoryItemSO : ScriptableObject
 {
     public string name;
     public enum Category {RawMaterial, CraftMaterial, Food,  Furniture, Object , Tool}
-    public Sprite inventoryIcon;
+    public Sprite inventoryIcon { get { return iso.iconSprite; } }
     public Category category;
+    public ItemScriptableObject iso;
 }

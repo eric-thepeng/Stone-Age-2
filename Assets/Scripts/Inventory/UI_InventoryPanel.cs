@@ -36,16 +36,16 @@ public class UI_InventoryPanel : MonoBehaviour
         {
             if (panelOpen)
             {
-                if(!CraftingManager.i.isPanelOpen()) StartCoroutine(ClosePanel());
+                if(!CraftingManager.i.isPanelOpen()) StartCoroutine(ClosePanelCor());
             }
             else
             {
-                StartCoroutine(OpenPanel());
+                StartCoroutine(OpenPanelCor());
             }
         }
     }
 
-    IEnumerator OpenPanel()
+    IEnumerator OpenPanelCor()
     {
         panelOpen = true;
         float timeNeed = 0.5f, timeCount = 0f;
@@ -57,7 +57,7 @@ public class UI_InventoryPanel : MonoBehaviour
         }
     }
 
-    IEnumerator ClosePanel()
+    IEnumerator ClosePanelCor()
     {
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
@@ -69,11 +69,19 @@ public class UI_InventoryPanel : MonoBehaviour
         }
     }
 
-    public void OpenPanelIfNot() 
+    public void OpenPanel() 
     {
-        if (!panelOpen)
+        if (panelOpen == false)
         {
-            StartCoroutine(OpenPanel());
+            StartCoroutine(OpenPanelCor());
+        }
+    }
+
+    public void ClosePanel()
+    {
+        if (panelOpen == true)
+        {
+            StartCoroutine(ClosePanelCor());
         }
     }
 

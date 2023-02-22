@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void OnMouseEnter()
+    private void Start()
     {
-        print(gameObject.name);
+        foreach(Transform child in transform)
+        {
+            print(child.name);
+            child.GetComponent<Tetris>().itemSO.tetrisSprite = child.GetComponent<SpriteRenderer>().sprite;
+            child.GetComponent<Tetris>().itemSO.iconSprite = child.GetComponent<SpriteRenderer>().sprite;
+            //child.GetComponent<Tetris>().itemSO;
+        }
     }
 }

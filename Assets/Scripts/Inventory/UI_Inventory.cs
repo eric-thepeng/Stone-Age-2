@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class UI_Inventory : MonoBehaviour
 {
     static UI_Inventory instance = null;
@@ -19,12 +19,10 @@ public class UI_Inventory : MonoBehaviour
     }
 
     [SerializeField] GameObject inventoryBlockTemplate;
-    [SerializeField] GameObject inventoryBlockBackgroundTemplate;
-    List<GameObject> allBlockBackgrounds = new List<GameObject>();
+    [SerializeField] List<UI_InventoryBlock> allInventoryBlocks = new List<UI_InventoryBlock>();
     InventoryItemSO.Category displayingCategory;
-    [SerializeField] List<UI_InventoryBlock> displayingBlocks = new List<UI_InventoryBlock>();
-    int maxColumns = 3;
-    int maxRows = 12;
+    int maxColumns = 4;
+    int maxRows = 8;
     [SerializeField] float displacement;
 
     public bool resetBackground = false;
@@ -36,63 +34,40 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] GameObject dragObject;
     [SerializeField] GameObject dragTool;
 
-    //public InventoryDrag dragging = null;
-
-
-    private void Update()
+    private void Awake()
     {
-        if (!resetBackground)
-        {
-            resetBackground = true;
-            CreateInventoryBlocksBackground();
-        }
+        CreateInventoryBlocks();
     }
-    /*
-    public InventoryDrag NewDragging(InventoryItemSO iiso)
+
+    private void Start()
     {
-        InventoryItemSO.Category cat = iiso.category;
-        GameObject go = null;
-        if (cat == InventoryItemSO.Category.RawMaterial) go = Instantiate(dragRawMaterial);
-        else if (cat == InventoryItemSO.Category.CraftMaterial) go = Instantiate(dragCraftMaterial);
-        else if (cat == InventoryItemSO.Category.Food) go = Instantiate(dragFood);
-        else if (cat == InventoryItemSO.Category.Tool) go = Instantiate(dragTool);
-        else if (cat == InventoryItemSO.Category.Furniture) go = Instantiate(dragFurniture);
-        else if (cat == InventoryItemSO.Category.Object) go = Instantiate(dragObject);
-        dragging = go.GetComponent<InventoryDrag>();
-        return dragging;
-    }*/
+        
+    }
 
     public void DisplayCategory(InventoryItemSO.Category cat)
     {
         displayingCategory = cat;
-        foreach(UI_InventoryBlock ib in displayingBlocks)
+        foreach(UI_InventoryBlock ib in allInventoryBlocks)
         {
-            Destroy(ib.gameObject);
+            ib.ClearDisplay();
         }
-       displayingBlocks.Clear();
-        foreach (Inventory.ItemInfo ii in Inventory.i.CategoryToList(cat))
+        int j = 0;
+        for(int i = 0; i < Inventory.i.CategoryToList(cat).Count; i++)
         {
-            if (ii.inStockAmount != 0)
+            if(Inventory.i.CategoryToList(cat)[i].displayAmount > 0)
             {
-                CreateNewBlock(ii);
+                print("blocks count: " + allInventoryBlocks.Count + ", count: " + Inventory.i.CategoryToList(cat).Count + ", i: " + i);
+                allInventoryBlocks[j].SetUpDisplay(Inventory.i.CategoryToList(cat)[i]);
+                j++;
             }
         }
     }
 
-     void CreateNewBlock(Inventory.ItemInfo ii)
-    {
-        GameObject newBlockGO = Instantiate(inventoryBlockTemplate, transform.Find("InventoryBlocks"));
-        UI_InventoryBlock newIB = newBlockGO.GetComponent<UI_InventoryBlock>();
-        newIB.SetUp(ii, displayingBlocks.Count / maxColumns, displayingBlocks.Count % maxColumns);
-        displayingBlocks.Add(newIB);
-        newBlockGO.transform.position = new Vector3(newBlockGO.transform.position.x + newIB.column * displacement,
-                                                    newBlockGO.transform.position.y - newIB.row * displacement,
-                                                    newBlockGO.transform.position.z);
-        newBlockGO.SetActive(true);
-    }
-
+    
     public void UpdateItemDisplay(Inventory.ItemInfo ii)
     {
+        DisplayCategory(displayingCategory);
+        /*
         if (ii.iiso.category != displayingCategory) return;
         if(ii.inStockAmount == 0)
         {
@@ -116,36 +91,25 @@ public class UI_Inventory : MonoBehaviour
                 ib.UpdateAmount();
                 return;
             }
-        }
-        CreateNewBlock(ii);
+        }*/
     }
-
-    public void CreateInventoryBlocksBackground()
+    
+    public void CreateInventoryBlocks()
     {
         print("recreate background blocks");
-        print(maxRows + " " + maxColumns);
-
-        //delete origional background
-        /*
-        if (allBlockBackgrounds!=null && allBlockBackgrounds.Count != 0)
-        {
-            foreach (GameObject go in allBlockBackgrounds)
-            {
-                go.SetActive(false);
-            }
-        }*/
-
+        print("row/columns: " + maxRows + " " + maxColumns);
+        allInventoryBlocks.Clear();
         //make new background
         for(int i = 0; i<maxColumns; i++)
         {
             for(int j = 0; j<maxRows; j++)
             {
-                GameObject go = Instantiate(inventoryBlockBackgroundTemplate, transform.Find("InventoryBlocksBackground"));
-                go.transform.position = new Vector3(go.transform.position.x + i * displacement,
-                                                        go.transform.position.y - j * displacement,
-                                                        go.transform.position.z);
+                GameObject go = Instantiate(inventoryBlockTemplate, transform.Find("Inventory Blocks"));
+                go.transform.localPosition += new Vector3(i * displacement, -j * displacement, 0);
+                go.gameObject.name = "IB_" + i + "_" + j;
                 go.SetActive(true);
-                allBlockBackgrounds.Add(go);
+                go.GetComponent<UI_InventoryBlock>().Initialize(i,j);
+                allInventoryBlocks.Add(go.GetComponent<UI_InventoryBlock>());
             }
         }
     }

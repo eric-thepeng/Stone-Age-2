@@ -6,34 +6,55 @@ using TMPro;
 public class UI_InventoryBlock : MonoBehaviour
 {
     Inventory.ItemInfo itemInfo;
-    public int row;
-    public int column;
-    public int displayAmount;
+    [ReadOnly] public int row;
+    [ReadOnly] public int column;
+    [ReadOnly] public int displayAmount;
     bool mouseOver = false;
 
     Color normalColr= Color.white;
     Color dragColr = Color.grey;
+
+    [SerializeField] SpriteRenderer itemSprite;
+    [SerializeField] TextMeshPro displayNumber;
+    [SerializeField] SpriteRenderer numberBackground;
 
     public bool CheckIISO(InventoryItemSO inIISO)
     {
         return inIISO == itemInfo.iiso;
     }
 
-    public void SetUp(Inventory.ItemInfo ii, int inRow, int inColumn)
+    public void Initialize(int row, int col)
     {
-        itemInfo= ii;
-        row = inRow;
-        column = inColumn;
-        displayAmount = ii.totalAmount - ii.inUseAmount;
+        this.row = row;
+        this.column = col;
+    }
+
+    public void SetUpDisplay(Inventory.ItemInfo ii)
+    {
+        itemInfo = ii;
+        displayAmount = ii.displayAmount;
 
         //display shit
-        GetComponent<SpriteRenderer>().sprite = itemInfo.iiso.inventoryIcon;
-        GetComponentInChildren<TextMeshPro>().text = "" + (ii.totalAmount - ii.inUseAmount);
+        itemSprite.gameObject.SetActive(true);
+        displayNumber.gameObject.SetActive(true);
+        numberBackground.gameObject.SetActive(true);
+        itemSprite.sprite = itemInfo.iiso.inventoryIcon;
+        displayNumber.text = "" + ii.displayAmount;
+
+    }
+
+    public void ClearDisplay()
+    {
+        itemInfo = null;
+        displayAmount = 0;
+        itemSprite.gameObject.SetActive(false);
+        displayNumber.gameObject.SetActive(false);
+        numberBackground.gameObject.SetActive(false);
     }
 
     public void UpdateAmount()
     {
-        GetComponentInChildren<TextMeshPro>().text = "" + (itemInfo.totalAmount - itemInfo.inUseAmount);
+        displayNumber.text = "" + displayAmount;
     }
 
     private void OnMouseEnter()

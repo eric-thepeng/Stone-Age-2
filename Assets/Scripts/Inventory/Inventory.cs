@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
         public InventoryItemSO iiso;
         public int totalAmount;
         public int inUseAmount;
-        public int inStockAmount { get { return totalAmount - inUseAmount; } }
+        public int displayAmount { get { return totalAmount - inUseAmount; } }
         public InventoryItemSO.Category category
         {
             get { return iiso.category;}
@@ -42,6 +42,8 @@ public class Inventory : MonoBehaviour
     public List<ItemInfo> catFurniture = new List<ItemInfo>();
     public List<ItemInfo> catObject = new List<ItemInfo>();
 
+    public List<ItemInfo> catTemporary = new List<ItemInfo>();
+
     public void AddInventoryItem(InventoryItemSO newIISO)
     {
         
@@ -51,14 +53,14 @@ public class Inventory : MonoBehaviour
             {
                 ii.totalAmount += 1;
                 print("added amount: " + newIISO.name);
-               // UI_Inventory.i.UpdateItemDisplay(ii);
+                UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
         }
         ItemInfo newII = new ItemInfo(newIISO);
         CategoryToList(newIISO.category).Add(newII);
         print("added new: " + newIISO.name);
-        //UI_Inventory.i.UpdateItemDisplay(newII);
+        UI_Inventory.i.UpdateItemDisplay(newII);
     }
 
 /// <summary>
@@ -91,12 +93,14 @@ public class Inventory : MonoBehaviour
 
     public List<ItemInfo> CategoryToList(InventoryItemSO.Category cat)
     {
+        /*
         if (cat == InventoryItemSO.Category.RawMaterial) return catRawMaterial;
         else if (cat == InventoryItemSO.Category.CraftMaterial) return catCraftMaterial;
         else if (cat == InventoryItemSO.Category.Food) return catFood;
         else if (cat == InventoryItemSO.Category.Tool) return catTool;
         else if (cat == InventoryItemSO.Category.Furniture) return catFurniture;
         else if (cat == InventoryItemSO.Category.Object) return catObject;
-        return null;
+        return null;*/
+        return catTemporary;
     }
 }
