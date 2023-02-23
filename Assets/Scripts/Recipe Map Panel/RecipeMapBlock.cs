@@ -10,7 +10,7 @@ public class RecipeMapBlock : MonoBehaviour
     private State state = State.Unknown;
 
     // Name
-    public new string name;
+    public string name;
 
     // Components
     private SpriteRenderer spriteRenderer;
@@ -23,17 +23,17 @@ public class RecipeMapBlock : MonoBehaviour
     private RecipeLevel recipeLevel = RecipeLevel.Name;
 
     // Path
-    public RecipeMapBlock[] adjacentBlocks = new RecipeMapBlock[4];
+    private RecipeMapBlock[] adjacentBlocks = new RecipeMapBlock[4];
 
     public SpriteRenderer[] blockLines = new SpriteRenderer[4];
 
     // Color
-    public Color32 unlockedColor;
-    public Color32 lockedColor;
-    public Color32 unknownColor;
-    public Color32 unlockedPathColor;
-    public Color32 lockedPathColor;
-    public Color32 unknownPathColor;
+    private Color32 unlockedColor;
+    private Color32 lockedColor;
+    private Color32 unknownColor;
+    private Color32 unlockedPathColor;
+    private Color32 lockedPathColor;
+    private Color32 unknownPathColor;
 
     private void Start()
     {
@@ -42,6 +42,15 @@ public class RecipeMapBlock : MonoBehaviour
         background = transform.Find("Background").gameObject;
 
         levelText = transform.Find("Level").gameObject.GetComponent<TextMeshPro>();
+
+        FindAdjacentBlocks();
+
+        unlockedColor = RecipeMapManager.instance.unlockedColor;
+        lockedColor = RecipeMapManager.instance.lockedColor;
+        unknownColor = RecipeMapManager.instance.unknownColor;
+        unlockedPathColor = RecipeMapManager.instance.unlockedPathColor;
+        lockedPathColor = RecipeMapManager.instance.lockedPathColor;
+        unknownPathColor = RecipeMapManager.instance.unknownPathColor;
 
         LevelTextUpdate();
         ColorUpdate();
@@ -62,6 +71,28 @@ public class RecipeMapBlock : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             RecipeUnlock();
+        }
+    }
+
+    private void FindAdjacentBlocks() {
+        RaycastHit hit;
+
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, 1.5f))
+        {
+            adjacentBlocks[0] = hit.collider.gameObject.GetComponent<RecipeMapBlock>();
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 1.5f))
+        {
+            adjacentBlocks[1] = hit.collider.gameObject.GetComponent<RecipeMapBlock>();
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1.5f))
+        {
+            adjacentBlocks[2] = hit.collider.gameObject.GetComponent<RecipeMapBlock>();
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 1.5f))
+        {
+            adjacentBlocks[3] = hit.collider.gameObject.GetComponent<RecipeMapBlock>();
         }
     }
 
