@@ -12,6 +12,10 @@ public class RecipeMapBlock : MonoBehaviour
     // Name
     public string name;
 
+    //Cost
+    [SerializeField ]
+    public int baseCost = 0;
+
     // Components
     private SpriteRenderer spriteRenderer;
     private GameObject background;
@@ -61,10 +65,7 @@ public class RecipeMapBlock : MonoBehaviour
         // Level Up / Buy
         if (Input.GetMouseButtonDown(0))
         {
-            if (state == State.Locked)
-            {
-                RecipeLevelUp();
-            }
+            RecipeMapManager.instance.DisplayRecipe(this);
         }
 
         // Unlock / testing / in the actual game, player unlock recipe by craft the item.
@@ -96,21 +97,24 @@ public class RecipeMapBlock : MonoBehaviour
         }
     }
 
-    private void RecipeLevelUp()
+    public void RecipeUpgrade()
     {
-        if (recipeLevel == RecipeLevel.Name)
+        if (state == State.Locked)
         {
-            recipeLevel = RecipeLevel.Mats;
+            if (recipeLevel == RecipeLevel.Name)
+            {
+                recipeLevel = RecipeLevel.Mats;
+            }
+            else if (recipeLevel == RecipeLevel.Mats)
+            {
+                recipeLevel = RecipeLevel.Description;
+            }
+            else if (recipeLevel == RecipeLevel.Description)
+            {
+                recipeLevel = RecipeLevel.Graph;
+            }
         }
-        else if (recipeLevel == RecipeLevel.Mats)
-        {
-            recipeLevel = RecipeLevel.Description;
-        }
-        else if (recipeLevel == RecipeLevel.Description)
-        {
-            recipeLevel = RecipeLevel.Graph;
-        }
-
+     
         ColorUpdate();
         LevelTextUpdate();
     }

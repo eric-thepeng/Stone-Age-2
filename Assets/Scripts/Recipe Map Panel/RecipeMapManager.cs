@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using TMPro;
 
 public class RecipeMapManager : SerializedMonoBehaviour
 {
@@ -17,6 +18,10 @@ public class RecipeMapManager : SerializedMonoBehaviour
     // Singleton
     public static RecipeMapManager instance;
 
+    // Viewer
+    GameObject RecipeViewer;
+    RecipeMapBlock DisplayBlock;
+
     // Colors
     public Color32 unlockedColor;
     public Color32 lockedColor;
@@ -25,6 +30,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public Color32 lockedPathColor;
     public Color32 unknownPathColor;
 
+    // Singleton
     void Awake()
     {
         if (instance == null)
@@ -46,6 +52,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
         OpenPanelTransform = transform.Find("Open Panel Transform");
         ClosePanelTransform = transform.Find("Close Panel Transform");
         MiddlePanelTransform = transform.Find("Middle Panel Transform");
+
+        RecipeViewer = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").gameObject;
     }
 
     private void Update()
@@ -63,7 +71,22 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
     }
 
-    private void MoveToMiddle() {
+    public void DisplayRecipe(RecipeMapBlock RMB)
+    {
+        DisplayBlock = RMB;
+        RecipeViewer.SetActive(true);
+
+        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = "testing test";
+    }
+
+    public void RecipeUpgrade()
+    {
+        Debug.Log("upgrade");
+        DisplayBlock.RecipeUpgrade();
+    }
+
+    private void MoveToMiddle()
+    {
         PanelTransform.localPosition = MiddlePanelTransform.localPosition;
     }
     private void MoveToClose()
