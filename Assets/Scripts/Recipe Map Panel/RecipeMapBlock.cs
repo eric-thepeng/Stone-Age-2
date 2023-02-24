@@ -239,4 +239,8 @@ public class RecipeMapBlock : MonoBehaviour
             levelText.text = "";
         }
     }
+
+    public string GetState() { return (state.ToString()); }
+
+    public string GetLevel() { return (recipeLevel.ToString()); }
 }

@@ -60,6 +60,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            Debug.Log("Hit the R key");
             if (panelOpen)
             {
                 StartCoroutine(ClosePanel());
@@ -69,6 +70,14 @@ public class RecipeMapManager : SerializedMonoBehaviour
                 StartCoroutine(OpenPanel());
             }
         }
+
+        if (RecipeViewer.activeSelf)
+        {
+            if (!WorldUtility.TryMouseHitPoint(25, true))
+            {
+                StopDisplayRecipe();
+            }
+        }
     }
 
     public void DisplayRecipe(RecipeMapBlock RMB)
@@ -76,13 +85,32 @@ public class RecipeMapManager : SerializedMonoBehaviour
         DisplayBlock = RMB;
         RecipeViewer.SetActive(true);
 
-        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = "testing test";
+        RecipeViewer.transform.localPosition = RMB.transform.localPosition + new Vector3(0, 2, 0);
+
+        RecipeViewer.transform.Find("Name").GetComponent<TextMeshPro>().text = RMB.name;
+        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = RMB.name + "level: " + RMB.GetLevel() + "<br>" + "<br>Upgrade Cost: " + RMB.baseCost;
+    }
+
+    public void StopDisplayRecipe()
+    {
+        DisplayBlock = null;
+        RecipeViewer.SetActive(false);
     }
 
     public void RecipeUpgrade()
     {
         Debug.Log("upgrade");
         DisplayBlock.RecipeUpgrade();
+    }
+
+    public bool CheckCost() 
+    {
+        return true;
+
+        if (DisplayBlock.baseCost < 31245)
+        {
+            return false;
+        }
     }
 
     private void MoveToMiddle()
