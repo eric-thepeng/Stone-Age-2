@@ -11,9 +11,10 @@ public class MouseManager : MonoBehaviour
     {
         if(mouseState == MouseState.Browsing)
         {
-            if(WorldUtility.TryMouseHitPoint(20, true))
+            if(WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true))
             {
-                ExploreSpot es = WorldUtility.GetMouseHitObject(20, true).GetComponent<ExploreSpot>();
+                ExploreSpot es = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
+                print(WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).name);
                 ExploreSpotViewer.i.DisplayExploreSpot(es);
                 mouseState = MouseState.ViewingExploreSpot;
             }
@@ -21,7 +22,7 @@ public class MouseManager : MonoBehaviour
 
         if(mouseState == MouseState.ViewingExploreSpot)
         {
-            if (!WorldUtility.TryMouseHitPoint(20, true) && !WorldUtility.TryMouseHitPoint(21, true))
+            if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true) && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT_VIEWER, true))
             {
                 ExploreSpotViewer.i.CancelDisplay();
                 mouseState = MouseState.Browsing;

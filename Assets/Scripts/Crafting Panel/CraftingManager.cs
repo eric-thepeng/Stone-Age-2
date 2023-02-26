@@ -11,7 +11,7 @@ public class CraftingManager : SerializedMonoBehaviour
     public List<GameObject> allTetris = new List<GameObject>();
     float unitLength = 0.15f;
 
-    Transform PanelTransform, OpenPanelTransform, ClosePanelTransform;
+    public Transform PanelTransform, OpenPanelTransform, ClosePanelTransform;
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
@@ -85,7 +85,7 @@ public class CraftingManager : SerializedMonoBehaviour
     {
         GameObject newTetris = Instantiate(go,transform.Find("Crafting Panel"));
         newTetris.transform.localPosition= Vector3.zero;
-        newTetris.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
+        newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
         allTetris.Add(newTetris);
     }
 
@@ -114,7 +114,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public void mouseEnterTetris(ItemScriptableObject iso)
     {
-        Vector3 toSet = WorldUtility.GetMouseHitPoint(9, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
+        Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
         PanelTransform.Find("NameUI").transform.position = toSet + new Vector3(0,0.1f,0.1f);
         PanelTransform.Find("NameUI").gameObject.SetActive(true);
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = iso.tetrisHoverName;

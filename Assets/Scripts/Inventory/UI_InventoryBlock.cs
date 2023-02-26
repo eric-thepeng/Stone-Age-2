@@ -88,7 +88,11 @@ public class UI_InventoryBlock : MonoBehaviour
         itemSprite.color = dragColr;
         if (CraftingManager.i.isPanelOpen())
         {
-            print("do this");
+            GameObject newTetris = Instantiate(itemInfo.iiso.iso.myPrefab, CraftingManager.i.PanelTransform);
+            newTetris.transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+            newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+            CraftingManager.i.allTetris.Add(newTetris);
+            newTetris.GetComponent<DragInventoryItem>().SetUp(this);
             //dii = Instantiate(itemInfo.iiso.iso.myPrefab, CraftingManager.).GetComponent<DragInventoryItem>();
             //dii.SetUp(this);
         }

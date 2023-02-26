@@ -2724,6 +2724,9 @@ MonoBehaviour:
   startingTetris:
   - {fileID: 11400000, guid: 1f26c33666c704728b02db3211ccf477, type: 2}
   allTetris: []
+  PanelTransform: {fileID: 0}
+  OpenPanelTransform: {fileID: 0}
+  ClosePanelTransform: {fileID: 0}
   panelDisplayAC:
     serializedVersion: 2
     m_Curve:
@@ -3026,9 +3029,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1790050839
-  m_SortingLayer: 3
-  m_SortingOrder: 20
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1443216450151868166, guid: 05c067833d71e1d43b4ad67b1bd43138, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -13495,6 +13498,7 @@ GameObject:
   - component: {fileID: 1142394311}
   - component: {fileID: 1142394310}
   - component: {fileID: 1142394312}
+  - component: {fileID: 1142394313}
   m_Layer: 0
   m_Name: ===Worldspace UI===
   m_TagString: Untagged
@@ -13559,6 +13563,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b95b4b8e3cd81b64e859c13b5094b4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1142394313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142394308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72996e5a7f9a0f34c9d214793fc62201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1143429222
@@ -23244,6 +23260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865357364}
+  - component: {fileID: 1865357365}
   m_Layer: 0
   m_Name: NameUI
   m_TagString: Untagged
@@ -23269,6 +23286,17 @@ Transform:
   m_Father: {fileID: 1080515379}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &1865357365
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865357363}
+  m_Enabled: 1
+  m_SortingLayerID: -1630693103
+  m_SortingLayer: 4
+  m_SortingOrder: 300
 --- !u!1 &1876984500
 GameObject:
   m_ObjectHideFlags: 0

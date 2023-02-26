@@ -73,7 +73,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
         if (RecipeViewer.activeSelf)
         {
-            if (!WorldUtility.TryMouseHitPoint(25, true))
+            if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.RECIPE_BLOCK_VIEWER, true))
             {
                 StopDisplayRecipe();
             }

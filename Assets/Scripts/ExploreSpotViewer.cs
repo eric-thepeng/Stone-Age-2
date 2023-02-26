@@ -28,15 +28,15 @@ public class ExploreSpotViewer : MonoBehaviour
     public void DisplayExploreSpot(ExploreSpot es)
     {
         DisplayingES= es; 
-        DisplayGO.transform.position = WorldUtility.GetMouseHitPoint(9, true);
+        DisplayGO.transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
         RefreshDisplayInfo(es);
         
     }
 
     private void RefreshDisplayInfo(ExploreSpot es)
     {
-        DisplayGO.GetComponentInChildren<TextMeshPro>().text = DisplayingES.GetDisplayInfo();
         DisplayGO.SetActive(true);
+        DisplayGO.GetComponentInChildren<TextMeshPro>().text = DisplayingES.GetDisplayInfo();
         if (DisplayingES.isUnlocked())
         {
             DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(false);

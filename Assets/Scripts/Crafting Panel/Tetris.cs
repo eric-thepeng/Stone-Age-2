@@ -228,7 +228,23 @@ public class Tetris : DragInventoryItem
     private void Start()
     {
         CreateShadow();
-        //BornSelf();
+    }
+
+    private void Update()
+    {
+        if(stateNow == state.Drag && Input.GetMouseButton(0))
+        {
+            transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+        }
+        if(stateNow == state.Drag && Input.GetMouseButtonUp(0))
+        {
+            SetState(state.Wait);
+        }
+    }
+
+    protected override void CustomSetUp()
+    {
+        SetState(state.Drag);
     }
 
     private void CreateShadow()
@@ -288,9 +304,11 @@ public class Tetris : DragInventoryItem
 
     private void OnMouseDrag()
     {
-        if (stateNow != state.Drag) return;
-        transform.position = WorldUtility.GetMouseHitPoint(9, true);
-        //transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
+        //print("dragging");
+        //if (stateNow != state.Drag) return; TODO: UNCOMMENT THIS
+        //transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+
+        //old transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
     }
 
     private void OnMouseUp() //Real job of combining/calculating crafting and recipe

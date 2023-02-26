@@ -22,9 +22,9 @@ public class CharacterIcon : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 MouseManager.mouseState = MouseManager.MouseState.Browsing;
-                if(WorldUtility.TryMouseHitPoint(20, true)) // DRAGGING -> find a explore spot
+                if(WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
-                    ExploreSpot toExplore = WorldUtility.GetMouseHitObject(20, true).GetComponent<ExploreSpot>();
+                    ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
                     if (toExplore.isUnlocked()) // DRAGGING -> PLACED
                     {
                         toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
@@ -40,7 +40,7 @@ public class CharacterIcon : MonoBehaviour
                 return;
             }
 
-            targetPosition = WorldUtility.GetMouseHitPoint(9, true);
+            targetPosition = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
             if (transform.position != targetPosition)
             {
                 transform.position += (targetPosition - transform.position) * Time.deltaTime * moveSpeed;

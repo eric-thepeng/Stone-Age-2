@@ -9,10 +9,10 @@ public class DragInventoryItem : MonoBehaviour
     public void SetUp(UI_InventoryBlock uiib)
     {
         myUIIBlock = uiib;
-
+        CustomSetUp();
     }
 
-    public virtual void SendBackToBlock()
+    protected virtual void CustomSetUp()
     {
 
     }
