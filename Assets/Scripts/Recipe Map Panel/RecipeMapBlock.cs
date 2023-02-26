@@ -22,7 +22,7 @@ public class RecipeMapBlock : MonoBehaviour
     private TextMeshPro levelText;
 
     // RecipeLevel
-    enum RecipeLevel { Name, Mats, Description, Graph };
+    enum RecipeLevel { Name, Materials, Description, Graph };
     [SerializeField] // For testing
     private RecipeLevel recipeLevel = RecipeLevel.Name;
 
@@ -107,7 +107,7 @@ public class RecipeMapBlock : MonoBehaviour
         {
             if (GetLevelInt() == 1)
             {
-                recipeLevel = RecipeLevel.Mats;
+                recipeLevel = RecipeLevel.Materials;
             }
             else if (GetLevelInt() == 2)
             {
@@ -229,9 +229,9 @@ public class RecipeMapBlock : MonoBehaviour
         }
     }
 
-    public string GetState() { return (state.ToString()); }
+    public string GetStateString() { return (state.ToString()); }
 
-    public string GetLevel() { return (recipeLevel.ToString()); }
+    public string GetLevelString() { return (recipeLevel.ToString()); }
 
     // Return recipe level in int
     public int GetLevelInt()
@@ -240,7 +240,7 @@ public class RecipeMapBlock : MonoBehaviour
         {
             return 1;
         }
-        else if (recipeLevel == RecipeLevel.Mats)
+        else if (recipeLevel == RecipeLevel.Materials)
         {
             return 2;
         }
@@ -264,7 +264,7 @@ public class RecipeMapBlock : MonoBehaviour
         }
         else if (level == 2)
         {
-            recipeLevel = RecipeLevel.Mats;
+            recipeLevel = RecipeLevel.Materials;
         }
         else if (level == 3)
         {

@@ -87,8 +87,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
         RecipeViewer.transform.localPosition = RMB.transform.localPosition + new Vector3(0, 2, 0);
 
-        RecipeViewer.transform.Find("Name").GetComponent<TextMeshPro>().text = RMB.name;
-        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = RMB.name + "level: " + RMB.GetLevel() + "<br>" + "<br>Upgrade Cost: " + RMB.baseCost;
+        RecipeViewer.transform.Find("Name").GetComponent<TextMeshPro>().text = RMB.name + " (" + DisplayBlock.GetLevelString()+ ")";
+        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = RMB.name + "level: " + RMB.GetLevelString()
+            + "<br>" + "<br>Upgrade Cost: " + RMB.CurrentCost();
     }
 
     public void StopDisplayRecipe()
@@ -103,6 +104,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
         {
             Debug.Log("upgrade" + DisplayBlock.name);
             DisplayBlock.RecipeUpgrade();
+
+            DisplayRecipe(DisplayBlock);
         }
     }
 
