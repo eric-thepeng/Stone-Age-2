@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ItemListScriptableObject", menuName = "ScriptableObjects/ItemListScriptableObject")]
-public class ItemListScriptableObject : SerializedScriptableObject
+public class RecipeListScriptableObject : SerializedScriptableObject
 {
     public List<ItemCraftScriptableObject> list = new List<ItemCraftScriptableObject>();
 }
