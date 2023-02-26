@@ -13,8 +13,9 @@ public class Tetris : DragInventoryItem
 
     //The Scriptable Object this Tetris contains
     public ItemScriptableObject itemSO;
-    public ItemSOListScriptableObject allItemListSO; //List of all Items
+    public ItemSOListScriptableObject allItemListSO; //List of all Items TODO: delete this shit
     public ItemSOListScriptableObject craftRecipeSO;
+    public ItemListScriptableObject itemListSO; //NEW
     public GroundRecipeScriptableObject groundRecipeSO; //List of all Grounding Recipe
     public GroundRecipeScriptableObject boilRecipeSO; //List of all Boiling Recipe
 
