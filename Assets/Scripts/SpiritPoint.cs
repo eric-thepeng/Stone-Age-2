@@ -6,6 +6,11 @@ using TMPro;
 public class SpiritPoint : MonoBehaviour
 {
     static SpiritPoint instance;
+
+    public int startingAmount;
+
+    int amount;
+
     public static SpiritPoint i
     {
         get
@@ -20,10 +25,10 @@ public class SpiritPoint : MonoBehaviour
 
     private void Start()
     {
+        amount = startingAmount;
+
         UpdateUI();
     }
-
-    int amount = 0;
 
     public void Add(int addAmount)
     {

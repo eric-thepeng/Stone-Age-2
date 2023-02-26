@@ -32,14 +32,18 @@ public class WorldSpaceButton : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (waitingSecondClick)
+        if (waitingSecondClick) //execute double click
         {
             doubleClickEvent.Invoke();
             StopAllCoroutines();
             print("double click");
             afterClick();
         }
-        else
+        else if(doubleClickEvent != null) //execute single click
+        {
+            clickEvent.Invoke();
+        }
+        else //start wait for double click
         {
             StartCoroutine(WaitForSecondClick());
         }

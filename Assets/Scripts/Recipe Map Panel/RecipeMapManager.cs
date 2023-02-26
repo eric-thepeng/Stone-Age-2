@@ -99,10 +99,14 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
     public void RecipeUpgrade()
     {
-        Debug.Log("upgrade");
-        DisplayBlock.RecipeUpgrade();
+        if (SpiritPoint.i.Use(DisplayBlock.CurrentCost()))
+        {
+            Debug.Log("upgrade" + DisplayBlock.name);
+            DisplayBlock.RecipeUpgrade();
+        }
     }
 
+    // Currently not using
     public bool CheckCost() 
     {
         return true;
@@ -117,6 +121,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     {
         PanelTransform.localPosition = MiddlePanelTransform.localPosition;
     }
+
     private void MoveToClose()
     {
         PanelTransform.localPosition = ClosePanelTransform.localPosition;

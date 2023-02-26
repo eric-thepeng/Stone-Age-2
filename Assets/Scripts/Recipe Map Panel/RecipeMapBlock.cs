@@ -75,6 +75,10 @@ public class RecipeMapBlock : MonoBehaviour
         }
     }
 
+    public int CurrentCost() {
+        return GetLevelInt() * baseCost;
+    }
+
     private void FindAdjacentBlocks() {
         RaycastHit hit;
 
@@ -101,15 +105,15 @@ public class RecipeMapBlock : MonoBehaviour
     {
         if (state == State.Locked)
         {
-            if (recipeLevel == RecipeLevel.Name)
+            if (GetLevelInt() == 1)
             {
                 recipeLevel = RecipeLevel.Mats;
             }
-            else if (recipeLevel == RecipeLevel.Mats)
+            else if (GetLevelInt() == 2)
             {
                 recipeLevel = RecipeLevel.Description;
             }
-            else if (recipeLevel == RecipeLevel.Description)
+            else if (GetLevelInt() == 3)
             {
                 recipeLevel = RecipeLevel.Graph;
             }
@@ -217,22 +221,7 @@ public class RecipeMapBlock : MonoBehaviour
     {
         if (state == State.Locked)
         {
-            if (recipeLevel == RecipeLevel.Name)
-            {
-                levelText.text = "1";
-            }
-            else if (recipeLevel == RecipeLevel.Mats)
-            {
-                levelText.text = "2";
-            }
-            else if (recipeLevel == RecipeLevel.Description)
-            {
-                levelText.text = "3";
-            }
-            else if (recipeLevel == RecipeLevel.Graph)
-            {
-                levelText.text = "4";
-            }
+            levelText.text = GetLevelInt().ToString();
         }
         else
         {
@@ -243,4 +232,47 @@ public class RecipeMapBlock : MonoBehaviour
     public string GetState() { return (state.ToString()); }
 
     public string GetLevel() { return (recipeLevel.ToString()); }
+
+    // Return recipe level in int
+    public int GetLevelInt()
+    {
+        if (recipeLevel == RecipeLevel.Name)
+        {
+            return 1;
+        }
+        else if (recipeLevel == RecipeLevel.Mats)
+        {
+            return 2;
+        }
+        else if (recipeLevel == RecipeLevel.Description)
+        {
+            return 3;
+        }
+        else if (recipeLevel == RecipeLevel.Graph)
+        {
+            return 4;
+        }
+
+        return 0;
+    }
+
+    // Set recipe level based on the level int pass in.
+    public void SetLevelInt(int level) {
+        if (level == 1)
+        {
+            recipeLevel = RecipeLevel.Name;
+        }
+        else if (level == 2)
+        {
+            recipeLevel = RecipeLevel.Mats;
+        }
+        else if (level == 3)
+        {
+            recipeLevel = RecipeLevel.Description;
+        }
+        else if (level == 4)
+        {
+            recipeLevel = RecipeLevel.Graph;
+        }
+    }
 }
