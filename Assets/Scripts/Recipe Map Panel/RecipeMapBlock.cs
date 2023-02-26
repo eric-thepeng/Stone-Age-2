@@ -62,8 +62,8 @@ public class RecipeMapBlock : MonoBehaviour
 
     void OnMouseOver()
     {
-        // Level Up / Buy
-        if (Input.GetMouseButtonDown(0))
+        // Show Tooltip
+        if (Input.GetMouseButtonDown(0) && state == State.Locked)
         {
             RecipeMapManager.instance.DisplayRecipe(this);
         }
