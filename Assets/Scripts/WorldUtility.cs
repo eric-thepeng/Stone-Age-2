@@ -5,6 +5,15 @@ using UnityEngine;
 public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera to use this.
 {
 
+    public static class LAYER
+    {
+        //public static LayerName;
+        static int UI = 9;
+
+    }
+
+    //public AllPhysicsLayerID LAYER = { }
+
     public static Vector3 GetMouseHitPoint(int layerID, bool collideWithLayer)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

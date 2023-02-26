@@ -22,7 +22,7 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] List<UI_InventoryBlock> allInventoryBlocks = new List<UI_InventoryBlock>();
     InventoryItemSO.Category displayingCategory;
     int maxColumns = 4;
-    int maxRows = 8;
+    int maxRows = 5;
     [SerializeField] float displacement;
 
     public bool resetBackground = false;
@@ -100,9 +100,9 @@ public class UI_Inventory : MonoBehaviour
         print("row/columns: " + maxRows + " " + maxColumns);
         allInventoryBlocks.Clear();
         //make new background
-        for(int i = 0; i<maxColumns; i++)
+        for(int j = 0; j < maxRows; j++)
         {
-            for(int j = 0; j<maxRows; j++)
+            for(int i = 0; i < maxColumns; i++)
             {
                 GameObject go = Instantiate(inventoryBlockTemplate, transform.Find("Inventory Blocks"));
                 go.transform.localPosition += new Vector3(i * displacement, -j * displacement, 0);

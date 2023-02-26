@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tetris : MonoBehaviour
+public class Tetris : DragInventoryItem
 {
     //Wait: Tetris sitting still. Drag: Tetris being clicked and dragged around. Animation: Tetris moving to snap. Merge: Tetris is Merging.
     enum state {Wait, Drag, Animation, Merge, Lift, Drop}

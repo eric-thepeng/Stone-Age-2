@@ -18,6 +18,8 @@ public class UI_InventoryBlock : MonoBehaviour
     [SerializeField] TextMeshPro displayNumber;
     [SerializeField] SpriteRenderer numberBackground;
 
+    private DragInventoryItem dii = null;
+
     public bool CheckIISO(InventoryItemSO inIISO)
     {
         return inIISO == itemInfo.iiso;
@@ -66,11 +68,12 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseExit()
     {
         //InventoryHoverInfo.i.Disappear();
-        mouseOver = false;
+        //mouseOver = false;
     }
 
     private void OnMouseDown()
     {
+        print("mouse down");
         //InventoryHoverInfo.i.Disappear();
         CreateDrag();
     }
@@ -82,7 +85,13 @@ public class UI_InventoryBlock : MonoBehaviour
 
     void CreateDrag()
     {
-        GetComponent<SpriteRenderer>().color = dragColr;
+        itemSprite.color = dragColr;
+        if (CraftingManager.i.isPanelOpen())
+        {
+            print("do this");
+            //dii = Instantiate(itemInfo.iiso.iso.myPrefab, CraftingManager.).GetComponent<DragInventoryItem>();
+            //dii.SetUp(this);
+        }
         //InventoryDrag ID = UI_Inventory.i.NewDragging(itemInfo.iiso);
        // ID.SetUpDragUI(itemInfo.iiso, this);
     }
