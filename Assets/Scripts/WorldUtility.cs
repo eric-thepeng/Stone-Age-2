@@ -35,7 +35,7 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
         print("END PRINTING");
     }
 
-    //public AllPhysicsLayerID LAYER = { }
+    
 
     public static Vector3 GetMouseHitPoint(LAYER.LayerID LayerID, bool collideWithLayer)
     {
