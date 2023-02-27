@@ -14,7 +14,6 @@ public class Test : MonoBehaviour
         {
             ItemScriptableObject iso = child.GetComponent<Tetris>().itemSO;
             iso.tetrisSprite = child.GetComponent<SpriteRenderer>().sprite;
-            iso.iconSprite = child.GetComponent<SpriteRenderer>().sprite;
             EditorUtility.SetDirty(iso);
         }
         AssetDatabase.SaveAssets();

@@ -14,7 +14,7 @@ public class MouseManager : MonoBehaviour
             if(WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true))
             {
                 ExploreSpot es = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
-                print(WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).name);
+                //print(WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).name);
                 ExploreSpotViewer.i.DisplayExploreSpot(es);
                 mouseState = MouseState.ViewingExploreSpot;
             }

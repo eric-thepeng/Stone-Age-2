@@ -25,6 +25,11 @@ public class UI_InventoryBlock : MonoBehaviour
         return inISO == itemInfo.iso;
     }
 
+    public ItemScriptableObject GetISO()
+    {
+        return itemInfo.iso;
+    }
+
     public void Initialize(int row, int col)
     {
         this.row = row;
@@ -62,6 +67,7 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseEnter()
     {
         if (itemInfo == null) return;
+        CraftingManager.i.mouseEnterInventoryBlock(this);
         //InventoryHoverInfo.i.Display(transform.position);
         mouseOver = true;
     }
@@ -69,6 +75,7 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseExit()
     {
         if (itemInfo == null) return;
+        CraftingManager.i.mouseExitInventoryBlock();
         //InventoryHoverInfo.i.Disappear();
         mouseOver = false;
     }

@@ -162,6 +162,7 @@ public class CraftingManager : SerializedMonoBehaviour
         Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
         PanelTransform.Find("NameUI").transform.position = toSet + new Vector3(0,0.1f,0.1f);
         PanelTransform.Find("NameUI").gameObject.SetActive(true);
+        PanelTransform.Find("NameUI").Find("TetrisUI").gameObject.SetActive(false);
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = iso.tetrisHoverName;
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingLayerID = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingLayerID;
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingOrder = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingOrder+1;
@@ -175,6 +176,24 @@ public class CraftingManager : SerializedMonoBehaviour
     {
         PanelTransform.Find("NameUI").gameObject.SetActive(false);
     }
+
+    public void mouseEnterInventoryBlock(UI_InventoryBlock uiib)
+    {
+        Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
+        PanelTransform.Find("NameUI").transform.position = toSet + new Vector3(0, 0.1f, 0.1f);
+        PanelTransform.Find("NameUI").gameObject.SetActive(true);
+        PanelTransform.Find("NameUI").Find("TetrisUI").gameObject.SetActive(true);
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = uiib.GetISO().tetrisHoverName;
+        PanelTransform.Find("NameUI").Find("TetrisUI").Find("TetrisPic").gameObject.GetComponent<SpriteRenderer>().sprite = uiib.GetISO().tetrisSprite;
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingLayerID = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingLayerID;
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingOrder = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
+    }
+    public void mouseExitInventoryBlock()
+    {
+        PanelTransform.Find("NameUI").gameObject.SetActive(false);
+    }
+
+
     public bool isPanelOpen()
     {
         return panelOpen;
