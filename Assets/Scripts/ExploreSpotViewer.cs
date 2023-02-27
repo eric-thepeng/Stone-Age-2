@@ -56,7 +56,7 @@ public class ExploreSpotViewer : MonoBehaviour
     {
         if(SpiritPoint.i.Use(DisplayingES.unlockSpiritPoint) == true)
         {
-            DisplayingES.Unlock();
+            DisplayingES.SetLockState(ExploreSpot.LockState.UNLOCKED);
             RefreshDisplayInfo(DisplayingES);
         }
         else

@@ -35,7 +35,7 @@ public class CraftingManager : SerializedMonoBehaviour
         ClosePanelTransform = transform.Find("Close Panel Transform");
         foreach(ItemScriptableObject iso in startingTetris)
         {
-            AddToCrafting(iso.myPrefab);
+            CreateTetris(iso.myPrefab, PanelTransform.position);
         }
     }
 
@@ -81,12 +81,22 @@ public class CraftingManager : SerializedMonoBehaviour
         }
     }
 
+    /*
     public void AddToCrafting(GameObject go)
     {
         GameObject newTetris = Instantiate(go,transform.Find("Crafting Panel"));
         newTetris.transform.localPosition= Vector3.zero;
         newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
         allTetris.Add(newTetris);
+    }*/
+
+    public GameObject CreateTetris(GameObject go, Vector3 addPosition)
+    {
+        GameObject newTetris = Instantiate(go, transform.Find("Crafting Panel"));
+        newTetris.transform.localPosition = Vector3.zero;
+        newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+        allTetris.Add(newTetris);
+        return newTetris;
     }
 
     public void AddToAllTetris(GameObject go)
