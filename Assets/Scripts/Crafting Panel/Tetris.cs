@@ -6,6 +6,8 @@ public class Tetris : DragInventoryItem
 {
     //Wait: Tetris sitting still. Drag: Tetris being clicked and dragged around. Animation: Tetris moving to snap. Merge: Tetris is Merging.
     enum state {Wait, Drag, Animation, Merge, Lift, Drop}
+    enum Zone {Craft, Back}
+    Zone zoneNow = Zone.Craft;
     state stateNow = state.Wait;
 
     //Delta between 
@@ -163,7 +165,7 @@ public class Tetris : DragInventoryItem
         {
             foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
             {
-                print(kvp.Key + " " + kvp.Value.name);
+                //print(kvp.Key + " " + kvp.Value.name);
             }
         }
 
@@ -216,15 +218,23 @@ public class Tetris : DragInventoryItem
         }
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))
         {
-            SetState(state.Wait);
-            //if (stateNow != state.Drag) return;
-            //SetState(state.Wait);
-            RefreshEdges();
-            RecipeCombiator rc = new RecipeCombiator(this, mergeProgressBar);
-            Search(rc, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
-            CheckSnap(rc);
-            rc.Organize();
-            CheckRecipe(rc);
+            if(zoneNow == Zone.Back)
+            {
+                CraftingManager.i.PutBackToInventory(this.gameObject);
+            }
+            else //zoneNow == Zone.Craft
+            {
+                SetState(state.Wait);
+                //if (stateNow != state.Drag) return;
+                //SetState(state.Wait);
+                RefreshEdges();
+                RecipeCombiator rc = new RecipeCombiator(this, mergeProgressBar);
+                Search(rc, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+                CheckSnap(rc);
+                rc.Organize();
+                CheckRecipe(rc);
+            }
+            
         }
     }
 
@@ -471,4 +481,31 @@ public class Tetris : DragInventoryItem
 
         stateNow = state.Wait;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name != "Background") return;
+        CraftingManager.i.mouseExitTetris();
+        zoneNow = Zone.Back;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name != "Background") return;
+        zoneNow = Zone.Craft;
+    }
+
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name != "Background") return;
+        CraftingManager.i.mouseExitTetris();
+        zoneNow = Zone.Back;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name != "Background") return;
+        zoneNow = Zone.Craft;
+    }*/
 }

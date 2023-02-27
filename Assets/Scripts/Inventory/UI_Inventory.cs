@@ -56,7 +56,7 @@ public class UI_Inventory : MonoBehaviour
         {
             if(Inventory.i.CategoryToList(cat)[i].displayAmount > 0)
             {
-                print("blocks count: " + allInventoryBlocks.Count + ", count: " + Inventory.i.CategoryToList(cat).Count + ", i: " + i);
+                //print("blocks count: " + allInventoryBlocks.Count + ", count: " + Inventory.i.CategoryToList(cat).Count + ", i: " + i);
                 allInventoryBlocks[j].SetUpDisplay(Inventory.i.CategoryToList(cat)[i]);
                 j++;
             }

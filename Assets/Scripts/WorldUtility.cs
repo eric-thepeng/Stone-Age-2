@@ -23,19 +23,6 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
         public static LayerID RECIPE_BLOCK_VIEWER = new LayerID(LayerMask.GetMask("Recipe Block Viewer"));
     }
 
-    private void Start()
-    {
-        print("START PRINTING");
-        print(LAYER.UI_BACKGROUND.id);
-        print(LAYER.UI_DRAG.id);
-        print(LAYER.GROUND.id);
-        print(LAYER.EXPLORATION_SPOT.id);
-        print(LAYER.EXPLORATION_SPOT_VIEWER.id);
-        print(LAYER.RECIPE_BLOCK_VIEWER.id);
-        print("END PRINTING");
-    }
-
-    
 
     public static Vector3 GetMouseHitPoint(LAYER.LayerID LayerID, bool collideWithLayer)
     {
