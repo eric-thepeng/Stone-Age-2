@@ -21,6 +21,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     // Viewer
     GameObject RecipeViewer;
     RecipeMapBlock DisplayBlock;
+    GameObject RecipeViewerButton;
 
     // Colors
     public Color32 unlockedColor;
@@ -29,6 +30,10 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public Color32 unlockedPathColor;
     public Color32 lockedPathColor;
     public Color32 unknownPathColor;
+    public Color32 backgroundColor;
+
+    // All Blocks
+    public List<RecipeMapBlock> allBlocks = new List<RecipeMapBlock>();
 
     // Singleton
     void Awake()
@@ -54,6 +59,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
         MiddlePanelTransform = transform.Find("Middle Panel Transform");
 
         RecipeViewer = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").gameObject;
+        RecipeViewerButton = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").transform.Find("Upgrade Button").gameObject;
     }
 
     private void Update()
@@ -80,6 +86,17 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
     }
 
+    // Check if there is locked/unknown recipe block. Is true, unlock it and discovered adjacent recipe blocks
+    public void CheckUnlock(ItemScriptableObject itemToCheck) {
+        foreach (RecipeMapBlock block in allBlocks)
+        {
+            if (block.myISO == itemToCheck)
+            {
+                block.RecipeUnlock();
+            } 
+        }
+    }
+
     public void DisplayRecipe(RecipeMapBlock RMB)
     {
         DisplayBlock = RMB;
@@ -87,9 +104,42 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
         RecipeViewer.transform.localPosition = RMB.transform.localPosition + new Vector3(0, 2, 0);
 
-        RecipeViewer.transform.Find("Name").GetComponent<TextMeshPro>().text = RMB.name + " (" + DisplayBlock.GetLevelString()+ ")";
-        RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text = RMB.name + "level: " + RMB.GetLevelString()
-            + "<br>" + "<br>Upgrade Cost: " + RMB.CurrentCost();
+        RecipeViewer.transform.Find("Name").GetComponent<TextMeshPro>().text = 
+            RMB.name; //+ " (" + DisplayBlock.GetLevelString()+ ")";
+
+        if (RMB.GetLevelInt() == 1) {
+            RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text =
+                "Upgrade the recipe to learn more about it!";
+        }
+        else if (RMB.GetLevelInt() == 2)
+        {
+            RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text =
+                "Materials required: " + RMB.material;
+        }
+        else if (RMB.GetLevelInt() == 3)
+        {
+            RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text =
+                "Materials required: " + RMB.material + "<br>" +
+                "To craft: " + RMB.craftDescription;
+        }
+        else if (RMB.GetLevelInt() == 4)
+        {
+            RecipeViewer.transform.Find("Description").GetComponent<TextMeshPro>().text =
+                "Materials required: " + RMB.material + "<br>" +
+                "To craft: " + RMB.craftDescription;
+        }
+
+        if (RMB.GetLevelInt() == 4)
+        {
+            RecipeViewer.transform.Find("Cost").GetComponent<TextMeshPro>().text =
+                "This recipe has reached the maximum level.";
+            RecipeViewerButton.SetActive(false);
+        }
+        else {
+            RecipeViewer.transform.Find("Cost").GetComponent<TextMeshPro>().text =
+                "Recipe Upgrade Cost: " + RMB.CurrentCost();
+            RecipeViewerButton.SetActive(true);
+        }
     }
 
     public void StopDisplayRecipe()

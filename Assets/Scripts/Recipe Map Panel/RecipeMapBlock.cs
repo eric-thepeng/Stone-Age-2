@@ -9,8 +9,14 @@ public class RecipeMapBlock : MonoBehaviour
     [SerializeField]
     private State state = State.Unknown;
 
+    // ISO
+    public ItemScriptableObject myISO;
+
     // Name
     public string name;
+
+    public string material;
+    public string craftDescription;
 
     //Cost
     [SerializeField ]
@@ -18,6 +24,7 @@ public class RecipeMapBlock : MonoBehaviour
 
     // Components
     private SpriteRenderer spriteRenderer;
+    private GameObject border;
     private GameObject background;
     private TextMeshPro levelText;
 
@@ -38,11 +45,13 @@ public class RecipeMapBlock : MonoBehaviour
     private Color32 unlockedPathColor;
     private Color32 lockedPathColor;
     private Color32 unknownPathColor;
+    private Color32 backgroundColor;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        border = transform.Find("Border").gameObject;
         background = transform.Find("Background").gameObject;
 
         levelText = transform.Find("Level").gameObject.GetComponent<TextMeshPro>();
@@ -55,6 +64,7 @@ public class RecipeMapBlock : MonoBehaviour
         unlockedPathColor = RecipeMapManager.instance.unlockedPathColor;
         lockedPathColor = RecipeMapManager.instance.lockedPathColor;
         unknownPathColor = RecipeMapManager.instance.unknownPathColor;
+        backgroundColor = RecipeMapManager.instance.backgroundColor;
 
         LevelTextUpdate();
         ColorUpdate();
@@ -63,15 +73,15 @@ public class RecipeMapBlock : MonoBehaviour
     void OnMouseOver()
     {
         // Show Tooltip
-        if (Input.GetMouseButtonDown(0) && state == State.Locked)
+        if (Input.GetMouseButtonDown(0) && state != State.Unknown)
         {
             RecipeMapManager.instance.DisplayRecipe(this);
         }
 
-        // Unlock / testing / in the actual game, player unlock recipe by craft the item.
+        
         if (Input.GetMouseButtonDown(1))
         {
-            RecipeUnlock();
+            //RecipeUnlock(); // For debug, quick unlock
         }
     }
 
@@ -135,9 +145,9 @@ public class RecipeMapBlock : MonoBehaviour
     }
 
     // Unlock a recipe (after it got crafted the first time), change it from locked to unlocked
-    private void RecipeUnlock()
+    public void RecipeUnlock()
     {
-        if (state == State.Locked)
+        if (GetStateString() == "Unknown" || GetStateString() == "Locked")
         {
             state = State.Unlocked;
             recipeLevel = RecipeLevel.Graph; // turn the level the highest
@@ -172,7 +182,9 @@ public class RecipeMapBlock : MonoBehaviour
         // BG & Lines Color
         if (state == State.Unlocked)
         {
-            background.GetComponent<SpriteRenderer>().color = unlockedPathColor;
+            border.GetComponent<SpriteRenderer>().color = unlockedPathColor;
+
+            background.GetComponent<SpriteRenderer>().color = backgroundColor;
 
             for (int count = 0; count < 4; count++)
             {
@@ -184,7 +196,9 @@ public class RecipeMapBlock : MonoBehaviour
         }
         else if (state == State.Locked)
         {
-            background.GetComponent<SpriteRenderer>().color = lockedPathColor;
+            border.GetComponent<SpriteRenderer>().color = lockedPathColor;
+
+            background.GetComponent<SpriteRenderer>().color = backgroundColor;
 
             for (int count = 0; count < 4; count++)
             {
@@ -196,6 +210,8 @@ public class RecipeMapBlock : MonoBehaviour
         }
         else
         {
+            border.GetComponent<SpriteRenderer>().color = unknownPathColor;
+
             background.GetComponent<SpriteRenderer>().color = unknownPathColor;
 
             for (int count = 0; count < 4; count++)

@@ -349,6 +349,9 @@ public class Tetris : DragInventoryItem
 
         CraftingManager.i.CreateTetris(product.myPrefab, this.transform.position);
 
+        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
+        RecipeMapManager.instance.CheckUnlock(product);
+
         foreach (Tetris t in rc.getPastTetris())
         {
             t.DestroySelf();
