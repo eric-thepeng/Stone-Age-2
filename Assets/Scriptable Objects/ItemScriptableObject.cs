@@ -13,12 +13,13 @@ using UnityEngine;
 public class ItemScriptableObject : SerializedScriptableObject
 {
     public string tetrisHoverName = "not set";
-    public bool isGround = false, isCook = false;
-    public GameObject myPrefab = null; //For ITEM specifically (homogeneous)
+    public GameObject myPrefab = null; 
     public List<Recipe> allRecipes = new List<Recipe>();
-    public Sprite objectSprite;
     public Sprite tetrisSprite;
     public Sprite iconSprite;
+    public enum Category { RawMaterial, CraftMaterial, Food, Furniture, Object, Tool }
+    public Category category;
+
     public List<KeyValuePair<Vector2, ScriptableObject>> FormationRecipeCoord
     {
         get

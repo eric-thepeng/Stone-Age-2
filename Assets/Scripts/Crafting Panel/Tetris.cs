@@ -46,8 +46,7 @@ public class Tetris : DragInventoryItem
     //The class that is passed on during recursive search to combine all the Tetris together and form a recipe
     public class RecipeCombiator
     {
-         enum mode {Combine, Grind, Cook }
-         mode Mode;
+
         GameObject mergeProgressBar;
         List<Tetris> pastTetris; //The list of Tetris that is already processed
         List<KeyValuePair<Vector2, ScriptableObject>> recipeGrid; //The final formed recipe in grid form
@@ -60,7 +59,6 @@ public class Tetris : DragInventoryItem
             pastTetris = new List<Tetris>(); 
             recipeGrid = new List<KeyValuePair<Vector2, ScriptableObject>>();
             mergeProgressBar = mpb;
-            Mode = mode.Combine;
         }
 
         /// <summary>
@@ -73,22 +71,6 @@ public class Tetris : DragInventoryItem
         /// <param name="newCor">Coordination on the Tetris of the connected Edge of the new Tetris.</param>
         public void AddTetris(Tetris baseT, Tetris newT, Vector2 baseCor, Vector2 dir, Vector2 newCor)
         {
-            if(Mode == mode.Grind || Mode == mode.Cook)
-            {
-                return;
-            }
-
-            if (newT.itemSO.isGround)
-            {
-                Mode = mode.Grind;
-                return;
-            }
-           else if (newT.itemSO.isCook)
-            {
-                Mode = mode.Cook;
-                return;
-            }
-
             //Avoid Repetition (extra prevention
             if (Searched(newT)) return;
             pastTetris.Add(newT);
@@ -219,9 +201,6 @@ public class Tetris : DragInventoryItem
         /// </summary>
         /// <returns></returns>
         public List<Tetris> getPastTetris() { return pastTetris; }
-
-        public bool isGrind() { return Mode == mode.Grind; }
-        public bool isCook() { return Mode == mode.Cook; }
     }
 
 
@@ -331,16 +310,6 @@ public class Tetris : DragInventoryItem
         ItemScriptableObject product = null;
         rc.DebugPrint();
 
-        if (rc.isGrind())
-        {
-            product = groundRecipeSO.Ground(itemSO);
-        }
-        else if (rc.isCook())
-        {
-            product = boilRecipeSO.Ground(itemSO);
-        }
-        else
-        {
             foreach (ItemScriptableObject iso in craftRecipeSO.list)
             {
                 if (iso == itemSO) { continue; } //skip if the recipe is itself
@@ -350,7 +319,6 @@ public class Tetris : DragInventoryItem
                     break;
                 }
             }
-        }
 
         if (product != null) //if there is a recipe match, destroyself and emerge new game object and add special effect
         {
