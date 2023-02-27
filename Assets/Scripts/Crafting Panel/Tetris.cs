@@ -322,7 +322,7 @@ public class Tetris : DragInventoryItem
 
             foreach (ItemCraftScriptableObject icso in recipeListSO.list)
             {
-                if (icso.CheckMatch(rc.getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
+                if (!(icso.CraftingStationRequired != null && !CraftingManager.i.TetrisInPresent(icso.CraftingStationRequired)) && icso.CheckMatch(rc.getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
                 {
                     product = icso.ItemCrafted;
                     break;

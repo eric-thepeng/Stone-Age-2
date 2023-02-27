@@ -84,6 +84,7 @@ public class CraftingManager : SerializedMonoBehaviour
         PutBackAllTetrisToInventory();
     }
 
+
     /*
     public void AddToCrafting(GameObject go)
     {
@@ -92,6 +93,15 @@ public class CraftingManager : SerializedMonoBehaviour
         newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
         allTetris.Add(newTetris);
     }*/
+
+    public bool TetrisInPresent(ItemScriptableObject iso)
+    {
+        foreach(GameObject go in allTetris)
+        {
+            if (go.GetComponent<Tetris>().itemSO == iso) return true;
+        }
+        return false;
+    }
 
     public GameObject CreateTetris(ItemScriptableObject iso, Vector3 addPosition, CreateFrom createFrom)
     {
