@@ -93,8 +93,8 @@ public class CraftingManager : SerializedMonoBehaviour
     public GameObject CreateTetris(GameObject go, Vector3 addPosition)
     {
         GameObject newTetris = Instantiate(go, transform.Find("Crafting Panel"));
-        newTetris.transform.localPosition = Vector3.zero;
-        newTetris.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+        newTetris.transform.position = addPosition;
+        newTetris.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
         allTetris.Add(newTetris);
         return newTetris;
     }

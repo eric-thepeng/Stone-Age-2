@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.0021405641, w: 0.99999774}
   m_LocalPosition: {x: 0.2393423, y: 0.00000101397, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4074336150360739036}
   m_RootOrder: 0
@@ -56,6 +57,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0.7101468, w: 0.7040537}
   m_LocalPosition: {x: 0.010557175, y: 0.017765597, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4074336149161034877}
   m_Father: {fileID: 4074336150826584230}
@@ -74,7 +76,6 @@ GameObject:
   - component: {fileID: 4074336150826584228}
   - component: {fileID: 4074336150826584229}
   - component: {fileID: 8887841843208554616}
-  - component: {fileID: 1516308008160128293}
   m_Layer: 0
   m_Name: Small Stone
   m_TagString: Untagged
@@ -92,6 +93,7 @@ Transform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 2.65, y: -0.095, z: 6.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4074336150360739036}
   - {fileID: 6160420464530847702}
@@ -109,6 +111,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -161,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Library: []
   m_SpriteLibraryAsset: {fileID: 11400000, guid: 848627ccb6e30d8489516ef67c7a3db6, type: 2}
 --- !u!114 &4074336150826584229
 MonoBehaviour:
@@ -176,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryHash: -32803.93
   m_labelHash: -0.00000024730318
+  m_SpriteKey: 1.0609298e-38
 --- !u!136 &8887841843208554616
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -190,23 +195,6 @@ CapsuleCollider:
   m_Height: 1.32
   m_Direction: 0
   m_Center: {x: 0.09091668, y: 0.18, z: -0.09}
---- !u!114 &1516308008160128293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4074336150826584233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624d3b4a8381e0045b9e26349ee2b67c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: Small Stone
-  objProduce: {fileID: 6364644185954913908, guid: e288feda10ac1484f8a1592ce58ef242, type: 3}
-  produceAmount: 1
-  isoToGet: {fileID: 11400000, guid: 11f5a6fe9c6daa841b74e6aa0101d0f4, type: 2}
-  staticPop: {fileID: 0}
 --- !u!1 &4369558224869700550
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +224,7 @@ Transform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0.089, z: -0.102}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4074336150826584230}
   m_RootOrder: 1
@@ -251,6 +240,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -303,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Library: []
   m_SpriteLibraryAsset: {fileID: 11400000, guid: 848627ccb6e30d8489516ef67c7a3db6, type: 2}
 --- !u!114 &5774432721751564114
 MonoBehaviour:
@@ -318,3 +309,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryHash: -32803.93
   m_labelHash: -2.0302609e-29
+  m_SpriteKey: 2.6388705e-14

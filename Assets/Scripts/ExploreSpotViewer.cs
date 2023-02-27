@@ -37,13 +37,13 @@ public class ExploreSpotViewer : MonoBehaviour
     {
         DisplayGO.SetActive(true);
         DisplayGO.GetComponentInChildren<TextMeshPro>().text = DisplayingES.GetDisplayInfo();
-        if (DisplayingES.isUnlocked())
+        if (DisplayingES.isCanUnlock())
         {
-            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(false);
+            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(true);
         }
         else
         {
-            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(true);
+            DisplayGO.transform.Find("Unlock Button").gameObject.SetActive(false);
         }
     }
 

@@ -14,8 +14,7 @@ public class Tetris : DragInventoryItem
     //The Scriptable Object this Tetris contains
     public ItemScriptableObject itemSO;
     public ItemSOListScriptableObject allItemListSO; //List of all Items TODO: delete this shit
-    public ItemSOListScriptableObject craftRecipeSO;
-    public RecipeListScriptableObject RecipeListSO; // NEW
+    public RecipeListScriptableObject recipeListSO; // NEW
     public GroundRecipeScriptableObject groundRecipeSO; //List of all Grounding Recipe
     public GroundRecipeScriptableObject boilRecipeSO; //List of all Boiling Recipe
 
@@ -218,6 +217,14 @@ public class Tetris : DragInventoryItem
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))
         {
             SetState(state.Wait);
+            //if (stateNow != state.Drag) return;
+            //SetState(state.Wait);
+            RefreshEdges();
+            RecipeCombiator rc = new RecipeCombiator(this, mergeProgressBar);
+            Search(rc, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+            CheckSnap(rc);
+            rc.Organize();
+            CheckRecipe(rc);
         }
     }
 
@@ -273,14 +280,7 @@ public class Tetris : DragInventoryItem
 
     private void OnMouseUp() //Real job of combining/calculating crafting and recipe
     {
-        if (stateNow != state.Drag) return;
-        SetState(state.Wait);
-        RefreshEdges();
-        RecipeCombiator rc = new RecipeCombiator(this,mergeProgressBar);
-        Search(rc, this, new Vector2(0,0), new Vector2(0, 0), new Vector2(0, 0));
-        CheckSnap(rc);
-        rc.Organize();
-        CheckRecipe(rc);
+
     }
 
     public void RefreshEdges()
@@ -310,12 +310,11 @@ public class Tetris : DragInventoryItem
         ItemScriptableObject product = null;
         rc.DebugPrint();
 
-            foreach (ItemScriptableObject iso in craftRecipeSO.list)
+            foreach (ItemCraftScriptableObject icso in recipeListSO.list)
             {
-                if (iso == itemSO) { continue; } //skip if the recipe is itself
-                if (iso.CheckMatch(rc.getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
+                if (icso.CheckMatch(rc.getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
                 {
-                    product = iso;
+                    product = icso.ItemCrafted;
                     break;
                 }
             }
@@ -334,7 +333,7 @@ public class Tetris : DragInventoryItem
         }
         float tCount = 0;
         float tRequire = 1;
-        ProgressBar pb = Instantiate(mergeProgressBar, rc.CentralPosition(), Quaternion.identity).GetComponent<ProgressBar>();
+        ProgressBar pb = Instantiate(mergeProgressBar, this.transform.position, Quaternion.identity).GetComponent<ProgressBar>();
         pb.transform.position += new Vector3(0, 0, -0.5f);
 
 
@@ -345,8 +344,10 @@ public class Tetris : DragInventoryItem
             yield return new WaitForSeconds(0);
         }
 
-        GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
-        CraftingManager.i.AddToAllTetris(newTetris);
+        //GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
+        //CraftingManager.i.AddToAllTetris(newTetris);
+
+        CraftingManager.i.CreateTetris(product.myPrefab, this.transform.position);
 
         foreach (Tetris t in rc.getPastTetris())
         {
@@ -400,7 +401,7 @@ public class Tetris : DragInventoryItem
         {
             if (e.isConnected())
             {
-                AudioManager.i.PlaySoundEffectByName("Tetris Snap", true);
+                //AudioManager.i.PlaySoundEffectByName("Tetris Snap", true);
                 StartCoroutine(SnapMovement(e.getOppositeEdgeDistance()));
                 break;
             }

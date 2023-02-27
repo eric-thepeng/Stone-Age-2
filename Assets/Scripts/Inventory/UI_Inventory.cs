@@ -97,7 +97,6 @@ public class UI_Inventory : MonoBehaviour
     public void CreateInventoryBlocks()
     {
         print("recreate background blocks");
-        print("row/columns: " + maxRows + " " + maxColumns);
         allInventoryBlocks.Clear();
         //make new background
         for(int j = 0; j < maxRows; j++)

@@ -62,8 +62,10 @@ public class ExploreSpot : MonoBehaviour
 
     private void DiscoverAdjacent()
     {
+        if (!exploreSpotUnveilDic.ContainsKey(spotName)) return;
         foreach (string esName in exploreSpotUnveilDic[spotName])
         {
+            if (!allExploreSpots.ContainsKey(esName)) continue;
             allExploreSpots[esName].SetLockState(LockState.CAN_UNLOCK);
         }
     }
@@ -88,7 +90,7 @@ public class ExploreSpot : MonoBehaviour
             text += "Possible resources: <br>";
             for(int i =0; i<resource.Length; i++)
             {
-                text += "    " +  resource[i].name + "  " + (int)((weight[i]/1f)/totalWeight * 100) + " %" + "<br>";
+                text += "    " +  resource[i].tetrisHoverName + "  " + (int)((weight[i]/1f)/totalWeight * 100) + " %" + "<br>";
             }
         }
         else if (lockState == LockState.CAN_UNLOCK)
@@ -115,12 +117,13 @@ public class ExploreSpot : MonoBehaviour
             if (lockState == LockState.UNLOCKED) { Debug.LogError("This Explore Spot is already UNLOCKED"); return; }
             if (lockState == LockState.CANNOT_UNLOCK) { Debug.LogError("This Explore Spot is still CANNOT_UNLOCK"); return; }
             lockState = LockState.UNLOCKED;
+            DiscoverAdjacent();
         }
         else if(newLockState == LockState.CAN_UNLOCK)
         {
             if (lockState == LockState.UNLOCKED) { Debug.LogError("This Explore Spot is already unlocked"); return; }
             if (lockState == LockState.CAN_UNLOCK) { Debug.LogError("This Explore Spot is already CAN_UNLOCK"); return; }
-            lockState = LockState.UNLOCKED;
+            lockState = LockState.CAN_UNLOCK;
         }
         else //newLockState == LockState.CANNOT_UNLOCK
         {
@@ -130,4 +133,6 @@ public class ExploreSpot : MonoBehaviour
     }
 
     public bool isUnlocked() { return lockState == LockState.UNLOCKED; }
+    public bool isCanUnlock() { return lockState == LockState.CAN_UNLOCK; }
+    public bool isCannotUnlock() { return lockState == LockState.CANNOT_UNLOCK; }
 }
