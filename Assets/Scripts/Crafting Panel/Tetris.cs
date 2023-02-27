@@ -24,6 +24,7 @@ public class Tetris : DragInventoryItem
 
     //These are for click and drag
     public Vector2 dragDisplacement = new Vector2(0,0); //Displacement of dragging
+    public Vector3 mouseDownPos = new Vector2(0, 0); //Position that mouse clicked
     public Vector3 tetrisDownPos = new Vector3(0, 0, 0); //Position of Tetris when mouse clicked
 
     //Standart scale during play, used to snap during merge animation
@@ -128,7 +129,7 @@ public class Tetris : DragInventoryItem
         /// <returns></returns>
         public bool Searched(Tetris t)
         {
-            return pastTetris.Contains(t);
+            return (pastTetris.Contains(t));
         }
 
         /// <summary>
@@ -263,6 +264,15 @@ public class Tetris : DragInventoryItem
 
     }
 
+    
+
+    private Vector3 GetMouseWorldPos()
+    {
+        //return mouse position through main camera
+        return Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z * -1));
+        //return CameraManager.i.getPanelCamera().ScreenToViewportPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, CameraManager.i.getPanelCamera().transform.position.z * -1));
+    }
+
     private void SetState(state newState)
     {
         //set state of the Tetris
@@ -284,12 +294,22 @@ public class Tetris : DragInventoryItem
         CraftingManager.i.mouseClickTetris();
         if(stateNow == state.Merge)
         {
-            //TODO: stop merge
+            //myRC.StopMerge();
         }
         if (stateNow != state.Wait) return;
         SetState(state.Drag);
         ResetEdges(); //so that rest of the recipe refreshes
+        mouseDownPos = GetMouseWorldPos();
         tetrisDownPos = transform.position;
+    }
+
+    private void OnMouseDrag()
+    {
+        //print("dragging");
+        //if (stateNow != state.Drag) return; TODO: UNCOMMENT THIS
+        //transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+
+        //old transform.position = tetrisDownPos + (GetMouseWorldPos() - mouseDownPos);
     }
 
     private void OnMouseUp() //Real job of combining/calculating crafting and recipe
