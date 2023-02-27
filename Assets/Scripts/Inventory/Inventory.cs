@@ -78,7 +78,13 @@ public class Inventory : MonoBehaviour
         {
             GetItemInfo(iso).inUseAmount -= 1;
         }
-        //UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iiso));
+        UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
+    }
+
+    public void MergeCreateItem(ItemScriptableObject iso)
+    {
+        AddInventoryItem(iso);
+        InUseItem(iso, true);
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)

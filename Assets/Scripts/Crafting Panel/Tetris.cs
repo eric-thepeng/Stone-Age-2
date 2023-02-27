@@ -347,7 +347,7 @@ public class Tetris : DragInventoryItem
         //GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
         //CraftingManager.i.AddToAllTetris(newTetris);
 
-        CraftingManager.i.CreateTetris(product.myPrefab, this.transform.position);
+        CraftingManager.i.CreateTetris(product, this.transform.position, CraftingManager.CreateFrom.MERGE);
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
         RecipeMapManager.instance.CheckUnlock(product);
@@ -436,7 +436,7 @@ public class Tetris : DragInventoryItem
 
     IEnumerator DestroySelfProcess()
     {
-        CraftingManager.i.RemoveFromCrafting(gameObject);
+        CraftingManager.i.RemoveFromTetrisList(gameObject);
         stateNow = state.Animation;
         bool animStart = false;
         float t = 0;

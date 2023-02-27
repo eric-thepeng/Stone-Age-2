@@ -61,19 +61,21 @@ public class UI_InventoryBlock : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if (itemInfo == null) return;
         //InventoryHoverInfo.i.Display(transform.position);
         mouseOver = true;
     }
 
     private void OnMouseExit()
     {
+        if (itemInfo == null) return;
         //InventoryHoverInfo.i.Disappear();
-        //mouseOver = false;
+        mouseOver = false;
     }
 
     private void OnMouseDown()
     {
-        print("mouse down");
+        if (itemInfo == null) return;
         //InventoryHoverInfo.i.Disappear();
         CreateDrag();
     }
@@ -88,7 +90,7 @@ public class UI_InventoryBlock : MonoBehaviour
         itemSprite.color = dragColr;
         if (CraftingManager.i.isPanelOpen()) //TETRIS
         {
-            GameObject newTetris = CraftingManager.i.CreateTetris(itemInfo.iso.myPrefab, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true));
+            GameObject newTetris = CraftingManager.i.CreateTetris(itemInfo.iso, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true), CraftingManager.CreateFrom.INVENTORY);
             newTetris.GetComponent<DragInventoryItem>().SetUp(this);
         }
     }

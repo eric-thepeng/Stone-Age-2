@@ -15,6 +15,8 @@ public class CraftingManager : SerializedMonoBehaviour
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
+    public enum CreateFrom {DEBUG, INVENTORY, MERGE}
+
     static CraftingManager instance;
     public static CraftingManager i
     {
@@ -35,7 +37,7 @@ public class CraftingManager : SerializedMonoBehaviour
         ClosePanelTransform = transform.Find("Close Panel Transform");
         foreach(ItemScriptableObject iso in startingTetris)
         {
-            CreateTetris(iso.myPrefab, PanelTransform.position);
+            CreateTetris(iso, PanelTransform.position,CreateFrom.DEBUG);
         }
     }
 
@@ -79,6 +81,7 @@ public class CraftingManager : SerializedMonoBehaviour
             timeCount += Time.deltaTime;
             yield return null;
         }
+        PutBackAllTetrisToInventory();
     }
 
     /*
@@ -90,24 +93,46 @@ public class CraftingManager : SerializedMonoBehaviour
         allTetris.Add(newTetris);
     }*/
 
-    public GameObject CreateTetris(GameObject go, Vector3 addPosition)
+    public GameObject CreateTetris(ItemScriptableObject iso, Vector3 addPosition, CreateFrom createFrom)
     {
-        GameObject newTetris = Instantiate(go, transform.Find("Crafting Panel"));
+        GameObject newTetris = Instantiate(iso.myPrefab, transform.Find("Crafting Panel"));
         newTetris.transform.position = addPosition;
         newTetris.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
         allTetris.Add(newTetris);
+        if (createFrom == CreateFrom.DEBUG)
+        {
+            Inventory.i.AddInventoryItem(iso);
+        }
+        else if (createFrom == CreateFrom.INVENTORY)
+        {
+            Inventory.i.InUseItem(iso, true);
+        }
+        else //(createFrom == CreateFrom.MERGE)
+        {
+            Inventory.i.MergeCreateItem(iso);
+        }
+        
         return newTetris;
     }
 
-    public void AddToAllTetris(GameObject go)
-    {
-        allTetris.Add(go);
-        ItemScriptableObject thisISO = go.GetComponent<Tetris>().itemSO;
-    }
-
-    public void RemoveFromCrafting(GameObject go)
+    public void RemoveFromTetrisList(GameObject go)
     {
         allTetris.Remove(go);
+    }
+
+    public void PutBackToInventory(GameObject go)
+    {
+        RemoveFromTetrisList(go);
+        Inventory.i.InUseItem(go.GetComponent<Tetris>().itemSO, false);
+        Destroy(go);
+    }
+
+    public void PutBackAllTetrisToInventory()
+    {
+        for(int i = allTetris.Count-1; i>=0; i--)
+        {
+            PutBackToInventory(allTetris[i]);
+        }
     }
 
     public int CheckAmountISO(ItemScriptableObject toCheck)
