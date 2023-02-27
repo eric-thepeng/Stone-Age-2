@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class InventoryTest : MonoBehaviour
 {
-    public InventoryItemSO[] initialItems;
+    public ItemScriptableObject[] initialItems;
     private void Start()
     {
-        foreach(InventoryItemSO iiso in initialItems)
+        foreach(ItemScriptableObject iiso in initialItems)
         {
             Inventory.i.AddInventoryItem(iiso);
         }

@@ -20,9 +20,9 @@ public class UI_InventoryBlock : MonoBehaviour
 
     private DragInventoryItem dii = null;
 
-    public bool CheckIISO(InventoryItemSO inIISO)
+    public bool CheckIISO(ItemScriptableObject inISO)
     {
-        return inIISO == itemInfo.iiso;
+        return inISO == itemInfo.iso;
     }
 
     public void Initialize(int row, int col)
@@ -40,7 +40,7 @@ public class UI_InventoryBlock : MonoBehaviour
         itemSprite.gameObject.SetActive(true);
         displayNumber.gameObject.SetActive(true);
         numberBackground.gameObject.SetActive(true);
-        itemSprite.sprite = itemInfo.iiso.inventoryIcon;
+        itemSprite.sprite = itemInfo.iso.iconSprite;
         displayNumber.text = "" + ii.displayAmount;
 
     }
@@ -88,7 +88,7 @@ public class UI_InventoryBlock : MonoBehaviour
         itemSprite.color = dragColr;
         if (CraftingManager.i.isPanelOpen()) //TETRIS
         {
-            GameObject newTetris = CraftingManager.i.CreateTetris(itemInfo.iiso.iso.myPrefab, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true));
+            GameObject newTetris = CraftingManager.i.CreateTetris(itemInfo.iso.myPrefab, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true));
             newTetris.GetComponent<DragInventoryItem>().SetUp(this);
         }
     }

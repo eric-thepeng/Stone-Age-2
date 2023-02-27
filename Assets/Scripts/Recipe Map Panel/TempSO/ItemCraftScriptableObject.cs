@@ -14,7 +14,7 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
 {
     public string tetrisHoverName = "not set";
     public ItemScriptableObject ItemCrafted;
-    public InventoryItemSO CraftingStationRequired;
+    public ItemScriptableObject CraftingStationRequired;
     public List<Recipe> allRecipes = new List<Recipe>();
     public List<KeyValuePair<Vector2, ScriptableObject>> FormationRecipeCoord
     {

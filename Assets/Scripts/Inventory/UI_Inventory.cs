@@ -20,7 +20,7 @@ public class UI_Inventory : MonoBehaviour
 
     [SerializeField] GameObject inventoryBlockTemplate;
     [SerializeField] List<UI_InventoryBlock> allInventoryBlocks = new List<UI_InventoryBlock>();
-    InventoryItemSO.Category displayingCategory;
+    ItemScriptableObject.Category displayingCategory;
     int maxColumns = 4;
     int maxRows = 5;
     [SerializeField] float displacement;
@@ -44,7 +44,7 @@ public class UI_Inventory : MonoBehaviour
         
     }
 
-    public void DisplayCategory(InventoryItemSO.Category cat)
+    public void DisplayCategory(ItemScriptableObject.Category cat)
     {
         displayingCategory = cat;
         foreach(UI_InventoryBlock ib in allInventoryBlocks)

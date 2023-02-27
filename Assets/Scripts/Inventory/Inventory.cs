@@ -18,18 +18,18 @@ public class Inventory : MonoBehaviour
     }
 
     public class ItemInfo {
-        public InventoryItemSO iiso;
+        public ItemScriptableObject iso;
         public int totalAmount;
         public int inUseAmount;
         public int displayAmount { get { return totalAmount - inUseAmount; } }
-        public InventoryItemSO.Category category
+        public ItemScriptableObject.Category category
         {
-            get { return iiso.category;}
+            get { return iso.category;}
         }
 
-        public ItemInfo(InventoryItemSO newIISO)
+        public ItemInfo(ItemScriptableObject newISO)
         {
-            iiso = newIISO;
+            iso = newISO;
             totalAmount = 1;
             inUseAmount = 0;
         }
@@ -44,22 +44,22 @@ public class Inventory : MonoBehaviour
 
     public List<ItemInfo> catTemporary = new List<ItemInfo>();
 
-    public void AddInventoryItem(InventoryItemSO newIISO)
+    public void AddInventoryItem(ItemScriptableObject newISO)
     {
         
-        foreach(ItemInfo ii in CategoryToList(newIISO.category))
+        foreach(ItemInfo ii in CategoryToList(newISO.category))
         {
-            if (ii.iiso == newIISO)
+            if (ii.iso == newISO)
             {
                 ii.totalAmount += 1;
-                print("added amount: " + newIISO.name);
+                print("added amount: " + newISO.name);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
         }
-        ItemInfo newII = new ItemInfo(newIISO);
-        CategoryToList(newIISO.category).Add(newII);
-        print("added new: " + newIISO.name);
+        ItemInfo newII = new ItemInfo(newISO);
+        CategoryToList(newISO.category).Add(newII);
+        print("added new: " + newISO.name);
         UI_Inventory.i.UpdateItemDisplay(newII);
     }
 
@@ -68,30 +68,30 @@ public class Inventory : MonoBehaviour
 /// </summary>
 /// <param name="iiso"></param>
 /// <param name="use"></param>
-    public void InUseItem(InventoryItemSO iiso, bool use)
+    public void InUseItem(ItemScriptableObject iso, bool use)
     {
         if (use)
         {
-            GetItemInfo(iiso).inUseAmount += 1;
+            GetItemInfo(iso).inUseAmount += 1;
         }
         else
         {
-            GetItemInfo(iiso).inUseAmount -= 1;
+            GetItemInfo(iso).inUseAmount -= 1;
         }
         //UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iiso));
     }
 
-    ItemInfo GetItemInfo(InventoryItemSO iiso)
+    ItemInfo GetItemInfo(ItemScriptableObject iso)
     {
-        List<ItemInfo> list = CategoryToList(iiso.category);
+        List<ItemInfo> list = CategoryToList(iso.category);
         foreach(ItemInfo ii in list)
         {
-            if (ii.iiso == iiso) return ii;
+            if (ii.iso == iso) return ii;
         }
         return null;
     }
 
-    public List<ItemInfo> CategoryToList(InventoryItemSO.Category cat)
+    public List<ItemInfo> CategoryToList(ItemScriptableObject.Category cat)
     {
         /*
         if (cat == InventoryItemSO.Category.RawMaterial) return catRawMaterial;

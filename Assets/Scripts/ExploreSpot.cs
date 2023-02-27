@@ -13,7 +13,7 @@ public class ExploreSpot : MonoBehaviour
 
     public string spotName; // 00: area 00:level 00:position
     public int spiritPoint = 1;
-    public InventoryItemSO[] resource = new InventoryItemSO[0];
+    public ItemScriptableObject[] resource = new ItemScriptableObject[0];
     public int[] weight = new int[0];
     public int totalWeight;
     public int gatherTime;
@@ -26,7 +26,7 @@ public class ExploreSpot : MonoBehaviour
     public Color32 cannotUnlockColor;
 
     public int unlockSpiritPoint = 0 ;
-    public InventoryItemSO[] unlockResource = new InventoryItemSO[0];
+    public ItemScriptableObject[] unlockResource = new ItemScriptableObject[0];
     public string[] unlockResrouceAmount = new string[0];
 
     private void Awake()
