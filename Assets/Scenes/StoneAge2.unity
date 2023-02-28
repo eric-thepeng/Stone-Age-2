@@ -264,7 +264,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 60
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   name: Straw String
   material: 2 straws
   craftDescription: Attach two straws side by side.
-  baseCost: 10
+  baseCost: 5
   recipeLevel: 0
   blockLines:
   - {fileID: 1583180522}
@@ -4027,7 +4027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
@@ -5448,7 +5448,7 @@ MonoBehaviour:
   name: Camp Fire
   material: 3 small stones, 1 stick
   craftDescription: Circle the bottom of the stick with 3 small stones.
-  baseCost: 10
+  baseCost: 5
   recipeLevel: 0
   blockLines:
   - {fileID: 1670155499}
@@ -8391,7 +8391,7 @@ MonoBehaviour:
   name: Baked Apple
   material: 1 apple (with a campfire on the table)
   craftDescription: Just bake the apple :).
-  baseCost: 10
+  baseCost: 5
   recipeLevel: 0
   blockLines:
   - {fileID: 2055125210}
@@ -9614,7 +9614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
@@ -10387,7 +10387,7 @@ MonoBehaviour:
   material: 1 straw string, 1 stick, 1 small stone
   craftDescription: Put the small stone on the top right of the stick and attach
     a straw string to the top of the stick.
-  baseCost: 10
+  baseCost: 5
   recipeLevel: 0
   blockLines:
   - {fileID: 1368433647}
@@ -12887,17 +12887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdb1ce288d36f4aa4965587b60ac22d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialItems:
-  - {fileID: 11400000, guid: 51fb05478ee2d4f3aa099d4929dd0b09, type: 2}
-  - {fileID: 11400000, guid: 1d6412591dda74807be35a593c56d7c2, type: 2}
-  - {fileID: 11400000, guid: 0b17db872c4b6471e863e009f0996637, type: 2}
-  - {fileID: 11400000, guid: 4bc29d2f7a0c248a6a7e4485cd9b6878, type: 2}
-  - {fileID: 11400000, guid: b1bf1e37e7f6d4c8aa504a206c6095fd, type: 2}
-  - {fileID: 11400000, guid: a45e0dfb50e764951a8d5cc58da226e0, type: 2}
-  - {fileID: 11400000, guid: 1f26c33666c704728b02db3211ccf477, type: 2}
-  - {fileID: 11400000, guid: 8ed7ab11f093f4e1ea0d54e77d3afe68, type: 2}
-  - {fileID: 11400000, guid: a53052dc5c3a14a75b8a45c470a6657e, type: 2}
-  - {fileID: 11400000, guid: c22fe469aad764aa18383660a2764da3, type: 2}
+  initialItems: []
 --- !u!114 &1082183412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13482,7 +13472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa239cf8cf488449597a97b7b31ef338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAmount: 100
+  startingAmount: 0
 --- !u!114 &1142394312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14015,7 +14005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
@@ -14332,7 +14322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
@@ -16101,7 +16091,7 @@ MonoBehaviour:
   name: Herb Baked Egg
   material: 1 brid egg, 1 honeysuckle flower (with a campfire on the table)
   craftDescription: Put honeysuckle flower on the bird egg.
-  baseCost: 10
+  baseCost: 5
   recipeLevel: 0
   blockLines:
   - {fileID: 392802109}
@@ -19936,7 +19926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
@@ -23087,7 +23077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockSpiritPoint
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: unlockedColor.rgba
@@ -26621,6 +26611,10 @@ PrefabInstance:
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: totalWeight
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: unlockSpiritPoint
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127871, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: weight.Array.size
