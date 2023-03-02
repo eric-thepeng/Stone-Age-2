@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera to use this.
 {
-
     public static class LAYER
     {
         public class LayerID
@@ -21,6 +21,7 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
         public static LayerID EXPLORATION_SPOT = new LayerID(LayerMask.GetMask("Exploration Spot"));
         public static LayerID EXPLORATION_SPOT_VIEWER = new LayerID(LayerMask.GetMask("Exploration Spot Viewer"));
         public static LayerID RECIPE_BLOCK_VIEWER = new LayerID(LayerMask.GetMask("Recipe Block Viewer"));
+        public static LayerID HOME_GRID = new LayerID(LayerMask.GetMask("Home Grid"));
     }
 
 
@@ -109,5 +110,28 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
         }
         Debug.LogError("failure to detect collision");
         return null;
+    }
+
+    public static TextMeshPro CreateWorldText(string text, Transform parent = null, Vector3 globalPosition = default(Vector3), int fontSize = 40, Color? color = null, TextAnchor textAnchor = TextAnchor.UpperLeft, TextAlignmentOptions textAlignment = TextAlignmentOptions.Left, int sortingOrder = 0)
+    {
+        if (color == null) color = Color.white;
+        return CreateWorldText(parent, text, globalPosition, fontSize, (Color)color, textAnchor, textAlignment, sortingOrder);
+    }
+
+    // Create Text in the World
+    public static TextMeshPro CreateWorldText(Transform parent, string text, Vector3 globalPosition, int fontSize, Color color, TextAnchor textAnchor, TextAlignmentOptions textAlignment, int sortingOrder)
+    {
+        GameObject gameObject = new GameObject("World_Text", typeof(TextMeshPro));
+        Transform transform = gameObject.transform;
+        transform.SetParent(parent, false);
+        transform.position = globalPosition;
+        TextMeshPro textMesh = gameObject.GetComponent<TextMeshPro>();
+        //textMesh.textan//anchor = textAnchor;
+       textMesh.alignment = textAlignment;
+        textMesh.text = text;
+        textMesh.fontSize = fontSize;
+        textMesh.color = color;
+        textMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
+        return textMesh;
     }
 }

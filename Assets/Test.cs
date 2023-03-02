@@ -4,11 +4,12 @@ using UnityEditor;
 using UnityEngine;
 
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Test : MonoBehaviour
 {
     private void Start()
     {
+        /*
         print("carryover sprites");
         foreach(Transform child in transform)
         {
@@ -16,6 +17,19 @@ public class Test : MonoBehaviour
             iso.tetrisSprite = child.GetComponent<SpriteRenderer>().sprite;
             EditorUtility.SetDirty(iso);
         }
-        AssetDatabase.SaveAssets();
+        AssetDatabase.SaveAssets();*/
+
+       // Grid testGrid = new Grid(10, 10, 1f, transform.Find("GridTopLeftCorner").transform.position);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GameObject go = WorldUtility.CreateWorldText(""+WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true), null, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true),5,null,TextAnchor.UpperCenter,TMPro.TextAlignmentOptions.Center).gameObject;
+            go.transform.position += new Vector3(0, 0.1f, 0);
+            go.transform.rotation = Quaternion.EulerAngles(45,0,0);
+            print(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+        }
     }
 }
