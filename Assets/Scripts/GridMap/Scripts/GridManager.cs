@@ -8,12 +8,22 @@ public class GridManager : MonoBehaviour
     [SerializeField] Transform bottomLeftCorner;
     [SerializeField] Transform secondBottomLeftCorner;
     [SerializeField] Transform girdMarksContainer;
+    [SerializeField] Sprite testSprite;
+    Transform gridIndication;
+    //float gridIndicationSpeed = 10;
+    //Vector3 NO_GRID_INDICATION = new Vector3(-10, -10, -10);
+    //Vector3 gridIndicationTargetPos;
 
+
+    [SerializeField] bool debuggBuilding = false;
+ 
     class GridObject
     {
+        
         GridMap<GridObject> myGrid;
         private int x;
         private int z;
+        Transform transform = null;
 
         public GridObject(GridMap<GridObject> myGrid, int x, int z)
         {
@@ -25,6 +35,23 @@ public class GridManager : MonoBehaviour
         public override string ToString()
         {
             return "" + x + "," + z;
+        }
+
+        public void SetTransform(Transform newTransform)
+        {
+            transform = newTransform;
+            myGrid.TriggerGridObjectChanged(x, z);
+        }
+
+        public void ClearTransform()
+        {
+            transform = null;
+            myGrid.TriggerGridObjectChanged(x, z);
+        }
+
+        public bool CanBuild()
+        {
+            return transform == null;
         }
     }
 
@@ -42,13 +69,46 @@ public class GridManager : MonoBehaviour
                 GameObject go = WorldUtility.CreateWorldText("" + x + "," + z, girdMarksContainer, grid.GetWorldPosition(x, z), 5, null, TextAnchor.UpperCenter, TMPro.TextAlignmentOptions.Center).gameObject;
                 go.transform.position += new Vector3(0, 0.1f, 0);
                 go.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
+
+                grid.SetValue(x,z, new GridObject(grid,x,z));
+
             }
         }
+
+        gridIndication = transform.Find("GridIndication");
+        gridIndication.localScale = new Vector3(cellSize, gridIndication.localScale.y ,cellSize);
+        gridIndication.gameObject.SetActive(false);
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!debuggBuilding) return;
+
+        if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true))
+        {
+            gridIndication.gameObject.SetActive(false);
+            return;
+        }
+
+        grid.GetXZ(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true), out int x, out int z);
+        gridIndication.gameObject.SetActive(true);
+        gridIndication.position = grid.GetWorldPosition(x, z);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            GridObject gro = grid.GetValue(x, z);
+            if (gro.CanBuild())
+            {
+                GameObject newPlacement = Instantiate(new GameObject("sprite", typeof(SpriteRenderer)), this.transform);
+                newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
+                newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
+                newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+
+                gro.SetTransform(newPlacement.transform);
+            }
+        }
     }
+
 }

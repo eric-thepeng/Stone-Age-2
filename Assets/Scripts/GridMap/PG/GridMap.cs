@@ -20,7 +20,7 @@ public class GridMap<T>
         this.originPosition = origionPosition;
 
         gridArray = new T[width, height];
-        
+
     }
 
     public int GetWidth()
@@ -43,10 +43,17 @@ public class GridMap<T>
         return new Vector3(x, 0, z) * cellSize + originPosition;
     }
 
-    private void GetXZ(Vector3 worldPosition, out int x, out int z)
+    public void GetXZ(Vector3 worldPosition, out int x, out int z)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         z = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);
+    }
+
+    public Vector3 GetWorldPositionFromPosition(Vector3 origionPosition)
+    {
+        int x, z;
+        GetXZ(origionPosition, out x, out z);
+        return GetWorldPosition(x, z);
     }
 
     public void SetValue(int x, int z, T value)
@@ -73,7 +80,7 @@ public class GridMap<T>
         }
         else
         {
-            return default(T);
+            return default(T); //TODO: change this shit
         }
     }
 
@@ -82,5 +89,10 @@ public class GridMap<T>
         int x, z;
         GetXZ(worldPosition, out x, out z);
         return GetValue(x, z);
+    }
+
+    public void TriggerGridObjectChanged(int x, int z)
+    {
+
     }
 }
