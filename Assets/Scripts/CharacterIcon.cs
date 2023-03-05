@@ -20,7 +20,6 @@ public class CharacterIcon : MonoBehaviour
     [SerializeField]
     Color32 homeColor;
 
-    [SerializeField]
     CircularUI circularUI;
 
     bool isGathering = false;
@@ -28,6 +27,11 @@ public class CharacterIcon : MonoBehaviour
     private void Awake()
     {
         character.SetUp(this);
+    }
+
+    private void Start()
+    {
+        circularUI = transform.Find("Circular UI").GetComponent<CircularUI>();
     }
 
     private void Update()
@@ -45,6 +49,7 @@ public class CharacterIcon : MonoBehaviour
                         toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
                         character.StartGather(toExplore, this);
                         isGathering = true;
+                        circularUI.SetCircularUIType(CircularUI.CircularUIType.Gathering);
                         iconState = IconState.Placed;
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
@@ -87,6 +92,7 @@ public class CharacterIcon : MonoBehaviour
     {
         iconState = IconState.Home;
         isGathering = false;
+        circularUI.SetCircularUIType(CircularUI.CircularUIType.Null);
 
         // transform.localPosition = homePosition;
 

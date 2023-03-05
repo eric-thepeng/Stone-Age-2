@@ -29,6 +29,9 @@ public class ExploreSpot : MonoBehaviour
     public ItemScriptableObject[] unlockResource = new ItemScriptableObject[0];
     public string[] unlockResrouceAmount = new string[0];
 
+    // CircularUI
+    CircularUI circularUI;
+
     private void Awake()
     {
         allExploreSpots.Add(spotName, this);
@@ -41,6 +44,8 @@ public class ExploreSpot : MonoBehaviour
 
     private void SetUp()
     {
+        circularUI = transform.Find("Circular UI").GetComponent<CircularUI>();
+
         if (lockState == LockState.UNLOCKED)
         {
             GetComponent<SpriteRenderer>().color = unlockedColor;
@@ -60,6 +65,11 @@ public class ExploreSpot : MonoBehaviour
         }
     }
 
+    public void SetGatheringProgress(float percentage)
+    {
+        circularUI.SetCircularUIPercentage(percentage);
+    }
+
     private void DiscoverAdjacent()
     {
         if (!exploreSpotUnveilDic.ContainsKey(spotName)) return;
@@ -73,11 +83,13 @@ public class ExploreSpot : MonoBehaviour
     public void PlaceCharacter(Sprite sp)
     {
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = sp;
+        circularUI.SetCircularUIType(CircularUI.CircularUIType.Gathering);
     }
 
     public void EndGathering()
     {
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = null;
+        circularUI.SetCircularUIType(CircularUI.CircularUIType.Null);
     }
 
     public string GetDisplayInfo()

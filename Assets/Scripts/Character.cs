@@ -42,7 +42,8 @@ public class Character : MonoBehaviour
             // TODO: update ui
             gatherTimeLeft -= gatherSpeed * Time.deltaTime;
 
-            characterIcon.SetGatheringProgress(100 * (gatherTimeLeft / gatheringSpot.gatherTime));
+            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)));
+            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)));
         }
     }
 

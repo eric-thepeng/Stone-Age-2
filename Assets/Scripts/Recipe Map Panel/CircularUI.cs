@@ -7,17 +7,17 @@ public class CircularUI : MonoBehaviour
     Transform leftHalf;
     Transform rightHalf;
 
+    [SerializeField]
+    [Range(0f, 100f)]
     float percentageValue;
 
-    [SerializeField]
-    Color32 gatheringColor;
-    [SerializeField]
-    Color32 energyColor;
-    [SerializeField]
-    Color32 nullColor;
+    Color32 gatheringColor = new Color32(88, 151, 255, 255);
+    Color32 energyColor = new Color32(88, 255, 96, 255);
+    Color32 nullColor = new Color32(255, 255, 255, 0);
 
     public enum CircularUIType {Gathering, Energy, Null}
-    [SerializeField] CircularUIType circularUIType = CircularUIType.Null;
+    [SerializeField]
+    CircularUIType circularUIType = CircularUIType.Null;
 
     void Start()
     {
@@ -25,18 +25,47 @@ public class CircularUI : MonoBehaviour
 
         rightHalf = transform.Find("Right Half").transform.Find("Sprite Mask");
 
+        CircularUIColorUpdate();
+    }
+    private void Update()
+    {
+        CircularUIUpdate();
+    }
+
+    public void SetCircularUIType(CircularUIType circularUIType)
+    {
+        this.circularUIType = circularUIType;
+
+        CircularUIColorUpdate();
+    }
+
+    public void SetCircularUIPercentage(float percentage)
+    {
+        percentage = Mathf.Clamp(percentage, 0, 100);
+
+        percentageValue = percentage;
+
+        CircularUIUpdate();
+    }
+
+    void CircularUIColorUpdate()
+    {
         if (circularUIType == CircularUIType.Gathering)
         {
-            SetCircularUIColor(gatheringColor);
+            transform.Find("Left Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = gatheringColor;
+            transform.Find("Right Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = gatheringColor;
         }
         else if (circularUIType == CircularUIType.Energy)
         {
-            SetCircularUIColor(energyColor);
+            transform.Find("Left Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = energyColor;
+            transform.Find("Right Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = energyColor;
         }
         else if (circularUIType == CircularUIType.Null)
         {
-            SetCircularUIColor(nullColor);
+            transform.Find("Left Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = nullColor;
+            transform.Find("Right Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = nullColor;
         }
+
     }
 
     void CircularUIUpdate()
@@ -51,20 +80,5 @@ public class CircularUI : MonoBehaviour
             leftHalf.localEulerAngles = new Vector3(0, 0, 0);
             rightHalf.localEulerAngles = new Vector3(0, 0, 180 * (2 - percentageValue / 50));
         }
-    }
-
-    public void SetCircularUIPercentage(float percentage)
-    {
-        percentage = Mathf.Clamp(percentage, 0, 100);
-
-        percentageValue = percentage;
-
-        CircularUIUpdate();
-    }
-
-    public void SetCircularUIColor(Color32 Color)
-    {
-        transform.Find("Left Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = Color;
-        transform.Find("Right Half").transform.Find("Ring").GetComponent<SpriteRenderer>().color = Color;
     }
 }
