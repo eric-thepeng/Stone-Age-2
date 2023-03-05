@@ -12,11 +12,13 @@ public class Character : MonoBehaviour
     CharacterState state = CharacterState.Idle;
 
     ExploreSpot gatheringSpot;
+    CharacterIcon characterIcon;
     float gatherTimeLeft;
     CharacterIcon myCI;
 
     void Start()
     {
+
         currentEnergy = maxEnergy;
     }
 
@@ -29,7 +31,7 @@ public class Character : MonoBehaviour
                 gatheringSpot.EndGathering();
                 state = CharacterState.Idle;
                 currentEnergy = maxEnergy;
-                myCI.ResetHome();
+                myCI.ResetHome();   
             }
             if(gatherTimeLeft <= 0)
             {
@@ -39,7 +41,14 @@ public class Character : MonoBehaviour
             }
             // TODO: update ui
             gatherTimeLeft -= gatherSpeed * Time.deltaTime;
+
+            characterIcon.SetGatheringProgress(100 * (gatherTimeLeft / gatheringSpot.gatherTime));
         }
+    }
+
+    public void SetUp(CharacterIcon ci)
+    {
+        characterIcon = ci;
     }
 
     public void StartGather(ExploreSpot es, CharacterIcon ci)
