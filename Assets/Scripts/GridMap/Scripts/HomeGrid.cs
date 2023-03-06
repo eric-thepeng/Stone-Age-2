@@ -9,6 +9,10 @@ public class HomeGrid : MonoBehaviour
     [SerializeField] Transform secondBottomLeftCorner;
     [SerializeField] Transform girdMarksContainer;
     [SerializeField] Sprite testSprite;
+
+    [SerializeField] Material emptyMaterial;
+    [SerializeField] Material occupiedMaterial;
+
     Transform gridIndication;
 
     //float gridIndicationSpeed = 10;
@@ -100,6 +104,7 @@ public class HomeGrid : MonoBehaviour
             GridObject gro = grid.GetValue(x, z);
             if (gro.CanBuild())
             {
+                //gridIndication.GetComponentInChildren<MeshRenderer>().materials[0] = emptyMaterial;
                 GameObject newPlacement = Instantiate(new GameObject("sprite", typeof(SpriteRenderer)), this.transform);
                 newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
                 newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
@@ -109,6 +114,8 @@ public class HomeGrid : MonoBehaviour
             }
             else
             {
+                //gridIndication.GetComponentInChildren<MeshRenderer>().materials = new Material[]{ occupiedMaterial};
+
             }
         }
     }
