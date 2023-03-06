@@ -58,13 +58,13 @@ public class RecipeMapBlock : MonoBehaviour
 
         FindAdjacentBlocks();
 
-        unlockedColor = RecipeMapManager.instance.unlockedColor;
-        lockedColor = RecipeMapManager.instance.lockedColor;
-        unknownColor = RecipeMapManager.instance.unknownColor;
-        unlockedPathColor = RecipeMapManager.instance.unlockedPathColor;
-        lockedPathColor = RecipeMapManager.instance.lockedPathColor;
-        unknownPathColor = RecipeMapManager.instance.unknownPathColor;
-        backgroundColor = RecipeMapManager.instance.backgroundColor;
+        unlockedColor = RecipeMapManager.i.unlockedColor;
+        lockedColor = RecipeMapManager.i.lockedColor;
+        unknownColor = RecipeMapManager.i.unknownColor;
+        unlockedPathColor = RecipeMapManager.i.unlockedPathColor;
+        lockedPathColor = RecipeMapManager.i.lockedPathColor;
+        unknownPathColor = RecipeMapManager.i.unknownPathColor;
+        backgroundColor = RecipeMapManager.i.backgroundColor;
 
         LevelTextUpdate();
         ColorUpdate();
@@ -75,7 +75,7 @@ public class RecipeMapBlock : MonoBehaviour
         // Show Tooltip
         if (Input.GetMouseButtonDown(0) && state != State.Unknown)
         {
-            RecipeMapManager.instance.DisplayRecipe(this);
+            RecipeMapManager.i.DisplayRecipe(this);
         }
 
         

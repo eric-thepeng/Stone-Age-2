@@ -360,7 +360,7 @@ public class Tetris : DragInventoryItem
         CraftingManager.i.CreateTetris(product, this.transform.position, CraftingManager.CreateFrom.MERGE);
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
-        RecipeMapManager.instance.CheckUnlock(product);
+        RecipeMapManager.i.CheckUnlock(product);
 
         foreach (Tetris t in rc.getPastTetris())
         {
