@@ -41,23 +41,17 @@ public class CraftingManager : SerializedMonoBehaviour
         }
     }
 
-    private void Update()
+    public void OpenPanel()
     {
-        //print(WorldUtility.GetMouseHitPoint());
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (panelOpen)
-            {
-                StartCoroutine(ClosePanel());
-            }
-            else
-            {
-                StartCoroutine(OpenPanel());
-            }
-        }
+        StartCoroutine(OpenPanelCor());
     }
 
-    IEnumerator OpenPanel()
+    public void ClosePanel()
+    {
+        StartCoroutine(ClosePanelCor());
+    }
+
+    IEnumerator OpenPanelCor()
     {
         panelOpen = true;
         UI_InventoryPanel.i.OpenPanel();
@@ -70,7 +64,7 @@ public class CraftingManager : SerializedMonoBehaviour
         }
     }
 
-    IEnumerator ClosePanel()
+    IEnumerator ClosePanelCor()
     {
         panelOpen = false;
         UI_InventoryPanel.i.ClosePanel();

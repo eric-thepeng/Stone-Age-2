@@ -16,7 +16,7 @@ public static class PlayerState
         }
         else if (state == State.Crafting)
         {
-
+            CraftingManager.i.ClosePanel();
         }
         else if (state == State.Recipe)
         {
@@ -37,6 +37,7 @@ public static class PlayerState
         else if (enterState == State.Crafting)
         {
             ChangeInventoryPanel(true);
+            CraftingManager.i.OpenPanel();
         }
         else if (enterState == State.Recipe)
         {
@@ -75,12 +76,12 @@ public static class PlayerState
 
     public static void OpenCloseCraftingPanel()
     {
-        if(state == State.Crafting)
+        if(state == State.Crafting) //close
         {
             ExitState();
             EnterState(State.Browsing);
         }
-        else
+        else //open
         {
             ExitState();
             EnterState(State.Crafting);
