@@ -32,6 +32,7 @@ public class UI_InventoryPanel : MonoBehaviour
     private void Update()
     {
         //print(WorldUtility.GetMouseHitPoint());
+        /*
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             if (panelOpen)
@@ -42,7 +43,7 @@ public class UI_InventoryPanel : MonoBehaviour
             {
                 StartCoroutine(OpenPanelCor());
             }
-        }
+        }*/
     }
 
     IEnumerator OpenPanelCor()

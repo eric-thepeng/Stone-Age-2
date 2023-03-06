@@ -5,8 +5,8 @@ using UnityEngine;
 public static class PlayerState
 {
     public enum State { Browsing, Crafting, Recipe, Building }
-    static private State state;
-    static private bool inventoryPanelOpen;
+    static private State state = State.Browsing;
+    static private bool inventoryPanelOpen = false;
 
     public static void ExitState()
     {
@@ -55,6 +55,15 @@ public static class PlayerState
     static void ChangeInventoryPanel(bool changeTo)
     {
         //TODO: change inventory panel
+        if (changeTo == inventoryPanelOpen) return;
+        if (changeTo)
+        {
+            UI_InventoryPanel.i.OpenPanel();
+        }
+        else
+        {
+            UI_InventoryPanel.i.ClosePanel();
+        }
         inventoryPanelOpen = changeTo;
     }
 
