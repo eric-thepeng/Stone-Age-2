@@ -30,7 +30,8 @@ public class ExploreSpot : MonoBehaviour
     public string[] unlockResrouceAmount = new string[0];
 
     // CircularUI
-    CircularUI circularUI;
+    public CircularUI gatherCircularUI;
+    public CircularUI energyCircularUI;
 
     private void Awake()
     {
@@ -44,7 +45,8 @@ public class ExploreSpot : MonoBehaviour
 
     private void SetUp()
     {
-        circularUI = transform.Find("Circular UI").GetComponent<CircularUI>();
+        gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
+        energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
 
         if (lockState == LockState.UNLOCKED)
         {
@@ -65,9 +67,16 @@ public class ExploreSpot : MonoBehaviour
         }
     }
 
-    public void SetGatheringProgress(float percentage)
+    public void SetGatheringProgress(float gatherPercentage, float energyPercentage, bool isLerp)
     {
-        circularUI.SetCircularUIPercentage(percentage);
+        gatherCircularUI.SetCircularUIPercentage(gatherPercentage, false);
+        energyCircularUI.SetCircularUIPercentage(energyPercentage, isLerp);
+    }
+
+    public void SetCircularUIState(CircularUI.CircularUIState circularUIState)
+    {
+        gatherCircularUI.SetCircularUIState(circularUIState);
+        energyCircularUI.SetCircularUIState(circularUIState);
     }
 
     private void DiscoverAdjacent()
@@ -83,13 +92,11 @@ public class ExploreSpot : MonoBehaviour
     public void PlaceCharacter(Sprite sp)
     {
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = sp;
-        circularUI.SetCircularUIType(CircularUI.CircularUIType.Gathering);
     }
 
     public void EndGathering()
     {
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = null;
-        circularUI.SetCircularUIType(CircularUI.CircularUIType.Null);
     }
 
     public string GetDisplayInfo()

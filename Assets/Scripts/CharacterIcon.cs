@@ -20,7 +20,8 @@ public class CharacterIcon : MonoBehaviour
     [SerializeField]
     Color32 homeColor;
 
-    CircularUI circularUI;
+    public CircularUI gatherCircularUI;
+    public CircularUI energyCircularUI;
 
     bool isGathering = false;
 
@@ -31,7 +32,8 @@ public class CharacterIcon : MonoBehaviour
 
     private void Start()
     {
-        circularUI = transform.Find("Circular UI").GetComponent<CircularUI>();
+        gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
+        energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
     }
 
     private void Update()
@@ -49,7 +51,6 @@ public class CharacterIcon : MonoBehaviour
                         toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
                         character.StartGather(toExplore, this);
                         isGathering = true;
-                        circularUI.SetCircularUIType(CircularUI.CircularUIType.Gathering);
                         iconState = IconState.Placed;
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
@@ -71,9 +72,16 @@ public class CharacterIcon : MonoBehaviour
         }
     }
 
-    public void SetGatheringProgress(float percentage)
+    public void SetGatheringProgress(float gatherPercentage, float energyPercentage, bool isLerp)
     {
-        circularUI.SetCircularUIPercentage(percentage);
+        gatherCircularUI.SetCircularUIPercentage(gatherPercentage, false);
+        energyCircularUI.SetCircularUIPercentage(energyPercentage, isLerp);
+    }
+
+    public void SetCircularUIState(CircularUI.CircularUIState circularUIState)
+    {
+        gatherCircularUI.SetCircularUIState(circularUIState);
+        energyCircularUI.SetCircularUIState(circularUIState);
     }
 
     private void OnMouseDown() // HOME -> DRAGGING
@@ -92,7 +100,6 @@ public class CharacterIcon : MonoBehaviour
     {
         iconState = IconState.Home;
         isGathering = false;
-        circularUI.SetCircularUIType(CircularUI.CircularUIType.Null);
 
         // transform.localPosition = homePosition;
 

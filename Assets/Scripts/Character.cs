@@ -28,10 +28,11 @@ public class Character : MonoBehaviour
         {
             if(currentEnergy == 0)
             {
-                gatheringSpot.EndGathering();
-                state = CharacterState.Idle;
-                currentEnergy = maxEnergy;
-                myCI.ResetHome();   
+                EndGather();
+                //gatheringSpot.EndGathering();
+                //state = CharacterState.Idle;
+                //currentEnergy = maxEnergy;
+                //myCI.ResetHome();   
             }
             if(gatherTimeLeft <= 0)
             {
@@ -39,11 +40,11 @@ public class Character : MonoBehaviour
                 currentEnergy--;
                 gatherTimeLeft = gatheringSpot.gatherTime;
             }
-            // TODO: update ui
+            //update ui
             gatherTimeLeft -= gatherSpeed * Time.deltaTime;
 
-            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)));
-            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)));
+            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), true);
+            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), true);
         }
     }
 
@@ -59,6 +60,29 @@ public class Character : MonoBehaviour
 
         state = CharacterState.Gather;
         myCI = ci;
+
+        characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), false);
+        gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), false);
+        SetCircularUIState(CircularUI.CircularUIState.Display);
+    }
+
+    void EndGather()
+    {
+        SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
+
+        gatheringSpot.EndGathering();
+        state = CharacterState.Idle;
+        currentEnergy = maxEnergy;
+        myCI.ResetHome();
+    }
+
+    void SetCircularUIState(CircularUI.CircularUIState circularUIState)
+    {
+        gatheringSpot.SetCircularUIState(circularUIState);
+        gatheringSpot.SetCircularUIState(circularUIState);
+
+        characterIcon.SetCircularUIState(circularUIState);
+        characterIcon.SetCircularUIState(circularUIState);
     }
 
     public void YieldResource()

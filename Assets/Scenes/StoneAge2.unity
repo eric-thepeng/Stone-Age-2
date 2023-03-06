@@ -827,6 +827,8 @@ MonoBehaviour:
   homeColor:
     serializedVersion: 2
     rgba: 0
+  gatherCircularUI: {fileID: 0}
+  energyCircularUI: {fileID: 0}
 --- !u!135 &94460305
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -917,7 +919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98750549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.84, y: 3.57, z: 30}
+  m_LocalPosition: {x: -6.7030044, y: 3.5700006, z: 30.000002}
   m_LocalScale: {x: 0.67, y: 0.67, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3387,7 +3389,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &300133764
+--- !u!1001 &297089201
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -3396,19 +3398,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.215
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.215
       objectReference: {fileID: 0}
     - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.025
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.009
       objectReference: {fileID: 0}
     - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3440,7 +3450,88 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8904484908322836798, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
       propertyPath: m_Name
-      value: Circular UI
+      value: Energy Circular UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836799, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: sortOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836799, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4284546904
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+--- !u!1001 &300133764
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 890501680}
+    m_Modifications:
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.165
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.009
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99999547
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000029802319
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0021350791
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0021088638
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836798, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836799, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904484908322836799, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
@@ -4036,6 +4127,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 44
@@ -9623,6 +9726,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: percentageValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 31
@@ -11564,11 +11683,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890501679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.84, y: 3.57, z: 30}
+  m_LocalPosition: {x: -6.703, y: 3.57, z: 30}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 300133765}
+  - {fileID: 1894433915}
   m_Father: {fileID: 1142394309}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11656,6 +11776,8 @@ MonoBehaviour:
   homeColor:
     serializedVersion: 2
     rgba: 4294967295
+  gatherCircularUI: {fileID: 0}
+  energyCircularUI: {fileID: 0}
 --- !u!1 &891455887
 GameObject:
   m_ObjectHideFlags: 0
@@ -14262,6 +14384,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 43
@@ -14579,6 +14713,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 41
@@ -20353,6 +20499,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 42
@@ -23209,6 +23367,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &1894433915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8904484908322836792, guid: 7cbaa6b5bfce54866b7320792cfdf91e, type: 3}
+  m_PrefabInstance: {fileID: 297089201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1899475892
 GameObject:
   m_ObjectHideFlags: 0
@@ -23535,6 +23698,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 23
@@ -27153,6 +27328,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 397355181}
     m_Modifications:
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: sortOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661194, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: displayColor.rgba
+      value: 4294940504
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661195, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_Name
+      value: Gathering Circular UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661197, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661197, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373357174661197, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.004
+      objectReference: {fileID: 0}
     - target: {fileID: 3024378574974127859, guid: 42bc1d315dcd433428a60b48857d476a, type: 3}
       propertyPath: m_Name
       value: 11
