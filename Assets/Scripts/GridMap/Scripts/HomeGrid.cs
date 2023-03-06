@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class HomeGrid : MonoBehaviour
 {
     private GridMap<GridObject> grid;
     [SerializeField] Transform bottomLeftCorner;
@@ -10,13 +10,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] Transform girdMarksContainer;
     [SerializeField] Sprite testSprite;
     Transform gridIndication;
+
     //float gridIndicationSpeed = 10;
     //Vector3 NO_GRID_INDICATION = new Vector3(-10, -10, -10);
     //Vector3 gridIndicationTargetPos;
 
-
-    [SerializeField] bool debuggBuilding = false;
- 
     class GridObject
     {
         
@@ -24,7 +22,6 @@ public class GridManager : MonoBehaviour
         private int x;
         private int z;
         Transform transform = null;
-
         public GridObject(GridMap<GridObject> myGrid, int x, int z)
         {
             this.myGrid = myGrid;
@@ -78,15 +75,17 @@ public class GridManager : MonoBehaviour
         gridIndication = transform.Find("GridIndication");
         gridIndication.localScale = new Vector3(cellSize, gridIndication.localScale.y ,cellSize);
         gridIndication.gameObject.SetActive(false);
+        HideGridLines();
+        BuildingManager.i.AddHomeGrid(this);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (!debuggBuilding) return;
+        if (!BuildingManager.i.building) return;
 
-        if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true))
+        if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true)) //hide indicator if mouse is not on grid
         {
             gridIndication.gameObject.SetActive(false);
             return;
@@ -108,7 +107,20 @@ public class GridManager : MonoBehaviour
 
                 gro.SetTransform(newPlacement.transform);
             }
+            else
+            {
+            }
         }
+    }
+
+    public void ShowGridLines()
+    {
+        girdMarksContainer.gameObject.SetActive(true);
+    }
+
+    public void HideGridLines()
+    {
+        girdMarksContainer.gameObject.SetActive(false);
     }
 
 }

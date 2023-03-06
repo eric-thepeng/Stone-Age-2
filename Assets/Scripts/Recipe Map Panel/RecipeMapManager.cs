@@ -16,7 +16,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     //public RecipeBlockSO[,] theTable;
 
     // Singleton
-    public static RecipeMapManager instance;
+    public static RecipeMapManager i;
 
     // Viewer
     GameObject RecipeViewer;
@@ -38,9 +38,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
     // Singleton
     void Awake()
     {
-        if (instance == null)
+        if (i == null)
         {
-            instance = this;
+            i = this;
         }
         else
         {
@@ -64,18 +64,19 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Hit the R key");
             if (panelOpen)
             {
-                StartCoroutine(ClosePanel());
+                StartCoroutine(ClosePanelCor());
             }
             else
             {
-                StartCoroutine(OpenPanel());
+                StartCoroutine(OpenPanelCor());
             }
-        }
+        }*/
 
         if (RecipeViewer.activeSelf)
         {
@@ -180,7 +181,17 @@ public class RecipeMapManager : SerializedMonoBehaviour
         PanelTransform.localPosition = ClosePanelTransform.localPosition;
     }
 
-    IEnumerator OpenPanel()
+    public void OpenPanel()
+    {
+        StartCoroutine(OpenPanelCor());
+    }
+
+    public void ClosePanel()
+    {
+        StartCoroutine(ClosePanelCor());
+    }
+
+    IEnumerator OpenPanelCor()
     {
         MoveToMiddle();
         panelOpen = true;
@@ -193,7 +204,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
     }
 
-    IEnumerator ClosePanel()
+    IEnumerator ClosePanelCor()
     {
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;

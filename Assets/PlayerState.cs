@@ -20,11 +20,11 @@ public static class PlayerState
         }
         else if (state == State.Recipe)
         {
-
+            RecipeMapManager.i.ClosePanel();
         }
         else if (state == State.Building)
         {
-
+            BuildingManager.i.CloseBuilding();
         }
     }
 
@@ -42,10 +42,12 @@ public static class PlayerState
         else if (enterState == State.Recipe)
         {
             ChangeInventoryPanel(false);
+            RecipeMapManager.i.OpenPanel();
         }
         else if (enterState == State.Building)
         {
             ChangeInventoryPanel(true);
+            BuildingManager.i.OpenBuilding();
         }
 
         state = enterState;
