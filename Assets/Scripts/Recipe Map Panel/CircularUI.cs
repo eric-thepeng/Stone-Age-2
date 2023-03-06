@@ -59,7 +59,7 @@ public class CircularUI : MonoBehaviour
 
         if (isLerp)
         {
-            currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.05f);
+            currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.15f);
         }
         else 
         {
