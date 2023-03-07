@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UI_Harvest : MonoBehaviour
 {
@@ -21,18 +22,24 @@ public class UI_Harvest : MonoBehaviour
     {
         ItemScriptableObject iso;
         int amount;
-        float disappearTime = 3;
-        float disappearTimeLeft = 3f;
+        GameObject displayGO;
+        float disappearTime = 5;
+        float disappearTimeLeft = 5f;
 
-        public HarvestInfo(ItemScriptableObject newIso, int initialAmount)
+        public HarvestInfo(ItemScriptableObject newIso, int initialAmount, GameObject go)
         {
             iso = newIso;
             amount = initialAmount;
+            displayGO = go;
+            go.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
+            go.transform.Find("Text").GetComponent<TextMeshPro>().text = iso.name + " + " + amount;
         }
 
         public void AddAmount(int am)
         {
+            ResetTime();
             amount += am;
+            displayGO.transform.Find("Text").GetComponent<TextMeshPro>().text = DisplayText();
         }
 
         public void ResetTime()
@@ -43,7 +50,7 @@ public class UI_Harvest : MonoBehaviour
         public bool SpendTime(float delta)
         {
             disappearTimeLeft -= delta;
-            if (disappearTime < 0) return false;
+            if (disappearTimeLeft < 0) return false;
             return true;
         }
 
@@ -52,13 +59,25 @@ public class UI_Harvest : MonoBehaviour
             return iso == checkIso;
         }
 
+        public string DisplayText()
+        {
+            return iso.name + " + " + amount;
+        }
+
+        public void DestroyDisplay()
+        {
+            Destroy(displayGO);
+        }
+
     }
 
     List<HarvestInfo> harvestInfoList = new List<HarvestInfo>();
+    [SerializeField] GameObject uiTemplate;
 
     public void AddItem(ItemScriptableObject iso, int amount)
     {
-        foreach(HarvestInfo hi in harvestInfoList)
+        print(harvestInfoList);
+        foreach(HarvestInfo hi in harvestInfoList) //add amount
         {
             if (hi.IsISO(iso))
             {
@@ -66,7 +85,12 @@ public class UI_Harvest : MonoBehaviour
                 return;
             }
         }
-        harvestInfoList.Add(new HarvestInfo(iso, amount));
+        //create new
+        GameObject newDisplayGO = Instantiate(uiTemplate,this.transform);
+        harvestInfoList.Add(new HarvestInfo(iso, amount, newDisplayGO));
+        newDisplayGO.SetActive(true);
+        newDisplayGO.transform.position += new Vector3(0, -0.5f, 0) * harvestInfoList.Count;
+
     }
 
     private void Update()
@@ -75,6 +99,7 @@ public class UI_Harvest : MonoBehaviour
         {
             if(harvestInfoList[i].SpendTime(Time.deltaTime) == false)
             {
+                harvestInfoList[i].DestroyDisplay();
                 harvestInfoList.Remove(harvestInfoList[i]);
             }
         }

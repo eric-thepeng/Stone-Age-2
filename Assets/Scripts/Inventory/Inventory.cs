@@ -46,8 +46,8 @@ public class Inventory : MonoBehaviour
 
     public void AddInventoryItem(ItemScriptableObject newISO)
     {
-        
-        foreach(ItemInfo ii in CategoryToList(newISO.category))
+        UI_Harvest.i.AddItem(newISO, 1);
+        foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
             if (ii.iso == newISO)
             {
