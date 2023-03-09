@@ -26,12 +26,15 @@ public class ExploreSpot : MonoBehaviour
     public Color32 cannotUnlockColor;
 
     public int unlockSpiritPoint = 0 ;
+    // The 
     public ItemScriptableObject[] unlockResource = new ItemScriptableObject[0];
-    public string[] unlockResrouceAmount = new string[0];
+    public int[] unlockResrouceAmount = new int[0];
 
     // CircularUI
     public CircularUI gatherCircularUI;
     public CircularUI energyCircularUI;
+
+    ExploreSpotIndicator myExploreSpotIndicator;
 
     private void Awake()
     {
@@ -64,6 +67,14 @@ public class ExploreSpot : MonoBehaviour
         foreach (int i in weight)
         {
             totalWeight += i;
+        }
+
+        // Set up resource indicator
+        myExploreSpotIndicator = transform.Find("Explore Spot Indicator").GetComponent<ExploreSpotIndicator>();
+        myExploreSpotIndicator.PassInResourceInfo(resource, weight, totalWeight, spiritPoint);
+        if (lockState == LockState.UNLOCKED)
+        {
+            myExploreSpotIndicator.CreatResourceIndicator();
         }
     }
 
@@ -133,6 +144,9 @@ public class ExploreSpot : MonoBehaviour
     {
         if(newLockState == LockState.UNLOCKED)
         {
+            // A temp code here to set the resource indicator up after this spot being unlock;
+            myExploreSpotIndicator.CreatResourceIndicator();
+
             if (lockState == LockState.UNLOCKED) { Debug.LogError("This Explore Spot is already UNLOCKED"); return; }
             if (lockState == LockState.CANNOT_UNLOCK) { Debug.LogError("This Explore Spot is still CANNOT_UNLOCK"); return; }
             lockState = LockState.UNLOCKED;
