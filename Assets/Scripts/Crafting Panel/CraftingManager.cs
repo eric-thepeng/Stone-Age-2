@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine.Events;
 
 public class CraftingManager : SerializedMonoBehaviour
 {
@@ -191,6 +192,19 @@ public class CraftingManager : SerializedMonoBehaviour
     public bool isPanelOpen()
     {
         return panelOpen;
+    }
+
+    public GameObject CreateMergeWindow(Tetris.RecipeCombiator rc)
+    {
+        rc.CentralPosition();
+        Transform tf = transform.Find("Crafting Panel").Find("Merge Windows");
+        GameObject newWindow = Instantiate(tf.Find("Merge Window Template").gameObject, tf);
+        newWindow.SetActive(true);
+        newWindow.transform.position = rc.CentralPosition();
+        UnityEvent newEvent = new UnityEvent();
+        newEvent.AddListener(rc.Merge);
+        newWindow.transform.Find("Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(newEvent);
+        return newWindow;
     }
 
 }

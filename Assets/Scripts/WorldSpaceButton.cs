@@ -68,4 +68,9 @@ public class WorldSpaceButton : MonoBehaviour
         afterClick();
         clickEvent.Invoke();
     }
+
+    public void SetClickEvent(UnityEvent newEvent)
+    {
+        clickEvent = newEvent;
+    }
 }
