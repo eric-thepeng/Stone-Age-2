@@ -198,12 +198,16 @@ public class CraftingManager : SerializedMonoBehaviour
     {
         rc.CentralPosition();
         Transform tf = transform.Find("Crafting Panel").Find("Merge Windows");
+
         GameObject newWindow = Instantiate(tf.Find("Merge Window Template").gameObject, tf);
         newWindow.SetActive(true);
         newWindow.transform.position = rc.CentralPosition();
         UnityEvent newEvent = new UnityEvent();
         newEvent.AddListener(rc.Merge);
         newWindow.transform.Find("Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(newEvent);
+
+        newWindow.transform.Find("Preview").GetComponent<SpriteRenderer>().sprite = rc.GetMergeISO().iconSprite;
+
         return newWindow;
     }
 

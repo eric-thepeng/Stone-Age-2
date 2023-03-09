@@ -42,6 +42,9 @@ public class Tetris : DragInventoryItem
 
     public RecipeCombiator myRC;
 
+    //----------------------------- START OF RC -------------------------------------//
+
+
     //The class that is passed on during recursive search to combine all the Tetris together and form a recipe
     public class RecipeCombiator
     {
@@ -51,7 +54,6 @@ public class Tetris : DragInventoryItem
         ItemScriptableObject mergeISO;
         GameObject mergeWindow;
 
-        //----------------------------- START OF RC -------------------------------------//
 
         public RecipeCombiator(Tetris oT)
         {
@@ -348,7 +350,7 @@ public class Tetris : DragInventoryItem
         //GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
         //CraftingManager.i.AddToAllTetris(newTetris);
 
-        CraftingManager.i.CreateTetris(product, this.transform.position, CraftingManager.CreateFrom.MERGE);
+        CraftingManager.i.CreateTetris(product, rc.CentralPosition(), CraftingManager.CreateFrom.MERGE);
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
         RecipeMapManager.i.CheckUnlock(product);
