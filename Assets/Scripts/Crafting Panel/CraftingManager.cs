@@ -207,6 +207,7 @@ public class CraftingManager : SerializedMonoBehaviour
         newWindow.transform.Find("Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(newEvent);
 
         newWindow.transform.Find("Preview").GetComponent<SpriteRenderer>().sprite = rc.GetMergeISO().iconSprite;
+        newWindow.transform.Find("Preview Name").GetComponent<TextMeshPro>().text = rc.GetMergeISO().tetrisHoverName;
 
         return newWindow;
     }

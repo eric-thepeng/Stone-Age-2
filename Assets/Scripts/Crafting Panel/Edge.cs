@@ -107,5 +107,31 @@ public class Edge : MonoBehaviour
         if (one == facing.Right && two == facing.Left) return true;
         return false;
     }
+
+    /// <summary>
+    /// Call when rotate tetris
+    /// </summary>
+    /// <param name="direction"> 1 is clockwise, -1 is counter clockwise</param>
+    public void Rotate(int direction)
+    {
+        if(direction == 1)
+        {
+            if (myFacing == facing.Left) myFacing = facing.Up;
+            else if (myFacing == facing.Down) myFacing = facing.Left;
+            else if (myFacing == facing.Right) myFacing = facing.Down;
+            else if (myFacing == facing.Up) myFacing = facing.Right;
+        }
+        else if(direction == -1)
+        {
+            if (myFacing == facing.Left) myFacing = facing.Down;
+            else if (myFacing == facing.Down) myFacing = facing.Right;
+            else if (myFacing == facing.Right) myFacing = facing.Up;
+            else if (myFacing == facing.Up) myFacing = facing.Left;
+        }
+        else
+        {
+            Debug.LogError("Edge Rotate More Than Once");
+        }
+    }
     
 }

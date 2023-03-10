@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 /*
  * ItemScriptableObject represents the grid formulation of a single Tetris Game Obejct. It is a template for
 */
@@ -17,8 +16,8 @@ public class ItemScriptableObject : SerializedScriptableObject
     public List<Recipe> allRecipes = new List<Recipe>();
     public Sprite tetrisSprite;
     public Sprite iconSprite;
-    public enum Category { RawMaterial, CraftMaterial, Food, Furniture, Object, Tool }
-    public Category category;
+    public enum Category { Regular, Building }
+    public Category category = Category.Regular;
 
     public List<KeyValuePair<Vector2, ScriptableObject>> FormationRecipeCoord
     {
