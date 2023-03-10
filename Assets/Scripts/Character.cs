@@ -98,6 +98,10 @@ public class Character : MonoBehaviour
             if (roll < weightCount)
             {
                 Inventory.i.AddInventoryItem(gatheringSpot.resource[i]);
+
+                // Worldspace Harvest Floating Indicator/        position, item, item number
+                HarvestIndicationWorldspace.i.CreateText(gatheringSpot.gameObject.transform.position, gatheringSpot.resource[i], 1);
+
                 //print("Obtain 1 " + gatheringSpot.resource[i]);
                 return;
             }
