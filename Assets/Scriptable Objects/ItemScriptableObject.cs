@@ -79,4 +79,10 @@ public class ItemScriptableObject : SerializedScriptableObject
             return false;
         }
     }
+
+    public Dictionary<ItemScriptableObject, int> GetIngredients()
+    {
+        Dictionary<ItemScriptableObject, int> ingredients = new Dictionary<ItemScriptableObject, int>();
+        return ingredients;
+    }
 }
