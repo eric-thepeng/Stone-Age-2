@@ -36,6 +36,8 @@ public class ExploreSpot : MonoBehaviour
 
     ExploreSpotIndicator myExploreSpotIndicator;
 
+    ExploreSpotUnlock myExploreSpotUnlock;
+
     private void Awake()
     {
         allExploreSpots.Add(spotName, this);
@@ -72,9 +74,17 @@ public class ExploreSpot : MonoBehaviour
         // Set up resource indicator
         myExploreSpotIndicator = transform.Find("Explore Spot Indicator").GetComponent<ExploreSpotIndicator>();
         myExploreSpotIndicator.PassInResourceInfo(resource, weight, totalWeight, spiritPoint);
-        if (lockState == LockState.UNLOCKED)
+        if (isUnlocked())
         {
             myExploreSpotIndicator.CreatResourceIndicator();
+        }
+
+        // Set up unlock panel
+        myExploreSpotUnlock = transform.Find("Explore Spot Unlock").GetComponent<ExploreSpotUnlock>();
+        myExploreSpotUnlock.PassInResourceInfo(unlockResource, unlockResrouceAmount, unlockSpiritPoint);
+        if (isCanUnlock())
+        {
+            myExploreSpotUnlock.CreatResourceIndicator();
         }
     }
 
@@ -97,6 +107,8 @@ public class ExploreSpot : MonoBehaviour
         {
             if (!allExploreSpots.ContainsKey(esName)) continue;
             allExploreSpots[esName].SetLockState(LockState.CAN_UNLOCK);
+
+            allExploreSpots[esName].SetUnlockPanel(true);
         }
     }
 
@@ -167,7 +179,20 @@ public class ExploreSpot : MonoBehaviour
 
     public void SpotUnlock()
     {
-        SetLockState(LockState.UNLOCKED);
+        if (SpiritPoint.i.Use(unlockSpiritPoint) == true)
+        {
+            SetLockState(LockState.UNLOCKED);
+            SetUnlockPanel(false);
+        }
+        else
+        {
+            Debug.Log("Do not have enough resource");
+        }
+    }
+
+    public void SetUnlockPanel(bool OnOff)
+    {
+        myExploreSpotUnlock.gameObject.SetActive(OnOff);
     }
 
     public bool isUnlocked() { return lockState == LockState.UNLOCKED; }

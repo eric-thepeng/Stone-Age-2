@@ -42,7 +42,7 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                MouseManager.mouseState = MouseManager.MouseState.Browsing;
+                MouseManager.i.IsState(MouseManager.MouseState.Browsing);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
@@ -88,7 +88,7 @@ public class CharacterIcon : MonoBehaviour
     {
         if (!isGathering)
         {
-            MouseManager.mouseState = MouseManager.MouseState.DraggingCharacterIcon;
+            MouseManager.i.IsState(MouseManager.MouseState.DraggingCharacterIcon);
             homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
 
