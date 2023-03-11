@@ -165,6 +165,11 @@ public class ExploreSpot : MonoBehaviour
         SetUp();
     }
 
+    public void SpotUnlock()
+    {
+        SetLockState(LockState.UNLOCKED);
+    }
+
     public bool isUnlocked() { return lockState == LockState.UNLOCKED; }
     public bool isCanUnlock() { return lockState == LockState.CAN_UNLOCK; }
     public bool isCannotUnlock() { return lockState == LockState.CANNOT_UNLOCK; }

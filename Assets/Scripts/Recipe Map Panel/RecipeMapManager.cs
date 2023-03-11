@@ -30,7 +30,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public Color32 unlockedPathColor;
     public Color32 lockedPathColor;
     public Color32 unknownPathColor;
-    public Color32 backgroundColor;
+    public Color32 unlockedBackgroundColor;
+    public Color32 lockedBackgroundColor;
 
     // All Blocks
     public List<RecipeMapBlock> allBlocks = new List<RecipeMapBlock>();
