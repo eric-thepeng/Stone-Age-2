@@ -39,14 +39,14 @@ public class UI_InventoryBlock : MonoBehaviour
     public void SetUpDisplay(Inventory.ItemInfo ii)
     {
         itemInfo = ii;
-        displayAmount = ii.displayAmount;
+        displayAmount = ii.inStockAmount;
 
         //display shit
         itemSprite.gameObject.SetActive(true);
         displayNumber.gameObject.SetActive(true);
         numberBackground.gameObject.SetActive(true);
         itemSprite.sprite = itemInfo.iso.iconSprite;
-        displayNumber.text = "" + ii.displayAmount;
+        displayNumber.text = "" + ii.inStockAmount;
 
     }
 

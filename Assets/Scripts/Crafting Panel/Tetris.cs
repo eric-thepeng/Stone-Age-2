@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Tetris : DragInventoryItem
 {
@@ -222,16 +223,30 @@ public class Tetris : DragInventoryItem
 
         public void Merge()
         {
-            if (true) //merge from inventory
+            bool mergeFromInventory = true;
+            foreach(KeyValuePair<ItemScriptableObject,int> kvp in GetIngredients())
             {
-                
+                if (Inventory.i.ItemInStockAmount(kvp.Key) < kvp.Value) mergeFromInventory = false;
+            }
+            if (mergeFromInventory) //merge from inventory
+            {
+                foreach (KeyValuePair<ItemScriptableObject, int> kvp in GetIngredients())
+                {
+                    for(int i = kvp.Value; i>0;i--)
+                    {
+                        Inventory.i.UseItemFromStock(kvp.Key);
+                    }
+                }
+                Inventory.i.AddItemToStock(GetMergeISO());
+                //2023 02 27 Recipe System to check if there is a unlock // Added by Will
+                RecipeMapManager.i.CheckUnlock(GetMergeISO());
             }
             else //merge the inspected one
             {
-               
+                origionTetris.StartCoroutine(origionTetris.MergeProgress(this));
+                DestroyCraftPreview();
             }
-            origionTetris.StartCoroutine(origionTetris.MergeProgress(this));
-            DestroyCraftPreview();
+
         }
 
         public void DestroyCraftPreview()
@@ -249,15 +264,34 @@ public class Tetris : DragInventoryItem
         }
 
         /// <summary>
-        /// Return the grid representation of recipe.
+        /// Return the grid representation (coordination + so) of recipe.
         /// </summary>
-        /// <returns></returns>
         public List<KeyValuePair<Vector2, ScriptableObject>> getRecipeGrid() { return recipeGrid; }
+
+        /// <summary>
+        /// Count and return the amount of each iso in the RC
+        /// </summary>
+        public Dictionary<ItemScriptableObject, int> GetIngredients() 
+        {
+            Dictionary<ItemScriptableObject, int> result = new Dictionary<ItemScriptableObject, int>();
+            foreach(KeyValuePair<Vector2, ScriptableObject> kvp in getRecipeGrid())
+            {
+                ItemScriptableObject afterCast = (ItemScriptableObject) kvp.Value;
+                if (result.ContainsKey(afterCast))
+                {
+                    result[afterCast] += 1;
+                }
+                else
+                {
+                    result.Add(afterCast, 1);
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// Get all the Tetris that has been processed before.
         /// </summary>
-        /// <returns></returns>
         public List<Tetris> GetPastTetris() { return pastTetris; }
 
         public ItemScriptableObject GetMergeISO() { return mergeISO; }
