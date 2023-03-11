@@ -13,7 +13,7 @@ public class WorldSpaceButton : MonoBehaviour
     [SerializeField] protected Color32 pressColor;
 
     bool waitingSecondClick = false;
-    float waitTime = 0.2f;
+    float waitTime = 0.2f;  
 
     protected void OnMouseEnter()
     {
