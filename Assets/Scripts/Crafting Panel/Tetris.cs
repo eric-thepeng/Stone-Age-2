@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Tetris : DragInventoryItem
 {
-    //Wait: Tetris sitting still. Drag: Tetris being clicked and dragged around. Animation: Tetris moving to snap. Merge: Tetris is Merging.
-    enum state {Wait, Drag, Animation, Merge, Lift, Drop}
+    /*Wait: Tetris sitting still. 
+     * Drag: Tetris being clicked and dragged around. 
+     * Animation: Tetris moving to snap. 
+     * Merge: Tetris is Merging.
+     */
+    enum state {Wait, Drag, Animation, Merge, CraftPreview}
     enum Zone {Craft, Back}
     Zone zoneNow = Zone.Craft;
     state stateNow = state.Wait;
@@ -76,6 +80,11 @@ public class Tetris : DragInventoryItem
             if (Searched(newT)) return;
 
             pastTetris.Add(newT);
+            if(newT.myRC != null)
+            {
+                newT.myRC.DestroyRC();
+            }
+            newT.myRC = this;
 
             //Is it the first Tetris to be added (the Tetris that create this RecipeCombinator)
             if (baseT == newT)
@@ -124,6 +133,41 @@ public class Tetris : DragInventoryItem
 
         }
 
+        public void DisassembleMerge(Tetris DisassembleFrom)
+        {
+
+            Destroy(mergeWindow);
+            mergeWindow = null;
+            foreach (Tetris t in DisassembleFrom.myRC.pastTetris)
+            {
+                if (t != DisassembleFrom)
+                {
+                    t.myRC = null;
+                }
+            }
+            foreach (Tetris t in DisassembleFrom.myRC.pastTetris)
+            {
+               if(t.myRC == null && t != DisassembleFrom)
+                {
+                    t.RefreshEdges(DisassembleFrom);
+                    t.myRC = new RecipeCombiator(t);
+                    t.Search(t.myRC, t, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0),DisassembleFrom);
+                    t.myRC.Organize();
+                    t.myRC.CheckMerging();
+                }
+            }
+            DisassembleFrom.myRC.pastTetris.Clear();
+            DisassembleFrom.myRC = null;
+        }
+
+        public void DestroyRC()
+        {
+            if(mergeWindow != null)
+            {
+                Destroy(mergeWindow);
+            }
+        }
+
         /// <summary>
         /// Has this Tetris been searched and added yet?
         /// </summary>
@@ -153,7 +197,6 @@ public class Tetris : DragInventoryItem
         /// </summary>
         public void Organize()
         {
-            BindRCForAll();
             Vector2 leftNTopBound = new Vector2(0, 0);
             foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
             {
@@ -196,13 +239,7 @@ public class Tetris : DragInventoryItem
             mergeWindow = null;
         }
 
-        public void BindRCForAll()
-        {
-            foreach(Tetris t in GetPastTetris())
-            {
-                t.myRC = this;
-            }
-        }
+
 
         public bool IsOrigionTetris(Tetris thisTetris)
         {
@@ -249,11 +286,11 @@ public class Tetris : DragInventoryItem
             {
                 SetState(state.Wait);
                 RefreshEdges();
-                RecipeCombiator rc = new RecipeCombiator(this);
-                Search(rc, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
-                CheckSnap(rc); 
-                rc.Organize();
-                rc.CheckMerging();
+                myRC = new RecipeCombiator(this);
+                Search(myRC, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+                CheckSnap(myRC);
+                myRC.Organize();
+                myRC.CheckMerging();
             }
             
         }
@@ -262,6 +299,13 @@ public class Tetris : DragInventoryItem
     protected override void CustomSetUp()
     {
         SetState(state.Drag);
+    }
+
+    private bool InCraftPreview()
+    {
+        if (myRC == null) return false;
+        if (myRC.GetMergeISO() == null) return false;
+        return true;
     }
 
     private void CreateShadow()
@@ -301,16 +345,25 @@ public class Tetris : DragInventoryItem
         CraftingManager.i.mouseClickTetris();
         if (stateNow != state.Wait) return;
         SetState(state.Drag);
+        myRC.DisassembleMerge(this);
         ResetEdges(); //so that rest of the recipe refreshes
         tetrisDownPos = transform.position;
     }
 
-
+    /*
     public void RefreshEdges()
     {
         foreach (Edge e in allEdges)
         {
             e.RefreshState();
+        }
+    }*/
+
+    public void RefreshEdges(Tetris excludeTetris = null)
+    {
+        foreach (Edge e in allEdges)
+        {
+            e.RefreshState(excludeTetris);
         }
     }
 
@@ -377,8 +430,9 @@ public class Tetris : DragInventoryItem
         stateNow = state.Wait;
     }
 
+    /*
     /// <summary>
-    /// Recursive search a Tetris
+    /// Recursive search a Tetris, add all connected Tetris to 
     /// </summary>
     /// <param name="rc">The recipe combinator that is passed around to do the combination.</param>
     /// <param name="baseTetris">BaseTetris, for the input for RecipeCombinator.</param>
@@ -387,6 +441,7 @@ public class Tetris : DragInventoryItem
     /// <param name="newCor">Coordination of new Tetris, for the input for RecipeCombinator.</param>
     void Search(RecipeCombiator rc, Tetris baseTetris, Vector2 baseCor, Vector2 dir, Vector2 newCor)
     {
+        print("non exclusive add tetris " + gameObject.name);
         //add Tetris to recipe (embedded repitition check
         rc.AddTetris(baseTetris, this, baseCor, dir, newCor);
 
@@ -397,6 +452,31 @@ public class Tetris : DragInventoryItem
             if (!e.isConnected()) continue; //if the edge is not connected to anything, skip it.
             if (rc.Searched(e.getOppositeTetris())) continue; //if the connected Tetris of this Edge is already searched, skip it.
             e.getOppositeTetris().Search(rc, this,e.getAttachedCoord(),e.getAttachToDirection(),e.getOppositeEdge().getAttachedCoord()); //Recursively search this edge.
+        }
+    }*/
+
+    /// <summary>
+    /// Recursive search a Tetris, add all connected Tetris to 
+    /// </summary>
+    /// <param name="rc">The recipe combinator that is passed around to do the combination.</param>
+    /// <param name="baseTetris">BaseTetris, for the input for RecipeCombinator.</param>
+    /// <param name="baseCor">BaseCoordination, for the input for RecipeCombinator.</param>
+    /// <param name="dir">Direction of attachment, for the input for RecipeCombinator.</param>
+    /// <param name="newCor">Coordination of new Tetris, for the input for RecipeCombinator.</param>
+    /// <param name="excludeTetris">Exclude Tetris when searching (used when breaking down origional recipe).</param>
+    void Search(RecipeCombiator rc, Tetris baseTetris, Vector2 baseCor, Vector2 dir, Vector2 newCor, Tetris excludeTetris = null)
+    {
+        //add Tetris to recipe (embedded repitition check
+        if (excludeTetris!=null && this == excludeTetris) return;
+        rc.AddTetris(baseTetris, this, baseCor, dir, newCor);
+
+        //do this for every edge it has
+        List<Edge> toProcess = new List<Edge>(allEdges);
+        foreach (Edge e in toProcess)
+        {
+            if (!e.isConnected()) continue; //if the edge is not connected to anything, skip it.
+            if (rc.Searched(e.getOppositeTetris())) continue; //if the connected Tetris of this Edge is already searched, skip it.
+            e.getOppositeTetris().Search(rc, this, e.getAttachedCoord(), e.getAttachToDirection(), e.getOppositeEdge().getAttachedCoord(), excludeTetris); //Recursively search this edge.
         }
     }
 
@@ -439,6 +519,7 @@ public class Tetris : DragInventoryItem
 
     IEnumerator DestroySelfProcess()
     {
+
         CraftingManager.i.RemoveFromTetrisList(gameObject);
         stateNow = state.Animation;
         bool animStart = false;
@@ -471,7 +552,6 @@ public class Tetris : DragInventoryItem
             transform.position = Vector3.Lerp(orgPos,tarPos,timeCount/timeRequire);
             yield return new WaitForSeconds(0);
         }
-
         stateNow = state.Wait;
     }
 

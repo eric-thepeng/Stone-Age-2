@@ -32,8 +32,19 @@ public class Edge : MonoBehaviour
         touchingEdges[0].RefreshState();
     }
 
+    public void RefreshState(Tetris excludeTetris) //refresh if it connects to another Edge, and if so, revursively refresh all edges.
+    {
+        if (touchingEdges.Count == 0) return;
+        if (oppositeTetris != null) return;
+        if (touchingEdges[0].getTetris() == excludeTetris) return;
+
+        oppositeTetris = touchingEdges[0].getTetris();
+        touchingEdges[0].RefreshState();
+    }
+
     public void ResetState() //clear out the connection information
     {
+        
         if(oppositeTetris != null)
         {
             foreach (Edge e in oppositeTetris.allEdges)
@@ -43,8 +54,8 @@ public class Edge : MonoBehaviour
                     e.oppositeTetris = null;
                 }
             }
-
         }
+
         oppositeTetris = null;
     }
 

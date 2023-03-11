@@ -102,7 +102,8 @@ public class CraftingManager : SerializedMonoBehaviour
     {
         GameObject newTetris = Instantiate(iso.myPrefab, transform.Find("Crafting Panel"));
         newTetris.transform.position = addPosition;
-        newTetris.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
+        newTetris.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+        newTetris.name = newTetris.name + " " + Random.Range(1000, 9999);
         allTetris.Add(newTetris);
         if (createFrom == CreateFrom.DEBUG)
         {

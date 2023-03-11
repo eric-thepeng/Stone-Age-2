@@ -14,6 +14,7 @@ public class HomeGrid : MonoBehaviour
     [SerializeField] Material occupiedMaterial;
 
     Transform gridIndication;
+    float cellSize;
 
     //float gridIndicationSpeed = 10;
     //Vector3 NO_GRID_INDICATION = new Vector3(-10, -10, -10);
@@ -58,16 +59,16 @@ public class HomeGrid : MonoBehaviour
 
     private void Start()
     {
-        int gridWidth = 20;
-        int gridHeight = 10;
-        float cellSize = (secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
+        int gridWidth = 25;
+        int gridHeight = 15;
+        cellSize = (secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         grid = new GridMap<GridObject>(gridWidth, gridHeight, cellSize, bottomLeftCorner.position);
 
         for (int x = 0; x < grid.GetWidth(); x++)
         {
             for (int z = 0; z < grid.GetHeight(); z++)
             {
-                GameObject go = WorldUtility.CreateWorldText("" + x + "," + z, girdMarksContainer, grid.GetWorldPosition(x, z), 5, null, TextAnchor.UpperCenter, TMPro.TextAlignmentOptions.Center).gameObject;
+                GameObject go = WorldUtility.CreateWorldText("" + x + "," + z, girdMarksContainer, grid.GetWorldPosition(x, z), 4, null, TextAnchor.UpperCenter, TMPro.TextAlignmentOptions.Center).gameObject;
                 go.transform.position += new Vector3(0, 0.1f, 0);
                 go.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
 
@@ -109,6 +110,7 @@ public class HomeGrid : MonoBehaviour
                 newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
                 newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
                 newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+                newPlacement.transform.localScale = new Vector3(cellSize/1.65f, cellSize / 1.65f, 1f);
 
                 gro.SetTransform(newPlacement.transform);
             }

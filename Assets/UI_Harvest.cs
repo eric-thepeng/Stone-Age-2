@@ -32,7 +32,7 @@ public class UI_Harvest : MonoBehaviour
             amount = initialAmount;
             displayGO = go;
             go.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
-            go.transform.Find("Text").GetComponent<TextMeshPro>().text = iso.name + " + " + amount;
+            go.transform.Find("Text").GetComponent<TextMeshPro>().text = iso.tetrisHoverName + " + " + amount;
         }
 
         public void AddAmount(int am)
@@ -61,7 +61,7 @@ public class UI_Harvest : MonoBehaviour
 
         public string DisplayText()
         {
-            return iso.name + " + " + amount;
+            return iso.tetrisHoverName + " + " + amount;
         }
 
         public void DestroyDisplay()
