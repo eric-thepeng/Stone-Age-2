@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
         public ItemScriptableObject iso;
         public int totalAmount;
         public int inUseAmount;
-        public int displayAmount { get { return totalAmount - inUseAmount; } }
+        public int inStockAmount { get { return totalAmount - inUseAmount; } }
         public ItemScriptableObject.Category category
         {
             get { return iso.category;}
@@ -63,6 +63,12 @@ public class Inventory : MonoBehaviour
         UI_Inventory.i.UpdateItemDisplay(newII);
     }
 
+    public int ItemInStockAmount(ItemScriptableObject newISO)
+    {
+        if (GetItemInfo(newISO) == null) return 0;
+        return GetItemInfo(newISO).inStockAmount;
+    }
+
 /// <summary>
 /// true: total -> inUse     false: inUse -> total
 /// </summary>
@@ -85,6 +91,17 @@ public class Inventory : MonoBehaviour
     {
         AddInventoryItem(iso);
         InUseItem(iso, true);
+    }
+
+    public void AddItemToStock(ItemScriptableObject iso)
+    {
+        AddInventoryItem(iso);
+    }
+
+    public void UseItemFromStock(ItemScriptableObject iso)
+    {
+        GetItemInfo(iso).totalAmount -= 1;
+        UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)
