@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ExploreSpotIndicator : MonoBehaviour
+public class ExploreSpotUnlock : MonoBehaviour
 { 
     GameObject resourceSet;
     Transform spawnTransform;
@@ -39,7 +39,7 @@ public class ExploreSpotIndicator : MonoBehaviour
             CreateResourceSet(resourceList[count], (int)((float)weightList[count] / (float)totalWeight * 100), count);
         }
 
-        transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = spiritPointAmount + "" ;
+        transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = spiritPointAmount + "";
     }
 
     void CreateResourceSet(ItemScriptableObject resource, int weight, int offset)

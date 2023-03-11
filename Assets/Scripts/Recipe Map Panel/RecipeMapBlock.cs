@@ -45,7 +45,8 @@ public class RecipeMapBlock : MonoBehaviour
     private Color32 unlockedPathColor;
     private Color32 lockedPathColor;
     private Color32 unknownPathColor;
-    private Color32 backgroundColor;
+    private Color32 unlockedBackgroundColor;
+    private Color32 lockedBackgroundColor;
 
     private void Start()
     {
@@ -64,7 +65,8 @@ public class RecipeMapBlock : MonoBehaviour
         unlockedPathColor = RecipeMapManager.i.unlockedPathColor;
         lockedPathColor = RecipeMapManager.i.lockedPathColor;
         unknownPathColor = RecipeMapManager.i.unknownPathColor;
-        backgroundColor = RecipeMapManager.i.backgroundColor;
+        unlockedBackgroundColor = RecipeMapManager.i.unlockedBackgroundColor;
+        lockedBackgroundColor = RecipeMapManager.i.lockedBackgroundColor;
 
         LevelTextUpdate();
         ColorUpdate();
@@ -184,7 +186,7 @@ public class RecipeMapBlock : MonoBehaviour
         {
             border.GetComponent<SpriteRenderer>().color = unlockedPathColor;
 
-            background.GetComponent<SpriteRenderer>().color = backgroundColor;
+            background.GetComponent<SpriteRenderer>().color = unlockedBackgroundColor;
 
             for (int count = 0; count < 4; count++)
             {
@@ -198,7 +200,7 @@ public class RecipeMapBlock : MonoBehaviour
         {
             border.GetComponent<SpriteRenderer>().color = lockedPathColor;
 
-            background.GetComponent<SpriteRenderer>().color = backgroundColor;
+            background.GetComponent<SpriteRenderer>().color = lockedBackgroundColor;
 
             for (int count = 0; count < 4; count++)
             {
