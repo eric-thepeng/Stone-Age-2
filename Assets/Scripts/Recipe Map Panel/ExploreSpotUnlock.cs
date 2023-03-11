@@ -9,10 +9,9 @@ public class ExploreSpotUnlock : MonoBehaviour
     Transform spawnTransform;
     GameObject spiritPointText;
 
-    int spiritPointAmount = 0;
-    ItemScriptableObject[] resourceList;
-    int[] weightList;
-    int totalWeight;
+    int unlockSpiritPoint = 0;
+    ItemScriptableObject[] unlockResource;
+    int[] unlockResrouceAmount;
 
     private void Start()
     {
@@ -22,24 +21,23 @@ public class ExploreSpotUnlock : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void PassInResourceInfo(ItemScriptableObject[] resourceList, int[] weightList, int totalWeight, int spiritPointAmount)
+    public void PassInResourceInfo(ItemScriptableObject[] unlockResource, int[] unlockResrouceAmount, int unlockSpiritPoint)
     {
-        this.resourceList = resourceList;
-        this.weightList = weightList;
-        this.totalWeight = totalWeight;
-        this.spiritPointAmount = spiritPointAmount;
+        this.unlockResource = unlockResource;
+        this.unlockResrouceAmount = unlockResrouceAmount;
+        this.unlockSpiritPoint = unlockSpiritPoint;
     }
 
     public void CreatResourceIndicator()
     {
         gameObject.SetActive(true);
 
-        for (int count = 0; count < resourceList.Length; count ++)
+        for (int count = 0; count < unlockResource.Length; count ++)
         {
-            CreateResourceSet(resourceList[count], (int)((float)weightList[count] / (float)totalWeight * 100), count);
+            CreateResourceSet(unlockResource[count], unlockResrouceAmount[count], count);
         }
 
-        transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = spiritPointAmount + "";
+        transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = unlockSpiritPoint + "";
     }
 
     void CreateResourceSet(ItemScriptableObject resource, int weight, int offset)
