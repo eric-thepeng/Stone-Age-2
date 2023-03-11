@@ -42,7 +42,7 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                MouseManager.i.IsState(MouseManager.MouseState.Browsing);
+                MouseManager.i.ChangeMouseState(MouseManager.MouseState.Browsing);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
