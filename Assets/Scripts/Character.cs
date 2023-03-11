@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     int gatherSpeed = 3;
-    int maxEnergy = 3;
+    int maxEnergy = 8;
     int currentEnergy;
 
     enum CharacterState {Idle, Gather}

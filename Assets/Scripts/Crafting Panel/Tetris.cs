@@ -80,10 +80,7 @@ public class Tetris : DragInventoryItem
             if (Searched(newT)) return;
 
             pastTetris.Add(newT);
-            if(newT.myRC != null)
-            {
-                newT.myRC.DestroyRC();
-            }
+            newT.DestroyRC();
             newT.myRC = this;
 
             //Is it the first Tetris to be added (the Tetris that create this RecipeCombinator)
@@ -136,8 +133,7 @@ public class Tetris : DragInventoryItem
         public void DisassembleMerge(Tetris DisassembleFrom)
         {
 
-            Destroy(mergeWindow);
-            mergeWindow = null;
+            DestroyCraftPreview();
             foreach (Tetris t in DisassembleFrom.myRC.pastTetris)
             {
                 if (t != DisassembleFrom)
@@ -158,14 +154,6 @@ public class Tetris : DragInventoryItem
             }
             DisassembleFrom.myRC.pastTetris.Clear();
             DisassembleFrom.myRC = null;
-        }
-
-        public void DestroyRC()
-        {
-            if(mergeWindow != null)
-            {
-                Destroy(mergeWindow);
-            }
         }
 
         /// <summary>
@@ -234,12 +222,26 @@ public class Tetris : DragInventoryItem
 
         public void Merge()
         {
+            if (true) //merge from inventory
+            {
+                
+            }
+            else //merge the inspected one
+            {
+               
+            }
             origionTetris.StartCoroutine(origionTetris.MergeProgress(this));
-            Destroy(mergeWindow);
-            mergeWindow = null;
+            DestroyCraftPreview();
         }
 
-
+        public void DestroyCraftPreview()
+        {
+            if(mergeWindow != null)
+            {
+                Destroy(mergeWindow);
+                mergeWindow = null;
+            }
+        }
 
         public bool IsOrigionTetris(Tetris thisTetris)
         {
@@ -301,12 +303,13 @@ public class Tetris : DragInventoryItem
         SetState(state.Drag);
     }
 
-    private bool InCraftPreview()
+    public void DestroyRC()
     {
-        if (myRC == null) return false;
-        if (myRC.GetMergeISO() == null) return false;
-        return true;
+        if (myRC == null) return;
+        myRC.DestroyCraftPreview();
+        myRC = null;
     }
+
 
     private void CreateShadow()
     {
@@ -391,7 +394,6 @@ public class Tetris : DragInventoryItem
         float tRequire = 1;
         ProgressBar pb = Instantiate(mergeProgressBar, this.transform.position, Quaternion.identity).GetComponent<ProgressBar>();
         pb.transform.position += new Vector3(0, 0, -0.5f);
-
 
         while (tCount < tRequire)
         {

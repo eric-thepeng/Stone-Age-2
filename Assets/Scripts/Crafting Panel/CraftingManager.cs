@@ -137,6 +137,7 @@ public class CraftingManager : SerializedMonoBehaviour
     {
         for(int i = allTetris.Count-1; i>=0; i--)
         {
+            allTetris[i].GetComponent<Tetris>().DestroyRC();
             PutBackToInventory(allTetris[i]);
         }
     }
