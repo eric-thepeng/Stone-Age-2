@@ -179,15 +179,38 @@ public class ExploreSpot : MonoBehaviour
 
     public void SpotUnlock()
     {
-        if (SpiritPoint.i.Use(unlockSpiritPoint) == true)
+        //check if enough resource
+        if (SpiritPoint.i.GetAmount() < unlockSpiritPoint) {
+            UnlockFailed();
+            return;
+        } 
+        for(int i = 0; i<unlockResource.Length; i++)
         {
-            SetLockState(LockState.UNLOCKED);
-            SetUnlockPanel(false);
+            if (Inventory.i.ItemInStockAmount(unlockResource[i]) < unlockResrouceAmount[i])
+            {
+                UnlockFailed();
+                return;
+            }
         }
-        else
+
+        //use resource
+        SpiritPoint.i.Use(unlockSpiritPoint);
+        for (int i = 0; i < unlockResource.Length; i++)
         {
-            Debug.Log("Do not have enough resource");
+            for(int m = 0; m< unlockResrouceAmount[i]; m++)
+            {
+                Inventory.i.UseItemFromStock(unlockResource[i]);
+            }
         }
+
+        //unlock
+        SetLockState(LockState.UNLOCKED);
+        SetUnlockPanel(false);
+    }
+
+    private void UnlockFailed()
+    {
+        Debug.Log("Do not have enough resource");
     }
 
     public void SetUnlockPanel(bool OnOff)

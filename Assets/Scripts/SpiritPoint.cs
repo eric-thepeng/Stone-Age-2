@@ -47,6 +47,11 @@ public class SpiritPoint : MonoBehaviour
         return true;
     }
 
+    public int GetAmount()
+    {
+        return amount;
+    }
+
     void UpdateUI()
     {
         GetComponentInChildren<TextMeshPro>().text = "" + amount;
