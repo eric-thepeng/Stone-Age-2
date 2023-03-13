@@ -314,6 +314,7 @@ public class Tetris : DragInventoryItem
         }
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
+            PlaceDrag();
             if(zoneNow == Zone.Back) //PUT BACK TO INVENTORY
             {
                 CraftingManager.i.PutBackToInventory(this.gameObject);

@@ -104,12 +104,12 @@ public class UI_InventoryBlock : MonoBehaviour
 
     public void PlaceDrag()
     {
-        GetComponent<SpriteRenderer>().color = normalColr;
+        itemSprite.color = normalColr;
     }
 
     public void CancelDrag()
     {
-        GetComponent<SpriteRenderer>().color = normalColr;
+        itemSprite.color = normalColr;
     }
 
 }
