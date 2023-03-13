@@ -162,6 +162,8 @@ public class RecipeMapBlock : MonoBehaviour
 
             ColorUpdate();
             LevelTextUpdate();
+
+            RecipeMapManager.i.DisplayRecipe(this);
         }
     }
 
