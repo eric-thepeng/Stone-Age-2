@@ -230,7 +230,8 @@ public class RecipeMapBlock : MonoBehaviour
         {
             if (adjacentBlocks[count] == null)
             {
-                blockLines[count].color = unknownPathColor;
+                blockLines[count].gameObject.SetActive(false);
+                // blockLines[count].color = unknownPathColor;
             }
         }
     }
@@ -240,6 +241,10 @@ public class RecipeMapBlock : MonoBehaviour
         if (state == State.Locked)
         {
             levelText.text = GetLevelInt().ToString();
+            if (GetLevelInt() == 4)
+            {
+                levelText.text = "MAX";
+            }
         }
         else
         {
