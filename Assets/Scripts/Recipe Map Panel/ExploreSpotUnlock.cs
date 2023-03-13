@@ -46,9 +46,9 @@ public class ExploreSpotUnlock : MonoBehaviour
 
         thisResourceSet.SetActive(true);
 
-        thisResourceSet.transform.position += new Vector3(offset, 0, 0);
+        thisResourceSet.transform.position += new Vector3(0, -offset, 0);
 
         thisResourceSet.transform.Find("Resource Icon").GetComponent<SpriteRenderer>().sprite = resource.iconSprite;
-        thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = weight + " %";
+        thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = weight + "";
     }
 }

@@ -154,6 +154,21 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
     }
 
+    private void Update()
+    {
+   
+    }
+
+    public void RecipeViewerStopFollow()
+    {
+        
+    }
+
+    public void RecipeViewerStartFollow()
+    {
+        
+    }
+
     private void MoveToMiddle()
     {
         PanelTransform.localPosition = MiddlePanelTransform.localPosition;
