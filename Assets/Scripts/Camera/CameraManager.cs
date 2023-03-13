@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
     {
         //ZOOMING
         float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * 2;
-        targetCamHeight = Mathf.Clamp(targetCamHeight, 15, 75);
+        targetCamHeight = Mathf.Clamp(targetCamHeight, 40, 90);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
 
