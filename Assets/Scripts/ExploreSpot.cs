@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
+using UnityEngine.XR;
 
 public class ExploreSpot : MonoBehaviour
 {
@@ -20,6 +22,10 @@ public class ExploreSpot : MonoBehaviour
 
     public enum LockState {UNLOCKED, CAN_UNLOCK, CANNOT_UNLOCK}
     [SerializeField] LockState lockState = LockState.CANNOT_UNLOCK;
+
+    public enum ActiveState {FREE, GATHERING }
+    ActiveState activeState = ActiveState.FREE;
+    Character gatheringCharacter = null;
 
     public Color32 unlockedColor;
     public Color32 canUnlockColor;
@@ -112,14 +118,18 @@ public class ExploreSpot : MonoBehaviour
         }
     }
 
-    public void PlaceCharacter(Sprite sp)
+    public void PlaceCharacter(Sprite sp, Character inCharacter)
     {
+        gatheringCharacter = inCharacter;
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = sp;
+        activeState = ActiveState.GATHERING;
     }
 
     public void EndGathering()
     {
+        gatheringCharacter = null;
         transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = null;
+        activeState = ActiveState.FREE;
     }
 
     public string GetDisplayInfo()
@@ -221,4 +231,36 @@ public class ExploreSpot : MonoBehaviour
     public bool isUnlocked() { return lockState == LockState.UNLOCKED; }
     public bool isCanUnlock() { return lockState == LockState.CAN_UNLOCK; }
     public bool isCannotUnlock() { return lockState == LockState.CANNOT_UNLOCK; }
+
+
+    private void OnMouseEnter()
+    {
+        if (activeState != ActiveState.GATHERING) return;
+        DisplayRecallButton();
+    }
+
+    private void OnMouseExit()
+    {
+        if (activeState != ActiveState.GATHERING) return;
+        CancelRecallButton();
+    }
+
+    private void DisplayRecallButton()
+    {
+        GetComponent<WorldSpaceButton>().SetButtonActive(true);
+        transform.Find("Call Back Button").gameObject.SetActive(true);
+    }
+
+    private void CancelRecallButton()
+    {
+        GetComponent<WorldSpaceButton>().SetButtonActive(false);
+        transform.Find("Call Back Button").gameObject.SetActive(false);
+    }
+
+    public void CancelGather()
+    {
+        gatheringCharacter.EndGather();
+        CancelRecallButton();
+    }
+
 }

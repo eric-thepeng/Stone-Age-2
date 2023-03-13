@@ -12,26 +12,49 @@ public class WorldSpaceButton : MonoBehaviour
     [SerializeField] protected Color32 hoverColor;
     [SerializeField] protected Color32 pressColor;
 
+    [SerializeField] bool buttonActive = true;
+    [SerializeField] SpriteRenderer affectSR = null;
+
     bool waitingSecondClick = false;
-    float waitTime = 0.2f;  
+    float waitTime = 0.2f;
+
+    SpriteRenderer targetSR = null;
+
+    private void Start()
+    {
+        //print(gameObject.name + "  " + transform.parent.gameObject.name + " " + buttonActive);
+        if(affectSR == null)
+        {
+            targetSR = GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            targetSR = affectSR;
+        }
+    }
 
     protected void OnMouseEnter()
     {
-        GetComponent<SpriteRenderer>().color = hoverColor;
+        if (!buttonActive) return;
+        targetSR.color = hoverColor;
     }
 
     private void OnMouseExit()
     {
-        GetComponent<SpriteRenderer>().color = normalColor;
+        if (!buttonActive) return;
+        targetSR.color = normalColor;
     }
 
     private void OnMouseDown()
     {
-        GetComponent<SpriteRenderer>().color = pressColor;
+        if (!buttonActive) return;
+        targetSR.color = pressColor;
     }
 
     private void OnMouseUpAsButton()
     {
+        if (!buttonActive) return;
+
         if (waitingSecondClick) //execute double click
         {
             doubleClickEvent.Invoke();
@@ -47,7 +70,7 @@ public class WorldSpaceButton : MonoBehaviour
         {
             StartCoroutine(WaitForSecondClick());
         }
-        GetComponent<SpriteRenderer>().color = normalColor;
+       targetSR.color = normalColor;
 
     }
 
@@ -72,5 +95,15 @@ public class WorldSpaceButton : MonoBehaviour
     public void SetClickEvent(UnityEvent newEvent)
     {
         clickEvent = newEvent;
+    }
+
+    public void SetButtonActive(bool toState)
+    {
+        buttonActive= toState;
+    }
+
+    public bool IsActive()
+    {
+        return buttonActive;
     }
 }

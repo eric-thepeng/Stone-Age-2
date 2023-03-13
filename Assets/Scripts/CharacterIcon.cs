@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterIcon : MonoBehaviour
 {
-    enum IconState { Home, Dragging, Placed }
+    enum IconState { Home, Dragging, Gathering }
     IconState iconState = IconState.Home;
 
     public Character character;
@@ -22,8 +22,6 @@ public class CharacterIcon : MonoBehaviour
 
     public CircularUI gatherCircularUI;
     public CircularUI energyCircularUI;
-
-    bool isGathering = false;
 
     private void Awake()
     {
@@ -48,13 +46,13 @@ public class CharacterIcon : MonoBehaviour
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
                     if (toExplore.isUnlocked()) // DRAGGING -> PLACED
                     {
-                        toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite);
+                        toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
                         character.StartGather(toExplore, this);
-                        isGathering = true;
-                        iconState = IconState.Placed;
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
+                        iconState = IconState.Gathering;
+
                         return;
                     }
                 }
@@ -86,7 +84,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (!isGathering)
+        if (iconState == IconState.Home)
         {
             transform.parent.Find("Background").gameObject.SetActive(true);
             homePosition = transform.localPosition;
@@ -94,16 +92,53 @@ public class CharacterIcon : MonoBehaviour
 
             iconState = IconState.Dragging;
         }
+        else if(iconState == IconState.Gathering)
+        {
+
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        if(iconState == IconState.Gathering)
+        {
+            DisplayRecallButton();
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if(iconState == IconState.Gathering)
+        {
+            CancelRecallButton();
+        }
+    }
+
+    private void DisplayRecallButton()
+    {
+        GetComponent<WorldSpaceButton>().SetButtonActive(true);
+        transform.Find("Call Back Button").gameObject.SetActive(true);
+    }
+
+    private void CancelRecallButton()
+    {
+        GetComponent<WorldSpaceButton>().SetButtonActive(false);
+        transform.Find("Call Back Button").gameObject.SetActive(false);
     }
 
     public void ResetHome()
     {
         iconState = IconState.Home;
-        isGathering = false;
 
         // transform.localPosition = homePosition;
 
         ChangeIconColor(homeColor);
+    }
+
+    public void CancelGather()
+    {
+        character.EndGather();
+        CancelRecallButton();
     }
 
     void ChangeIconColor(Color32 color)

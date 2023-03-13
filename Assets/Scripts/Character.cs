@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
         SetCircularUIState(CircularUI.CircularUIState.Display);
     }
 
-    void EndGather()
+    public void EndGather()
     {
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
