@@ -89,7 +89,7 @@ public class UI_Harvest : MonoBehaviour
         GameObject newDisplayGO = Instantiate(uiTemplate,this.transform);
         harvestInfoList.Add(new HarvestInfo(iso, amount, newDisplayGO));
         newDisplayGO.SetActive(true);
-        newDisplayGO.transform.position += new Vector3(0, -0.5f, 0) * harvestInfoList.Count;
+        newDisplayGO.transform.position += new Vector3(0, 0.5f, 0) * harvestInfoList.Count;
 
     }
 
