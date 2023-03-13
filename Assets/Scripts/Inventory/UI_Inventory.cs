@@ -1,5 +1,7 @@
+using Sirenix.OdinInspector.Editor;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 //[ExecuteInEditMode]
@@ -111,6 +113,25 @@ public class UI_Inventory : MonoBehaviour
                 allInventoryBlocks.Add(go.GetComponent<UI_InventoryBlock>());
             }
         }
+    }
+
+    public void DisplayItemDetail(ItemScriptableObject isoToDisplay)
+    {
+        //Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
+        transform.Find("Item Detail UI").gameObject.SetActive(true);
+        transform.Find("Item Detail UI").Find("Tetris Pic").gameObject.GetComponent<SpriteRenderer>().sprite = isoToDisplay.tetrisSprite;
+        transform.Find("Item Detail UI").Find("Tetris Name").gameObject.GetComponent<TextMeshPro>().text = isoToDisplay.tetrisHoverName;
+        /*
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = uiib.GetISO().tetrisHoverName;
+        PanelTransform.Find("NameUI").Find("TetrisUI").Find("TetrisPic").gameObject.GetComponent<SpriteRenderer>().sprite = uiib.GetISO().tetrisSprite;
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingLayerID = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingLayerID;
+        PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingOrder = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingOrder + 1;
+    */
+    }
+
+    public void CancelDisplayItemDetail()
+    {
+        transform.Find("Item Detail UI").gameObject.SetActive(false);
     }
 
 }
