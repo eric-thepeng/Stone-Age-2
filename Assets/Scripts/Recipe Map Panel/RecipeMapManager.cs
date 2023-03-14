@@ -15,11 +15,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
     [TableMatrix(HorizontalTitle = "Square Celled Matrix", SquareCells = true)]
     //public RecipeBlockSO[,] theTable;
 
-    // Singleton
-    public static RecipeMapManager i;
-
-    // Viewer
+    // Recipe Viewer
     GameObject RecipeViewer;
+
     RecipeMapBlock DisplayBlock;
 
     GameObject RecipeUpgradeSet;
@@ -40,35 +38,36 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public List<RecipeMapBlock> allBlocks = new List<RecipeMapBlock>();
 
     // Singleton
-    void Awake()
+    static RecipeMapManager instance;
+    public static RecipeMapManager i
     {
-        if (i == null)
+        get
         {
-            i = this;
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (instance == null)
+            {
+                instance = FindObjectOfType<RecipeMapManager>();
+            }
+            return instance;
         }
     }
 
     [OnInspectorInit]
     private void Start()
     {
-        //theTable = new RecipeBlockSO[9, 9];
+        // theTable = new RecipeBlockSO[9, 9];
 
         PanelTransform = transform.Find("Recipe Map Panel");
         OpenPanelTransform = transform.Find("Open Panel Transform");
         ClosePanelTransform = transform.Find("Close Panel Transform");
         MiddlePanelTransform = transform.Find("Middle Panel Transform");
 
-        RecipeViewer = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").gameObject;
-        RecipeUpgradeSet = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").transform.Find("Upgrade Set").gameObject;
+        RecipeViewer = transform.parent.gameObject.transform.Find("===Recipe Viewer===").Find("Recipe Viewer Panel").gameObject;
+        RecipeUpgradeSet = RecipeViewer.transform.Find("Upgrade Set").gameObject;
 
-        RecipeViewerLevels[0] = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").Find("Name").gameObject;
-        RecipeViewerLevels[1] = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").Find("Materials").gameObject;
-        RecipeViewerLevels[2] = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").Find("Description").gameObject;
-        RecipeViewerLevels[3] = transform.Find("Recipe Map Panel").transform.Find("Recipe Block Viewer").Find("Graph").gameObject;
+        RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject;
+        RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject;
+        RecipeViewerLevels[2] = RecipeViewer.transform.Find("Description").gameObject;
+        RecipeViewerLevels[3] = RecipeViewer.transform.Find("Graph").gameObject;
     }
 
 
