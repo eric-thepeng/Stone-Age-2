@@ -48,30 +48,20 @@ public class RecipeViewerManager : MonoBehaviour
 
     public void OpenPanel()
     {
-        StartCoroutine(OpenPanelCor());
+        StartCoroutine(ToOpenCor());
     }
 
     public void ClosePanel()
     {
-        StartCoroutine(ClosePanelCor());
+        StartCoroutine(ToCloseCor());
     }
 
     public void HidePanel()
     {
-        StartCoroutine(HidePanelCor());
+        StartCoroutine(ToHideCor());
     }
 
-    public void ShowPanel()
-    {
-        StartCoroutine(ShowPanelCor());
-    }
-
-    public void ClosePanelWhenHide()
-    {
-        StartCoroutine(ClosePanelWhenHideCor());
-    }
-
-    IEnumerator OpenPanelCor()
+    IEnumerator ToOpenCor()
     {
         panelOpen = true;
         float timeNeed = 0.5f, timeCount = 0f;
@@ -83,7 +73,7 @@ public class RecipeViewerManager : MonoBehaviour
         }
     }
 
-    IEnumerator ClosePanelCor()
+    IEnumerator ToCloseCor()
     {
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
@@ -95,37 +85,13 @@ public class RecipeViewerManager : MonoBehaviour
         }
     }
 
-    IEnumerator HidePanelCor()
+    IEnumerator ToHideCor()
     {
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {
             PanelTransform.localPosition = Vector3.Lerp(OpenPanelTransform.localPosition, HidePanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
-            timeCount += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    IEnumerator ShowPanelCor()
-    {
-        panelOpen = false;
-        float timeNeed = 0.5f, timeCount = 0f;
-        while (timeCount < timeNeed)
-        {
-            PanelTransform.localPosition = Vector3.Lerp(HidePanelTransform.localPosition, OpenPanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
-            timeCount += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    IEnumerator ClosePanelWhenHideCor()
-    {
-        panelOpen = false;
-        float timeNeed = 0.5f, timeCount = 0f;
-        while (timeCount < timeNeed)
-        {
-            PanelTransform.localPosition = Vector3.Lerp(HidePanelTransform.localPosition, ClosePanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
             timeCount += Time.deltaTime;
             yield return null;
         }
