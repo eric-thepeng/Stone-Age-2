@@ -36,4 +36,9 @@ public class PlayerInputChannel : MonoBehaviour
     {
         PlayerState.OpenCloseBuildingPanel();
     }
+
+    public static void RecipeViewerPanelOpenButton()
+    {
+        PlayerState.OpenCloseChangeRecipeViewerPanel();
+    }
 }

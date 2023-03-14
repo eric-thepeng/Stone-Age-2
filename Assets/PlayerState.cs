@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public static class PlayerState
@@ -7,6 +8,9 @@ public static class PlayerState
     public enum State { Browsing, Crafting, Recipe, Building }
     static private State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
+    private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
+    static private RecipeViewerState recipeViewerPanelState = RecipeViewerState.Close;
+
 
     public static void ExitState()
     {
@@ -33,9 +37,14 @@ public static class PlayerState
         if (enterState == State.Browsing)
         {
             ChangeInventoryPanel(false);
+            ChangeRecipeViewerPanel(RecipeViewerState.Close);
         }
         else if (enterState == State.Crafting)
         {
+            if(state == State.Browsing)
+            {
+                ChangeRecipeViewerPanel(RecipeViewerState.Hide);
+            }
             ChangeInventoryPanel(true);
             CraftingManager.i.OpenPanel();
         }
@@ -43,6 +52,7 @@ public static class PlayerState
         {
             ChangeInventoryPanel(false);
             RecipeMapManager.i.OpenPanel();
+            ChangeRecipeViewerPanel(RecipeViewerState.Open);
         }
         else if (enterState == State.Building)
         {
@@ -55,9 +65,10 @@ public static class PlayerState
 
 
 
+
+
     static void ChangeInventoryPanel(bool changeTo)
     {
-        //TODO: change inventory panel
         if (changeTo == inventoryPanelOpen) return;
         if (changeTo)
         {
@@ -70,10 +81,47 @@ public static class PlayerState
         inventoryPanelOpen = changeTo;
     }
 
+    static void ChangeRecipeViewerPanel(RecipeViewerState changeTo)
+    {
+        if (changeTo == recipeViewerPanelState) return;
+        if (changeTo == RecipeViewerState.Open)
+        {
+            RecipeViewerManager.i.OpenPanel();
+        }
+        else if (changeTo == RecipeViewerState.Close)
+        {
+            RecipeViewerManager.i.ClosePanel();
+        }
+        else if (changeTo == RecipeViewerState.Hide)
+        {
+            RecipeViewerManager.i.HidePanel();
+        }
+
+        recipeViewerPanelState= changeTo;
+    }
+
+
+
+
     public static void OpenCloseChangeInventoryPanel()
     {
-        if (state != State.Browsing) return;
+        if (!IsBrowsing()) return;
         ChangeInventoryPanel(!inventoryPanelOpen);
+    }
+
+    public static void OpenCloseChangeRecipeViewerPanel()
+    {
+        if (IsCrafting() || IsRecipe())
+        {
+            if(recipeViewerPanelState == RecipeViewerState.Open)
+            {
+                ChangeRecipeViewerPanel(RecipeViewerState.Hide);
+            }
+            else if (recipeViewerPanelState == RecipeViewerState.Hide)
+            {
+                ChangeRecipeViewerPanel(RecipeViewerState.Open);
+            }
+        }
     }
 
     public static void OpenCloseCraftingPanel()
@@ -117,6 +165,7 @@ public static class PlayerState
             EnterState(State.Building);
         }
     }
+
 
 
 

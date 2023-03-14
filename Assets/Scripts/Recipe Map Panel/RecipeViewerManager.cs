@@ -63,11 +63,12 @@ public class RecipeViewerManager : MonoBehaviour
 
     IEnumerator ToOpenCor()
     {
+        Vector3 origionPosition = PanelTransform.position;
         panelOpen = true;
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {
-            PanelTransform.localPosition = Vector3.Lerp(ClosePanelTransform.localPosition, OpenPanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
+            PanelTransform.position = Vector3.Lerp(origionPosition, OpenPanelTransform.position, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
             timeCount += Time.deltaTime;
             yield return null;
         }
@@ -75,11 +76,12 @@ public class RecipeViewerManager : MonoBehaviour
 
     IEnumerator ToCloseCor()
     {
+        Vector3 origionPosition = PanelTransform.position;
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {
-            PanelTransform.localPosition = Vector3.Lerp(OpenPanelTransform.localPosition, ClosePanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
+            PanelTransform.position = Vector3.Lerp(origionPosition, ClosePanelTransform.position, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
             timeCount += Time.deltaTime;
             yield return null;
         }
@@ -87,11 +89,12 @@ public class RecipeViewerManager : MonoBehaviour
 
     IEnumerator ToHideCor()
     {
+        Vector3 origionPosition = PanelTransform.position;
         panelOpen = false;
         float timeNeed = 0.5f, timeCount = 0f;
         while (timeCount < timeNeed)
         {
-            PanelTransform.localPosition = Vector3.Lerp(OpenPanelTransform.localPosition, HidePanelTransform.localPosition, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
+            PanelTransform.position = Vector3.Lerp(origionPosition, HidePanelTransform.position, panelDisplayAC.Evaluate(Mathf.Clamp(timeCount / timeNeed, 0f, 1f)));
             timeCount += Time.deltaTime;
             yield return null;
         }
