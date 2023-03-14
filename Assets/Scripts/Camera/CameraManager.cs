@@ -25,6 +25,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        if (!PlayerState.IsBrowsing()) return;
         //ZOOMING
         float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * 2;
         targetCamHeight = Mathf.Clamp(targetCamHeight, 40, 90);

@@ -84,7 +84,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home)
+        if (iconState == IconState.Home && PlayerState.IsBrowsing())
         {
             transform.parent.Find("Background").gameObject.SetActive(true);
             homePosition = transform.localPosition;
