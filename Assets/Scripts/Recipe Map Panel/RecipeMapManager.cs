@@ -18,7 +18,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
     // Recipe Viewer
     GameObject RecipeViewer;
 
-    RecipeMapBlock DisplayBlock;
+    public RecipeMapBlock DisplayBlock;
 
     GameObject RecipeUpgradeSet;
 
@@ -100,26 +100,26 @@ public class RecipeMapManager : SerializedMonoBehaviour
             }
         }
 
-        if (RMB.GetLevelInt() == 1) {
+        if (RMB.GetLevelInt() >= 1) {
             // Dont do shit, since name is already set up there
 
             RecipeUpgradeSet.transform.position = RecipeViewerLevels[1].transform.position;
         }
-        if (RMB.GetLevelInt() == 2)
+        if (RMB.GetLevelInt() >= 2)
         {
             RecipeViewerLevels[1].GetComponent<TextMeshPro>().text =
                 RMB.material;
 
             RecipeUpgradeSet.transform.position = RecipeViewerLevels[2].transform.position;
         }
-        if (RMB.GetLevelInt() == 3)
+        if (RMB.GetLevelInt() >= 3)
         {
             RecipeViewerLevels[2].GetComponent<TextMeshPro>().text =
                 RMB.craftDescription;
 
             RecipeUpgradeSet.transform.position = RecipeViewerLevels[3].transform.position;
         }
-        if (RMB.GetLevelInt() == 4)
+        if (RMB.GetLevelInt() >= 4)
         {
             RecipeViewerLevels[3].GetComponent<TextMeshPro>().text =
                 "Sorry mate, the game does not have actual graphs for blueprint yet";

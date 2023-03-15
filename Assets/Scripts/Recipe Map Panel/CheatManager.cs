@@ -21,14 +21,34 @@ public class CheatManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            SpiritPoint.i.Add(100);
+            AddMoney();
+            AddItem();
         }
         if (Input.GetKeyDown(KeyCode.RightBracket))
         {
-            foreach (ItemScriptableObject item in allItems)
-            {
-                Inventory.i.AddInventoryItem(item);
-            }
+            UnlockCurrentRecipe();
         }
+    }
+
+    void AddMoney()
+    {
+        SpiritPoint.i.Add(500);
+    }
+
+    void AddItem()
+    {
+        foreach (ItemScriptableObject item in allItems)
+        {
+            Inventory.i.AddInventoryItem(item);
+            Inventory.i.AddInventoryItem(item);
+            Inventory.i.AddInventoryItem(item);
+            Inventory.i.AddInventoryItem(item);
+            Inventory.i.AddInventoryItem(item);
+        }
+    }
+
+    public void UnlockCurrentRecipe()
+    {
+        RecipeMapManager.i.CheckUnlock(RecipeMapManager.i.DisplayBlock.myISO);
     }
 }
