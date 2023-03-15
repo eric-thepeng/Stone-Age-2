@@ -85,4 +85,22 @@ public class ItemScriptableObject : SerializedScriptableObject
         Dictionary<ItemScriptableObject, int> ingredients = new Dictionary<ItemScriptableObject, int>();
         return ingredients;
     }
+
+    public Vector2 GetBottomRightDelta()
+    {
+        Vector2 botRight = new Vector2(0, 0);
+        bool first = true;
+        foreach( KeyValuePair < Vector2, ScriptableObject > kvp in FormationRecipeCoord)
+        {
+            if (first)
+            {
+                botRight = kvp.Key;
+                first = false;
+            }
+            if(kvp.Key.x > botRight.x) botRight.x = kvp.Key.x;
+            if (kvp.Key.y > botRight.y) botRight.y = kvp.Key.y;
+        }
+        botRight = new Vector2(botRight.x, -botRight.y);
+        return botRight/2;
+    }
 }
