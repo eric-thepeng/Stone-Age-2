@@ -7,16 +7,12 @@ using UnityEngine.Events;
 public class WorldSpaceButton : MonoBehaviour
 {
     [SerializeField] UnityEvent clickEvent;
-    [SerializeField] UnityEvent doubleClickEvent;
     [SerializeField] protected Color32 normalColor;
     [SerializeField] protected Color32 hoverColor;
     [SerializeField] protected Color32 pressColor;
 
     [SerializeField] bool buttonActive = true;
     [SerializeField] SpriteRenderer affectSR = null;
-
-    bool waitingSecondClick = false;
-    float waitTime = 0.2f;
 
     SpriteRenderer targetSR = null;
 
@@ -54,42 +50,9 @@ public class WorldSpaceButton : MonoBehaviour
     private void OnMouseUpAsButton()
     {
         if (!buttonActive) return;
-
-        if (waitingSecondClick) //execute double click
-        {
-            doubleClickEvent.Invoke();
-            StopAllCoroutines();
-            print("double click");
-            afterClick();
-        }
-        else if(doubleClickEvent != null) //execute single click
-        {
-            clickEvent.Invoke();
-        }
-        else //start wait for double click
-        {
-            StartCoroutine(WaitForSecondClick());
-        }
-       targetSR.color = normalColor;
-
-    }
-
-    private void afterClick()
-    {
-        waitingSecondClick = false;
-    }
-
-    IEnumerator WaitForSecondClick()
-    {
-        waitingSecondClick = true;
-        float timeCount = 0f;
-        while(timeCount < waitTime)
-        {
-            timeCount += Time.deltaTime;
-            yield return 0; 
-        }
-        afterClick();
         clickEvent.Invoke();
+        targetSR.color = hoverColor;
+
     }
 
     public void SetClickEvent(UnityEvent newEvent)
