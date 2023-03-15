@@ -31,21 +31,6 @@ public class RecipeViewerManager : MonoBehaviour
         HidePanelTransform = transform.Find("Hide Panel Transform");
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightBracket))
-        {
-            if (panelOpen)
-            {
-                ClosePanel();
-            }
-            else
-            {
-                OpenPanel();
-            }
-        }
-    }
-
     public void OpenPanel()
     {
         StartCoroutine(ToOpenCor());
