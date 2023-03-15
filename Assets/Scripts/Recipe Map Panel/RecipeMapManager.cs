@@ -108,14 +108,14 @@ public class RecipeMapManager : SerializedMonoBehaviour
         if (RMB.GetLevelInt() == 2)
         {
             RecipeViewerLevels[1].GetComponent<TextMeshPro>().text =
-                "Materials required: " + RMB.material;
+                RMB.material;
 
             RecipeUpgradeSet.transform.position = RecipeViewerLevels[2].transform.position;
         }
         if (RMB.GetLevelInt() == 3)
         {
             RecipeViewerLevels[2].GetComponent<TextMeshPro>().text =
-                "To craft: " + RMB.craftDescription;
+                RMB.craftDescription;
 
             RecipeUpgradeSet.transform.position = RecipeViewerLevels[3].transform.position;
         }
