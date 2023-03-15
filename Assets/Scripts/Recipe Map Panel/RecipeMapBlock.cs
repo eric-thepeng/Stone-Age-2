@@ -167,6 +167,27 @@ public class RecipeMapBlock : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // CheckDisableSelf();
+    }
+
+    void CheckDisableSelf()
+    {
+        if (Mathf.Abs(transform.localPosition.x) >= 10)
+        {
+            gameObject.SetActive(false);
+        }
+        else if (Mathf.Abs(transform.localPosition.y) >= 5)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
     private void ColorUpdate()
     {
         // Icon Color
