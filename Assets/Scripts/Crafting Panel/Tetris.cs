@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 public class Tetris : DragInventoryItem
@@ -58,7 +59,6 @@ public class Tetris : DragInventoryItem
         Tetris origionTetris;
         ItemScriptableObject mergeISO;
         GameObject mergeWindow;
-
 
         public RecipeCombiator(Tetris oT)
         {
@@ -173,12 +173,62 @@ public class Tetris : DragInventoryItem
         /// <returns></returns>
         public Vector3 CentralPosition()
         {
+            /*
             Vector3 export = new Vector3(0, 0, 0);
             foreach(Tetris t in pastTetris)
             {
                 export += t.transform.position;
             }
-            return export/pastTetris.Count;
+            return export/pastTetris.Count;*/
+
+            /*
+            Vector2 botRight = new Vector2(0, 0);
+
+            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
+            {
+                if(kvp.Key.x > botRight.x ) botRight.x = kvp.Key.x;
+                if (kvp.Key.y > botRight.y) botRight.y = kvp.Key.y;
+            }
+
+            botRight = botRight / 2;
+
+            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
+            {
+               if(kvp.Key == botRight) return kvp
+            }*/
+
+            Vector3 topLeft = new Vector3(0, 0, 0);
+            Vector3 botRight = new Vector3(0, 0, 0);
+
+            bool first = true;
+            //print("--------------------------------------------------------------------------------");
+            foreach (Tetris t in pastTetris)
+            {
+                Vector3 tPosition = t.transform.position;
+                if (first)
+                {
+                    topLeft = tPosition;
+                    botRight = tPosition;
+                    first = false;
+                }
+
+                Vector3 thisBotRightDelta = t.itemSO.GetBottomRightDelta();
+                Vector3 deltaWeight = thisBotRightDelta * t.gameObject.transform.localScale.x;
+                deltaWeight = new Vector3(deltaWeight.x, deltaWeight.y / Mathf.Sqrt(2f), deltaWeight.y / Mathf.Sqrt(2f));
+                Vector3 thisBotRight = tPosition + deltaWeight;
+                Vector3 thisTopLeft = tPosition - deltaWeight;
+
+                //print("processing: " + t.itemSO.tetrisHoverName + " botRightDelta is: " + thisBotRightDelta + " bot right pos: " + thisBotRight + " top left pos: " + thisTopLeft);
+                //print("before process, big botRight is: " + botRight + " big topLeft is: " + topLeft);
+                if (thisBotRight.x > botRight.x) botRight.x = thisBotRight.x;
+                if (thisBotRight.y < botRight.y) { botRight.y = thisBotRight.y; botRight.z = thisBotRight.z; }
+
+                if (thisTopLeft.x < topLeft.x) topLeft.x = thisTopLeft.x;
+                if (thisTopLeft.y > topLeft.y) {topLeft.y = thisTopLeft.y; topLeft.z = thisTopLeft.z; }
+                //print("after process, big botRight is: " + botRight + " big topLeft is: " + topLeft);
+            }
+
+            return (topLeft + botRight)/2;
         }
 
         /// <summary>
@@ -326,8 +376,6 @@ public class Tetris : DragInventoryItem
                 myRC = new RecipeCombiator(this);
                 Search(myRC, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
                 CheckSnap(myRC);
-                myRC.Organize();
-                myRC.CheckMerging();
             }
             
         }
@@ -590,6 +638,8 @@ public class Tetris : DragInventoryItem
             yield return new WaitForSeconds(0);
         }
         stateNow = state.Wait;
+        myRC.Organize();
+        myRC.CheckMerging();
     }
 
 
