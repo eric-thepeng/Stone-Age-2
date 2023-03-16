@@ -49,6 +49,9 @@ public class CheatManager : MonoBehaviour
 
     public void UnlockCurrentRecipe()
     {
-        RecipeMapManager.i.CheckUnlock(RecipeMapManager.i.DisplayBlock.myISO);
+        if (RecipeMapManager.i.DisplayBlock != null)
+        {
+            RecipeMapManager.i.CheckUnlock(RecipeMapManager.i.DisplayBlock.myISO);
+        }  
     }
 }

@@ -24,6 +24,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
     GameObject[] RecipeViewerLevels = new GameObject[4];
 
+    GameObject[] LockIcons = new GameObject[2];
+
     // Colors
     public Color32 unlockedColor;
     public Color32 lockedColor;
@@ -68,6 +70,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
         RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject;
         RecipeViewerLevels[2] = RecipeViewer.transform.Find("Description").gameObject;
         RecipeViewerLevels[3] = RecipeViewer.transform.Find("Graph").gameObject;
+
+        LockIcons[0] = RecipeViewer.transform.Find("Lock 1").gameObject;
+        LockIcons[1] = RecipeViewer.transform.Find("Lock 2").gameObject;
     }
 
 
@@ -100,6 +105,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
             }
         }
 
+        LockIcons[0].SetActive(true);
+        LockIcons[1].SetActive(true);
+
         if (RMB.GetLevelInt() >= 1) {
             // Dont do shit, since name is already set up there
 
@@ -107,6 +115,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
         if (RMB.GetLevelInt() >= 2)
         {
+            LockIcons[0].SetActive(false);
+
             RecipeViewerLevels[1].GetComponent<TextMeshPro>().text =
                 RMB.material;
 
@@ -114,6 +124,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
         if (RMB.GetLevelInt() >= 3)
         {
+            LockIcons[1].SetActive(false);
+
             RecipeViewerLevels[2].GetComponent<TextMeshPro>().text =
                 RMB.craftDescription;
 
@@ -155,17 +167,23 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
     private void Update()
     {
-   
-    }
-
-    public void RecipeViewerStopFollow()
-    {
-        
-    }
-
-    public void RecipeViewerStartFollow()
-    {
-        
+        foreach (RecipeMapBlock block in allBlocks)
+        {
+            Debug.Log(Mathf.Abs(block.transform.position.x - block.recipeMap.transform.position.x));
+            Debug.Log(Mathf.Abs(block.transform.position.y - block.recipeMap.transform.position.y));
+            if (Mathf.Abs(block.transform.position.x - block.recipeMap.transform.position.x) >= 8.5)
+            {
+                block.gameObject.SetActive(false);
+            }
+            else if (Mathf.Abs(block.transform.position.y - block.recipeMap.transform.position.y) >= 3.5)
+            {
+                block.gameObject.SetActive(false);
+            }
+            else
+            {
+                block.gameObject.SetActive(true);
+            }
+        }
     }
 
     private void MoveToMiddle()
