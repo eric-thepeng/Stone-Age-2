@@ -41,4 +41,9 @@ public class PlayerInputChannel : MonoBehaviour
     {
         PlayerState.OpenCloseChangeRecipeViewerPanel();
     }
+
+    public static void HomeReturnButton()
+    {
+        PlayerState.HomeReturnButton();
+    }
 }
