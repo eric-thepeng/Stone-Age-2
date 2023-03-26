@@ -25,7 +25,7 @@ public class PanelButtonIndicator : MonoBehaviour
     Vector3 homeButtonScale = new Vector3(1.15f, 1.15f, 1f);
     Vector3 otherButtonScale = new Vector3(0.8f, 0.8f, 1f);
 
-    float transitionTime = 0.15f;
+    float transitionTime = 0.3f;
 
     bool moving = false;
     Vector3 targetPos = new Vector3(0,0,0);
@@ -37,6 +37,7 @@ public class PanelButtonIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
 
         if (!moving) return;
 
@@ -65,7 +66,21 @@ public class PanelButtonIndicator : MonoBehaviour
 
         moving = !(stopMove && stopScale);
 
+        */
+    }
 
+    IEnumerator MoveCor()
+    {
+        float timeCount = 0;
+        while(timeCount < transitionTime)
+        {
+            transform.localPosition += (targetPos - transform.localPosition).normalized * movingSpeed * Time.deltaTime;
+            transform.localScale += (targetScale - transform.localScale).normalized * scalingSpeed * Time.deltaTime;
+            timeCount += Time.deltaTime;
+            yield return new WaitForSeconds(0);
+        }
+        transform.localPosition = targetPos;
+        transform.localScale = targetScale;
     }
 
     public void MoveToHomeBuilding()
@@ -102,8 +117,10 @@ public class PanelButtonIndicator : MonoBehaviour
 
     private void calculateSpeed()
     {
+        StopAllCoroutines();
         movingSpeed = (targetPos - transform.localPosition).magnitude / transitionTime;
         scalingSpeed = (targetScale - transform.localScale).magnitude / transitionTime;
+        StartCoroutine(MoveCor());
     }
 
 }

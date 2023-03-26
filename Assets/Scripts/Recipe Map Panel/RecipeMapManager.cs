@@ -169,8 +169,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
     {
         foreach (RecipeMapBlock block in allBlocks)
         {
-            Debug.Log(Mathf.Abs(block.transform.position.x - block.recipeMap.transform.position.x));
-            Debug.Log(Mathf.Abs(block.transform.position.y - block.recipeMap.transform.position.y));
+            //Debug.Log(Mathf.Abs(block.transform.position.x - block.recipeMap.transform.position.x));
+            //Debug.Log(Mathf.Abs(block.transform.position.y - block.recipeMap.transform.position.y));
             if (Mathf.Abs(block.transform.position.x - block.recipeMap.transform.position.x) >= 8.5)
             {
                 block.gameObject.SetActive(false);
