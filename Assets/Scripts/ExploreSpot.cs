@@ -7,9 +7,10 @@ using UnityEngine.XR;
 public class ExploreSpot : MonoBehaviour
 {
     public static Dictionary<string, string[]> exploreSpotUnveilDic = new Dictionary<string, string[]>() {
-        { "11", new string[]{"21","22","23"} },
+        { "11", new string[]{"21", "22", "23"} },
         { "23", new string[]{"31" } },
-        { "31", new string[]{"41", "42", "43", "44" } },
+        { "31", new string[]{"41", "42", "43"} },
+        { "43", new string[]{"51" } },
     };
     public static Dictionary<string, ExploreSpot> allExploreSpots = new Dictionary<string, ExploreSpot>();
 
