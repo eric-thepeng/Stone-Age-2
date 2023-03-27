@@ -6,11 +6,13 @@ using static UnityEditor.PlayerSettings;
 
 public class Tetris : DragInventoryItem
 {
-    /*Wait: Tetris sitting still. 
-     * Drag: Tetris being clicked and dragged around. 
-     * Animation: Tetris moving to snap. 
-     * Merge: Tetris is Merging.
-     */
+
+    /// <summary>
+    /// Wait: Tetris sitting still. 
+    /// Drag: Tetris being clicked and dragged around. 
+    /// Animation: Tetris moving to snap. 
+    /// Merge: Tetris is Merging.
+    /// </summary>
     enum state {Wait, Drag, Animation, Merge, CraftPreview}
     enum Zone {Craft, Back}
     Zone zoneNow = Zone.Craft;
@@ -55,8 +57,9 @@ public class Tetris : DragInventoryItem
     {
         List<Tetris> pastTetris; //The list of Tetris that is already processed
         List<KeyValuePair<Vector2, ItemScriptableObject>> recipeGrid; //The final formed recipe in grid form
-
+        ObjectStackList<CraftingStationScriptableObject> craftingStationCounter;//crafting station in contact
         Tetris origionTetris;
+
         ItemScriptableObject mergeISO;
         GameObject mergeWindow;
 
@@ -65,6 +68,7 @@ public class Tetris : DragInventoryItem
             origionTetris = oT;
             pastTetris = new List<Tetris>(); 
             recipeGrid = new List<KeyValuePair<Vector2, ItemScriptableObject>>();
+            craftingStationCounter = new ObjectStackList<CraftingStationScriptableObject>();
         }
 
         /// <summary>
@@ -79,6 +83,12 @@ public class Tetris : DragInventoryItem
         {
             //Avoid Repetition (extra prevention
             if (Searched(newT)) return;
+
+            if(newT.itemSO is CraftingStationScriptableObject)
+            {
+                craftingStationCounter.AddAmount((CraftingStationScriptableObject)newT.itemSO);
+                return;
+            }
 
             pastTetris.Add(newT);
             newT.DestroyRC();
@@ -112,17 +122,22 @@ public class Tetris : DragInventoryItem
 
         public void CheckMerging()
         {
-            ItemScriptableObject product = null;
+            print("HERERER");
+            DebugPrint();
+
+            mergeISO = null;
 
             foreach (ItemCraftScriptableObject icso in origionTetris.recipeListSO.list)
             {
+                //print("Check icso");
                 //if (!(icso.CraftingStationRequired != null && !CraftingManager.i.TetrisInPresent(icso.CraftingStationRequired)) && icso.CheckMatch(getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
                 //{
-                    product = icso.ItemCrafted;
+                if (icso.CheckMatch(getRecipeGrid(),craftingStationCounter)){
+                    //print("FOUND IT!!");
+                    mergeISO = icso.ItemCrafted;
                     break;
-                //}
+                }
             }
-            mergeISO = product;
 
             if (mergeISO != null)
             {
@@ -173,35 +188,12 @@ public class Tetris : DragInventoryItem
         /// <returns></returns>
         public Vector3 CentralPosition()
         {
-            /*
-            Vector3 export = new Vector3(0, 0, 0);
-            foreach(Tetris t in pastTetris)
-            {
-                export += t.transform.position;
-            }
-            return export/pastTetris.Count;*/
-
-            /*
-            Vector2 botRight = new Vector2(0, 0);
-
-            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
-            {
-                if(kvp.Key.x > botRight.x ) botRight.x = kvp.Key.x;
-                if (kvp.Key.y > botRight.y) botRight.y = kvp.Key.y;
-            }
-
-            botRight = botRight / 2;
-
-            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
-            {
-               if(kvp.Key == botRight) return kvp
-            }*/
 
             Vector3 topLeft = new Vector3(0, 0, 0);
             Vector3 botRight = new Vector3(0, 0, 0);
 
             bool first = true;
-            //print("--------------------------------------------------------------------------------");
+
             foreach (Tetris t in pastTetris)
             {
                 Vector3 tPosition = t.transform.position;
@@ -265,10 +257,13 @@ public class Tetris : DragInventoryItem
         /// <returns></returns>
         public void DebugPrint()
         {
+            print("Debug Print Recipe Combinator");
             foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in recipeGrid)
             {
                 print(kvp.Key + " " + kvp.Value.name);
             }
+            print(craftingStationCounter);
+            print("End Debug Print Recipe Combinator");
         }
 
         public void Merge()
@@ -362,6 +357,7 @@ public class Tetris : DragInventoryItem
         {
             transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
         }
+
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
             PlaceDrag();
@@ -567,15 +563,29 @@ public class Tetris : DragInventoryItem
 
     void CheckSnap(RecipeCombiator rc)//check if the Tetris is close enough to another to snap them together
     {
-        if (!rc.hasConnector()) return;
+        /*
+        if (!rc.hasConnector())
+        {
+            rc.CheckMerging();
+            return;
+        }*/
+
+        bool moved = false;
+
         foreach (Edge e in allEdges)
         {
             if (e.isConnected())
             {
                 //AudioManager.i.PlaySoundEffectByName("Tetris Snap", true);
                 StartCoroutine(SnapMovement(e.getOppositeEdgeDistance()));
+                moved = true;
                 break;
             }
+        }
+
+        if (!moved)
+        {
+            rc.CheckMerging();
         }
 
     }

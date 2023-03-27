@@ -18,13 +18,28 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
     public Dictionary<CraftingStationScriptableObject, int> craftingStationRequired = null; // new Dictionary<CraftingStationScriptableObject, int> ();
 
     //Iterate all recipes, return true if one of them matches.
-    public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> toCheck)
+    public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> currentRecipeCord, ObjectStackList<CraftingStationScriptableObject> currentCraftingStations)
     {
+        bool hasRecipe = false;
+
         foreach (Recipe r in allRecipes)
         {
-            if (r.CheckMatch(toCheck)) return true;
+            if (r.CheckMatch(currentRecipeCord)) hasRecipe = true;
         }
-        return false;
+
+        if(!hasRecipe) return false;
+
+        if (craftingStationRequired == null) return true;
+
+        foreach (KeyValuePair<CraftingStationScriptableObject, int> kvp in craftingStationRequired)
+        {
+            if(currentCraftingStations.GetAmount(kvp.Key) < kvp.Value)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
     
 }

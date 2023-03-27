@@ -76,7 +76,7 @@ public class UI_Harvest : MonoBehaviour
 
     public void AddItem(ItemScriptableObject iso, int amount)
     {
-        print(harvestInfoList);
+        //print(harvestInfoList);
         foreach(HarvestInfo hi in harvestInfoList) //add amount
         {
             if (hi.IsISO(iso))

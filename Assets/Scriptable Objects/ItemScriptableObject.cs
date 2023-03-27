@@ -53,4 +53,9 @@ public class ItemScriptableObject : SerializedScriptableObject
         botRight = new Vector2(botRight.x, -botRight.y);
         return botRight/2;
     }
+
+    public override string ToString()
+    {
+        return tetrisHoverName;
+    }
 }
