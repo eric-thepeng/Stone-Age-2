@@ -50,12 +50,12 @@ public class Tetris : DragInventoryItem
 
     //----------------------------- START OF RC -------------------------------------//
 
-
     //The class that is passed on during recursive search to combine all the Tetris together and form a recipe
     public class RecipeCombiator
     {
         List<Tetris> pastTetris; //The list of Tetris that is already processed
-        List<KeyValuePair<Vector2, ScriptableObject>> recipeGrid; //The final formed recipe in grid form
+        List<KeyValuePair<Vector2, ItemScriptableObject>> recipeGrid; //The final formed recipe in grid form
+
         Tetris origionTetris;
         ItemScriptableObject mergeISO;
         GameObject mergeWindow;
@@ -64,7 +64,7 @@ public class Tetris : DragInventoryItem
         {
             origionTetris = oT;
             pastTetris = new List<Tetris>(); 
-            recipeGrid = new List<KeyValuePair<Vector2, ScriptableObject>>();
+            recipeGrid = new List<KeyValuePair<Vector2, ItemScriptableObject>>();
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ public class Tetris : DragInventoryItem
             if (baseT == newT)
             {
                 newT.recipeFormingDelta = new Vector2(0, 0);
-                List<KeyValuePair<Vector2, ScriptableObject>> toSearch = newT.itemSO.FormationRecipeCoord;
-                foreach (KeyValuePair<Vector2, ScriptableObject> kvp in toSearch)
+                List<KeyValuePair<Vector2, ItemScriptableObject>> toSearch = newT.itemSO.FormationRecipeCoord;
+                foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in toSearch)
                 {
                     recipeGrid.Add(kvp);
                 }
@@ -103,9 +103,9 @@ public class Tetris : DragInventoryItem
                 newT.recipeFormingDelta = delta;
 
                 //Load into final receipe 
-                foreach (KeyValuePair<Vector2, ScriptableObject> kvp in newT.itemSO.FormationRecipeCoord)
+                foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in newT.itemSO.FormationRecipeCoord)
                 {
-                    recipeGrid.Add(new KeyValuePair<Vector2, ScriptableObject>(kvp.Key + delta, kvp.Value));
+                    recipeGrid.Add(new KeyValuePair<Vector2, ItemScriptableObject>(kvp.Key + delta, kvp.Value));
                 }
             }
         }
@@ -116,11 +116,11 @@ public class Tetris : DragInventoryItem
 
             foreach (ItemCraftScriptableObject icso in origionTetris.recipeListSO.list)
             {
-                if (!(icso.CraftingStationRequired != null && !CraftingManager.i.TetrisInPresent(icso.CraftingStationRequired)) && icso.CheckMatch(getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
-                {
+                //if (!(icso.CraftingStationRequired != null && !CraftingManager.i.TetrisInPresent(icso.CraftingStationRequired)) && icso.CheckMatch(getRecipeGrid())) //find the scriptableobject with same recipe, if there is one
+                //{
                     product = icso.ItemCrafted;
                     break;
-                }
+                //}
             }
             mergeISO = product;
 
@@ -237,15 +237,15 @@ public class Tetris : DragInventoryItem
         public void Organize()
         {
             Vector2 leftNTopBound = new Vector2(0, 0);
-            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
+            foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in recipeGrid)
             {
                 if (kvp.Key.x < leftNTopBound.x) leftNTopBound.x = kvp.Key.x;
                 if (kvp.Key.y < leftNTopBound.y) leftNTopBound.y = kvp.Key.y;
             }
-            List<KeyValuePair<Vector2, ScriptableObject>> editedRecipeGrid = new List<KeyValuePair<Vector2, ScriptableObject>>();
-            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
+            List<KeyValuePair<Vector2, ItemScriptableObject>> editedRecipeGrid = new List<KeyValuePair<Vector2, ItemScriptableObject>>();
+            foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in recipeGrid)
             {
-                editedRecipeGrid.Add(new KeyValuePair<Vector2, ScriptableObject>(kvp.Key - leftNTopBound, kvp.Value));
+                editedRecipeGrid.Add(new KeyValuePair<Vector2, ItemScriptableObject>(kvp.Key - leftNTopBound, kvp.Value));
             }
             recipeGrid = editedRecipeGrid;
         }
@@ -265,7 +265,7 @@ public class Tetris : DragInventoryItem
         /// <returns></returns>
         public void DebugPrint()
         {
-            foreach (KeyValuePair<Vector2, ScriptableObject> kvp in recipeGrid)
+            foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in recipeGrid)
             {
                 print(kvp.Key + " " + kvp.Value.name);
             }
@@ -316,7 +316,7 @@ public class Tetris : DragInventoryItem
         /// <summary>
         /// Return the grid representation (coordination + so) of recipe.
         /// </summary>
-        public List<KeyValuePair<Vector2, ScriptableObject>> getRecipeGrid() { return recipeGrid; }
+        public List<KeyValuePair<Vector2, ItemScriptableObject>> getRecipeGrid() { return recipeGrid; }
 
         /// <summary>
         /// Count and return the amount of each iso in the RC
@@ -324,7 +324,7 @@ public class Tetris : DragInventoryItem
         public Dictionary<ItemScriptableObject, int> GetIngredients() 
         {
             Dictionary<ItemScriptableObject, int> result = new Dictionary<ItemScriptableObject, int>();
-            foreach(KeyValuePair<Vector2, ScriptableObject> kvp in getRecipeGrid())
+            foreach(KeyValuePair<Vector2, ItemScriptableObject> kvp in getRecipeGrid())
             {
                 ItemScriptableObject afterCast = (ItemScriptableObject) kvp.Value;
                 if (result.ContainsKey(afterCast))
