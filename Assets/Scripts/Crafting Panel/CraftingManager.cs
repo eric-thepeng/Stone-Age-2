@@ -188,7 +188,7 @@ public class CraftingManager : SerializedMonoBehaviour
         return panelOpen;
     }
 
-    public GameObject CreateMergeWindow(Tetris.RecipeCombiator rc)
+    public GameObject CreateMergeWindow(RecipeCombiator rc)
     {
         Transform tf = transform.Find("Crafting Panel").Find("Merge Windows");
 
