@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//----------------------------- START OF RC -------------------------------------//
 
 //The class that is passed on during recursive search to combine all the Tetris together and form a recipe
-public class RecipeCombiator
+public class RecipeCombinator
 {
     List<Tetris> pastTetris; //The list of Tetris that is already processed
     List<KeyValuePair<Vector2, ItemScriptableObject>> recipeGrid; //The final formed recipe in grid form
@@ -15,7 +14,7 @@ public class RecipeCombiator
     ItemScriptableObject mergeISO;
     GameObject mergeWindow;
 
-    public RecipeCombiator(Tetris oT)
+    public RecipeCombinator(Tetris oT)
     {
         origionTetris = oT;
         pastTetris = new List<Tetris>();
@@ -113,7 +112,7 @@ public class RecipeCombiator
             if (t.myRC == null && t != DisassembleFrom)
             {
                 t.RefreshEdges(DisassembleFrom);
-                t.myRC = new RecipeCombiator(t);
+                t.myRC = new RecipeCombinator(t);
                 t.Search(t.myRC, t, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), DisassembleFrom);
                 t.myRC.Organize();
                 t.myRC.CheckMerging();
@@ -292,7 +291,5 @@ public class RecipeCombiator
 
     public ItemScriptableObject GetMergeISO() { return mergeISO; }
 }
-
-//----------------------------- END OF RC -------------------------------------//
 
 

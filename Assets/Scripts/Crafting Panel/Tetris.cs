@@ -48,7 +48,7 @@ public class Tetris : DragInventoryItem
 
     //To trigger and check recipe-related actions
 
-    public RecipeCombiator myRC;
+    public RecipeCombinator myRC;
 
 
     private void Start()
@@ -74,7 +74,7 @@ public class Tetris : DragInventoryItem
             {
                 SetState(state.Wait);
                 RefreshEdges();
-                myRC = new RecipeCombiator(this);
+                myRC = new RecipeCombinator(this);
                 Search(myRC, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
                 CheckSnap(myRC);
             }
@@ -163,7 +163,7 @@ public class Tetris : DragInventoryItem
     }
 
 
-    public IEnumerator MergeProgress(RecipeCombiator rc)
+    public IEnumerator MergeProgress(RecipeCombinator rc)
     {
         ItemScriptableObject product = rc.GetMergeISO();
         if (product == null) {
@@ -250,7 +250,7 @@ public class Tetris : DragInventoryItem
     /// <param name="dir">Direction of attachment, for the input for RecipeCombinator.</param>
     /// <param name="newCor">Coordination of new Tetris, for the input for RecipeCombinator.</param>
     /// <param name="excludeTetris">Exclude Tetris when searching (used when breaking down origional recipe).</param>
-    public void Search(RecipeCombiator rc, Tetris baseTetris, Vector2 baseCor, Vector2 dir, Vector2 newCor, Tetris excludeTetris = null)
+    public void Search(RecipeCombinator rc, Tetris baseTetris, Vector2 baseCor, Vector2 dir, Vector2 newCor, Tetris excludeTetris = null)
     {
         //add Tetris to recipe (embedded repitition check
         if (excludeTetris!=null && this == excludeTetris) return;
@@ -266,7 +266,7 @@ public class Tetris : DragInventoryItem
         }
     }
 
-    void CheckSnap(RecipeCombiator rc)//check if the Tetris is close enough to another to snap them together
+    void CheckSnap(RecipeCombinator rc)//check if the Tetris is close enough to another to snap them together
     {
         /*
         if (!rc.hasConnector())
