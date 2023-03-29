@@ -9,6 +9,7 @@ public class RecipeCombinator
     List<Tetris> pastTetris; //The list of Tetris that is already processed
     List<KeyValuePair<Vector2, ItemScriptableObject>> recipeGrid; //The final formed recipe in grid form
     ObjectStackList<CraftingStationScriptableObject> craftingStationCounter;//crafting station in contact
+    Dictionary<Tetris, Vector2> tetrisRecipePositionDelta;
     Tetris origionTetris;
 
     ItemScriptableObject mergeISO;
@@ -20,6 +21,7 @@ public class RecipeCombinator
         pastTetris = new List<Tetris>();
         recipeGrid = new List<KeyValuePair<Vector2, ItemScriptableObject>>();
         craftingStationCounter = new ObjectStackList<CraftingStationScriptableObject>();
+        tetrisRecipePositionDelta = new Dictionary<Tetris, Vector2>();
     }
 
     /// <summary>
@@ -48,7 +50,8 @@ public class RecipeCombinator
         //Is it the first Tetris to be added (the Tetris that create this RecipeCombinator)
         if (baseT == newT)
         {
-            newT.recipeFormingDelta = new Vector2(0, 0);
+            //newT.recipeFormingDelta = new Vector2(0, 0);
+            tetrisRecipePositionDelta.Add(newT, new Vector2(0, 0));
             List<KeyValuePair<Vector2, ItemScriptableObject>> toSearch = newT.itemSO.FormationRecipeCoord;
             foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in toSearch)
             {
@@ -60,8 +63,9 @@ public class RecipeCombinator
         else
         {
             //Calculate and record Delta
-            Vector2 delta = baseCor + dir - newCor + baseT.recipeFormingDelta;
-            newT.recipeFormingDelta = delta;
+            Vector2 delta = baseCor + dir - newCor + tetrisRecipePositionDelta[baseT]; //baseT.recipeFormingDelta;
+            tetrisRecipePositionDelta.Add(newT, delta);
+            //newT.recipeFormingDelta = delta;
 
             //Load into final receipe 
             foreach (KeyValuePair<Vector2, ItemScriptableObject> kvp in newT.itemSO.FormationRecipeCoord)

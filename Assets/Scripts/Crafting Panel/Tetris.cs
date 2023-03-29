@@ -19,22 +19,21 @@ public class Tetris : DragInventoryItem
     state stateNow = state.Wait;
 
     //Delta between 
-    public Vector2 recipeFormingDelta;
+    //public Vector2 recipeFormingDelta;
 
     //The Scriptable Object this Tetris contains
     public ItemScriptableObject itemSO;
-    public ItemSOListScriptableObject allItemListSO; //List of all Items TODO: delete this shit
     public RecipeListScriptableObject recipeListSO; // NEW
 
     //All the edges of this Tetris
     public List<Edge> allEdges = new List<Edge>();
 
     //These are for click and drag
-    public Vector2 dragDisplacement = new Vector2(0,0); //Displacement of dragging
-    public Vector3 tetrisDownPos = new Vector3(0, 0, 0); //Position of Tetris when mouse clicked
+    Vector2 dragDisplacement = new Vector2(0,0); //Displacement of dragging
+    Vector3 tetrisDownPos = new Vector3(0, 0, 0); //Position of Tetris when mouse clicked
 
     //Standart scale during play, used to snap during merge animation
-    private Vector3 standardScale = new Vector3(0.2f, 0.2f, 1);
+     Vector3 standardScale = new Vector3(0.2f, 0.2f, 1);
 
     //Merging Progress Bar
     [SerializeField] GameObject mergeProgressBar;
@@ -47,7 +46,6 @@ public class Tetris : DragInventoryItem
     Vector3 shadowOffsetStandard = new Vector3(-0.1f, -0.1f, 0.2f);
 
     //To trigger and check recipe-related actions
-
     public RecipeCombinator myRC;
 
 
@@ -65,7 +63,7 @@ public class Tetris : DragInventoryItem
 
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
-            PlaceDrag();
+            //PlaceDrag();
             if(zoneNow == Zone.Back) //PUT BACK TO INVENTORY
             {
                 CraftingManager.i.PutBackToInventory(this.gameObject);
@@ -81,9 +79,9 @@ public class Tetris : DragInventoryItem
             
         }
     }
-
-    protected override void CustomSetUp()
+    public override void SetUp(UI_InventoryBlock uiib)
     {
+        base.SetUp(uiib);
         SetState(state.Drag);
     }
 
@@ -132,7 +130,7 @@ public class Tetris : DragInventoryItem
         CraftingManager.i.mouseClickTetris();
         if (stateNow != state.Wait) return;
         SetState(state.Drag);
-        myRC.DisassembleMerge(this);
+        if(myRC!=null) myRC.DisassembleMerge(this);
         ResetEdges(); //so that rest of the recipe refreshes
         tetrisDownPos = transform.position;
     }
@@ -242,7 +240,7 @@ public class Tetris : DragInventoryItem
     }*/
 
     /// <summary>
-    /// Recursive search a Tetris, add all connected Tetris to 
+    /// Recursive search a Tetris, add all connected Tetris to rc
     /// </summary>
     /// <param name="rc">The recipe combinator that is passed around to do the combination.</param>
     /// <param name="baseTetris">BaseTetris, for the input for RecipeCombinator.</param>

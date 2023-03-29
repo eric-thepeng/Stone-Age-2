@@ -7,15 +7,9 @@ public class DragInventoryItem : MonoBehaviour
     UI_InventoryBlock myUIIBlock;
     protected bool placed = false;
 
-    public void SetUp(UI_InventoryBlock uiib)
+    public virtual void SetUp(UI_InventoryBlock uiib)
     {
         myUIIBlock = uiib;
-        CustomSetUp();
-    }
-
-    protected virtual void CustomSetUp()
-    {
-
     }
 
     protected void PlaceDrag()

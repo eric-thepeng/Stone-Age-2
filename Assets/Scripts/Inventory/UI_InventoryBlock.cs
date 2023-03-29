@@ -94,7 +94,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
     void CreateDrag()
     {
-        itemSprite.color = dragColr;
+        //itemSprite.color = dragColr;
         if (CraftingManager.i.isPanelOpen()) //TETRIS
         {
             GameObject newTetris = CraftingManager.i.CreateTetris(itemInfo.iso, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true), CraftingManager.CreateFrom.INVENTORY);
