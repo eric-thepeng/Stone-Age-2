@@ -68,7 +68,7 @@ public class Tetris : DragInventoryItem
             //PlaceDrag();
             if(zoneNow == Zone.Back) //PUT BACK TO INVENTORY
             {
-                CraftingManager.i.PutBackTetrisToInventory(this.gameObject);
+                CraftingManager.i.PutBackTetrisToInventory(this.gameObject, true);
             }
             else //zoneNow == Zone.Craft //DETECT CRAFTING
             {
@@ -200,17 +200,6 @@ public class Tetris : DragInventoryItem
     public void startMergeProcess()
     {
         stateNow = state.Merge;
-    }
-
-    public void terminateMergeProcess()
-    {
-        StartCoroutine(terminateMergeProcessIenumerator());
-    }
-
-    IEnumerator terminateMergeProcessIenumerator()
-    {
-        yield return new WaitForEndOfFrame();
-        stateNow = state.Wait;
     }
 
     /// <summary>

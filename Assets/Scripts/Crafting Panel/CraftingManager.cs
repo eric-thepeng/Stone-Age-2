@@ -4,9 +4,11 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class CraftingManager : SerializedMonoBehaviour
 {
+    [SerializeField] Transform inventoryFlyToTarget;
     [SerializeField] public Transform testtesttest;
     [SerializeField] List<ItemScriptableObject> startingTetris = new List<ItemScriptableObject>();
 
@@ -122,15 +124,41 @@ public class CraftingManager : SerializedMonoBehaviour
         return newTetris;
     }
 
+    public void TetrisFlyToInventoryEffect(GameObject tetrisGO, float flyTime)
+    {
+        Tetris origionalTetris = tetrisGO.GetComponent<Tetris>();
+        
+        GameObject flyObject = Instantiate(new GameObject("flying " + tetrisGO),tetrisGO.transform.parent);
+        flyObject.AddComponent<SpriteRenderer>();
+        flyObject.GetComponent<SpriteRenderer>().sprite = tetrisGO.GetComponent<SpriteRenderer>().sprite;
+        flyObject.GetComponent<SpriteRenderer>().sortingLayerID = tetrisGO.GetComponent<SpriteRenderer>().sortingLayerID;
+        flyObject.GetComponent<SpriteRenderer>().sortingOrder = tetrisGO.GetComponent<SpriteRenderer>().sortingOrder;
+        flyObject.transform.localScale = tetrisGO.transform.localScale;
+        flyObject.transform.localPosition = tetrisGO.transform.localPosition;
+        
+        Tween t = flyObject.transform.DOMove(inventoryFlyToTarget.position, flyTime);
+        t.onComplete = () => {
+            Inventory.i.InUseItem(origionalTetris.itemSO, false);
+            Destroy(flyObject); 
+        };
+    }
+
     public void RemoveFromTetrisList(GameObject go)
     {
         allTetris.Remove(go);
     }
 
-    public void PutBackTetrisToInventory(GameObject go)
+    public void PutBackTetrisToInventory(GameObject go, bool playerDragBack = false)
     {
         RemoveFromTetrisList(go);
-        Inventory.i.InUseItem(go.GetComponent<Tetris>().itemSO, false);
+        if (playerDragBack)
+        {
+            TetrisFlyToInventoryEffect(go, 0.2f);
+        }
+        else
+        {
+            TetrisFlyToInventoryEffect(go, 0.4f);
+        }
         Destroy(go);
     }
 
@@ -196,9 +224,15 @@ public class CraftingManager : SerializedMonoBehaviour
         GameObject newWindow = Instantiate(tf.Find("Merge Window Template").gameObject, tf);
         newWindow.SetActive(true);
         newWindow.transform.position = rc.CentralPosition();
-        UnityEvent newEvent = new UnityEvent();
-        newEvent.AddListener(rc.Merge);
-        newWindow.transform.Find("Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(newEvent);
+        
+        UnityEvent mergeEvent = new UnityEvent();
+        mergeEvent.AddListener(rc.Merge);
+        newWindow.transform.Find("Merge Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(mergeEvent);
+
+        UnityEvent deleteEvent = new UnityEvent();
+        deleteEvent.AddListener(rc.DeleteMergeWindow);
+        newWindow.transform.Find("Delete Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(deleteEvent);
+
 
         newWindow.transform.Find("Preview").GetComponent<SpriteRenderer>().sprite = rc.GetMergeISO().iconSprite;
         newWindow.transform.Find("Preview Name").GetComponent<TextMeshPro>().text = rc.GetMergeISO().tetrisHoverName;
