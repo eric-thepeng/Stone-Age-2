@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -178,7 +179,7 @@ public class Tetris : DragInventoryItem
         //GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
         //CraftingManager.i.AddToAllTetris(newTetris);
 
-        CraftingManager.i.CreateTetris(product, rc.CentralPosition(), CraftingManager.CreateFrom.MERGE);
+        GameObject newTetrisGO = CraftingManager.i.CreateTetris(product, rc.CentralPosition(), CraftingManager.CreateFrom.MERGE);
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
         RecipeMapManager.i.CheckUnlock(product);
@@ -187,6 +188,13 @@ public class Tetris : DragInventoryItem
         {
             t.DestroySelf();
         }
+
+        if (product is CraftingStationScriptableObject)
+        {
+            yield return new WaitForSeconds(0.2f);
+            newTetrisGO.transform.DOMove(CraftingManager.i.testtesttest.position + new Vector3(0, 0.3f, 0.3f), 1);
+        }
+
     }
 
     public void startMergeProcess()

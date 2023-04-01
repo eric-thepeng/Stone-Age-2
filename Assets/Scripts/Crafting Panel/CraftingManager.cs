@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class CraftingManager : SerializedMonoBehaviour
 {
+    [SerializeField] public Transform testtesttest;
     [SerializeField] List<ItemScriptableObject> startingTetris = new List<ItemScriptableObject>();
 
     public List<GameObject> allTetris = new List<GameObject>();
