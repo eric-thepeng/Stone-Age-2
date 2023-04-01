@@ -237,8 +237,6 @@ public class RecipeCombinator
                 }
             }
             Inventory.i.AddItemToStock(GetMergeISO());
-            //2023 02 27 Recipe System to check if there is a unlock // Added by Will
-            RecipeMapManager.i.CheckUnlock(GetMergeISO());
         }
         else //merge the inspected one
         {
@@ -246,6 +244,19 @@ public class RecipeCombinator
             DestroyCraftPreview();
         }
 
+        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
+        RecipeMapManager.i.CheckUnlock(GetMergeISO());
+
+    }
+
+    public void DeleteMergeWindow()
+    {
+        Debug.Log("delete merge window");
+        foreach(Tetris t in pastTetris)
+        {
+            CraftingManager.i.PutBackTetrisToInventory(t.gameObject);
+        }
+        DestroyCraftPreview();
     }
 
     public void DestroyCraftPreview()
