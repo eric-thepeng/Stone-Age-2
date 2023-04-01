@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -240,12 +241,53 @@ public class RecipeCombinator
         }
         else //merge the inspected one
         {
-            origionTetris.StartCoroutine(origionTetris.MergeProgress(this));
+            origionTetris.StartCoroutine(MergeProcess());
             DestroyCraftPreview();
         }
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
         RecipeMapManager.i.CheckUnlock(GetMergeISO());
+
+    }
+
+    IEnumerator MergeProcess()
+    {
+        if(GetMergeISO() == null)
+        {
+            Debug.LogError("Trying to merge empty Recipe Combinator");
+        }
+
+        foreach(Tetris t in GetPastTetris())
+        {
+            t.startMergeProcess();
+        }
+        float tCount = 0;
+        float tRequire = 1;
+        ProgressBar pb = MonoBehaviour.Instantiate(CraftingManager.i.mergeProgressBar, CentralPosition(), Quaternion.identity).GetComponent<ProgressBar>();
+        pb.transform.position += new Vector3(0, 0, -0.5f);
+
+        while (tCount < tRequire)
+        {
+            tCount += Time.deltaTime * 5;
+            pb.setTo(tCount / tRequire);
+            yield return new WaitForSeconds(0);
+        }
+
+        GameObject newTetrisGO = CraftingManager.i.CreateTetris(GetMergeISO(), CentralPosition(), CraftingManager.CreateFrom.MERGE);
+
+        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
+        RecipeMapManager.i.CheckUnlock(GetMergeISO());
+
+        foreach (Tetris t in GetPastTetris())
+        {
+            t.DestroySelf();
+        }
+
+        if (GetMergeISO() is CraftingStationScriptableObject)
+        {
+            yield return new WaitForSeconds(0.2f);
+            newTetrisGO.transform.DOMove(CraftingManager.i.testtesttest.position + new Vector3(0, 0.3f, 0.3f), 1);
+        }
 
     }
 
