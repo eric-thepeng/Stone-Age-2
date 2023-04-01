@@ -24,6 +24,7 @@ public class Tetris : DragInventoryItem
     //The Scriptable Object this Tetris contains
     public ItemScriptableObject itemSO;
     public RecipeListScriptableObject recipeListSO; // NEW
+    public bool isStaticCraftStation { get { return itemSO is CraftingStationScriptableObject; } }
 
     //All the edges of this Tetris
     public List<Edge> allEdges = new List<Edge>();
@@ -66,7 +67,7 @@ public class Tetris : DragInventoryItem
             //PlaceDrag();
             if(zoneNow == Zone.Back) //PUT BACK TO INVENTORY
             {
-                CraftingManager.i.PutBackToInventory(this.gameObject);
+                CraftingManager.i.PutBackTetrisToInventory(this.gameObject);
             }
             else //zoneNow == Zone.Craft //DETECT CRAFTING
             {
@@ -95,9 +96,7 @@ public class Tetris : DragInventoryItem
 
     private void CreateShadow()
     {
-        //shadow = new GameObject("shadow of " + gameObject.name);
         shadow = Instantiate(new GameObject("shadow of " + gameObject.name), this.transform);
-        //shadow.transform.parent = this.transform;
         shadow.transform.localPosition = new Vector3(0,0,0) + shadowOffsetStandard;
         shadow.transform.localScale = new Vector3(1, 1, 1); //gameObject.transform.localScale;
         //transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -111,7 +110,7 @@ public class Tetris : DragInventoryItem
 
     private void SetState(state newState)
     {
-        //set state of the Tetris
+        if (isStaticCraftStation) return;
         stateNow = newState;
     }
 
@@ -135,14 +134,6 @@ public class Tetris : DragInventoryItem
         tetrisDownPos = transform.position;
     }
 
-    /*
-    public void RefreshEdges()
-    {
-        foreach (Edge e in allEdges)
-        {
-            e.RefreshState();
-        }
-    }*/
 
     public void RefreshEdges(Tetris excludeTetris = null)
     {
@@ -213,31 +204,6 @@ public class Tetris : DragInventoryItem
         yield return new WaitForEndOfFrame();
         stateNow = state.Wait;
     }
-
-    /*
-    /// <summary>
-    /// Recursive search a Tetris, add all connected Tetris to 
-    /// </summary>
-    /// <param name="rc">The recipe combinator that is passed around to do the combination.</param>
-    /// <param name="baseTetris">BaseTetris, for the input for RecipeCombinator.</param>
-    /// <param name="baseCor">BaseCoordination, for the input for RecipeCombinator.</param>
-    /// <param name="dir">Direction of attachment, for the input for RecipeCombinator.</param>
-    /// <param name="newCor">Coordination of new Tetris, for the input for RecipeCombinator.</param>
-    void Search(RecipeCombiator rc, Tetris baseTetris, Vector2 baseCor, Vector2 dir, Vector2 newCor)
-    {
-        print("non exclusive add tetris " + gameObject.name);
-        //add Tetris to recipe (embedded repitition check
-        rc.AddTetris(baseTetris, this, baseCor, dir, newCor);
-
-        //do this for every edge it has
-        List<Edge> toProcess = new List<Edge>(allEdges);
-        foreach (Edge e in toProcess)
-        {
-            if (!e.isConnected()) continue; //if the edge is not connected to anything, skip it.
-            if (rc.Searched(e.getOppositeTetris())) continue; //if the connected Tetris of this Edge is already searched, skip it.
-            e.getOppositeTetris().Search(rc, this,e.getAttachedCoord(),e.getAttachToDirection(),e.getOppositeEdge().getAttachedCoord()); //Recursively search this edge.
-        }
-    }*/
 
     /// <summary>
     /// Recursive search a Tetris, add all connected Tetris to rc

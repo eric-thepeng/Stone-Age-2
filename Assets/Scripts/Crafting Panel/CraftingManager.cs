@@ -126,7 +126,7 @@ public class CraftingManager : SerializedMonoBehaviour
         allTetris.Remove(go);
     }
 
-    public void PutBackToInventory(GameObject go)
+    public void PutBackTetrisToInventory(GameObject go)
     {
         RemoveFromTetrisList(go);
         Inventory.i.InUseItem(go.GetComponent<Tetris>().itemSO, false);
@@ -138,7 +138,7 @@ public class CraftingManager : SerializedMonoBehaviour
         for(int i = allTetris.Count-1; i>=0; i--)
         {
             allTetris[i].GetComponent<Tetris>().DestroyRC();
-            PutBackToInventory(allTetris[i]);
+            if(! allTetris[i].GetComponent<Tetris>().isStaticCraftStation) PutBackTetrisToInventory(allTetris[i]);
         }
     }
 
