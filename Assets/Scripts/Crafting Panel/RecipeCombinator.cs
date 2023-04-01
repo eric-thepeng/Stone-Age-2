@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 
 //The class that is passed on during recursive search to combine all the Tetris together and form a recipe
@@ -221,7 +222,14 @@ public class RecipeCombinator
         Debug.Log("End Debug Print Recipe Combinator");
     }
 
-    public void Merge()
+    public void MergeOne()
+    {
+        origionTetris.StartCoroutine(MergeProcess());
+        DestroyCraftPreview();
+        RecipeMapManager.i.CheckUnlock(GetMergeISO());
+    }
+
+    public void MergeAuto()
     {
         bool mergeFromInventory = true;
         foreach (KeyValuePair<ItemScriptableObject, int> kvp in GetIngredients())
@@ -237,13 +245,16 @@ public class RecipeCombinator
                     Inventory.i.UseItemFromStock(kvp.Key);
                 }
             }
-            Inventory.i.AddItemToStock(GetMergeISO());
         }
         else //merge the inspected one
         {
+            DeleteTetrisAndMergeWindow();
+            /*
             origionTetris.StartCoroutine(MergeProcess());
-            DestroyCraftPreview();
+            DestroyCraftPreview();*/
         }
+
+        CraftingManager.i.TetrisFlyToInventoryEffect(GetMergeISO(), CentralPosition(), 0.4f, true);
 
         //2023 02 27 Recipe System to check if there is a unlock // Added by Will
         RecipeMapManager.i.CheckUnlock(GetMergeISO());
@@ -291,10 +302,20 @@ public class RecipeCombinator
 
     }
 
-    public void DeleteMergeWindow()
+    public void DeleteTetrisAndMergeWindow()
     {
         Debug.Log("delete merge window");
         foreach(Tetris t in pastTetris)
+        {
+             t.DestroySelf();
+        }
+        DestroyCraftPreview();
+    }
+
+    public void PutBackTetrisAndMergeWindow()
+    {
+        Debug.Log("delete merge window");
+        foreach (Tetris t in pastTetris)
         {
             CraftingManager.i.PutBackTetrisToInventory(t.gameObject);
         }

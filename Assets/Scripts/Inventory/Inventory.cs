@@ -93,11 +93,6 @@ public class Inventory : MonoBehaviour
         InUseItem(iso, true);
     }
 
-    public void AddItemToStock(ItemScriptableObject iso)
-    {
-        AddInventoryItem(iso);
-    }
-
     public void UseItemFromStock(ItemScriptableObject iso)
     {
         GetItemInfo(iso).totalAmount -= 1;
