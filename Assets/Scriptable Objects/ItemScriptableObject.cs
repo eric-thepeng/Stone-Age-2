@@ -15,7 +15,7 @@ public class ItemScriptableObject : SerializedScriptableObject
     public GameObject myPrefab = null; 
     //public List<Recipe> allRecipes = new List<Recipe>();
     public Recipe myRecipe = null;
-    public Sprite tetrisSprite;
+    public Sprite tetrisSprite { get { return myPrefab.GetComponent<SpriteRenderer>().sprite; } }
     public Sprite iconSprite;
     public enum Category { Regular, Building }
     public Category category = Category.Regular;
