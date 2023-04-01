@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class CraftingManager : SerializedMonoBehaviour
 {
+    [SerializeField] public GameObject mergeProgressBar;
     [SerializeField] Transform inventoryFlyToTarget;
     [SerializeField] public Transform testtesttest;
     [SerializeField] List<ItemScriptableObject> startingTetris = new List<ItemScriptableObject>();

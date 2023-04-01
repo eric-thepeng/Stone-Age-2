@@ -152,54 +152,9 @@ public class Tetris : DragInventoryItem
         }
     }
 
-
-    public IEnumerator MergeProgress(RecipeCombinator rc)
-    {
-        ItemScriptableObject product = rc.GetMergeISO();
-        if (product == null) {
-            Debug.LogError("Trying to merge empty Recipe Combinator");
-        }
-
-        foreach (Tetris t in rc.GetPastTetris())
-        {
-            t.startMergeProcess();
-        }
-        float tCount = 0;
-        float tRequire = 1;
-        ProgressBar pb = Instantiate(mergeProgressBar, this.transform.position, Quaternion.identity).GetComponent<ProgressBar>();
-        pb.transform.position += new Vector3(0, 0, -0.5f);
-
-        while (tCount < tRequire)
-        {
-            tCount += Time.deltaTime * 5;
-            pb.setTo(tCount / tRequire);
-            yield return new WaitForSeconds(0);
-        }
-
-        //GameObject newTetris = Instantiate(product.myPrefab, rc.CentralPosition(), Quaternion.identity);
-        //CraftingManager.i.AddToAllTetris(newTetris);
-
-        GameObject newTetrisGO = CraftingManager.i.CreateTetris(product, rc.CentralPosition(), CraftingManager.CreateFrom.MERGE);
-
-        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
-        RecipeMapManager.i.CheckUnlock(product);
-
-        foreach (Tetris t in rc.GetPastTetris())
-        {
-            t.DestroySelf();
-        }
-
-        if (product is CraftingStationScriptableObject)
-        {
-            yield return new WaitForSeconds(0.2f);
-            newTetrisGO.transform.DOMove(CraftingManager.i.testtesttest.position + new Vector3(0, 0.3f, 0.3f), 1);
-        }
-
-    }
-
     public void startMergeProcess()
     {
-        stateNow = state.Merge;
+        SetState(state.Merge);
     }
 
     /// <summary>
