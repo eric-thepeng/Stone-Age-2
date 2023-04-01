@@ -23,12 +23,14 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
+    float cameraZoomSpeed = 4, cameraMinHeight = 50, cameraMaxHeight = 90;
+
     private void Update()
     {
-        if (!PlayerState.IsBrowsing()) return;
+        if (!(PlayerState.IsBrowsing() || PlayerState.IsBuilding())) return;
         //ZOOMING
-        float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * 2;
-        targetCamHeight = Mathf.Clamp(targetCamHeight, 40, 90);
+        float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * cameraZoomSpeed;
+        targetCamHeight = Mathf.Clamp(targetCamHeight, cameraMinHeight, cameraMaxHeight);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
 
