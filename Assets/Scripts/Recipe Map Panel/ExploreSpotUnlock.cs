@@ -13,6 +13,8 @@ public class ExploreSpotUnlock : MonoBehaviour
     ItemScriptableObject[] unlockResource;
     int[] unlockResrouceAmount;
 
+    float unit = 0.75f;
+
     private void Start()
     {
         resourceSet = transform.Find("Resource Set").gameObject;
@@ -34,19 +36,19 @@ public class ExploreSpotUnlock : MonoBehaviour
 
         for (int count = 0; count < unlockResource.Length; count ++)
         {
-            CreateResourceSet(unlockResource[count], unlockResrouceAmount[count], count);
+            CreateResourceSet(unlockResource[count], unlockResrouceAmount[count], count, unlockResource.Length);
         }
 
         transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = unlockSpiritPoint + "";
     }
 
-    void CreateResourceSet(ItemScriptableObject resource, int weight, int offset)
+    void CreateResourceSet(ItemScriptableObject resource, int weight, int offset, int length)
     {
         GameObject thisResourceSet = Instantiate(resourceSet, spawnTransform.position, spawnTransform.rotation, spawnTransform);
 
         thisResourceSet.SetActive(true);
 
-        thisResourceSet.transform.position += new Vector3(-offset, 0, 0);
+        thisResourceSet.transform.position += new Vector3((length - 1) * -unit / 2 + offset * unit, 0, 0);
 
         thisResourceSet.transform.Find("Resource Icon").GetComponent<SpriteRenderer>().sprite = resource.iconSprite;
         thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = weight + "";

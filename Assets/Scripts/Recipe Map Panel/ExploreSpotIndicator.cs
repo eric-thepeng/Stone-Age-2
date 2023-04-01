@@ -14,6 +14,8 @@ public class ExploreSpotIndicator : MonoBehaviour
     int[] weightList;
     int totalWeight;
 
+    float unit = 0.75f;
+
     private void Start()
     {
         resourceSet = transform.Find("Resource Set").gameObject;
@@ -36,21 +38,21 @@ public class ExploreSpotIndicator : MonoBehaviour
 
         for (int count = 0; count < resourceList.Length; count ++)
         {
-            CreateResourceSet(resourceList[count], (int)((float)weightList[count] / (float)totalWeight * 100), count);
+            CreateResourceSet(resourceList[count], (int)((float)weightList[count] / (float)totalWeight * 100), count, resourceList.Length);
         }
 
         transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text = spiritPointAmount + "" ;
     }
 
-    void CreateResourceSet(ItemScriptableObject resource, int weight, int offset)
+    void CreateResourceSet(ItemScriptableObject resource, int weight, int offset, int length)
     {
         GameObject thisResourceSet = Instantiate(resourceSet, spawnTransform.position, spawnTransform.rotation, spawnTransform);
 
         thisResourceSet.SetActive(true);
 
-        thisResourceSet.transform.position += new Vector3(offset, 0, 0);
+        thisResourceSet.transform.position += new Vector3((length - 1) * -unit / 2 + offset * unit, 0, 0);
 
         thisResourceSet.transform.Find("Resource Icon").GetComponent<SpriteRenderer>().sprite = resource.iconSprite;
-        thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = weight + " %";
+        thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = weight + "%";
     }
 }
