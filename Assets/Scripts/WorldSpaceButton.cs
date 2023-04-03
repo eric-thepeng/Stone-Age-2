@@ -11,6 +11,8 @@ public class WorldSpaceButton : MonoBehaviour
     [SerializeField] protected Color32 hoverColor;
     [SerializeField] protected Color32 pressColor;
 
+    [SerializeField] bool autoTint;
+
     [SerializeField] bool buttonActive = true;
     [SerializeField] SpriteRenderer affectSR = null;
 
@@ -26,6 +28,13 @@ public class WorldSpaceButton : MonoBehaviour
         else
         {
             targetSR = affectSR;
+        }
+
+        if (autoTint)
+        {
+            normalColor = targetSR.color;
+            hoverColor = new Color(normalColor.r * 0.8f /255, normalColor.g * 0.8f / 255, normalColor.b * 0.8f / 255, normalColor.a);
+            pressColor = new Color(normalColor.r * 0.6f /255, normalColor.g * 0.6f / 255, normalColor.b * 0.6f / 255, normalColor.a);
         }
     }
 

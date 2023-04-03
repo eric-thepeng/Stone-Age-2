@@ -1991,6 +1991,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4282664004
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &71654957
@@ -3156,7 +3157,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5420b6c143a68400fa821b27ceaf34e2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.9019608}
+  m_Color: {r: 0.8396226, g: 0.80397826, b: 0.80397826, a: 0.9019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5003,7 +5004,7 @@ Transform:
   m_GameObject: {fileID: 224475883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.86, z: 30}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.13, y: 0.13, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 800295666}
@@ -7191,8 +7192,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317975126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.11, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalPosition: {x: -0.35, y: -0.19, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1082183409}
@@ -7239,8 +7240,8 @@ SpriteRenderer:
   m_SortingLayerID: -1630693103
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 7e14db1f9b2ea4bcf83f19ef3d2dbf98, type: 3}
-  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ed98af792f5874397ad4e91dbdded20f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7267,7 +7268,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 24.576002, y: 15.120001}
+    oldSize: {x: 19.2, y: 20.805079}
     newSize: {x: 24.576002, y: 15.120001}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -9592,7 +9593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425511383}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.45, y: 0, z: 30}
+  m_LocalPosition: {x: 5.62, y: 0, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10635,6 +10636,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4284506208
+  autoTint: 1
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!65 &478316248
@@ -10692,7 +10694,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 1992777091, guid: d35598a5724af41d5831f351beafca91, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6415094, g: 0.5424616, b: 0.39035243, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -13856,6 +13858,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4287732385
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &604656524
@@ -18785,8 +18788,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 145872312, guid: 0dfa940ca23de485f9a5ef9f8263f805, type: 3}
-    - {fileID: -1789981402, guid: 6c7d1a5571a8740a4bb837335baf0a55, type: 3}
+    - {fileID: 21300000, guid: c4718965228684ef4919afae69e2ee6b, type: 3}
+    - {fileID: 21300000, guid: 4ec444c0df46f47d38d34889d434e0a3, type: 3}
+    - {fileID: 21300000, guid: 69413dae93e0f4d0fbe08243df6b1c1d, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -18798,14 +18802,14 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 1|ProgressControl+TutorialInfo, Assembly-CSharp
     - Name: text
       Entry: 1
-      Data: Drag the character icon of your spirit-animal friend onto a exploration
-        spot to gather resource.
+      Data: Drag your spirit-animal friend onto a exploration spot to start gathering
+        resource and spirit points!
     - Name: image
       Entry: 10
       Data: 0
@@ -18817,10 +18821,34 @@ MonoBehaviour:
       Data: 2|ProgressControl+TutorialInfo, Assembly-CSharp
     - Name: text
       Entry: 1
-      Data: 2222
+      Data: Go to the research panel to research and unlock blueprints for crafting.
     - Name: image
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: Craft unique items in the crafting panel.
+    - Name: image
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: Return to home screen anytime!
+    - Name: image
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -19830,6 +19858,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4282664004
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &827733009
@@ -21221,6 +21250,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4284372555
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!54 &863846967
@@ -21682,6 +21712,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 3558284693
+  autoTint: 0
   buttonActive: 0
   affectSR: {fileID: 1444144537}
 --- !u!1 &891455887
@@ -21885,6 +21916,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4282664004
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &901680913
@@ -25612,8 +25644,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBlockTemplate: {fileID: 1600279715}
   allInventoryBlocks: []
-  horizontalDisplacement: 0.63
-  verticalDisplacement: 0.66
+  horizontalDisplacement: 0.678
+  verticalDisplacement: 0.682
   resetBackground: 1
   dragRawMaterial: {fileID: 0}
   dragCraftMaterial: {fileID: 0}
@@ -29327,8 +29359,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260182123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4, y: -0.153, z: -0}
-  m_LocalScale: {x: 0.3, y: 0.45, z: 1}
+  m_LocalPosition: {x: -1.69, y: -0.153, z: -0}
+  m_LocalScale: {x: 0.7505162, y: 0.608445, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1082183409}
@@ -29422,6 +29454,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 2856600644
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!136 &1260182127
@@ -34408,6 +34441,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4287732385
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &1464728058
@@ -35054,6 +35088,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4284506208
+  autoTint: 1
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!65 &1494731504
@@ -35111,7 +35146,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 1992777091, guid: d35598a5724af41d5831f351beafca91, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6431373, g: 0.5411765, b: 0.39215687, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -36636,6 +36671,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4284506208
+  autoTint: 1
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!65 &1564473850
@@ -36693,7 +36729,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f18470fffcfd26641a65dafb5be2196d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6431373, g: 0.5411765, b: 0.39215687, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -37351,7 +37387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600279715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.83, y: 1.17, z: -0}
+  m_LocalPosition: {x: -1.04, y: 1.14, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -41661,6 +41697,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4287732385
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &1790218125
@@ -44010,6 +44047,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4285951071
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!4 &1894433915 stripped
@@ -44441,6 +44479,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4282664004
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!212 &1911443278
@@ -48607,6 +48646,7 @@ MonoBehaviour:
   pressColor:
     serializedVersion: 2
     rgba: 4283256141
+  autoTint: 0
   buttonActive: 1
   affectSR: {fileID: 0}
 --- !u!136 &2084611365
