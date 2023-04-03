@@ -11,6 +11,7 @@ public class ExploreSpot : MonoBehaviour
         { "23", new string[]{"31" } },
         { "31", new string[]{"41", "42", "43"} },
         { "43", new string[]{"51" } },
+        { "41", new string[]{"61" } },
     };
     public static Dictionary<string, ExploreSpot> allExploreSpots = new Dictionary<string, ExploreSpot>();
 
