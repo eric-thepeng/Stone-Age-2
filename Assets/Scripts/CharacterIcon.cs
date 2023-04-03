@@ -40,9 +40,9 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                transform.parent.Find("Background").gameObject.SetActive(false);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
-                    transform.parent.Find("Background").gameObject.SetActive(false);
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
                     if (toExplore.isUnlocked()) // DRAGGING -> PLACED
                     {
