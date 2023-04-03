@@ -17,6 +17,14 @@ public class PlayerInputChannel : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C)) CraftingPanelOpenButton();
+        if (Input.GetKeyDown(KeyCode.Space)) HomeReturnButton();
+        if (Input.GetKeyDown(KeyCode.B)) InventoryPanelOpenButton();
+        if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
+    }
+
     public static void InventoryPanelOpenButton()
     {
         PlayerState.OpenCloseChangeInventoryPanel();
