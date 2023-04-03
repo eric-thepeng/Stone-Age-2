@@ -79,7 +79,7 @@ public class RecipeCombinator
 
     public void CheckMerging()
     {
-
+        DebugPrint();
         mergeISO = null;
 
         foreach (ItemCraftScriptableObject icso in origionTetris.recipeListSO.list)
