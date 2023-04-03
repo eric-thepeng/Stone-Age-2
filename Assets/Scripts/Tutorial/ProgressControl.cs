@@ -5,10 +5,10 @@ using Sirenix.OdinInspector;
 using TMPro;
 
 /* Tutorial Texts
- * 1. Drag the character icon of your spirit-animal friend onto a exploration spot to start gathering resource and spirit points!
- * 2. Click on the research button to research and unlock blueprints for crafting.
- * 3. Click on the crafting button to craft unique items.
- * 4. Click the home button to return to world space.
+ * 1. Drag your spirit-animal friend onto a exploration spot to start gathering resource and spirit points!
+ * 2. Go to the research panel to research and unlock blueprints for crafting.
+ * 3. Craft unique items in the crafting panel.
+ * 4. Return to home screen anytime!
  */
 
 public class ProgressControl : SerializedMonoBehaviour
