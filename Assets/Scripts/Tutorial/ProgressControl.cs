@@ -47,6 +47,7 @@ public class ProgressControl : SerializedMonoBehaviour
         displayingIndex = displayWhich;
         transform.Find("Image").GetComponent<SpriteRenderer>().sprite = allTutorials[displayingIndex].image;
         transform.Find("Text").GetComponent<TextMeshPro>().text = allTutorials[displayingIndex].text;
+        transform.Find("Count").GetComponent<TextMeshPro>().text = "" + (int)(displayingIndex + 1) + "/4";
     }
 
     public void CloseTutorial()
