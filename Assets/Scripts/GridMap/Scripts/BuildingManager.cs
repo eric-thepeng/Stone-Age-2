@@ -17,6 +17,8 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    [SerializeField] BuildingISO placeHolderBISO;
+
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
     public bool building = false;
@@ -42,5 +44,10 @@ public class BuildingManager : MonoBehaviour
     public void AddHomeGrid(HomeGrid hg)
     {
         allHomeGrids.Add(hg);
+    }
+
+    public BuildingISO GetSelectedBuildingISO()
+    {
+        return placeHolderBISO;
     }
 }

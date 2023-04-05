@@ -1,10 +1,8 @@
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Building_ISO", menuName = "ScriptableObjects/Building_ISO")]
-public class Building_ISO : ItemScriptableObject
+public class BuildingItemScriptableObject : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

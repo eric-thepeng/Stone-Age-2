@@ -10,7 +10,7 @@ public class RecipeCombinator
 {
     List<Tetris> pastTetris; //The list of Tetris that is already processed
     List<KeyValuePair<Vector2, ItemScriptableObject>> recipeGrid; //The final formed recipe in grid form
-    ObjectStackList<CraftingStationScriptableObject> craftingStationCounter;//crafting station in contact
+    ObjectStackList<ItemScriptableObject> craftingStationCounter;//crafting station in contact
     Dictionary<Tetris, Vector2> tetrisRecipePositionDelta;
     Tetris origionTetris;
 
@@ -22,7 +22,7 @@ public class RecipeCombinator
         origionTetris = oT;
         pastTetris = new List<Tetris>();
         recipeGrid = new List<KeyValuePair<Vector2, ItemScriptableObject>>();
-        craftingStationCounter = new ObjectStackList<CraftingStationScriptableObject>();
+        craftingStationCounter = new ObjectStackList<ItemScriptableObject>();
         tetrisRecipePositionDelta = new Dictionary<Tetris, Vector2>();
     }
 
@@ -39,9 +39,9 @@ public class RecipeCombinator
         //Avoid Repetition (extra prevention
         if (Searched(newT)) return;
 
-        if (newT.itemSO is CraftingStationScriptableObject)
+        if (newT.itemSO.isCraftingStation)
         {
-            craftingStationCounter.AddAmount((CraftingStationScriptableObject)newT.itemSO);
+            craftingStationCounter.AddAmount(newT.itemSO);
             return;
         }
 
@@ -294,7 +294,7 @@ public class RecipeCombinator
             t.DestroySelf();
         }
 
-        if (GetMergeISO() is CraftingStationScriptableObject)
+        if (GetMergeISO().isCraftingStation)
         {
             yield return new WaitForSeconds(0.2f);
             newTetrisGO.transform.DOMove(CraftingManager.i.testtesttest.position + new Vector3(0, 0.3f, 0.3f), 1);

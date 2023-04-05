@@ -15,10 +15,10 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
     public ItemScriptableObject ItemCrafted;
     //public ItemScriptableObject CraftingStationRequired; //TODO: delete this
     public List<Recipe> allRecipes = new List<Recipe>();
-    public Dictionary<CraftingStationScriptableObject, int> craftingStationRequired = null; // new Dictionary<CraftingStationScriptableObject, int> ();
+    public Dictionary<ItemScriptableObject, int> craftingStationRequired = null; // new Dictionary<CraftingStationScriptableObject, int> ();
 
     //Iterate all recipes, return true if one of them matches.
-    public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> currentRecipeCord, ObjectStackList<CraftingStationScriptableObject> currentCraftingStations)
+    public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> currentRecipeCord, ObjectStackList<ItemScriptableObject> currentCraftingStations)
     {
         bool hasRecipe = false;
 
@@ -31,7 +31,7 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
 
         if (craftingStationRequired == null) return true;
 
-        foreach (KeyValuePair<CraftingStationScriptableObject, int> kvp in craftingStationRequired)
+        foreach (KeyValuePair<ItemScriptableObject, int> kvp in craftingStationRequired)
         {
             if(currentCraftingStations.GetAmount(kvp.Key) < kvp.Value)
             {

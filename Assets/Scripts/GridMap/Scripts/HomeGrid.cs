@@ -105,14 +105,7 @@ public class HomeGrid : MonoBehaviour
             GridObject gro = grid.GetValue(x, z);
             if (gro.CanBuild())
             {
-                //gridIndication.GetComponentInChildren<MeshRenderer>().materials[0] = emptyMaterial;
-                GameObject newPlacement = Instantiate(new GameObject("sprite", typeof(SpriteRenderer)), this.transform);
-                newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
-                newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
-                newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
-                newPlacement.transform.localScale = new Vector3(cellSize/1.65f, cellSize / 1.65f, 1f);
-
-                gro.SetTransform(newPlacement.transform);
+                ClickBuild(gro);
             }
             else
             {
@@ -120,6 +113,28 @@ public class HomeGrid : MonoBehaviour
 
             }
         }
+    }
+
+    void ClickBuild(GridObject gro)
+    {
+        BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
+
+        GameObject newPlacement = Instantiate(bisoToBuild.buildingPrefab, this.transform);
+        newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+        newPlacement.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
+
+        gro.SetTransform(newPlacement.transform);
+
+        /*
+
+        //gridIndication.GetComponentInChildren<MeshRenderer>().materials[0] = emptyMaterial;
+        GameObject newPlacement = Instantiate(new GameObject("sprite", typeof(SpriteRenderer)), this.transform);
+        newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
+        newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
+        newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+        newPlacement.transform.localScale = new Vector3(cellSize / 1.65f, cellSize / 1.65f, 1f);
+
+        gro.SetTransform(newPlacement.transform);*/
     }
 
     public void ShowGridLines()

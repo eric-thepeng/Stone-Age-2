@@ -17,6 +17,7 @@ public class ItemScriptableObject : SerializedScriptableObject
     public Recipe myRecipe = null;
     public Sprite tetrisSprite;
     public Sprite iconSprite;
+    public bool isCraftingStation = false;
     public enum Category { Regular, Building }
     public Category category = Category.Regular;
 

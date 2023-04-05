@@ -25,7 +25,7 @@ public class Tetris : DragInventoryItem
     //The Scriptable Object this Tetris contains
     public ItemScriptableObject itemSO;
     public RecipeListScriptableObject recipeListSO; // NEW
-    public bool isStaticCraftStation { get { return itemSO is CraftingStationScriptableObject; } }
+    public bool isStaticCraftStation { get { return itemSO.isCraftingStation; } }
 
     //All the edges of this Tetris
     public List<Edge> allEdges = new List<Edge>();
