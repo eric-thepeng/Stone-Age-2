@@ -119,6 +119,8 @@ public class HomeGrid : MonoBehaviour
     {
         BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
 
+        if (bisoToBuild == null) return;
+
         GameObject newPlacement = Instantiate(bisoToBuild.buildingPrefab, this.transform);
         newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
         newPlacement.transform.localScale = new Vector3(cellSize, cellSize, cellSize);

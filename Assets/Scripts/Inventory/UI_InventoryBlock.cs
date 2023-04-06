@@ -83,8 +83,23 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseDown()
     {
         if (itemInfo == null) return;
-        //InventoryHoverInfo.i.Disappear();
-        CreateDrag();
+        if (PlayerState.IsCrafting())
+        {
+            //InventoryHoverInfo.i.Disappear();
+            CreateDrag();
+            return;
+        }else if (PlayerState.IsBuilding())
+        {
+            if (!(itemInfo.iso is BuildingISO)) return;
+            BuildingManager.i.SetSelectedBuildingISO(this);// (BuildingISO)itemInfo.iso);
+            SetSelectedBackground(true);
+        }
+
+    }
+
+    public void SetSelectedBackground(bool newState)
+    {
+        transform.Find("Selected Background").gameObject.SetActive(newState);
     }
 
     private void OnMouseUp()

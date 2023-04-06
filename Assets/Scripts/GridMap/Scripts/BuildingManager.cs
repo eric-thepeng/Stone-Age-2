@@ -17,7 +17,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    [SerializeField] BuildingISO placeHolderBISO;
+    UI_InventoryBlock selectedUIIB = null;
 
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
@@ -48,6 +48,13 @@ public class BuildingManager : MonoBehaviour
 
     public BuildingISO GetSelectedBuildingISO()
     {
-        return placeHolderBISO;
+        ItemScriptableObject returnISO = selectedUIIB.GetISO();
+        return returnISO is BuildingISO ? (BuildingISO)returnISO :null;
+    }
+
+    public void SetSelectedBuildingISO(UI_InventoryBlock uiib)
+    {
+        if(selectedUIIB != null)selectedUIIB.SetSelectedBackground(false);
+        selectedUIIB = uiib;
     }
 }
