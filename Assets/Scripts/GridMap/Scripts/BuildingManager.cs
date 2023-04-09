@@ -48,7 +48,6 @@ public class BuildingManager : MonoBehaviour
 
     public BuildingISO GetSelectedBuildingISO()
     {
-        if (selectedUIIB == null) return null;
         ItemScriptableObject returnISO = selectedUIIB.GetISO();
         return returnISO is BuildingISO ? (BuildingISO)returnISO :null;
     }
