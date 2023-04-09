@@ -20,7 +20,9 @@ public class CharacterIcon : MonoBehaviour
     [SerializeField]
     Color32 homeColor;
 
+    [HideInInspector]
     public CircularUI gatherCircularUI;
+    [HideInInspector]
     public CircularUI energyCircularUI;
 
     private void Awake()
