@@ -103,6 +103,7 @@ public class HomeGrid : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GridObject gro = grid.GetValue(x, z);
+            if (gro == null) return;
             if (gro.CanBuild())
             {
                 ClickBuild(gro);
