@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class HomeGrid : MonoBehaviour
@@ -16,7 +18,7 @@ public class HomeGrid : MonoBehaviour
     Transform gridIndication;
     float cellSize;
 
-    bool buildDrag = false;
+    BuildDragInfo buildDragInfo = null;
     
     class BuildDragInfo
     {
@@ -39,19 +41,28 @@ public class HomeGrid : MonoBehaviour
             CalculateAllCoords();
         }
 
+        public List<Vector3Int> GetAllCoords()
+        {
+            return allCoords;
+        }
+
         void CalculateAllCoords()
         {
             allCoords.Clear();
-            int xDir = (int)Mathf.Sign(endCoord.x - startCoord.x);
-            int yDir = (int)Mathf.Sign(endCoord.y - startCoord.y);
-            for(int i = startCoord.x; i != endCoord.x; i += xDir)
+            int xDir = endCoord.x > startCoord.x ? 1 : -1 ;
+            int yDir = endCoord.z > startCoord.z ? 1 : -1;
+
+            for (int i = startCoord.x; i != endCoord.x; i += xDir)
             {
                 allCoords.Add(new Vector3Int(i,startCoord.y, startCoord.z));
-            }/*
-            for ()
+            }
+            if (!allCoords.Contains(new Vector3Int(endCoord.x, startCoord.y, startCoord.z))) allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, startCoord.z));
+            for (int k = startCoord.z; k != endCoord.z; k += yDir)
             {
-                allCoords.Add(new Vector3Int())
-            }*/
+                if (k == startCoord.z) continue;
+                allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, k));
+            }
+            if(!allCoords.Contains(endCoord)) allCoords.Add(endCoord);
         }
 
     }
@@ -73,6 +84,9 @@ public class HomeGrid : MonoBehaviour
             this.x = x;
             this.z = z;
         }
+
+        public int getX() { return x; }
+        public int getZ() { return z; }
 
         public override string ToString()
         {
@@ -140,37 +154,51 @@ public class HomeGrid : MonoBehaviour
         gridIndication.gameObject.SetActive(true);
         gridIndication.position = grid.GetWorldPosition(x, z);
 
-        if (buildDrag)
+        if (buildDragInfo == null) //new build drag
         {
-
+            if (Input.GetMouseButtonDown(0))
+            {
+                buildDragInfo = new BuildDragInfo(new Vector3Int(x,0,z));
+            }
         }
         else
         {
-
+            buildDragInfo.SetEndPosition(new Vector3Int(x, 0, z));
+            if (Input.GetMouseButtonUp(0))
+            {
+                foreach (Vector3Int i in buildDragInfo.GetAllCoords())
+                {
+                    print(i);
+                    BuildWithCoord(i.x, i.z);
+                }
+                buildDragInfo = null;
+            }
         }
+    }
 
-        if (Input.GetMouseButtonDown(0))
+    void BuildWithCoord(int x, int z)
+    {
+        print("x " + x + " z " + z);
+        GridObject gro = grid.GetValue(x, z);
+        if (gro == null) return;
+        if (gro.CanBuild())
         {
-            GridObject gro = grid.GetValue(x, z);
-            if (gro == null) return;
-            if (gro.CanBuild())
-            {
-                ClickBuild(gro);
-            }
-            else
-            {
-            }
+            ClickBuild(gro);
+        }
+        else
+        {
         }
     }
 
     void ClickBuild(GridObject gro)
     {
+        print("22 x ");
         BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
 
         if (bisoToBuild == null) return;
 
         GameObject newPlacement = Instantiate(bisoToBuild.buildingPrefab, this.transform);
-        newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
+        newPlacement.transform.position = grid.GetWorldPosition(gro.getX(), gro.getZ()); //grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
         newPlacement.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
 
         gro.SetTransform(newPlacement.transform);
