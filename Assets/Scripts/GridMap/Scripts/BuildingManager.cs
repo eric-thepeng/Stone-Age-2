@@ -57,5 +57,6 @@ public class BuildingManager : MonoBehaviour
     {
         if(selectedUIIB != null)selectedUIIB.SetSelectedBackground(false);
         selectedUIIB = uiib;
+        UI_BuildingPointer.i.SetUp((BuildingISO)uiib.GetISO());
     }
 }

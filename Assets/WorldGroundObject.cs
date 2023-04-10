@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.U2D.Path.GUIFramework;
+using UnityEngine;
+
+public class WorldGroundObject : MonoBehaviour
+{
+    private void OnMouseUpAsButton()
+    {
+        ClickInteraction();
+    }
+
+    private void OnMouseEnter()
+    {
+        EnterHover();
+    }
+
+    private void OnMouseExit()
+    {
+        ExitHover();
+    }
+
+    protected virtual void ClickInteraction()
+    {
+        print("Click Interaction: " + gameObject.name);
+    }
+
+    protected virtual void EnterHover()
+    {
+        print("Enter Hover: " + gameObject.name);
+    }
+
+    protected virtual void ExitHover()
+    {
+        print("Exit Hover: " + gameObject.name);
+    }
+}
