@@ -7,16 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Trunk0
+  m_Name: GrassLand
   m_Shader: {fileID: 4800000, guid: 7633a2fd8a3bed44791c9e952ff86e5d, type: 3}
   m_ValidKeywords:
   - _MK_ARTISTIC_ANIMATION_STUTTER
   - _MK_ARTISTIC_HATCHING
-  - _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
   - _MK_DETAIL_BLEND_MIX
   - _MK_ENVIRONMENT_REFLECTIONS_ADVANCED
   - _MK_FRESNEL_HIGHLIGHTS
   - _MK_LIGHT_CEL
+  - _MK_LIGHT_TRANSMISSION_SUB_SURFACE_SCATTERING
   - _MK_OUTLINE_HULL_CLIP
   - _MK_OUTLINE_NOISE
   - _MK_RECEIVE_SHADOWS
@@ -39,7 +39,7 @@ Material:
     m_TexEnvs:
     - _AlbedoMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 50, y: 50}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -187,14 +187,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdvancedTab: 0
+    - _AdvancedTab: 1
     - _AlbedoMapIntensity: 1
     - _AlphaClipping: 0
     - _AlphaCutoff: 0.5
     - _Anisotropy: 0
     - _Artistic: 2
     - _ArtisticFrequency: 1
-    - _ArtisticProjection: 1
+    - _ArtisticProjection: 0
     - _Blend: 0
     - _BlendDst: 0
     - _BlendDstAlpha: 0
@@ -238,10 +238,10 @@ Material:
     - _LightBands: 4
     - _LightBandsScale: 0.5
     - _LightThreshold: 0.5
-    - _LightTransmission: 0
+    - _LightTransmission: 2
     - _LightTransmissionDistortion: 0.25
-    - _LightTransmissionIntensity: 1
-    - _LightTransmissionSmoothness: 0.5
+    - _LightTransmissionIntensity: 2
+    - _LightTransmissionSmoothness: 1
     - _LightTransmissionThresholdOffset: 0.25
     - _Metallic: 0
     - _Mode: 0
@@ -258,7 +258,7 @@ Material:
     - _OutlineTab: 1
     - _Parallax: 0.02
     - _ReceiveShadows: 1
-    - _RenderFace: 2
+    - _RenderFace: 0
     - _RenderPriority: 0
     - _Rim: 0
     - _RimSize: 1
@@ -295,8 +295,8 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.7075472, g: 0.52138275, b: 0.28479883, a: 1}
-    - _Color: {r: 0.7075472, g: 0.52138275, b: 0.28479883, a: 1}
+    - _AlbedoColor: {r: 0.55430484, g: 0.7075472, b: 0.3448736, a: 1}
+    - _Color: {r: 0.55430484, g: 0.7075472, b: 0.3448736, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
