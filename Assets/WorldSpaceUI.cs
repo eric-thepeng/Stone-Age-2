@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WorldSpaceUI : MonoBehaviour
 {
@@ -35,9 +36,16 @@ public class WorldSpaceUI : MonoBehaviour
     public Vector3 GetMouseWorldPositionAtWorldSpaceUI()
     {
         backgroundCollider.gameObject.SetActive(true);
-        Vector3 positionToReturn = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
-        backgroundCollider.gameObject.SetActive(false);
-
-        return positionToReturn;
+        Vector3 positionToReturn = new Vector3(0, 0, 0);
+        try
+        {
+            positionToReturn = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+            backgroundCollider.gameObject.SetActive(false);
+            return positionToReturn;
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 }

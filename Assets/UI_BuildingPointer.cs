@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using System;
 
 public class UI_BuildingPointer : MonoBehaviour
 {
@@ -17,12 +19,15 @@ public class UI_BuildingPointer : MonoBehaviour
         }
     }
 
-    bool displaying = false;
+    bool displaying { get { return displayingISO != null; } }
+    ItemScriptableObject displayingISO = null;
     Transform pointerObject;
+    TextMeshPro remainAmountObject;
 
     private void Start()
     {
         pointerObject = transform.Find("Building Pointer UI");
+        remainAmountObject = pointerObject.GetChild(0).GetChild(0).GetComponent<TextMeshPro>();
         TurnOff();
     }
 
@@ -33,14 +38,16 @@ public class UI_BuildingPointer : MonoBehaviour
         try { pointerObject.transform.position = WorldSpaceUI.i.GetMouseWorldPositionAtWorldSpaceUI(); }
         catch
         {
-            TurnOff();
+            //PlayerInputChannel.BuildingSystemOpenButton();
+            //return;
         }
 
+        UpdateDisplayAmount();
     }
 
     public void SetUp(BuildingISO biso)
     {
-        displaying = true;
+        displayingISO = biso;
         pointerObject.gameObject.SetActive(true);
         if(pointerObject.GetChild(0).childCount > 1)
         {
@@ -49,13 +56,20 @@ public class UI_BuildingPointer : MonoBehaviour
         GameObject go = Instantiate(biso.buildingPrefab, pointerObject.GetChild(0));
         go.transform.Rotate(new Vector3(1,0,0),-45);
         go.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
-        //go.transform.eulerAngles = new Vector3(-22.5f, 0, 0);
+    }
+
+    private void UpdateDisplayAmount()
+    {
+        remainAmountObject.text = "" + Inventory.i.ItemInStockAmount(displayingISO);
     }
 
     public void TurnOff()
     {
-        displaying = false;
-        Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
+        displayingISO = null;
+        if (pointerObject.GetChild(0).childCount > 1)
+        {
+            Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
+        }
         pointerObject.gameObject.SetActive(false);
     }
 }

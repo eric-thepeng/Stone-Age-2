@@ -30,6 +30,11 @@ public class UI_InventoryBlock : MonoBehaviour
         return itemInfo.iso;
     }
 
+    public int GetDisplayAmount()
+    {
+        return itemInfo.inStockAmount;
+    }
+
     public void Initialize(int row, int col)
     {
         this.row = row;
@@ -46,7 +51,7 @@ public class UI_InventoryBlock : MonoBehaviour
         displayNumber.gameObject.SetActive(true);
         numberBackground.gameObject.SetActive(true);
         itemSprite.sprite = itemInfo.iso.iconSprite;
-        displayNumber.text = "" + ii.inStockAmount;
+        UpdateDisplayAmount();
 
     }
 
@@ -59,9 +64,9 @@ public class UI_InventoryBlock : MonoBehaviour
         numberBackground.gameObject.SetActive(false);
     }
 
-    public void UpdateAmount()
+    public void UpdateDisplayAmount()
     {
-        displayNumber.text = "" + displayAmount;
+        displayNumber.text = "" + GetDisplayAmount();
     }
 
     private void OnMouseEnter()
@@ -91,7 +96,7 @@ public class UI_InventoryBlock : MonoBehaviour
         }else if (PlayerState.IsBuilding())
         {
             if (!(itemInfo.iso is BuildingISO)) return;
-            BuildingManager.i.SetSelectedBuildingISO(this);// (BuildingISO)itemInfo.iso);
+            BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
             SetSelectedBackground(true);
         }
 

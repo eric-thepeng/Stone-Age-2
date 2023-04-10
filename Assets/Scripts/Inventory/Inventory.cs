@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Inventory : MonoBehaviour
 {
@@ -21,7 +22,9 @@ public class Inventory : MonoBehaviour
         public ItemScriptableObject iso;
         public int totalAmount;
         public int inUseAmount;
-        public int inStockAmount { get { return totalAmount - inUseAmount; } }
+        public int inBuildAmount;
+
+        public int inStockAmount { get { return totalAmount - inUseAmount - inBuildAmount; } }
         public ItemScriptableObject.Category category
         {
             get { return iso.category;}
@@ -32,6 +35,7 @@ public class Inventory : MonoBehaviour
             iso = newISO;
             totalAmount = 1;
             inUseAmount = 0;
+            inBuildAmount = 0;
         }
     }
 
@@ -85,6 +89,19 @@ public class Inventory : MonoBehaviour
             GetItemInfo(iso).inUseAmount -= 1;
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
+    }
+
+    public void InBuildItem(BuildingISO biso, bool use)
+    {
+        if (use)
+        {
+            GetItemInfo(biso).inBuildAmount += 1;
+        }
+        else
+        {
+            GetItemInfo(biso).inBuildAmount -= 1;
+        }
+        UI_Inventory.i.UpdateItemDisplay(GetItemInfo(biso));
     }
 
     public void MergeCreateItem(ItemScriptableObject iso)

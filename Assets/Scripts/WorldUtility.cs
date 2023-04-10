@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -50,8 +51,8 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
                 return hitInfo.point;
             }
         }
-        Debug.LogError("failure to detect collision");
-        return Vector3.zero;
+        Debug.LogWarning("failure to detect collision");
+        throw new Exception();
     }
 
     public static bool TryMouseHitPoint(LAYER.LayerID LayerID, bool collideWithLayer)

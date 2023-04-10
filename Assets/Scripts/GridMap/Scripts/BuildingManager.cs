@@ -39,6 +39,7 @@ public class BuildingManager : MonoBehaviour
         {
             hg.HideGridLines();
         }
+        CancelSelectedBuidling();
     }
 
     public void AddHomeGrid(HomeGrid hg)
@@ -53,10 +54,17 @@ public class BuildingManager : MonoBehaviour
         return returnISO is BuildingISO ? (BuildingISO)returnISO :null;
     }
 
-    public void SetSelectedBuildingISO(UI_InventoryBlock uiib)
+    public void SetSelectedBuilding(UI_InventoryBlock uiib)
     {
         if(selectedUIIB != null)selectedUIIB.SetSelectedBackground(false);
         selectedUIIB = uiib;
         UI_BuildingPointer.i.SetUp((BuildingISO)uiib.GetISO());
+    }
+
+    public void CancelSelectedBuidling()
+    {
+        if(selectedUIIB !=null)selectedUIIB.SetSelectedBackground(false);
+        selectedUIIB = null;
+        UI_BuildingPointer.i.TurnOff();
     }
 }

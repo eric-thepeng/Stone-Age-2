@@ -16,6 +16,46 @@ public class HomeGrid : MonoBehaviour
     Transform gridIndication;
     float cellSize;
 
+    bool buildDrag = false;
+    
+    class BuildDragInfo
+    {
+        Vector3Int startCoord;
+        Vector3Int endCoord;
+        List<Vector3Int> allCoords;
+
+        public BuildDragInfo(Vector3Int firstSpot)
+        {
+            startCoord = firstSpot;
+            endCoord = startCoord;
+            allCoords = new List<Vector3Int>();
+            allCoords.Add(startCoord);
+        }
+
+        public void SetEndPosition(Vector3Int newEndCoord)
+        {
+            if (endCoord == newEndCoord) return;
+            endCoord = newEndCoord;
+            CalculateAllCoords();
+        }
+
+        void CalculateAllCoords()
+        {
+            allCoords.Clear();
+            int xDir = (int)Mathf.Sign(endCoord.x - startCoord.x);
+            int yDir = (int)Mathf.Sign(endCoord.y - startCoord.y);
+            for(int i = startCoord.x; i != endCoord.x; i += xDir)
+            {
+                allCoords.Add(new Vector3Int(i,startCoord.y, startCoord.z));
+            }/*
+            for ()
+            {
+                allCoords.Add(new Vector3Int())
+            }*/
+        }
+
+    }
+
     //float gridIndicationSpeed = 10;
     //Vector3 NO_GRID_INDICATION = new Vector3(-10, -10, -10);
     //Vector3 gridIndicationTargetPos;
@@ -88,7 +128,7 @@ public class HomeGrid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!BuildingManager.i.building) return;
+        if (!BuildingManager.i.building) return; //return if not building mode
 
         if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true)) //hide indicator if mouse is not on grid
         {
@@ -100,6 +140,15 @@ public class HomeGrid : MonoBehaviour
         gridIndication.gameObject.SetActive(true);
         gridIndication.position = grid.GetWorldPosition(x, z);
 
+        if (buildDrag)
+        {
+
+        }
+        else
+        {
+
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             GridObject gro = grid.GetValue(x, z);
@@ -110,8 +159,6 @@ public class HomeGrid : MonoBehaviour
             }
             else
             {
-                //gridIndication.GetComponentInChildren<MeshRenderer>().materials = new Material[]{ occupiedMaterial};
-
             }
         }
     }
@@ -128,6 +175,12 @@ public class HomeGrid : MonoBehaviour
 
         gro.SetTransform(newPlacement.transform);
 
+        Inventory.i.InBuildItem(bisoToBuild, true);
+
+        if(Inventory.i.ItemInStockAmount(bisoToBuild) == 0)
+        {
+            BuildingManager.i.CancelSelectedBuidling();
+        }
         /*
 
         //gridIndication.GetComponentInChildren<MeshRenderer>().materials[0] = emptyMaterial;
