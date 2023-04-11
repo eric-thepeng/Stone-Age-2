@@ -22,16 +22,21 @@ public class HomeGrid : MonoBehaviour
     
     class BuildDragInfo
     {
+        HomeGrid homeGrid;
         Vector3Int startCoord;
         Vector3Int endCoord;
         List<Vector3Int> allCoords;
+        List<GameObject> placeholders;
 
-        public BuildDragInfo(Vector3Int firstSpot)
+        public BuildDragInfo(Vector3Int firstSpot, HomeGrid hg)
         {
+            homeGrid = hg;
             startCoord = firstSpot;
             endCoord = startCoord;
             allCoords = new List<Vector3Int>();
-            allCoords.Add(startCoord);
+            placeholders = new List<GameObject>();
+            //allCoords.Add(startCoord);
+            CalculateAllCoords();
         }
 
         public void SetEndPosition(Vector3Int newEndCoord)
@@ -63,6 +68,28 @@ public class HomeGrid : MonoBehaviour
                 allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, k));
             }
             if(!allCoords.Contains(endCoord)) allCoords.Add(endCoord);
+
+
+            //spawn placeholders
+            SpawnPlaceholders();
+        }
+
+        void SpawnPlaceholders()
+        {
+            DestroyPlaceholders();
+            foreach(Vector3Int coord in allCoords)
+            {
+                placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.z, true));
+            }
+        }
+
+        public void DestroyPlaceholders()
+        {
+            for(int i = placeholders.Count-1; i>=0; i--)
+            {
+                Destroy(placeholders[i]);
+            }
+            placeholders.Clear();
         }
 
     }
@@ -158,7 +185,7 @@ public class HomeGrid : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                buildDragInfo = new BuildDragInfo(new Vector3Int(x,0,z));
+                buildDragInfo = new BuildDragInfo(new Vector3Int(x,0,z), this);
             }
         }
         else
@@ -171,54 +198,46 @@ public class HomeGrid : MonoBehaviour
                     print(i);
                     BuildWithCoord(i.x, i.z);
                 }
+                buildDragInfo.DestroyPlaceholders();
                 buildDragInfo = null;
             }
         }
     }
 
-    void BuildWithCoord(int x, int z)
+    public GameObject BuildWithCoord(int x, int z, bool placeHolder = false)
     {
         print("x " + x + " z " + z);
         GridObject gro = grid.GetValue(x, z);
-        if (gro == null) return;
-        if (gro.CanBuild())
+        if (gro == null) return null;
+        if (!gro.CanBuild()) return null;
+
+        BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
+        GameObject buildingPreafab;
+        if (placeHolder)
         {
-            ClickBuild(gro);
+            buildingPreafab = BuildingManager.i.placeholdingBuilding;
         }
         else
         {
+            if (bisoToBuild == null) return null;
+            buildingPreafab = bisoToBuild.buildingPrefab;
         }
-    }
 
-    void ClickBuild(GridObject gro)
-    {
-        print("22 x ");
-        BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
-
-        if (bisoToBuild == null) return;
-
-        GameObject newPlacement = Instantiate(bisoToBuild.buildingPrefab, this.transform);
+        GameObject newPlacement = Instantiate(buildingPreafab, this.transform);
         newPlacement.transform.position = grid.GetWorldPosition(gro.getX(), gro.getZ()); //grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
         newPlacement.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
 
-        gro.SetTransform(newPlacement.transform);
+        if (placeHolder) return newPlacement;
 
+        gro.SetTransform(newPlacement.transform);
         Inventory.i.InBuildItem(bisoToBuild, true);
 
-        if(Inventory.i.ItemInStockAmount(bisoToBuild) == 0)
+        if (Inventory.i.ItemInStockAmount(bisoToBuild) == 0)
         {
             BuildingManager.i.CancelSelectedBuidling();
         }
-        /*
 
-        //gridIndication.GetComponentInChildren<MeshRenderer>().materials[0] = emptyMaterial;
-        GameObject newPlacement = Instantiate(new GameObject("sprite", typeof(SpriteRenderer)), this.transform);
-        newPlacement.GetComponent<SpriteRenderer>().sprite = testSprite;
-        newPlacement.transform.rotation = Quaternion.EulerAngles(45, 0, 0);
-        newPlacement.transform.position = grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
-        newPlacement.transform.localScale = new Vector3(cellSize / 1.65f, cellSize / 1.65f, 1f);
-
-        gro.SetTransform(newPlacement.transform);*/
+        return newPlacement;
     }
 
     public void ShowGridLines()

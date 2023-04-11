@@ -22,6 +22,7 @@ public class BuildingManager : MonoBehaviour
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
     public bool building = false;
+    public GameObject placeholdingBuilding;
 
     public void OpenBuilding()
     {
