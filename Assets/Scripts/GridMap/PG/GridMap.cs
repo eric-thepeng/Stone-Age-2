@@ -50,8 +50,8 @@ public class GridMap<T>
 
     public Vector3 GetWorldPositionFromPosition(Vector3 origionPosition)
     {
-        int x, z;
-        GetXZ(origionPosition, out x, out z);
+        //int x, z;
+        GetXZ(origionPosition, out int x, out int z);
         return GetWorldPosition(x, z);
     }
 

@@ -12,4 +12,18 @@ using UnityEngine;
 public class BuildingISO : ItemScriptableObject
 {
     public GameObject buildingPrefab;
+    [SerializeField] int width = 1;
+    [SerializeField] int height = 1;
+    public List<Vector2Int> getCoordinates()
+    {
+        List<Vector2Int> returnList = new List<Vector2Int>();
+        for(int x = 0; x<width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                returnList.Add(new Vector2Int(x, y));
+            }
+        }
+        return returnList;
+    }
 }

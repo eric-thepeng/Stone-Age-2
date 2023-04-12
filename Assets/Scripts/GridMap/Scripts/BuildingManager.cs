@@ -18,11 +18,211 @@ public class BuildingManager : MonoBehaviour
     }
 
     UI_InventoryBlock selectedUIIB = null;
-
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
     public bool building = false;
     public GameObject placeholdingBuilding;
+
+    float gridCellSize; 
+
+    class GridIndication
+    {
+        Transform indicationHolder;
+        Transform indicationTemplate;
+        List<Transform> displayingBlocks;
+
+        Vector3 currentDisplayStartPosition = new Vector3(0,0,0); 
+
+        public GridIndication(Transform indicationGameObject, Vector3 targetScale)
+        {
+            indicationHolder = indicationGameObject;
+            indicationTemplate = indicationHolder.transform.Find("Indication Block Template");
+            indicationTemplate.transform.localScale = targetScale * 0.95f;
+            displayingBlocks = new List<Transform>();
+            Hide();
+        }
+
+        public void Hide()
+        {
+            indicationTemplate.gameObject.SetActive(false);
+            indicationHolder.gameObject.SetActive(false);
+
+            for(int i = displayingBlocks.Count-1; i>=0; i--)
+            {
+                Destroy(displayingBlocks[i].gameObject);
+            }
+
+            displayingBlocks.Clear();
+            currentDisplayStartPosition = new Vector3(0, 0, 0);
+        }
+
+        public void Display(Vector3 startPosition, BuildingISO biso = null)
+        {
+            //reduce repetition
+            if (startPosition == currentDisplayStartPosition) return;
+            Hide();
+            currentDisplayStartPosition = startPosition;
+
+            //set things active
+            indicationHolder.gameObject.SetActive(true);
+            indicationTemplate.gameObject.SetActive(true);
+
+            //add to display coords
+            List<Vector2Int> coordsToPlace = new List<Vector2Int>();
+            if(biso == null)
+            {
+                coordsToPlace.Add(new Vector2Int(0, 0));
+                //defaul
+                /*
+                coordsToPlace.Add(new Vector2Int(1, 0));
+                coordsToPlace.Add(new Vector2Int(0, 1));
+                coordsToPlace.Add(new Vector2Int(1, 1));*/
+            }
+            else
+            {
+                foreach (Vector2Int coord in biso.getCoordinates())
+                {
+                    coordsToPlace.Add(coord);
+                }
+            }
+
+            //display
+            foreach(Vector2Int coord in coordsToPlace)
+            {
+                Transform newBlock = Instantiate(indicationTemplate.gameObject, indicationHolder).transform;
+                displayingBlocks.Add(newBlock);
+                newBlock.position = startPosition + new Vector3(BuildingManager.i.gridCellSize * coord.x, 0, BuildingManager.i.gridCellSize * coord.y) + 0.5f * new Vector3(BuildingManager.i.gridCellSize, 0, BuildingManager.i.gridCellSize);
+            }
+
+            //hide template
+            indicationTemplate.gameObject.SetActive(false);
+        }
+    }
+
+    GridIndication gridIndication;
+
+    class BuildDragInfo
+    {
+        HomeGrid homeGrid;
+        Vector3Int startCoord;
+        Vector3Int endCoord;
+        List<Vector3Int> allCoords;
+        List<GameObject> placeholders;
+
+        public BuildDragInfo(Vector3Int firstSpot, HomeGrid hg)
+        {
+            homeGrid = hg;
+            startCoord = firstSpot;
+            endCoord = startCoord;
+            allCoords = new List<Vector3Int>();
+            placeholders = new List<GameObject>();
+            //allCoords.Add(startCoord);
+            CalculateAllCoords();
+        }
+
+        public void SetEndPosition(Vector3Int newEndCoord)
+        {
+            if (endCoord == newEndCoord) return;
+            endCoord = newEndCoord;
+            CalculateAllCoords();
+        }
+
+        public List<Vector3Int> GetAllCoords()
+        {
+            return allCoords;
+        }
+
+        void CalculateAllCoords()
+        {
+            allCoords.Clear();
+            int xDir = endCoord.x > startCoord.x ? 1 : -1;
+            int yDir = endCoord.z > startCoord.z ? 1 : -1;
+
+            for (int i = startCoord.x; i != endCoord.x; i += xDir)
+            {
+                allCoords.Add(new Vector3Int(i, startCoord.y, startCoord.z));
+            }
+            if (!allCoords.Contains(new Vector3Int(endCoord.x, startCoord.y, startCoord.z))) allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, startCoord.z));
+            for (int k = startCoord.z; k != endCoord.z; k += yDir)
+            {
+                if (k == startCoord.z) continue;
+                allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, k));
+            }
+            if (!allCoords.Contains(endCoord)) allCoords.Add(endCoord);
+
+            SpawnPlaceholders();
+        }
+
+        void SpawnPlaceholders()
+        {
+            DestroyPlaceholders();
+            foreach (Vector3Int coord in allCoords)
+            {
+                placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.z, true));
+            }
+        }
+
+        public void DestroyPlaceholders()
+        {
+            for (int i = placeholders.Count - 1; i >= 0; i--)
+            {
+                Destroy(placeholders[i]);
+            }
+            placeholders.Clear();
+        }
+
+    }
+
+    BuildDragInfo buildDragInfo = null;
+
+
+    private void Start()
+    {
+        gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
+        gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
+    }
+
+    void Update()
+    {
+        if (!building) return; //return if not building mode
+
+        
+        if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true)) //hide indicator if mouse is not on grid
+        {
+            gridIndication.Hide();
+            return;
+        }
+
+        HomeGrid hg = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true).GetComponent<HomeGrid>();
+
+        Vector3 hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);
+
+        gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
+
+        hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
+
+        if (buildDragInfo == null) //new build drag
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                buildDragInfo = new BuildDragInfo(new Vector3Int(x,0,z), hg);
+            }
+        }
+        else
+        {
+            buildDragInfo.SetEndPosition(new Vector3Int(x, 0, z));
+            if (Input.GetMouseButtonUp(0))
+            {
+                foreach (Vector3Int i in buildDragInfo.GetAllCoords())
+                {
+                    print(i);
+                    hg.BuildWithCoord(i.x, i.z);
+                }
+                buildDragInfo.DestroyPlaceholders();
+                buildDragInfo = null;
+            }
+        }
+    }
 
     public void OpenBuilding()
     {
@@ -68,4 +268,10 @@ public class BuildingManager : MonoBehaviour
         selectedUIIB = null;
         UI_BuildingPointer.i.TurnOff();
     }
+
+
+
+
+
+    
 }
