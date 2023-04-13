@@ -23,6 +23,7 @@ public class UI_BuildingPointer : MonoBehaviour
     ItemScriptableObject displayingISO = null;
     Transform pointerObject;
     TextMeshPro remainAmountObject;
+    int prebuildUseAmount = 0;
 
     private void Start()
     {
@@ -60,7 +61,8 @@ public class UI_BuildingPointer : MonoBehaviour
 
     private void UpdateDisplayAmount()
     {
-        remainAmountObject.text = "" + Inventory.i.ItemInStockAmount(displayingISO);
+        if(prebuildUseAmount == 0) remainAmountObject.text = "" + Inventory.i.ItemInStockAmount(displayingISO);
+        else remainAmountObject.text = prebuildUseAmount + " / " + Inventory.i.ItemInStockAmount(displayingISO); 
     }
 
     public void TurnOff()
@@ -71,5 +73,10 @@ public class UI_BuildingPointer : MonoBehaviour
             Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
         }
         pointerObject.gameObject.SetActive(false);
+    }
+
+    public void SetPrebuildUseAmount(int amount)
+    {
+        prebuildUseAmount = amount;
     }
 }
