@@ -26,4 +26,19 @@ public class BuildingISO : ItemScriptableObject
         }
         return returnList;
     }
+
+    public GameObject GetBuildingPrefab()
+    {
+        return buildingPrefab;
+    }
+
+    public int GetWidth()
+    {
+        return width;
+    }
+
+    public int GetHeight()
+    {
+        return height;
+    }
 }

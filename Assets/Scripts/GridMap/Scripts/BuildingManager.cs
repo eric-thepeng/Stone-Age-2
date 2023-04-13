@@ -104,30 +104,31 @@ public class BuildingManager : MonoBehaviour
     class BuildDragInfo
     {
         HomeGrid homeGrid;
-        Vector3Int startCoord;
-        Vector3Int endCoord;
-        List<Vector3Int> allCoords;
+        Vector2Int startCoord;
+        Vector2Int endCoord;
+        List<Vector2Int> allCoords;
         List<GameObject> placeholders;
+        BuildingISO biso;
 
-        public BuildDragInfo(Vector3Int firstSpot, HomeGrid hg)
+        public BuildDragInfo(Vector2Int firstSpot, HomeGrid hg, BuildingISO inputBISO = null)
         {
             homeGrid = hg;
             startCoord = firstSpot;
             endCoord = startCoord;
-            allCoords = new List<Vector3Int>();
+            allCoords = new List<Vector2Int>();
             placeholders = new List<GameObject>();
-            //allCoords.Add(startCoord);
+            biso = inputBISO;
             CalculateAllCoords();
         }
 
-        public void SetEndPosition(Vector3Int newEndCoord)
+        public void SetEndPosition(Vector2Int newEndCoord)
         {
             if (endCoord == newEndCoord) return;
             endCoord = newEndCoord;
             CalculateAllCoords();
         }
 
-        public List<Vector3Int> GetAllCoords()
+        public List<Vector2Int> GetAllCoords()
         {
             return allCoords;
         }
@@ -135,30 +136,66 @@ public class BuildingManager : MonoBehaviour
         void CalculateAllCoords()
         {
             allCoords.Clear();
-            int xDir = endCoord.x > startCoord.x ? 1 : -1;
-            int yDir = endCoord.z > startCoord.z ? 1 : -1;
+            List<Vector2Int> keyCoords = new List<Vector2Int>();
+            int xDir = 1;
+            int yDir = 1;
 
-            for (int i = startCoord.x; i != endCoord.x; i += xDir)
+            if(biso!= null)
             {
-                allCoords.Add(new Vector3Int(i, startCoord.y, startCoord.z));
+                xDir = biso.GetWidth();
+                yDir = biso.GetHeight();
             }
-            if (!allCoords.Contains(new Vector3Int(endCoord.x, startCoord.y, startCoord.z))) allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, startCoord.z));
-            for (int k = startCoord.z; k != endCoord.z; k += yDir)
-            {
-                if (k == startCoord.z) continue;
-                allCoords.Add(new Vector3Int(endCoord.x, startCoord.y, k));
-            }
-            if (!allCoords.Contains(endCoord)) allCoords.Add(endCoord);
 
+            Vector2Int counter = new Vector2Int(startCoord.x, startCoord.y);
+
+            if(counter.x <= endCoord.x)
+            {
+                keyCoords.Add(counter);
+
+                while (counter.x + xDir <= endCoord.x)
+                {
+                    counter += new Vector2Int(xDir, 0);
+                    keyCoords.Add(counter);
+                }
+            }
+            else
+            {
+                keyCoords.Add(counter);
+
+                while (counter.x - xDir >= endCoord.x)
+                {
+                    counter -= new Vector2Int(xDir, 0);
+                    keyCoords.Add(counter);
+                } 
+            }
+
+            if (counter.y <= endCoord.y)
+            {
+                while (counter.y + yDir <= endCoord.y)
+                {
+                    counter += new Vector2Int(0, yDir);
+                    keyCoords.Add(counter);
+                }
+            }
+            else
+            {
+                while (counter.y - yDir >= endCoord.y)
+                {
+                    counter -= new Vector2Int(0, yDir);
+                    keyCoords.Add(counter);
+                }
+            }
+
+            allCoords = keyCoords;
             SpawnPlaceholders();
         }
 
         void SpawnPlaceholders()
         {
             DestroyPlaceholders();
-            foreach (Vector3Int coord in allCoords)
+            foreach (Vector2Int coord in allCoords)
             {
-                placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.z, true));
+                placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.y, true));
             }
         }
 
@@ -205,18 +242,18 @@ public class BuildingManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                buildDragInfo = new BuildDragInfo(new Vector3Int(x,0,z), hg);
+                buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
             }
         }
         else
         {
-            buildDragInfo.SetEndPosition(new Vector3Int(x, 0, z));
+            buildDragInfo.SetEndPosition(new Vector2Int(x, z));
             if (Input.GetMouseButtonUp(0))
             {
-                foreach (Vector3Int i in buildDragInfo.GetAllCoords())
+                foreach (Vector2Int i in buildDragInfo.GetAllCoords())
                 {
                     print(i);
-                    hg.BuildWithCoord(i.x, i.z);
+                    hg.BuildWithCoord(i.x, i.y);
                 }
                 buildDragInfo.DestroyPlaceholders();
                 buildDragInfo = null;

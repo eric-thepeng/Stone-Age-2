@@ -106,11 +106,17 @@ public class HomeGrid : MonoBehaviour
         if (gro == null) return null;
         if (!gro.CanBuild()) return null;
 
+        Vector3 spawnScale = new Vector3(cellSize, cellSize, cellSize);
+        Vector3 displayOffSet = new Vector3(0, 0, 0);
+
         BuildingISO bisoToBuild = BuildingManager.i.GetSelectedBuildingISO();
         GameObject buildingPreafab;
         if (placeHolder)
         {
-            buildingPreafab = BuildingManager.i.placeholdingBuilding;
+            //buildingPreafab = BuildingManager.i.placeholdingBuilding;
+            buildingPreafab = bisoToBuild.buildingPrefab;
+            spawnScale *= 0.7f;
+            displayOffSet = new Vector3(cellSize, 0, cellSize) * 0.5f * 0.7f;
         }
         else
         {
@@ -120,7 +126,8 @@ public class HomeGrid : MonoBehaviour
 
         GameObject newPlacement = Instantiate(buildingPreafab, this.transform);
         newPlacement.transform.position = grid.GetWorldPosition(gro.getX(), gro.getZ()); //grid.GetWorldPositionFromPosition(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
-        newPlacement.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
+        newPlacement.transform.localScale = spawnScale;
+        newPlacement.transform.position += displayOffSet;
 
         if (placeHolder) return newPlacement;
 
