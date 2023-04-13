@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    float cameraZoomSpeed = 4, cameraMinHeight = 50, cameraMaxHeight = 90;
+    float cameraZoomSpeed = 4, cameraMinHeight = 40, cameraMaxHeight = 90;
 
     private void Update()
     {

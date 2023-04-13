@@ -146,6 +146,20 @@ public class HomeGrid : MonoBehaviour
         return newPlacement;
     }
 
+    public bool CanBuild(Vector2Int startPoint, List<Vector2Int> displacements)
+    {
+        Vector2Int testPoint;
+        GridObject gro;
+        foreach(Vector2Int dis in displacements)
+        {
+            testPoint = startPoint + dis;
+            gro = grid.GetValue(testPoint.x, testPoint.y);
+            if (gro == null) return false;
+            if (!gro.CanBuild()) return false;
+        }
+        return true;
+    }
+
     public void ShowGridLines()
     {
         girdMarksContainer.gameObject.SetActive(true);
