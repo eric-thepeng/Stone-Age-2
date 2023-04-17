@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,14 +18,25 @@ public class PanelButtonIndicator : MonoBehaviour
         }
     }
 
-    [SerializeField] Transform buildingButtonTransform;
     [SerializeField] Transform craftingButtonTransform;
-    [SerializeField] Transform blueprintButtonTransform;
-    [SerializeField] Transform homeButtonTransform;
+    [SerializeField] Transform researchButtonTransform;
+    [SerializeField] Transform homeAndBuildingButtonTransform;
+    [SerializeField] Transform exitButtonTransform;
+    [SerializeField] Transform indicatorTransform;
 
-    Vector3 homeButtonScale = new Vector3(1.15f, 1.15f, 1f);
-    Vector3 otherButtonScale = new Vector3(0.8f, 0.8f, 1f);
+    const int NOT_DISPLAY = 0, RESEARCH = 1, CRAFTING = 2; 
+    int displaying = NOT_DISPLAY;
 
+    Vector3 topRightPosition_Left;
+    Vector3 topRightPosition_Right;
+
+    private void Start()
+    {
+        topRightPosition_Left = homeAndBuildingButtonTransform.localPosition;
+        topRightPosition_Right = exitButtonTransform.localPosition;
+    }
+
+    /*
     float transitionTime = 0.3f;
 
     bool moving = false;
@@ -34,41 +46,8 @@ public class PanelButtonIndicator : MonoBehaviour
     float movingSpeed = 8f;
     float scalingSpeed = 5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*
 
-        if (!moving) return;
-
-        bool stopMove = false;
-        bool stopScale = false;
-
-        if ((transform.localPosition - targetPos).magnitude >= 0.2f)
-        {
-            transform.localPosition += (targetPos - transform.localPosition).normalized * movingSpeed * Time.deltaTime;
-        }
-        else
-        {
-            transform.localPosition = targetPos;
-            stopMove = true;
-        }
-
-        if ((transform.localScale - targetScale).magnitude >= 0.2f)
-        {
-            transform.localScale += (targetScale - transform.localScale).normalized * scalingSpeed * Time.deltaTime;
-        }
-        else
-        {
-            transform.localScale = targetScale;
-            stopScale = true;
-        }
-
-        moving = !(stopMove && stopScale);
-
-        */
-    }
-
+    /*
     IEnumerator MoveCor()
     {
         float timeCount = 0;
@@ -83,11 +62,12 @@ public class PanelButtonIndicator : MonoBehaviour
         transform.localScale = targetScale;
     }
 
+    /*
+
     public void MoveToHomeBuilding()
     {
         moving = true;
         targetPos = buildingButtonTransform.localPosition;
-        targetScale = otherButtonScale;
         calculateSpeed();
     }
 
@@ -95,7 +75,6 @@ public class PanelButtonIndicator : MonoBehaviour
     {
         moving = true;
         targetPos = craftingButtonTransform.localPosition;
-        targetScale = otherButtonScale;
         calculateSpeed();
     }
 
@@ -103,7 +82,6 @@ public class PanelButtonIndicator : MonoBehaviour
     {
         moving = true;
         targetPos = blueprintButtonTransform.localPosition;
-        targetScale = otherButtonScale;
         calculateSpeed();
     }
 
@@ -111,7 +89,6 @@ public class PanelButtonIndicator : MonoBehaviour
     {
         moving = true;
         targetPos = homeButtonTransform.localPosition;
-        targetScale = homeButtonScale;
         calculateSpeed();
     }
 
@@ -121,6 +98,42 @@ public class PanelButtonIndicator : MonoBehaviour
         movingSpeed = (targetPos - transform.localPosition).magnitude / transitionTime;
         scalingSpeed = (targetScale - transform.localScale).magnitude / transitionTime;
         StartCoroutine(MoveCor());
+    }*/
+
+    public void Exit()
+    {
+        if (displaying == NOT_DISPLAY) return;
+        homeAndBuildingButtonTransform.DOLocalMove(topRightPosition_Left, 0.5f);
+        exitButtonTransform.DOLocalMove(topRightPosition_Right, 0.5f);
+        displaying = NOT_DISPLAY;
+        indicatorTransform.DOLocalMove(indicatorTransform.localPosition + new Vector3(0, -2, 0),0.4f);
+    }
+
+    public void EnterResearch()
+    {
+        if(displaying == NOT_DISPLAY)
+        {
+            indicatorTransform.localPosition = researchButtonTransform.localPosition + new Vector3(0, -2, 0);
+            homeAndBuildingButtonTransform.DOLocalMove(topRightPosition_Right, 0.5f);
+            exitButtonTransform.DOLocalMove(topRightPosition_Left, 0.5f);
+        }
+        displaying = RESEARCH;
+        indicatorTransform.DOMove(researchButtonTransform.position, 0.4f);
+
+    }
+
+    public void EnterCrafting()
+    {
+        if (displaying == NOT_DISPLAY)
+        {
+            indicatorTransform.localPosition = craftingButtonTransform.localPosition + new Vector3(0, -2, 0);
+            homeAndBuildingButtonTransform.DOLocalMove(topRightPosition_Right, 0.5f);
+            exitButtonTransform.DOLocalMove(topRightPosition_Left, 0.5f);
+        }
+        displaying = CRAFTING;
+        indicatorTransform.DOMove(craftingButtonTransform.position, 0.5f);
+
+
     }
 
 }

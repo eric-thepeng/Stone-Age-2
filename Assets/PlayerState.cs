@@ -38,7 +38,7 @@ public static class PlayerState
         {
             ChangeInventoryPanel(false);
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
-            PanelButtonIndicator.i.MoveToHome();
+            PanelButtonIndicator.i.Exit();
         }
         else if (enterState == State.Crafting)
         {
@@ -48,22 +48,20 @@ public static class PlayerState
             }
             ChangeInventoryPanel(true);
             CraftingManager.i.OpenPanel();
-            PanelButtonIndicator.i.MoveToCrafting();
+            PanelButtonIndicator.i.EnterCrafting();
         }
         else if (enterState == State.Recipe)
         {
             ChangeInventoryPanel(false);
             RecipeMapManager.i.OpenPanel();
             ChangeRecipeViewerPanel(RecipeViewerState.Open);
-            PanelButtonIndicator.i.MoveToBlueprintMap();
+            PanelButtonIndicator.i.EnterResearch();
 
         }
         else if (enterState == State.Building)
         {
             ChangeInventoryPanel(true);
             BuildingManager.i.OpenBuilding();
-            PanelButtonIndicator.i.MoveToHomeBuilding();
-
         }
 
         state = enterState;

@@ -54,4 +54,9 @@ public class PlayerInputChannel : MonoBehaviour
     {
         PlayerState.HomeReturnButton();
     }
+
+    public static void CameraBackHomeButton()
+    {
+        CameraManager.i.MoveBackToHome();
+    }
 }

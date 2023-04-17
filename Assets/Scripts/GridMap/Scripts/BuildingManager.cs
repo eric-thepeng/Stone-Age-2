@@ -110,7 +110,7 @@ public class BuildingManager : MonoBehaviour
         List<GameObject> placeholders;
         BuildingISO biso;
 
-        public BuildDragInfo(Vector2Int firstSpot, HomeGrid hg, BuildingISO inputBISO = null)
+        public BuildDragInfo(Vector2Int firstSpot, HomeGrid hg, BuildingISO inputBISO)
         {
             homeGrid = hg;
             startCoord = firstSpot;
@@ -135,15 +135,11 @@ public class BuildingManager : MonoBehaviour
 
         void CalculateAllCoords()
         {
+            if (biso == null) return;
             keyCoords.Clear();
-            int xDir = 1;
-            int yDir = 1;
 
-            if(biso!= null)
-            {
-                xDir = biso.GetWidth();
-                yDir = biso.GetHeight();
-            }
+            int xDir = biso.GetWidth();
+            int yDir = biso.GetHeight();
 
             Vector2Int counter = new Vector2Int(startCoord.x, startCoord.y);
 
@@ -184,7 +180,6 @@ public class BuildingManager : MonoBehaviour
                     AddCoord(counter);
                 }
             }
-
             SpawnPlaceholders();
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.PlayerLoop;
+using DG.Tweening;
 
 public class CameraManager : MonoBehaviour
 {
@@ -23,7 +24,11 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    float cameraZoomSpeed = 4, cameraMinHeight = 30, cameraMaxHeight = 90;
+    float cameraZoomSpeed = 4, cameraMoveSpeed = 22, cameraMinHeight = 40, cameraMaxHeight = 90;
+
+    float cameraXMin=-80, cameraXMax=100, cameraYMin, cameraYMax;
+
+    Vector3 homeCameraPosition = new Vector3(4f,70,-70);
 
     private void Update()
     {
@@ -53,7 +58,7 @@ public class CameraManager : MonoBehaviour
             direction = direction.normalized;
             momentum = 1;
         }
-        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * 15 * momentum;
+        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * cameraMoveSpeed * momentum;
     }
 
     Vector2Int GetKeyboardInput()
@@ -74,6 +79,11 @@ public class CameraManager : MonoBehaviour
     public void CancelMoveByMouse(Vector2Int fromWhich)
     {
         if(moveByMouseDirection == fromWhich) moveByMouseDirection = new Vector2Int(0, 0);
+    }
+
+    public void MoveBackToHome()
+    {
+        transform.DOMove(homeCameraPosition, 0.5f);
     }
 
 }

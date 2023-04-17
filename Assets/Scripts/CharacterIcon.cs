@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CharacterIcon : MonoBehaviour
 {
@@ -63,8 +64,11 @@ public class CharacterIcon : MonoBehaviour
                 transform.localPosition = homePosition;
                 return;
             }
-
-            targetPosition = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+            try
+            {
+                targetPosition = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
+            }
+            catch {  return; }
             if (transform.position != targetPosition)
             {
                 transform.position += (targetPosition - transform.position) * Time.deltaTime * moveSpeed;
