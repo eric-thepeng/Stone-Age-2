@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.PlayerLoop;
 using DG.Tweening;
+using Sirenix.Utilities;
 
 public class CameraManager : MonoBehaviour
 {
@@ -24,9 +25,9 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    float cameraZoomSpeed = 4, cameraMoveSpeed = 22, cameraMinHeight = 40, cameraMaxHeight = 90;
+    float cameraZoomSpeed = 5, cameraMoveSpeed = 22, cameraMinHeight = 40, cameraMaxHeight = 110;
 
-    float cameraXMin=-80, cameraXMax=100, cameraYMin, cameraYMax;
+    float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 
     Vector3 homeCameraPosition = new Vector3(4f,70,-70);
 
@@ -59,6 +60,7 @@ public class CameraManager : MonoBehaviour
             momentum = 1;
         }
         transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * cameraMoveSpeed * momentum;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
     }
 
     Vector2Int GetKeyboardInput()
