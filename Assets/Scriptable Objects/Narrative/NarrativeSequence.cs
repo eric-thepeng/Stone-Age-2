@@ -8,8 +8,12 @@ public class NarrativeSequence : SerializedScriptableObject
 {
     public enum Character {Bird}
     public Character character = Character.Bird;
-    public List<string> data = new List<string>(); 
+    public List<string> data = new List<string>();
+    [SerializeField] Quest questToQueueAfter = null;
+
+
     public string GetLine(int index) { return data[index]; }
-    public int LineCount() { return data.Count; }
+     int LineCount() { return data.Count; }
     public bool HasLine(int index) { return index < LineCount(); }
+    public Quest GetQuest() { return questToQueueAfter; }
 }

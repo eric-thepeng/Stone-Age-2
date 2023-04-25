@@ -18,7 +18,6 @@ public class DialogueManager : MonoBehaviour
 
     public bool performing { get { return currentNS != null; } }
     bool loggingLine = false;
-    bool onHoldForProgressEvent;
 
     private void Start()
     {
@@ -69,6 +68,10 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            if (currentNS.GetQuest()!= null)
+            {
+                currentNS.GetQuest().AssignQuest();
+            }
             EndPerforming();
         }
     }
