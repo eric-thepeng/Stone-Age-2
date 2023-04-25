@@ -43,7 +43,7 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
-                transform.parent.Find("Background").gameObject.SetActive(false);
+                transform.parent.parent.Find("Background").gameObject.SetActive(false);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
                     ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
@@ -92,7 +92,7 @@ public class CharacterIcon : MonoBehaviour
     {
         if (iconState == IconState.Home && PlayerState.IsBrowsing())
         {
-            transform.parent.Find("Background").gameObject.SetActive(true);
+            transform.parent.parent.Find("Background").gameObject.SetActive(true);
             homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
 
