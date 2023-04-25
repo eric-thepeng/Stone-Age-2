@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NarrativeSequence", menuName = "ScriptableObjects/Narrative/NarrativeSequence")]
+[CreateAssetMenu(fileName = "Narrative Sequence", menuName = "ScriptableObjects/Narrative/NarrativeSequence")]
 public class NarrativeSequence : SerializedScriptableObject
 {
     public enum Character {Bird}
