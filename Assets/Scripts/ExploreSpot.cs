@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,15 @@ using UnityEngine.XR;
 
 public class ExploreSpot : MonoBehaviour
 {
+    [Serializable]
+    public class SpotResourceInfo
+    {
+        public ItemScriptableObject item;
+        public int amount;
+    }
+
+    public List<SpotResourceInfo> exploreSpotResource = new List<SpotResourceInfo>();
+
     public static Dictionary<string, string[]> exploreSpotUnveilDic = new Dictionary<string, string[]>() {
         { "11", new string[]{"21", "22", "23"} },
         { "23", new string[]{"31" } },
@@ -17,9 +27,9 @@ public class ExploreSpot : MonoBehaviour
 
     public string spotName; // 00: area 00:level 00:position
     public int spiritPoint = 1;
-    public ItemScriptableObject[] resource = new ItemScriptableObject[0];
-    public int[] weight = new int[0];
-    public int totalWeight;
+    //public ItemScriptableObject[] resource = new ItemScriptableObject[0];
+    //public int[] weight = new int[0];
+    //public int totalWeight;
     public int gatherTime;
 
     public enum LockState {UNLOCKED, CAN_UNLOCK, CANNOT_UNLOCK}
@@ -73,15 +83,11 @@ public class ExploreSpot : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().color = cannotUnlockColor;
         }
-        totalWeight = 0;
-        foreach (int i in weight)
-        {
-            totalWeight += i;
-        }
 
         // Set up resource indicator
         myExploreSpotIndicator = transform.Find("Explore Spot Indicator").GetComponent<ExploreSpotIndicator>();
-        myExploreSpotIndicator.PassInResourceInfo(resource, weight, totalWeight, spiritPoint);
+        myExploreSpotIndicator.PassInResourceInfo(spiritPoint, exploreSpotResource);         //todo: update this
+
         if (isUnlocked())
         {
             myExploreSpotIndicator.CreatResourceIndicator();
@@ -134,6 +140,7 @@ public class ExploreSpot : MonoBehaviour
         activeState = ActiveState.FREE;
     }
 
+    /*
     public string GetDisplayInfo()
     {
         string text = spotName + "<br> <br>";
@@ -162,7 +169,7 @@ public class ExploreSpot : MonoBehaviour
             text = "??";
         }
         return text;
-    }
+    }*/
 
     public void SetLockState(LockState newLockState)
     {

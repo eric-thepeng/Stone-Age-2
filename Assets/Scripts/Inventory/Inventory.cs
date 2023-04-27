@@ -47,14 +47,15 @@ public class Inventory : MonoBehaviour
 
     public List<ItemInfo> catTemporary = new List<ItemInfo>();
 
-    public void AddInventoryItem(ItemScriptableObject newISO)
+    public void AddInventoryItem(ItemScriptableObject newISO, int amount = 1)
     {
-        UI_Harvest.i.AddItem(newISO, 1);
+        if (amount == 0) return;
+        UI_Harvest.i.AddItem(newISO, amount);
         foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
             if (ii.iso == newISO)
             {
-                ii.totalAmount += 1;
+                ii.totalAmount += amount;
                 print("added amount: " + newISO.name);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
@@ -62,8 +63,17 @@ public class Inventory : MonoBehaviour
         }
         ItemInfo newII = new ItemInfo(newISO);
         CategoryToList(newISO.category).Add(newII);
-        print("added new: " + newISO.name);
-        UI_Inventory.i.UpdateItemDisplay(newII);
+        if (amount == 1) return;
+        foreach (ItemInfo ii in CategoryToList(newISO.category))
+        {
+            if (ii.iso == newISO)
+            {
+                ii.totalAmount += amount-1;
+                print("added amount: " + newISO.name);
+                UI_Inventory.i.UpdateItemDisplay(ii);
+                return;
+            }
+        }
     }
 
     public int ItemInStockAmount(ItemScriptableObject newISO)

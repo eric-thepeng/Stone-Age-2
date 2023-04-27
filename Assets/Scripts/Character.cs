@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    int gatherSpeed = 3;
-    int maxEnergy = 8;
+    int gatherSpeed = 1;
+    int maxEnergy = 10;
     int currentEnergy;
 
     enum CharacterState {Idle, Gather}
@@ -87,25 +87,10 @@ public class Character : MonoBehaviour
 
     public void YieldResource()
     {
-        //print("Obtain " + gatheringSpot.spiritPoint + " Spirit Point.");
         SpiritPoint.i.Add(gatheringSpot.spiritPoint);
-        int roll = Random.Range(0, gatheringSpot.totalWeight);
-        //print("dice roll: " + roll);
-        int weightCount = 0;
-        for (int i = 0; i < gatheringSpot.weight.Length; i++)
+        foreach(ExploreSpot.SpotResourceInfo esri in gatheringSpot.exploreSpotResource)
         {
-            weightCount += gatheringSpot.weight[i];
-            if (roll < weightCount)
-            {
-                Inventory.i.AddInventoryItem(gatheringSpot.resource[i]);
-
-                // Worldspace Harvest Floating Indicator/        position, item, item number
-                HarvestIndicationWorldspace.i.CreateText(gatheringSpot.gameObject.transform.position, gatheringSpot.resource[i], 1);
-
-                //print("Obtain 1 " + gatheringSpot.resource[i]);
-                return;
-            }
+            Inventory.i.AddInventoryItem(esri.item, esri.amount);
         }
-        print("Error when gathering resource");
     }
 }
