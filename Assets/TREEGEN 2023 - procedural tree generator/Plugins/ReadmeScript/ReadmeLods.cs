@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 
 public class ReadmeLods : MonoBehaviour
 {
@@ -7,6 +8,6 @@ public class ReadmeLods : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        UnityEditor.Handles.Label(transform.position, description);
+        //UnityEditor.Handles.Label(transform.position, description);
     }
 }

@@ -28,7 +28,7 @@ public class Test : MonoBehaviour
         {
             GameObject go = WorldUtility.CreateWorldText(""+WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true), null, WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true),5,null,TextAnchor.UpperCenter,TMPro.TextAlignmentOptions.Center).gameObject;
             go.transform.position += new Vector3(0, 0.1f, 0);
-            go.transform.rotation = Quaternion.EulerAngles(45,0,0);
+            go.transform.rotation = Quaternion.Euler(45,0,0);
             print(WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true));
         }
     }
