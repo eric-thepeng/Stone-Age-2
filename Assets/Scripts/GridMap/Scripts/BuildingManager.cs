@@ -231,6 +231,7 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
+        //set up homegrid, hitpoint, and display
         HomeGrid hg = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true).GetComponent<HomeGrid>();
 
         Vector3 hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);

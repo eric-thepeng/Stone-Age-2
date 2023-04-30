@@ -114,9 +114,10 @@ public class HomeGrid : MonoBehaviour
         if (placeHolder)
         {
             //buildingPreafab = BuildingManager.i.placeholdingBuilding;
+            float shrinkScale = 0.7f;
             buildingPreafab = bisoToBuild.buildingPrefab;
-            spawnScale *= 0.7f;
-            displayOffSet = new Vector3(cellSize, 0, cellSize) * 0.5f * 0.7f;
+            spawnScale *= shrinkScale;
+            displayOffSet = new Vector3(cellSize * bisoToBuild.GetWidth(), 0, cellSize * bisoToBuild.GetHeight()) * (1-shrinkScale)/2 ; //* 0.7f;
         }
         else
         {
