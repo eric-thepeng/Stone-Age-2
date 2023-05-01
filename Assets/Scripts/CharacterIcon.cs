@@ -27,8 +27,9 @@ public class CharacterIcon : MonoBehaviour
     [HideInInspector]
     public CircularUI energyCircularUI;
 
-    //public delegate void onCharacterStartGathering();
-    public static UnityEvent onCharacterStartGathering = new UnityEvent();
+    public delegate void OnCharacterStartGathering();
+    public static event OnCharacterStartGathering onCharacterStartGathering;
+
 
     private void Awake()
     {
@@ -59,7 +60,7 @@ public class CharacterIcon : MonoBehaviour
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
                         iconState = IconState.Gathering;
-                        onCharacterStartGathering.Invoke();
+                        if(onCharacterStartGathering != null)onCharacterStartGathering();
                         return;
                     }
                 }

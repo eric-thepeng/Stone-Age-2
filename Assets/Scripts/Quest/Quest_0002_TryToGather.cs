@@ -14,13 +14,13 @@ public class Quest_0002_TryToGather : Quest
     public override void StartQuest()
     {
         base.StartQuest();
-        CharacterIcon.onCharacterStartGathering.AddListener(SetComplete);
+        CharacterIcon.onCharacterStartGathering += SetComplete;//AddListener(SetComplete);
     }
 
     public override void CompleteQuest()
     {
+        CharacterIcon.onCharacterStartGathering -= SetComplete;//RemoveListener(SetComplete);
         base.CompleteQuest();
-        CharacterIcon.onCharacterStartGathering.RemoveListener(SetComplete);
     }
 
     public void SetComplete()
