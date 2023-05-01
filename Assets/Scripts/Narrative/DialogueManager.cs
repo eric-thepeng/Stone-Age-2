@@ -116,7 +116,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndPerforming()
     {
-        if (currentNS.HasQuest()) { QuestManager.i.StartQuestByID(currentNS.questNameToQue); }
+        if (currentNS.HasQuest()) { QuestManager.i.StartQuestByID(currentNS.questIDToQue); }
         dialogueGO.SetActive(false);
         backgroundShadingGO.SetActive(false);
         currentNS = null; 

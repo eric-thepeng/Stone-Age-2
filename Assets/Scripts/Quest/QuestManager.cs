@@ -19,18 +19,10 @@ public class QuestManager : MonoBehaviour
     }
 
     Dictionary<string, Quest> allQuestDictionary = new Dictionary<string, Quest>();
-    List<Quest> allQuestsList;
     private void Awake()
     {
-        allQuestsList = new List<Quest>()
+        foreach(Quest q in GetComponentsInChildren<Quest>())
         {
-            new GameObject().AddComponent<Quest_0001_LookAround>(),
-            new GameObject().AddComponent<Quest_0002_TryToGather>(),
-
-        };
-        foreach(Quest q in allQuestsList)
-        {
-            q.gameObject.transform.parent = this.transform;
             allQuestDictionary.Add(q.GetID(),q); 
         }
     }

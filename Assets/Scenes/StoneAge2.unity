@@ -6763,7 +6763,8 @@ Transform:
   m_LocalPosition: {x: 1, y: 79.32, z: -54.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1240270926}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32339,6 +32340,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3817456597500836000, guid: 7141c3b10c317bc46877c8b88eed4088, type: 3}
   m_PrefabInstance: {fileID: 724290697}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &879149678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879149679}
+  - component: {fileID: 879149680}
+  m_Layer: 0
+  m_Name: 0001
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879149679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879149678}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1240270926}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879149680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879149678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c248ab2673d834a9557e60ccf75035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Look around!
+  questDescription: Press WASD to move around, mouse scroll to zoom in and out.
+  questID: Quest_0001
+  narrativeSequenceIDToQue: NS_0002
+  completed: 0
+  onGoing: 0
+  pressW: 0
+  pressA: 0
+  pressS: 0
+  pressD: 0
 --- !u!1001 &880190694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45762,6 +45817,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16060535ee3bb9e4885efb1aaafe9a07, type: 3}
+--- !u!1 &1240270925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240270926}
+  m_Layer: 0
+  m_Name: All Quests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240270926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240270925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 879149679}
+  - {fileID: 1466923983}
+  m_Father: {fileID: 197536655}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1243044454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54041,6 +54129,57 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.22
   m_Center: {x: 0, y: 0.0000038146973, z: 0}
+--- !u!1 &1466923982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466923983}
+  - component: {fileID: 1466923984}
+  m_Layer: 0
+  m_Name: 0002
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466923983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466923982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1240270926}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466923984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466923982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d9a5e559ac942b19187d77044b8e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Try to gather
+  questDescription: Drag Mr. Birdy's character icon from top-left to the Meadow Explore
+    Spot
+  questID: Quest_0002
+  narrativeSequenceIDToQue: No Narrative Sequence
+  completed: 0
+  onGoing: 0
 --- !u!1001 &1468635207
 PrefabInstance:
   m_ObjectHideFlags: 0
