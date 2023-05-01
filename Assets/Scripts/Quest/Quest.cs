@@ -14,10 +14,13 @@ public class Quest:MonoBehaviour
     public string GetID() { return questID; }
     public bool IsCompleted() { return completed; }
     public bool IsGoing() { return onGoing; }
+    public string GetSystemDisplayName() { return questID + " "+ GetName();}
+
     public virtual void StartQuest() { print("starting quest " + questName); onGoing = true; }
-    public virtual void CompleteQuest() { completed = true; onGoing = false; } 
+    public virtual void CompleteQuest() { completed = true; onGoing = false; }
+
     private void Start()
     {
-        gameObject.name= questName;
+        gameObject.name= GetSystemDisplayName();
     }
 }

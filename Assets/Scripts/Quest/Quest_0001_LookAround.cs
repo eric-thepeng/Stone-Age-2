@@ -23,7 +23,7 @@ public class Quest_0001_LookAround : Quest
         if (Input.GetKey(KeyCode.A)) pressA += Time.deltaTime;
         if (Input.GetKey(KeyCode.S)) pressS += Time.deltaTime;
         if (Input.GetKey(KeyCode.D)) pressD += Time.deltaTime;
-        if (pressW >= 0.5 && pressA >= 0.5 && pressS >= 0.5 && pressD >= 0.5) {
+        if (pressW >= 0.3 && pressA >= 0.3 && pressS >= 0.3 && pressD >= 0.3) {
             CompleteQuest();
             DialogueManager.i.QueueNarrativeSequence("NS_0002");
         }

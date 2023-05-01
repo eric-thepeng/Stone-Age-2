@@ -28,6 +28,7 @@ public class QuestManager : MonoBehaviour
         };
         foreach(Quest q in allQuestsList)
         {
+            q.gameObject.transform.parent = this.transform;
             allQuestDictionary.Add(q.GetID(),q); 
         }
     }
