@@ -24,7 +24,9 @@ public class QuestManager : MonoBehaviour
     {
         allQuestsList = new List<Quest>()
         {
-            new GameObject().AddComponent<Quest_0001_LookAround>()
+            new GameObject().AddComponent<Quest_0001_LookAround>(),
+            new GameObject().AddComponent<Quest_0002_TryToGather>(),
+
         };
         foreach(Quest q in allQuestsList)
         {

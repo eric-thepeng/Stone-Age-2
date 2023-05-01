@@ -53,7 +53,17 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
         if (!performing) return;
-        if(!loggingLine && Input.GetMouseButtonDown(0)) PerformNextLine();
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (loggingLine)
+            {
+                LogLineImmediately(currentNS.GetLine(currentLine));
+            }
+            else
+            {
+                PerformNextLine();
+            }
+        }
     }
     
     public NarrativeSequence GetNarrativeSequenceByID(string id)
@@ -125,6 +135,14 @@ public class DialogueManager : MonoBehaviour
         }
         loggingLine = false;
         nextLineIndicationGO.SetActive(true);
+        
+    }
 
+    void LogLineImmediately(string lineText)
+    {
+        StopAllCoroutines();
+        loggingLine = false;
+        nextLineIndicationGO.SetActive(true);
+        lineDispaly.text = lineText;
     }
 }

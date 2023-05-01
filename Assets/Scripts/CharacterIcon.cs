@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class CharacterIcon : MonoBehaviour
@@ -25,6 +26,9 @@ public class CharacterIcon : MonoBehaviour
     public CircularUI gatherCircularUI;
     [HideInInspector]
     public CircularUI energyCircularUI;
+
+    //public delegate void onCharacterStartGathering();
+    public static UnityEvent onCharacterStartGathering = new UnityEvent();
 
     private void Awake()
     {
@@ -55,7 +59,7 @@ public class CharacterIcon : MonoBehaviour
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
                         iconState = IconState.Gathering;
-
+                        onCharacterStartGathering.Invoke();
                         return;
                     }
                 }
