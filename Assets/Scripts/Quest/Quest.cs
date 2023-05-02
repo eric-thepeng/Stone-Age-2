@@ -49,8 +49,16 @@ public class Quest:MonoBehaviour
         DialogueManager.i.QueueNarrativeSequence(narrativeSequenceIDToQue);
     }
 
-    protected virtual void StartQuest() { print("starting quest " + questName); onGoing = true; }
-    protected virtual void CompleteQuest() { completed = true; onGoing = false; QueEndingNS(); }
+    protected virtual void StartQuest() {
+        UI_Quest.i.SetUpDisplay(this);
+        onGoing = true; 
+    }
+    protected virtual void CompleteQuest() { 
+        completed = true; 
+        onGoing = false;
+        UI_Quest.i.CloseDisplay(this);
+        QueEndingNS(); 
+    }
 
 
 }

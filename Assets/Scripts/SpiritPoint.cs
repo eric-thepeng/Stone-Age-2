@@ -6,9 +6,8 @@ using TMPro;
 public class SpiritPoint : MonoBehaviour
 {
     static SpiritPoint instance;
-
     public int startingAmount;
-
+    TextMeshPro displayText;
     int amount;
 
     public static SpiritPoint i
@@ -26,7 +25,7 @@ public class SpiritPoint : MonoBehaviour
     private void Start()
     {
         amount = startingAmount;
-
+        displayText = transform.Find("Spirit Point UI").Find("Spirit Point Amount").GetComponent<TextMeshPro>();
         UpdateUI();
     }
 
@@ -54,6 +53,6 @@ public class SpiritPoint : MonoBehaviour
 
     void UpdateUI()
     {
-        GetComponentInChildren<TextMeshPro>().text = "" + amount;
+        displayText.text = "" + amount;
     }
 }
