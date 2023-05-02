@@ -8,8 +8,13 @@ public class Quest:MonoBehaviour
     public string questDescription = "default quest description";
     public string questID = "default quest ID";
     public string narrativeSequenceIDToQue = "No Narrative Sequence";
+    public float startDelay = 0f;
+    public float endDelay = 1f;
+
+
     public bool completed = false;
     public bool onGoing = false;
+
     public string GetName() { return questName; }
     public string GetDescription() { return questDescription; }
     public string GetID() { return questID; }
@@ -17,11 +22,35 @@ public class Quest:MonoBehaviour
     public bool IsGoing() { return onGoing; }
     public string GetSystemDisplayName() { return questID + " "+ GetName();}
 
-    public virtual void StartQuest() { print("starting quest " + questName); onGoing = true; }
-    public virtual void CompleteQuest() { completed = true; onGoing = false; if (!narrativeSequenceIDToQue.Equals("No Narrative Sequence")) { DialogueManager.i.QueueNarrativeSequence(narrativeSequenceIDToQue); } }
-
     private void Start()
     {
-        gameObject.name= GetSystemDisplayName();
+        gameObject.name = GetSystemDisplayName();
     }
+
+    public void QueQuest()
+    {
+        StartCoroutine(CorQueQuest());
+    }
+
+    private IEnumerator CorQueQuest()
+    {
+        yield return new WaitForSeconds(startDelay);
+        StartQuest();
+    }
+
+    private void QueEndingNS()
+    {
+        if (!narrativeSequenceIDToQue.Equals("No Narrative Sequence")) { StartCoroutine(CorQueEndingNS()); }
+    }
+
+    private IEnumerator CorQueEndingNS()
+    {
+        yield return new WaitForSeconds(endDelay);
+        DialogueManager.i.QueueNarrativeSequence(narrativeSequenceIDToQue);
+    }
+
+    protected virtual void StartQuest() { print("starting quest " + questName); onGoing = true; }
+    protected virtual void CompleteQuest() { completed = true; onGoing = false; QueEndingNS(); }
+
+
 }

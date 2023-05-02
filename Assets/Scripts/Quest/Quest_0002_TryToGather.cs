@@ -5,13 +5,13 @@ using UnityEngine;
 public class Quest_0002_TryToGather : Quest
 {
 
-    public override void StartQuest()
+    protected override void StartQuest()
     {
         base.StartQuest();
         CharacterIcon.onCharacterStartGathering += SetComplete;//AddListener(SetComplete);
     }
 
-    public override void CompleteQuest()
+    protected override void CompleteQuest()
     {
         CharacterIcon.onCharacterStartGathering -= SetComplete;//RemoveListener(SetComplete);
         base.CompleteQuest();

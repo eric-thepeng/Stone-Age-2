@@ -39,6 +39,6 @@ public class QuestManager : MonoBehaviour
     private void StartQuest(Quest newQuest)
     {
         if (newQuest.IsCompleted() || newQuest.IsGoing()) return;
-        newQuest.StartQuest();
+        newQuest.QueQuest();
     }
 }
