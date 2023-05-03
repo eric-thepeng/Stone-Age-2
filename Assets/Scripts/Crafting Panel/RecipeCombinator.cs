@@ -127,19 +127,17 @@ public class RecipeCombinator
     }
 
     /// <summary>
-    /// Has this Tetris been searched and added yet?
     /// </summary>
     /// <param name="t">The Tetris to be checked.</param>
-    /// <returns></returns>
+    /// <returns>True if the Tetris is checked before.</returns>
     public bool Searched(Tetris t)
     {
         return pastTetris.Contains(t);
     }
 
     /// <summary>
-    /// Get the abstract central position of the Tetris's gameobject.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The abstract central position of the Tetris's gameobject.</returns>
     public Vector3 CentralPosition()
     {
 
@@ -159,19 +157,18 @@ public class RecipeCombinator
             }
 
             Vector3 thisBotRightDelta = t.itemSO.GetBottomRightDelta();
-            Vector3 deltaWeight = thisBotRightDelta * t.gameObject.transform.localScale.x;
-            deltaWeight = new Vector3(deltaWeight.x, deltaWeight.y / Mathf.Sqrt(2f), deltaWeight.y / Mathf.Sqrt(2f));
+            Vector3 deltaWeight = thisBotRightDelta * t.gameObject.transform.localScale.x; //get bottom-right delta with scale
+            deltaWeight = new Vector3(deltaWeight.x, deltaWeight.y / Mathf.Sqrt(2f), deltaWeight.y / Mathf.Sqrt(2f)); //readjust it to incline level
+            
+            //get the top-left and bottom-right position
             Vector3 thisBotRight = tPosition + deltaWeight;
             Vector3 thisTopLeft = tPosition - deltaWeight;
-
-            //print("processing: " + t.itemSO.tetrisHoverName + " botRightDelta is: " + thisBotRightDelta + " bot right pos: " + thisBotRight + " top left pos: " + thisTopLeft);
-            //print("before process, big botRight is: " + botRight + " big topLeft is: " + topLeft);
+            
+            //compare and get the top-left and bottom-right boundary of the recipe
             if (thisBotRight.x > botRight.x) botRight.x = thisBotRight.x;
             if (thisBotRight.y < botRight.y) { botRight.y = thisBotRight.y; botRight.z = thisBotRight.z; }
-
             if (thisTopLeft.x < topLeft.x) topLeft.x = thisTopLeft.x;
             if (thisTopLeft.y > topLeft.y) { topLeft.y = thisTopLeft.y; topLeft.z = thisTopLeft.z; }
-            //print("after process, big botRight is: " + botRight + " big topLeft is: " + topLeft);
         }
 
         return (topLeft + botRight) / 2;

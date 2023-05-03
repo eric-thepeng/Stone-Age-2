@@ -41,5 +41,11 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
 
         return true;
     }
+
+    public List<Vector2> GetDefaultRecipeCoords()
+    {
+        Recipe defaultRecipe = allRecipes[0];
+        return defaultRecipe.getCoord(true);
+    }
     
 }

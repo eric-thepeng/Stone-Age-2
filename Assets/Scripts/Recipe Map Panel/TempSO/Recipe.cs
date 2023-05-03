@@ -26,6 +26,32 @@ public class Recipe
         return export;
     }
 
+    public List<Vector2> getCoord(bool relativeToCenter = false)
+    {
+        List<Vector2> export = new List<Vector2>();
+        Vector2 bottomRightBoundary = new Vector2(0,0);
+        for (int x = 0; x < recipe.GetLength(0); x++)
+        {
+            for (int y = 0; y < recipe.GetLength(1); y++)
+            {
+                if (recipe[x, y] == null) continue;
+                if (x > bottomRightBoundary.x) bottomRightBoundary.x = x;
+                if (y > bottomRightBoundary.y) bottomRightBoundary.y = y;
+                export.Add(new Vector2(x, y));
+            }
+        }
+
+        if (!relativeToCenter) return export;
+
+        bottomRightBoundary /= 2;
+        
+        for (int i = 0; i < export.Count; i++)
+        {
+            export[i] -= bottomRightBoundary;
+        }
+        return export;
+    }
+
     //Compare CoordForm and self-CoordForm
     public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> toCheck)
     {

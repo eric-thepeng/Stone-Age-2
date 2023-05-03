@@ -36,9 +36,47 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public Color32 unlockedBackgroundColor;
     public Color32 lockedBackgroundColor;
 
+    class ShadowBoxManager
+    {
+        private Transform parentGO;
+        private Transform boxTemplate;
+        private List<Transform> allBoxes;
+        private float distance = 0.21f;
+        public ShadowBoxManager(Transform parent)
+        {
+            parentGO = parent;
+            boxTemplate = parent.transform.GetChild(0);
+            allBoxes = new List<Transform>();
+        }
+        public void GenerateBoxes(List<Vector2> coords)
+        {
+            HideBoxes();
+            boxTemplate.gameObject.SetActive(true);
+            foreach (Vector2 c in coords)
+            {
+                GameObject newGO = Instantiate(boxTemplate.gameObject, parentGO);
+                newGO.transform.localPosition += new Vector3(c.x * distance, c.y * distance, 0f);
+                allBoxes.Add(newGO.transform);
+            }
+            boxTemplate.gameObject.SetActive(false);
+        }
+
+        public void HideBoxes()
+        {
+            for (int i = allBoxes.Count - 1; i >= 0; i--)
+            {
+                Destroy(allBoxes[i].gameObject);
+            }
+            allBoxes.Clear();
+        }
+        
+    }
+    
     // All Blocks
     public List<RecipeMapBlock> allBlocks = new List<RecipeMapBlock>();
-
+    private ShadowBoxManager shadowBoxManager;
+    
+    
     // Singleton
     static RecipeMapManager instance;
     public static RecipeMapManager i
@@ -73,6 +111,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
         LockIcons[0] = RecipeViewer.transform.Find("Lock 1").gameObject;
         LockIcons[1] = RecipeViewer.transform.Find("Lock 2").gameObject;
+        
+        shadowBoxManager = new ShadowBoxManager(RecipeViewer.transform.Find("Shadow Box Manager"));
     }
 
 
@@ -133,8 +173,9 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
         if (RMB.GetLevelInt() >= 4)
         {
-            RecipeViewerLevels[3].GetComponent<TextMeshPro>().text =
-                "Sorry mate, the game does not have actual graphs for blueprint yet";
+            RecipeViewerLevels[3].GetComponent<TextMeshPro>().text = "Shape:";
+            shadowBoxManager.GenerateBoxes(RMB.myICSO.GetDefaultRecipeCoords());
+            //RecipeViewerLevels[3].transform.position
         }
 
         if (RMB.GetLevelInt() == 4)
@@ -142,6 +183,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
             RecipeUpgradeSet.SetActive(false);
         }
         else {
+            shadowBoxManager.HideBoxes();
             RecipeUpgradeSet.transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text =
                 RMB.CurrentCost().ToString();
             RecipeUpgradeSet.SetActive(true);

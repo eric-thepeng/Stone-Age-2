@@ -11,6 +11,9 @@ public class RecipeMapBlock : MonoBehaviour
 
     // ISO
     public ItemScriptableObject myISO;
+    
+    // ICSO
+    public ItemCraftScriptableObject myICSO;
 
     // Name
     public string name;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 /*
- * ItemScriptableObject represents the grid formulation of a single Tetris Game Obejct. It is a template for
+ * ItemScriptableObject represents the grid formulation of a single Tetris Game Obejct.
 */
 
 [CreateAssetMenu(fileName = "ItemScriptableObject", menuName = "ScriptableObjects/CraftingSystem/ItemScriptableObject")]
@@ -13,7 +13,6 @@ public class ItemScriptableObject : SerializedScriptableObject
 {
     public string tetrisHoverName = "not set";
     public GameObject myPrefab = null; 
-    //public List<Recipe> allRecipes = new List<Recipe>();
     public Recipe myRecipe = null;
     public Sprite tetrisSprite;
     public Sprite iconSprite;
@@ -29,14 +28,9 @@ public class ItemScriptableObject : SerializedScriptableObject
         }
     }
 
-    //Each Recipe class contains one recipe, can be accessed by methods.
-   
-    public Dictionary<ItemScriptableObject, int> GetIngredients()
-    {
-        Dictionary<ItemScriptableObject, int> ingredients = new Dictionary<ItemScriptableObject, int>();
-        return ingredients;
-    }
-
+    /// <summary>
+    /// </summary>
+    /// <returns>The difference between the Tetris' bottom-right boundary and its center.</returns>
     public Vector2 GetBottomRightDelta()
     {
         Vector2 botRight = new Vector2(0, 0);
