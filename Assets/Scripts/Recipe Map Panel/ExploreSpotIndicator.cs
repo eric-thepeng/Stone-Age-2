@@ -18,7 +18,6 @@ public class ExploreSpotIndicator : MonoBehaviour
     {
         resourceSet = transform.Find("Resource Set").gameObject;
         spawnTransform = transform.Find("Spawn Transform");
-
         gameObject.SetActive(false);
     }
 

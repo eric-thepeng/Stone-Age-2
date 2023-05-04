@@ -56,6 +56,8 @@ public class ExploreSpot : MonoBehaviour
 
     ExploreSpotUnlock myExploreSpotUnlock;
 
+    private GameObject highlightIndicator;
+
     private void Awake()
     {
         allExploreSpots.Add(spotName, this);
@@ -66,8 +68,31 @@ public class ExploreSpot : MonoBehaviour
         SetUp();
     }
 
+    private void OnEnable()
+    {
+        CharacterIcon.onCharacterPickedUp += ShowHighlightIndicator;
+        CharacterIcon.onCharacterQuitPickUp += CloseHighlightIndicator;
+    }
+
+    private void OnDisable()
+    {
+        CharacterIcon.onCharacterPickedUp -= ShowHighlightIndicator;
+        CharacterIcon.onCharacterQuitPickUp -= CloseHighlightIndicator;
+    }
+
+    public void ShowHighlightIndicator()
+    {
+        if(lockState == LockState.UNLOCKED) highlightIndicator.SetActive(true);
+    }
+
+    public void CloseHighlightIndicator()
+    {
+        highlightIndicator.SetActive(false);
+    }
+
     private void SetUp()
     {
+        highlightIndicator = transform.Find("Highlight Indicator").gameObject;
         gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
         energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
 
@@ -100,6 +125,8 @@ public class ExploreSpot : MonoBehaviour
         {
             myExploreSpotUnlock.CreatResourceIndicator();
         }
+        
+        CloseHighlightIndicator();
     }
 
     public void SetGatheringProgress(float gatherPercentage, float energyPercentage, bool isLerp)

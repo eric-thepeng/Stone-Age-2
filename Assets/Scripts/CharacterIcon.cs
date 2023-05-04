@@ -30,6 +30,13 @@ public class CharacterIcon : MonoBehaviour
     public delegate void OnCharacterStartGathering();
     public static event OnCharacterStartGathering onCharacterStartGathering;
 
+    public delegate void OnCharacterPickedUp();
+    public static event OnCharacterPickedUp onCharacterPickedUp;
+
+    public delegate void OnCharacterQuitPickUp();
+    public static event OnCharacterQuitPickUp onCharacterQuitPickUp;
+    
+
 
     private void Awake()
     {
@@ -48,6 +55,7 @@ public class CharacterIcon : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                if(onCharacterQuitPickUp!=null)onCharacterQuitPickUp();
                 transform.parent.parent.Find("Background").gameObject.SetActive(false);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
@@ -65,6 +73,7 @@ public class CharacterIcon : MonoBehaviour
                     }
                 }
                 // DRAGGING -> HOME
+                if(onCharacterQuitPickUp!=null)onCharacterQuitPickUp();
                 iconState = IconState.Home;
                 transform.localPosition = homePosition;
                 return;
@@ -102,6 +111,7 @@ public class CharacterIcon : MonoBehaviour
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
 
             iconState = IconState.Dragging;
+            if(onCharacterPickedUp!=null)onCharacterPickedUp();
         }
         else if(iconState == IconState.Gathering)
         {
