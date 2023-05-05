@@ -6,7 +6,7 @@ using UnityEngine;
 public static class PlayerState
 {
     public enum State { Browsing, Crafting, Recipe, Building }
-    static private State state = State.Browsing;
+    static public State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
     static private RecipeViewerState recipeViewerPanelState = RecipeViewerState.Close;
@@ -56,7 +56,6 @@ public static class PlayerState
             RecipeMapManager.i.OpenPanel();
             ChangeRecipeViewerPanel(RecipeViewerState.Open);
             PanelButtonIndicator.i.EnterResearch();
-
         }
         else if (enterState == State.Building)
         {

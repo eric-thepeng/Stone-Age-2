@@ -49,6 +49,7 @@ public class ExploreSpotIndicator : MonoBehaviour
         thisResourceSet.transform.localPosition += new Vector3(0, 0.3f, 0);
 
         thisResourceSet.transform.Find("Resource Icon").GetComponent<SpriteRenderer>().sprite = resource.iconSprite;
+        thisResourceSet.transform.Find("Resource Icon Shadow").GetComponent<SpriteRenderer>().sprite = resource.iconSprite;
         thisResourceSet.transform.Find("Resource Amount").GetComponent<TextMeshPro>().text = "x " + amount;
     }
 }
