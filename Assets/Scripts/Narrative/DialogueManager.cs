@@ -20,6 +20,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] NarrativeSequenceList NSList;
     Dictionary<string, NarrativeSequence> allNSDictionary = new Dictionary<string, NarrativeSequence>();
 
+    [SerializeField] private bool debugMode = false;
+    [SerializeField] private string debugQueNS = "";
+
     static DialogueManager instance;
     public static DialogueManager i
     {
@@ -47,7 +50,12 @@ public class DialogueManager : MonoBehaviour
         dialogueGO = transform.Find("Dialogue").gameObject;
         lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
         nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;
-        QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
+        
+        if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
+        else
+        {
+            QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
+        }
     }
 
     private void Update()

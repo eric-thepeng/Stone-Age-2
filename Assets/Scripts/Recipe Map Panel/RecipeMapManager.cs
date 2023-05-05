@@ -202,7 +202,6 @@ public class RecipeMapManager : SerializedMonoBehaviour
         {
             Debug.Log("upgrade" + DisplayBlock.name);
             DisplayBlock.RecipeUpgrade();
-
             DisplayRecipe(DisplayBlock);
         }
     }

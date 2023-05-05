@@ -8,6 +8,11 @@ public class RecipeMapBlock : MonoBehaviour
     public delegate void OnRecipeMapBlockChosen(ItemCraftScriptableObject icso);
 
     public static event OnRecipeMapBlockChosen onRecipeMapBlockChosen;
+
+    public delegate void OnRecipeMapBlockUpgrade(ItemCraftScriptableObject icso, int level);
+
+    public static event OnRecipeMapBlockUpgrade onRecipeMapBlockUpgrade;
+    
     enum State { Unknown , Locked , Unlocked };
     [SerializeField]
     private State state = State.Unknown;
@@ -139,6 +144,8 @@ public class RecipeMapBlock : MonoBehaviour
             {
                 recipeLevel = RecipeLevel.Graph;
             }
+
+            if(onRecipeMapBlockUpgrade!=null)onRecipeMapBlockUpgrade(myICSO,GetLevelInt());
         }
      
         ColorUpdate();
