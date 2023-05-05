@@ -5,6 +5,9 @@ using TMPro;
 
 public class RecipeMapBlock : MonoBehaviour
 {
+    public delegate void OnRecipeMapBlockChosen(ItemCraftScriptableObject icso);
+
+    public static event OnRecipeMapBlockChosen onRecipeMapBlockChosen;
     enum State { Unknown , Locked , Unlocked };
     [SerializeField]
     private State state = State.Unknown;
@@ -84,6 +87,7 @@ public class RecipeMapBlock : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && state != State.Unknown)
         {
             RecipeMapManager.i.DisplayRecipe(this);
+            if(onRecipeMapBlockChosen!=null)onRecipeMapBlockChosen(myICSO);
         }
 
         
