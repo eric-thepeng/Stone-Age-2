@@ -42,6 +42,12 @@ public class WorldSpaceButton : MonoBehaviour
     {
         if (!buttonActive) return;
         targetSR.color = hoverColor;
+
+        if (!JSAM.AudioManager.IsSoundPlaying(JSAM.SoundsStoneAge2.Button_Hover_01))
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Hover_01);
+        }
+  
     }
 
     private void OnMouseExit()
@@ -62,6 +68,39 @@ public class WorldSpaceButton : MonoBehaviour
         clickEvent.Invoke();
         targetSR.color = hoverColor;
 
+        // Check button event type and play sound - Will
+        if (clickEvent.GetPersistentMethodName(0) == "CraftingPanelOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "RecipeMapOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "RecipeViewerPanelOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "BuildingSystemOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "CameraBackHomeButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "HomeReturnButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
+        }
+        else if (clickEvent.GetPersistentMethodName(0) == "InventoryPanelOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+        }
     }
 
     public void SetClickEvent(UnityEvent newEvent)

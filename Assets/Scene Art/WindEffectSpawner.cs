@@ -53,8 +53,6 @@ public class WindEffectSpawner : MonoBehaviour
 
     void Update()
     {
-        print(isWindOn);
-
         RaycastHit[] hits;
         hits = Physics.RaycastAll(camera.transform.position, camera.transform.forward, 200.0f);
 
@@ -101,7 +99,6 @@ public class WindEffectSpawner : MonoBehaviour
         {
             if (WindList[count] == null)
             {
-                print(count);
                 WindList[count] = wind.GetComponent<ParticleSystemRenderer>();
 
                 break;

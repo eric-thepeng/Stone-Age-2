@@ -114,6 +114,17 @@ namespace JSAM
         bool spatialSound = true;
 
         public static AudioManager instance;
+        public static AudioManager i
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<AudioManager>();
+                }
+                return instance;
+            }
+        }
 
         /// <summary>
         /// Only used if you have super special music with a custom looping portion that can be enabled/disabled on the fly
