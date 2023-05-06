@@ -19,7 +19,6 @@ public class Quest_0005_UnlockStrawString : Quest
 
     void checkComplete(ItemCraftScriptableObject icso, int level)
     {
-        print(icso + " " + level);
         if(level == 4 && icso == icsoToCheck) CompleteQuest();
     }
 }

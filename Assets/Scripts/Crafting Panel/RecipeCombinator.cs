@@ -15,6 +15,10 @@ public class RecipeCombinator
     ItemScriptableObject mergeISO;
     GameObject mergeWindow;
 
+    public delegate void OnNewItemCrafted(ItemScriptableObject iso);
+    public static event OnNewItemCrafted onNewItemCrafted;
+    
+
     public RecipeCombinator(Tetris oT)
     {
         origionTetris = oT;
@@ -222,11 +226,13 @@ public class RecipeCombinator
         origionTetris.StartCoroutine(MergeProcess());
         DestroyCraftPreview();
         RecipeMapManager.i.CheckUnlock(GetMergeISO());
+        if (onNewItemCrafted != null) onNewItemCrafted(GetMergeISO());
     }
 
     public void MergeAuto()
     {
         bool mergeFromInventory = true;
+        if (onNewItemCrafted != null) onNewItemCrafted(GetMergeISO());
         foreach (KeyValuePair<ItemScriptableObject, int> kvp in GetIngredients())
         {
             if (Inventory.i.ItemInStockAmount(kvp.Key) < kvp.Value) mergeFromInventory = false;

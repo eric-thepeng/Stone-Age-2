@@ -69,6 +69,7 @@ public class WorldSpaceButton : MonoBehaviour
         targetSR.color = hoverColor;
 
         // Check button event type and play sound - Will
+        if (clickEvent.GetPersistentEventCount() == 0) return;
         if (clickEvent.GetPersistentMethodName(0) == "CraftingPanelOpenButton")
         {
             JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
