@@ -17,6 +17,14 @@ public class AudioChannel : MonoBehaviour
         }
     }
 
+    /*
+    public Dictionary<string, JSAM.SoundsStoneAge2[]> soundNames = new Dictionary<string, JSAM.SoundsStoneAge2[]>()
+    {
+        {"CraftingPanelOpenButton",new JSAM.SoundsStoneAge2[2]{JSAM.SoundsStoneAge2.Button_Click_01, JSAM.SoundsStoneAge2.Menu_Open_01}},
+        {"RecipeMapOpenButton",new JSAM.SoundsStoneAge2[2]{JSAM.SoundsStoneAge2.Button_Click_01, JSAM.SoundsStoneAge2.Menu_Open_01}},
+
+    };*/
+
     void Start()
     {
         JSAM.AudioManager.PlayMusic(JSAM.MusicStoneAge2.Music_01);
@@ -53,6 +61,10 @@ public class AudioChannel : MonoBehaviour
             JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
         }
         else if (buttonID == "InventoryPanelOpenButton")
+        {
+            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+        }
+        else if (buttonID == "MergeOne" || buttonID == "MergeAuto" || buttonID == "CloseMergePreviewWindow")
         {
             JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
         }

@@ -258,7 +258,8 @@ public class CraftingManager : SerializedMonoBehaviour
         GameObject newWindow = Instantiate(tf.Find("Merge Window Template").gameObject, tf);
         newWindow.SetActive(true);
         newWindow.transform.position = rc.CentralPosition();
-        
+
+        /*
         UnityEvent mergeOneEvent = new UnityEvent();
         mergeOneEvent.AddListener(rc.MergeOne);
         newWindow.transform.Find("Merge One Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(mergeOneEvent);
@@ -270,7 +271,15 @@ public class CraftingManager : SerializedMonoBehaviour
         UnityEvent deleteEvent = new UnityEvent();
         deleteEvent.AddListener(rc.PutBackTetrisAndMergeWindow);
         newWindow.transform.Find("Delete Button").gameObject.GetComponent<WorldSpaceButton>().SetClickEvent(deleteEvent);
+        *
+        */
 
+        newWindow.transform.Find("Merge One Button").gameObject.GetComponent<WorldSpaceButton>().AddClickAction(rc.MergeOne);
+        newWindow.transform.Find("Merge One Button").gameObject.GetComponent<WorldSpaceButton>().SetCustomClickSoundID("MergeOne");
+        newWindow.transform.Find("Merge Auto Button").gameObject.GetComponent<WorldSpaceButton>().AddClickAction(rc.MergeAuto);
+        newWindow.transform.Find("Merge Auto Button").gameObject.GetComponent<WorldSpaceButton>().SetCustomClickSoundID("MergeAuto");
+        newWindow.transform.Find("Delete Button").gameObject.GetComponent<WorldSpaceButton>().AddClickAction(rc.PutBackTetrisAndMergeWindow);
+        newWindow.transform.Find("Delete Button").gameObject.GetComponent<WorldSpaceButton>().SetCustomClickSoundID("CloseMergePreviewWindow");
 
         newWindow.transform.Find("Preview").GetComponent<SpriteRenderer>().sprite = rc.GetMergeISO().iconSprite;
         newWindow.transform.Find("Preview Name").GetComponent<TextMeshPro>().text = rc.GetMergeISO().tetrisHoverName;

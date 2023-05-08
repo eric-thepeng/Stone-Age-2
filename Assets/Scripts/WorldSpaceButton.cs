@@ -15,6 +15,15 @@ public class WorldSpaceButton : MonoBehaviour
 
     [SerializeField] bool buttonActive = true;
     [SerializeField] SpriteRenderer affectSR = null;
+    [SerializeField] string customClickSoundID = "Default Sound";
+    string buttonClickSoundID {
+        get
+        {
+            if (!customClickSoundID.Equals("Default Sound")) { return customClickSoundID; }
+            else if (clickEvent.GetPersistentEventCount()>0) { return clickEvent.GetPersistentMethodName(0); }
+            else { return "Default Sound"; }
+        }
+    }
 
     SpriteRenderer targetSR = null;
 
@@ -67,12 +76,16 @@ public class WorldSpaceButton : MonoBehaviour
         if (!buttonActive) return;
         clickEvent.Invoke();
         targetSR.color = hoverColor;
-
+        AudioChannel.i.PlayButtonSound(buttonClickSoundID);
         // Check button event type and play sound - Will
-        AudioChannel.i.PlayButtonSound(clickEvent.GetPersistentMethodName(0));
     }
 
-    public void SetClickEvent(UnityEvent newEvent)
+    public void AddClickAction(UnityAction actionToAdd)
+    {
+        clickEvent.AddListener(actionToAdd);
+    }
+    
+    public void ResetClickEvent(UnityEvent newEvent)
     {
         clickEvent = newEvent;
     }
@@ -80,6 +93,11 @@ public class WorldSpaceButton : MonoBehaviour
     public void SetButtonActive(bool toState)
     {
         buttonActive= toState;
+    }
+
+    public void SetCustomClickSoundID(string newCustomSoundID)
+    {
+        customClickSoundID = newCustomSoundID;
     }
 
     public bool IsActive()
