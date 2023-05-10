@@ -14,6 +14,7 @@ public class Quest_0002_TryToGather : Quest
         CharacterIcon.onCharacterQuitPickUp += ShowCharacterIconArrow;
         CharacterIcon.onCharacterStartGathering += CloseCharacterIconArrow;
         CharacterIcon.onCharacterStartGathering += SetComplete;//AddListener(SetComplete);
+        CameraManager.i.MoveToFirstExploreSpot();
     }
 
     protected override void CompleteQuest()

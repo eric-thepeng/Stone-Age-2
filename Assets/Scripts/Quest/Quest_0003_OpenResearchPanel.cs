@@ -2,20 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Quest_0003_OpenResearchPanel : Quest
 {
+    [SerializeField] GameObject arrow;
+    [SerializeField] Transform researchButton;
+    Vector3 orgLocalPosition;
+    private void Start()
+    {
+        orgLocalPosition = researchButton.localPosition;
+        researchButton.localPosition -= new Vector3(0f, 2f, 0f);
+    }
+
     protected override void StartQuest()
     {
         base.StartQuest();
-
+        researchButton.DOLocalMoveY(orgLocalPosition.y,0.5f);
+        arrow.SetActive(true);
         PlayerInputChannel.onPlayerPressWorldButton += CompleteQuest;
 
     }
 
     protected override void CompleteQuest()
     {
-
+        arrow.SetActive(false);
         PlayerInputChannel.onPlayerPressWorldButton -= CompleteQuest;
         base.CompleteQuest();
     }

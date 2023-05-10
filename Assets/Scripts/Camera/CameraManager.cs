@@ -30,6 +30,7 @@ public class CameraManager : MonoBehaviour
     float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 
     Vector3 homeCameraPosition = new Vector3(4f,70,-70);
+    Vector3 firstExploreSpotCameraPosition = new Vector3(1f,79f,-55f);
 
     private void Update()
     {
@@ -87,5 +88,11 @@ public class CameraManager : MonoBehaviour
     {
         transform.DOMove(homeCameraPosition, 0.5f);
     }
+
+    public void MoveToFirstExploreSpot()
+    {
+        transform.DOMove(firstExploreSpotCameraPosition, 0.5f);
+    }
+
 
 }
