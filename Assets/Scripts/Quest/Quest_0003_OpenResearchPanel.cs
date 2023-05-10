@@ -12,13 +12,13 @@ public class Quest_0003_OpenResearchPanel : Quest
     private void Start()
     {
         orgLocalPosition = researchButton.localPosition;
-        researchButton.localPosition -= new Vector3(0f, 2f, 0f);
+        researchButton.localPosition -= new Vector3(0f, 1.7f, 0f);
     }
 
     protected override void StartQuest()
     {
         base.StartQuest();
-        researchButton.DOLocalMoveY(orgLocalPosition.y,0.5f);
+        researchButton.DOLocalMoveY(orgLocalPosition.y,0.8f);
         arrow.SetActive(true);
         PlayerInputChannel.onPlayerPressWorldButton += CompleteQuest;
 

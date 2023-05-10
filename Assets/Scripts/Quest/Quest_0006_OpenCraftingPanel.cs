@@ -11,13 +11,13 @@ public class Quest_0006_OpenCraftingPanel : Quest
     private void Start()
     {
         orgLocalPos = craftButton.localPosition;
-        craftButton.localPosition -= new Vector3(0f, 2f, 0f);
+        craftButton.localPosition -= new Vector3(0f, 1.7f, 0f);
     }
 
     protected override void StartQuest()
     {
         base.StartQuest();
-        craftButton.DOLocalMoveY(orgLocalPos.y,0.5f);
+        craftButton.DOLocalMoveY(orgLocalPos.y,0.8f);
         PlayerInputChannel.onPlayerPressWorldButton += CompleteQuest;
         arrow.SetActive(true);
 

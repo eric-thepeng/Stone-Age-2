@@ -32,6 +32,8 @@ public class CameraManager : MonoBehaviour
     Vector3 homeCameraPosition = new Vector3(4f,70,-70);
     Vector3 firstExploreSpotCameraPosition = new Vector3(1f,79f,-55f);
 
+    bool restrainedCamera = false;
+
     private void Update()
     {
         if (!(PlayerState.IsBrowsing() || PlayerState.IsBuilding())) return;
@@ -61,7 +63,7 @@ public class CameraManager : MonoBehaviour
             momentum = 1;
         }
         transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * cameraMoveSpeed * momentum;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
+        if(restrainedCamera) transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
     }
 
     Vector2Int GetKeyboardInput()
