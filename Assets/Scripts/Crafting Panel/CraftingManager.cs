@@ -118,6 +118,7 @@ public class CraftingManager : SerializedMonoBehaviour
         }
         else if(createFrom == CreateFrom.MERGE)
         {
+            AudioChannel.i.PlayCraftSound(iso.tetrisHoverName);
             Inventory.i.MergeCreateItem(iso);
         }
         else //createFrom == CreateFrom.VISUAL_ONLY

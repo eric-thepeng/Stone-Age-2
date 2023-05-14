@@ -23,7 +23,8 @@ public class AudioChannel : MonoBehaviour
         {"CraftingPanelOpenButton",new JSAM.SoundsStoneAge2[2]{JSAM.SoundsStoneAge2.Button_Click_01, JSAM.SoundsStoneAge2.Menu_Open_01}},
         {"RecipeMapOpenButton",new JSAM.SoundsStoneAge2[2]{JSAM.SoundsStoneAge2.Button_Click_01, JSAM.SoundsStoneAge2.Menu_Open_01}},
 
-    };*/
+    };
+    */
 
     void Start()
     {
@@ -32,41 +33,68 @@ public class AudioChannel : MonoBehaviour
 
     public void PlayButtonSound(string buttonID)
     {
-        if (buttonID == "CraftingPanelOpenButton")
+        JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+
+        switch (buttonID)
         {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
+            case "CraftingPanelOpenButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Craft_01);
+                break;
+            case "RecipeMapOpenButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Recipe_01);
+                break;
+            case "RecipeViewerPanelOpenButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Recipe_01);
+                break;
+            case "BuildingSystemOpenButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Building_01);
+                break;
+            case "CameraBackHomeButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Camera_01);
+                break;
+            case "HomeReturnButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Camera_01);
+                break;
+            case "InventoryPanelOpenButton":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Inventory_01);
+                break;
+            case "MergeOne":
+                break;
+            case "MergeAuto":
+                break;
+            case "CloseMergePreviewWindow":
+                break;
         }
-        else if (buttonID == "RecipeMapOpenButton")
+    }
+
+    public void PlayCraftSound(string ItemName)
+    {
+        switch (ItemName)
         {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
-        }
-        else if (buttonID == "RecipeViewerPanelOpenButton")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-        }
-        else if (buttonID == "BuildingSystemOpenButton")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-        }
-        else if (buttonID == "CameraBackHomeButton")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
-        }
-        else if (buttonID == "HomeReturnButton")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Menu_Open_01);
-        }
-        else if (buttonID == "InventoryPanelOpenButton")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
-        }
-        else if (buttonID == "MergeOne" || buttonID == "MergeAuto" || buttonID == "CloseMergePreviewWindow")
-        {
-            JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Click_01);
+            case "Straw String":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_03);
+                break;
+            case "Stone Axe":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_02);
+                break;
+            case "Baked Apple":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_01);
+                break;
+            case "Herb Baked Egg":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_01);
+                break;
+            case "Camp Fire":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_04);
+                break;
+            case "Smoked Perch":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_01);
+                break;
+            case "Hay Wall":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_03);
+                break;
+            case "Simple Fishing Net":
+                JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Crafting_02);
+                break;
         }
     }
 }
