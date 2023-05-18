@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,14 @@ public class ExploreSpotIndicator : MonoBehaviour
 
     float unit = 3f;
 
-    private void Start()
+    private void Awake()
     {
         resourceSet = transform.Find("Resource Set").gameObject;
         spawnTransform = transform.Find("Spawn Transform");
-        gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
     }
 
     public void PassInResourceInfo(int spiritPointAmount, List<ExploreSpot.SpotResourceInfo> resourceList)

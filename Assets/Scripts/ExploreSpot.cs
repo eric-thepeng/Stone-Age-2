@@ -65,7 +65,12 @@ public class ExploreSpot : MonoBehaviour
 
     private void Start()
     {
-        SetUp();
+        highlightIndicator = transform.Find("Highlight Indicator").gameObject;
+        gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
+        energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
+        myExploreSpotIndicator = transform.Find("Explore Spot Indicator").GetComponent<ExploreSpotIndicator>();
+        myExploreSpotUnlock = transform.Find("Explore Spot Unlock").GetComponent<ExploreSpotUnlock>();
+        SetUpAccordingToLockState();
     }
 
     private void OnEnable()
@@ -90,11 +95,8 @@ public class ExploreSpot : MonoBehaviour
         highlightIndicator.SetActive(false);
     }
 
-    private void SetUp()
+    private void SetUpAccordingToLockState()
     {
-        highlightIndicator = transform.Find("Highlight Indicator").gameObject;
-        gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
-        energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
 
         if (lockState == LockState.UNLOCKED)
         {
@@ -108,21 +110,23 @@ public class ExploreSpot : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().color = cannotUnlockColor;
         }
+        
 
-        // Set up resource indicator
-        myExploreSpotIndicator = transform.Find("Explore Spot Indicator").GetComponent<ExploreSpotIndicator>();
-        myExploreSpotIndicator.PassInResourceInfo(spiritPoint, exploreSpotResource);         //todo: update this
+        //pass info for resource indicator and unlock panel, then disable them temporarily.
+        myExploreSpotIndicator.PassInResourceInfo(spiritPoint, exploreSpotResource);
+        myExploreSpotUnlock.PassInResourceInfo(unlockResource, unlockResrouceAmount, unlockSpiritPoint);
+        myExploreSpotIndicator.gameObject.SetActive(false);
+        myExploreSpotUnlock.gameObject.SetActive(false);
+
 
         if (isUnlocked())
         {
+            // Set up resource indicator
             myExploreSpotIndicator.CreatResourceIndicator();
         }
-
-        // Set up unlock panel
-        myExploreSpotUnlock = transform.Find("Explore Spot Unlock").GetComponent<ExploreSpotUnlock>();
-        myExploreSpotUnlock.PassInResourceInfo(unlockResource, unlockResrouceAmount, unlockSpiritPoint);
-        if (isCanUnlock())
+        else if (isCanUnlock())
         {
+            // Set up unlock panel
             myExploreSpotUnlock.CreatResourceIndicator();
         }
         
@@ -220,7 +224,7 @@ public class ExploreSpot : MonoBehaviour
         {
             lockState = LockState.CANNOT_UNLOCK;
         }
-        SetUp();
+        SetUpAccordingToLockState();
     }
 
     public void SpotUnlock()

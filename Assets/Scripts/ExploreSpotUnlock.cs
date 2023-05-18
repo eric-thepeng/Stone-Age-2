@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,14 @@ public class ExploreSpotUnlock : MonoBehaviour
 
     float unit = 0.75f;
 
-    private void Start()
+    private void Awake()
     {
         resourceSet = transform.Find("Resource Set").gameObject;
         spawnTransform = transform.Find("Spawn Transform");
+    }
 
-        gameObject.SetActive(false);
+    private void Start()
+    {
     }
 
     public void PassInResourceInfo(ItemScriptableObject[] unlockResource, int[] unlockResrouceAmount, int unlockSpiritPoint)

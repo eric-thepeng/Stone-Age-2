@@ -55,7 +55,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
             foreach (Vector2 c in coords)
             {
                 GameObject newGO = Instantiate(boxTemplate.gameObject, parentGO);
-                newGO.transform.localPosition += new Vector3(c.x * distance, c.y * distance, 0f);
+                newGO.transform.localPosition += new Vector3(c.x * distance, -c.y * distance, 0f);
                 allBoxes.Add(newGO.transform);
             }
             boxTemplate.gameObject.SetActive(false);
