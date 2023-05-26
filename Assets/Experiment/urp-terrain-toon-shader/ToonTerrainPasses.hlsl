@@ -138,10 +138,10 @@ void NormalMapMix(float4 uvSplat01, float4 uvSplat23, inout half4 splatControl, 
 
 half4 SplitMap(half4 map)
 {
-    map.r = step(0.1, map.r - map.g - map.b - map.a);
-    map.g = step(0.1, map.g - map.r - map.b - map.a);
-    map.b = step(0.1, map.b - map.g - map.r - map.a);
-    map.a = step(0.1, map.a - map.g - map.b - map.r);
+    map.r = step(0.35, map.r - map.g - map.b - map.a);
+    map.g = step(0.35, map.g - map.r - map.b - map.a);
+    map.b = step(0.35, map.b - map.g - map.r - map.a);
+    map.a = step(0.35, map.a - map.g - map.b - map.r);
     return map;
 }
 

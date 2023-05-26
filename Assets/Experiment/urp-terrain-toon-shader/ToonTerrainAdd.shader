@@ -134,8 +134,10 @@ Shader "Hidden/ToonTerrain (Add Pass)"
             #define TERRAIN_SPLAT_ADDPASS 1
             #define TERRAIN_GBUFFER 1
 
-            #include "Assets/ToonTerrain/ToonTerrainInput.hlsl"
-            #include "Assets/ToonTerrain/ToonTerrainPasses.hlsl"
+            #include "ToonTerrainInput.hlsl"
+            //#include "Assets/ToonTerrain/ToonTerrainInput.hlsl"
+            #include "ToonTerrainPasses.hlsl"
+            //#include "Assets/ToonTerrain/ToonTerrainPasses.hlsl"
             ENDHLSL
         }
     }
