@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BLDTrashToClear : LevelUp
 {
-    private GameObject UI;
+    [SerializeField]private GameObject UI;
     protected override void BeginMouseHover()
     {
         base.BeginMouseHover();
@@ -14,6 +14,8 @@ public class BLDTrashToClear : LevelUp
     private void TurnOnUI()
     {
         UI.SetActive(true);
+        IPassResourceSet iprs = GetComponent<IPassResourceSet>();
+        if(iprs != null)iprs.PassResourceSet(GetCurrentUnlockState().unlockCost);
     }
 
     public void TurnOffUI()

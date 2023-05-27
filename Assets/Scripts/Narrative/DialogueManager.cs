@@ -82,9 +82,7 @@ public class DialogueManager : MonoBehaviour
 
     public bool QueueNarrativeSequence(NarrativeSequence sequence)
     {
-        print("que narrative sequence");
         if (performing) return false;
-        print("here");
         currentNS = sequence;
         currentLine = 0;
         StartPerforming();

@@ -93,6 +93,8 @@ public class LevelUp : WorldInteractable
         }
     }
 
+    protected UnlockState GetCurrentUnlockState() { return allUnlockStates[currentState]; }
+
     protected virtual void NotEnoughResource()
     {
         
