@@ -14,12 +14,19 @@ public class BLDTrashToClear : LevelUp
     private void TurnOnUI()
     {
         UI.SetActive(true);
-        IPassResourceSet iprs = GetComponent<IPassResourceSet>();
+        IPassResourceSet iprs = GetComponentInChildren<IPassResourceSet>();
+        
         if(iprs != null)iprs.PassResourceSet(GetCurrentUnlockState().unlockCost);
     }
 
     public void TurnOffUI()
     {
         UI.SetActive(false);
+    }
+
+    protected override void ReachFinalState()
+    {
+        base.ReachFinalState();
+        Destroy(UI);
     }
 }
