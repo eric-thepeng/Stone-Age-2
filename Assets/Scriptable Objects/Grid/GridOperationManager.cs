@@ -12,6 +12,9 @@ public class GridOperationManager : MonoBehaviour
 
     private GridManager _gridManager;
 
+    public bool operateStatus;
+    public GameObject itemPlaced;
+
     private void Start()
     {
         if(_gridSettings == null)
@@ -78,8 +81,9 @@ public class GridOperationManager : MonoBehaviour
 #if ENABLE_LEGACY_INPUT_MANAGER
         if (Input.GetMouseButton(0) && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
         {
-                Debug.Log(_gridManager.ConfirmPlacement());
-            _gridManager.ConfirmPlacement();
+                //Debug.Log(_gridManager.ConfirmPlacement());
+                itemPlaced = _gridManager.ObjectToPlace;
+            operateStatus = _gridManager.ConfirmPlacement();
         }
 #endif
         }

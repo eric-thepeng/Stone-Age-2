@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8291756094773245604}
   - component: {fileID: 4979949609778236112}
   - component: {fileID: 7916508653958166864}
+  - component: {fileID: 5187230099126247389}
+  - component: {fileID: 2147656950739750033}
   m_Layer: 0
   m_Name: Cube 1x1
   m_TagString: Untagged
@@ -30,6 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +56,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -113,3 +117,28 @@ MonoBehaviour:
   _gridHeightGizmoSize: 0.05
   _gridHeightGizmoColor: {r: 0, g: 0, b: 0, a: 1}
   _enableHandles: 1
+--- !u!114 &5187230099126247389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a840d78a9b8a6498cf097aa92ea8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isValid: 1
+--- !u!114 &2147656950739750033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddc2447655b6ec4893def56b0370c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

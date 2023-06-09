@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4979949609778236112}
   - component: {fileID: 7916508653958166864}
   - component: {fileID: 7710672393583480261}
+  - component: {fileID: 2278451288467499416}
+  - component: {fileID: 7259028074167575742}
   m_Layer: 0
   m_Name: Empty Cube 1x1
   m_TagString: Untagged
@@ -94,7 +96,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760037766763816239}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -130,3 +132,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridObjectTags:
   - EmptyObject
+--- !u!114 &2278451288467499416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a840d78a9b8a6498cf097aa92ea8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isValid: 1
+--- !u!114 &7259028074167575742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abaea92c0aa594d5cb18c5758012ac33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -299,7 +299,9 @@ public class BuildingManager : MonoBehaviour
     {
         if(selectedUIIB != null)selectedUIIB.SetSelectedBackground(false);
         selectedUIIB = uiib;
+        Debug.Log(uiib);
         UI_BuildingPointer.i.SetUp((BuildingISO)uiib.GetISO());
+        Debug.Log((BuildingISO)uiib.GetISO());
     }
 
     public void CancelSelectedBuidling()

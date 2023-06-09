@@ -106,6 +106,9 @@ public class UI_InventoryBlock : MonoBehaviour
         {
             if (itemInfo.iso is BuildingISO)
             {
+                //BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
+                //SetSelectedBackground(true);
+
                 GridManagerAccessor.GridManager.EndPaintMode();
                 GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
             }
