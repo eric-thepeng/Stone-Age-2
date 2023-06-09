@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Hypertonic.GridPlacement;
 
 public class UI_InventoryBlock : MonoBehaviour
 {
@@ -98,6 +99,17 @@ public class UI_InventoryBlock : MonoBehaviour
             if (!(itemInfo.iso is BuildingISO)) return;
             BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
             SetSelectedBackground(true);
+        }
+
+        // 06/09/23 - new grid items
+        else if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+        {
+            if (itemInfo.iso is BuildingISO)
+            {
+                GridManagerAccessor.GridManager.EndPaintMode();
+                GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
+            }
+
         }
 
     }
