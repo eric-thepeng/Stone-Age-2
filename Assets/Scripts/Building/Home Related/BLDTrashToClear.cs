@@ -5,6 +5,8 @@ using UnityEngine;
 public class BLDTrashToClear : LevelUp
 {
     [SerializeField]private GameObject UI;
+    [SerializeField] private float timeToClear = 0.5f;
+    private float pressedTime = 0f;
     protected override void BeginMouseHover()
     {
         base.BeginMouseHover();
@@ -17,9 +19,17 @@ public class BLDTrashToClear : LevelUp
         base.EndMouseHover();
     }
 
-    protected override void MouseClick()
+    protected override void WhileMousePress()
     {
-        if(isMouseHover()) UnlockToNextState();
+        base.WhileMousePress();
+        pressedTime += Time.deltaTime;
+        if (pressedTime > timeToClear) UnlockToNextState();
+    }
+
+    protected override void EndMousePress()
+    {
+        base.EndMousePress();
+        pressedTime = 0;
     }
 
     private void TurnOnUI()
@@ -38,6 +48,6 @@ public class BLDTrashToClear : LevelUp
     protected override void ReachFinalState()
     {
         base.ReachFinalState();
-        Destroy(UI);
+        Destroy(gameObject);
     }
 }
