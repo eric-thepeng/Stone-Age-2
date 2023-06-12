@@ -5,19 +5,25 @@ using UnityEngine;
 
 public class WorldInteractable : MonoBehaviour
 {
+    private bool mouseHover = false;
     protected virtual void BeginMouseHover()
     {
-        
+        mouseHover = true;
     }
 
     protected virtual void EndMouseHover()
     {
         
     }
-
+    
     protected virtual void MouseClick()
     {
-        
+        mouseHover = false;
+    }
+
+    protected bool isMouseHover()
+    {
+        return mouseHover;
     }
 
     /*
@@ -38,4 +44,5 @@ public class WorldInteractable : MonoBehaviour
     {
         MouseClick();
     }
+    
 }

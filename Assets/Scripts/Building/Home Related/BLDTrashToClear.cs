@@ -11,6 +11,17 @@ public class BLDTrashToClear : LevelUp
         TurnOnUI();
     }
 
+    protected override void EndMouseHover()
+    {
+        TurnOffUI();
+        base.EndMouseHover();
+    }
+
+    protected override void MouseClick()
+    {
+        if(isMouseHover()) UnlockToNextState();
+    }
+
     private void TurnOnUI()
     {
         UI.SetActive(true);
