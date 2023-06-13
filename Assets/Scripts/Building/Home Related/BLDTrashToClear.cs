@@ -7,6 +7,7 @@ public class BLDTrashToClear : LevelUp
     [SerializeField]private GameObject UI;
     [SerializeField] private float timeToClear = 0.5f;
     private float pressedTime = 0f;
+    bool logPressing = false;
     protected override void BeginMouseHover()
     {
         base.BeginMouseHover();
@@ -19,11 +20,25 @@ public class BLDTrashToClear : LevelUp
         base.EndMouseHover();
     }
 
+    protected override void BeginMousePress()
+    {
+        base.BeginMousePress();
+        logPressing = true;
+    }
+
     protected override void WhileMousePress()
     {
         base.WhileMousePress();
-        pressedTime += Time.deltaTime;
-        if (pressedTime > timeToClear) UnlockToNextState();
+        if (logPressing)
+        {
+            pressedTime += Time.deltaTime;
+            if (pressedTime > timeToClear)
+            {
+                UnlockToNextState();
+                pressedTime = 0;
+                logPressing = false;
+            }
+        }
     }
 
     protected override void EndMousePress()
