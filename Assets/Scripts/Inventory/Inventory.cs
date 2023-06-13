@@ -44,7 +44,6 @@ public class Inventory : MonoBehaviour
     public List<ItemInfo> catTool = new List<ItemInfo>();
     public List<ItemInfo> catFurniture = new List<ItemInfo>();
     public List<ItemInfo> catObject = new List<ItemInfo>();
-
     public List<ItemInfo> catTemporary = new List<ItemInfo>();
 
     public void AddInventoryItem(ItemScriptableObject newISO, int amount = 1)
@@ -119,10 +118,34 @@ public class Inventory : MonoBehaviour
         InUseItem(iso, true);
     }
 
-    public void UseItemFromStock(ItemScriptableObject iso)
+    public void UseItemFromStock(ItemScriptableObject iso, int amount = 1)
     {
-        GetItemInfo(iso).totalAmount -= 1;
+        GetItemInfo(iso).totalAmount -= amount;
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
+    }
+
+    public bool SpendResourceSet(ResourceSet rSet)
+    {
+        //check if have enough resource
+        foreach(ResourceSet.ResourceAmount rsra in rSet.resources)
+        {
+            if (GetISOInstockAmount(rsra.iso) < rsra.amount) return false;
+        }
+
+        if (!SpiritPoint.i.Use(rSet.spiritPoint)) return false;
+
+        foreach (ResourceSet.ResourceAmount rsra in rSet.resources)
+        {
+            UseItemFromStock(rsra.iso, rsra.amount);
+        }
+
+        return true;
+    }
+
+    public int GetISOInstockAmount(ItemScriptableObject iso)
+    {
+        ItemInfo ii = GetItemInfo(iso);
+        return ii==null? 0 : ii.inStockAmount;
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)
@@ -147,4 +170,6 @@ public class Inventory : MonoBehaviour
         return null;*/
         return catTemporary;
     }
+
+
 }

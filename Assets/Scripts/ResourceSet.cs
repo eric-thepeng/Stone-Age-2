@@ -16,7 +16,6 @@ using UnityEngine;
 
     public bool SpendResource()
     {
-        //TODO: actually spend resource
-        return true;
+        return Inventory.i.SpendResourceSet(this);
     }
 }
