@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1269766294917459544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269766294917459546}
+  - component: {fileID: 1269766294917459545}
+  m_Layer: 0
+  m_Name: FogSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1269766294917459546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269766294917459544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269766294917459545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269766294917459544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4228e0a861a7924bbdb9e3435dd7880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentMode: 1
+  _CommonSettings:
+    RegrowthMode: 1
+    ShroudAmount: 0.2
+    FadeSpeed: 0.05
+    RefreshDelay: 0.1
+    FogTileColorVariations:
+    - {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+    - {r: 0.509434, g: 0.509434, b: 0.509434, a: 0}
+    - {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
+    FogTileImageVariations:
+    - {fileID: 21300000, guid: dd18da989fd30054089f954c002e9492, type: 3}
+    - {fileID: 21300000, guid: caea7c83363d90b4d8b7166ba701fb91, type: 3}
+    - {fileID: 21300000, guid: c64851814283640429258e2ee7b6afde, type: 3}
+    RandomiseColor: 0
+  _2DMapSizeSettings:
+    MapAxis: 0
+    MapSize: {x: 10, y: 10}
+    Density: 3
+    OverlapAmountMultiplier: 2
+    RandomScattering: 1
+    RandomiseRotation: 1
+  _2DMapSpriteSettings:
+    MapAxis: 0
+    MapSprite: {fileID: 21300000, guid: 42ff37762734451488f0691e3eaac7ff, type: 3}
+    RandomScattering: 1
+    RandomiseRotation: 1
+  _3DSettings:
+    FogTilePrefab: {fileID: 8842808477751304016, guid: 758bfbb79e20bb64e9cb544aae58f1cb,
+      type: 3}
+    TerrainMapToCover: {fileID: 0}
+    RandomScattering: 1
+    RandomiseRotation: 1
+    RegrowthMode: 1
+    ShroudAmount: 0.2
+    FadeSpeed: 0.05
+    RefreshDelay: 0.1
+    GridSize: 50
+    UseColorsFromList: 1
+    FogTileColorVariations:
+    - {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0}
+    - {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0}
+    - {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
+    - {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 0}
+    RandomiseColorHSV: 0
+  _FogSystemAdvancedSettings:
+    FogTilePrefab: {fileID: 7860545398858012864, guid: c5e9272aac8ec72498e4098b90a751e7,
+      type: 3}
+    FogCanvasPrefab: {fileID: 1474167831265985555, guid: 868c911674d1e4d469a267dbcda07c80,
+      type: 3}
+    MapCanvasPrefab: {fileID: 8729091013673322473, guid: d2a93ba14cbf73146a6de678ae86bed6,
+      type: 3}
+    FogCanvas: {fileID: 0}
+  EffectorOptions:
+    AutoCreateEffectorFromPlayers: 1
+    CreateExampleEffector: 0
+  Effectors: []
