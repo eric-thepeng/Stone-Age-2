@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using TMPro;
+using UnityEngine.Serialization;
 
 public class BLDTrashToClear : LevelUp
 {
-    [SerializeField]private GameObject UI;
     [SerializeField] private float timeToClear = 0.5f;
+    [SerializeField] private ResourceSet gainResourceSet;
     private float pressedTime = 0f;
     bool logPressing = false;
-    UI_BLDUnlock unlockUI;
+    UI_BLDUnlock ui;
 
     enum State {Idle, Selected}
     State state = State.Idle;
@@ -19,7 +23,7 @@ public class BLDTrashToClear : LevelUp
         {
             state = State.Selected;
             TurnOnUI();
-            unlockUI.SetProgress(pressedTime/timeToClear);
+            ui.SetProgress(pressedTime/timeToClear);
         }
         else if(newState == State.Idle)
         {
@@ -28,16 +32,21 @@ public class BLDTrashToClear : LevelUp
         }
     }
 
-    /*
-    protected override void 
+    private void Start()
     {
-        base.MouseClick();
-        if (state == State.Idle) ChangeStateTo(State.Selected);
-    }*/
-    
+        ui = GetComponent<UI_BLDUnlock>();
+    }
+
+    protected override void BeginMouseHover()
+    {
+        base.BeginMouseHover();
+        TurnOnHighlight();
+    }
+
     protected override void EndMouseHover()
     {
         if (state == State.Selected) ChangeStateTo(State.Idle);
+        TurnOffHighlight();
         base.EndMouseHover();
     }
 
@@ -54,7 +63,7 @@ public class BLDTrashToClear : LevelUp
         if (logPressing)
         {
             pressedTime += Time.deltaTime;
-            unlockUI.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
+            ui.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
             if (pressedTime > timeToClear)
             {
                 UnlockToNextState();
@@ -67,7 +76,7 @@ public class BLDTrashToClear : LevelUp
     protected override void NotEnoughResource()
     {
         base.NotEnoughResource();
-        unlockUI.SetProgress(0);
+        ui.SetProgress(0);
     }
 
     protected override void EndMousePress()
@@ -76,23 +85,29 @@ public class BLDTrashToClear : LevelUp
         if (state == State.Selected)
         {
             pressedTime = 0;
-            unlockUI.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
+            ui.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
         }
     }
 
     private void TurnOnUI()
     {
-        UI.SetActive(true);
-        unlockUI = GetComponentInChildren<UI_BLDUnlock>();
-
-        IPassResourceSet iprs = GetComponentInChildren<IPassResourceSet>();
-        
-        if(iprs != null)iprs.PassResourceSet(GetCurrentUnlockState().unlockCost);
+        ui.TurnOnUI();
+        ui.PassResourceSet(GetCurrentUnlockState().unlockCost, gainResourceSet);
     }
 
     public void TurnOffUI()
     {
-        UI.SetActive(false);
+        ui.TurnOffUI();
+    }
+
+    private void TurnOnHighlight()
+    {
+        transform.DOShakePosition(0.3f, new Vector3(0.1f,0,0),10,0);
+    }
+
+    private void TurnOffHighlight()
+    {
+        
     }
 
     protected override void ReachFinalState()

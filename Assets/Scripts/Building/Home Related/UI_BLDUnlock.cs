@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UI_BLDUnlock : MonoBehaviour,IPassResourceSet
+public class UI_BLDUnlock : MonoBehaviour
 {
-    ResourceSetDisplayer rsd = null;
-    [SerializeField] Transform rsdTemplate;
-    [SerializeField] Vector3 displacement;
-    ResourceSet unlockCost = null;
-    TextMeshPro progressText;
+    [SerializeField] private GameObject uiGameObject;
+    [SerializeField] private GameObject objectGameObject;
+    [SerializeField] ResourceSetDisplayer costDisplayer, gainDisplayer;
+    private ResourceSet costResourceSet, gainResourceSet;
+    [SerializeField] TextMeshPro progressText;
 
-    private void Awake()
+    public void PassResourceSet(ResourceSet cost, ResourceSet gain)
     {
-        progressText = transform.Find("Progress").GetComponent<TextMeshPro>();
-    }
-
-    public void PassResourceSet(ResourceSet rs)
-    {
-        unlockCost = rs;
-        GetComponentInChildren<ResourceSetDisplayer>().Display(unlockCost);
+        costResourceSet = cost;
+        gainResourceSet = gain;
+        costDisplayer.Display(costResourceSet);
+        gainDisplayer.Display(gainResourceSet);
     }
 
     public void SetProgress(float percent)
     {
         progressText.text = (int)(percent * 100) + "%";
+    }
+
+    public void TurnOnUI()
+    {
+        uiGameObject.SetActive(true);
+    }
+
+    public void TurnOffUI()
+    {
+        uiGameObject.SetActive(false);
+    }
+
+    public void TurnOnHighlight()
+    {
+        
+    }
+
+    public void TurnOffHighlight()
+    {
+        
     }
 
 }

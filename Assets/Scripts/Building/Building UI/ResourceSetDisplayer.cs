@@ -26,11 +26,9 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     [SerializeField] Alighment alighment = Alighment.Left;
 
-
-    public void Start()
+    private void Start()
     {
         spriteAmountSetTemplate.SetActive(false);
-        spiritPointDisplay.SetActive(false);
     }
 
     private void GenerateDisplay()
@@ -39,17 +37,14 @@ public class ResourceSetDisplayer : MonoBehaviour
         if (displaySpiritPoints)
         {
             spiritPointDisplay.GetComponentInChildren<TextMeshPro>().text = ""+resourceSet.spiritPoint;
-            spiritPointDisplay.SetActive(true);
         }
-    
 
-        
         // Generate Resource
         if(!displayResource) return;
         for (int i = 0; i < resourceSet.resources.Count; i++)
         {
             ResourceSet.ResourceAmount ra = resourceSet.resources[i];
-            GameObject go = Instantiate(spriteAmountSetTemplate, transform);
+            GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
             go.GetComponentInChildren<SpriteRenderer>().sprite = ra.iso.iconSprite;
             go.GetComponentInChildren<TextMeshPro>().text = "" + ra.amount;
@@ -81,28 +76,24 @@ public class ResourceSetDisplayer : MonoBehaviour
     {
         for(int i = container.childCount-1; i>= 0; i--)
         {
-            Destroy(container.GetChild(i));
+            Destroy(container.GetChild(i).gameObject);
         }
-        spiritPointDisplay.SetActive(false);
-    }
-
-    public void Hide()
-    {
-        container.gameObject.SetActive(false);
-        spiritPointDisplay.SetActive(false);
     }
 
     public void Display(ResourceSet rs)
     {
-        container.gameObject.SetActive(true);
+        if(!displaySpiritPoints)spiritPointDisplay.gameObject.SetActive(false);
+        if(!displayResource)container.gameObject.SetActive(false);
+        /*
         if (resourceSet == rs)
         {
             print("no need to recalculate");
             return;
-        }
+        }*/
         ClearDisplay();
         resourceSet = rs;
         GenerateDisplay();
+
     }
 
 }
