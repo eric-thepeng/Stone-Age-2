@@ -13,10 +13,6 @@ public class BLDTrashToClear : LevelUp
     enum State {Idle, Selected}
     State state = State.Idle;
 
-    private void Start()
-    {
-    }
-
     void ChangeStateTo(State newState)
     {
         if(newState == State.Selected)
@@ -38,8 +34,7 @@ public class BLDTrashToClear : LevelUp
         base.MouseClick();
         if (state == State.Idle) ChangeStateTo(State.Selected);
     }*/
-
-
+    
     protected override void EndMouseHover()
     {
         if (state == State.Selected) ChangeStateTo(State.Idle);
@@ -81,6 +76,7 @@ public class BLDTrashToClear : LevelUp
         if (state == State.Selected)
         {
             pressedTime = 0;
+            unlockUI.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
         }
     }
 

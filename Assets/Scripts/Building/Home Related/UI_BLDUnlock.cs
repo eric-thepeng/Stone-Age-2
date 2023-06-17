@@ -19,7 +19,7 @@ public class UI_BLDUnlock : MonoBehaviour,IPassResourceSet
     public void PassResourceSet(ResourceSet rs)
     {
         unlockCost = rs;
-        rsd = new ResourceSetDisplayer(unlockCost,rsdTemplate,displacement,this.transform);
+        GetComponentInChildren<ResourceSetDisplayer>().Display(unlockCost);
     }
 
     public void SetProgress(float percent)

@@ -132,8 +132,10 @@ public class Inventory : MonoBehaviour
             if (GetISOInstockAmount(rsra.iso) < rsra.amount) return false;
         }
 
+        //check and use spirit point
         if (!SpiritPoint.i.Use(rSet.spiritPoint)) return false;
 
+        //use resource
         foreach (ResourceSet.ResourceAmount rsra in rSet.resources)
         {
             UseItemFromStock(rsra.iso, rsra.amount);
