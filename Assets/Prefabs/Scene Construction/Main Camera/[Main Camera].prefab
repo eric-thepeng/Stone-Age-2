@@ -950,6 +950,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a19f84e6bb847b496917ec0cdc56b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeedAgainstHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.70000005
+      outSlope: 0.70000005
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.7
+      inSlope: 0.70000005
+      outSlope: 0.70000005
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  zoomSpeedAgainstHeight:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 1
+      inSlope: -0.0052878447
+      outSlope: -0.0052878447
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.3
+      value: 7
+      inSlope: 1.0936826
+      outSlope: 1.0936826
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3683481
+    - serializedVersion: 3
+      time: 0.7
+      value: 7
+      inSlope: -1.1011016
+      outSlope: -1.1011016
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.8
+      value: 1
+      inSlope: -0.011211188
+      outSlope: -0.011211188
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.42865553
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3941866035689039091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,6 +2312,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3941866035689038861}
     m_Modifications:
+    - target: {fileID: 6911404963064641981, guid: 81d79d42e9cde1241bda001442d8e299, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7775758697475519846, guid: 81d79d42e9cde1241bda001442d8e299, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2279,6 +2367,10 @@ PrefabInstance:
     - target: {fileID: 7775758697528844513, guid: 81d79d42e9cde1241bda001442d8e299, type: 3}
       propertyPath: m_Name
       value: -Quest UI-
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775758697623162267, guid: 81d79d42e9cde1241bda001442d8e299, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7775758697623162267, guid: 81d79d42e9cde1241bda001442d8e299, type: 3}
       propertyPath: m_LocalPosition.y

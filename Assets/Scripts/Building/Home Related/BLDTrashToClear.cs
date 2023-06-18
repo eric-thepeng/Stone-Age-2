@@ -17,6 +17,8 @@ public class BLDTrashToClear : LevelUp
     enum State {Idle, Selected}
     State state = State.Idle;
 
+    private ResourceSet unlockCost;
+
     void ChangeStateTo(State newState)
     {
         if(newState == State.Selected)
@@ -35,6 +37,7 @@ public class BLDTrashToClear : LevelUp
     private void Start()
     {
         ui = GetComponent<UI_BLDUnlock>();
+        unlockCost = GetCurrentUnlockState().unlockCost;
     }
 
     protected override void BeginMouseHover()
@@ -92,7 +95,7 @@ public class BLDTrashToClear : LevelUp
     private void TurnOnUI()
     {
         ui.TurnOnUI();
-        ui.PassResourceSet(GetCurrentUnlockState().unlockCost, gainResourceSet);
+        ui.PassResourceSet(unlockCost, gainResourceSet);
     }
 
     public void TurnOffUI()
@@ -113,6 +116,7 @@ public class BLDTrashToClear : LevelUp
     protected override void ReachFinalState()
     {
         base.ReachFinalState();
+        unlockCost.GainResource();
         Destroy(gameObject);
     }
 }

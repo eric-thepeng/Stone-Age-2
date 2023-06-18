@@ -25,7 +25,9 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    float cameraZoomSpeed = 5, cameraMoveSpeed = 22, cameraMinHeight = 40, cameraMaxHeight = 110;
+    private float cameraZoomSpeedOnFloor = 5, cameraMoveSpeedOnFloor = 22;
+    
+    private float cameraHeightMin = 50, cameraHeightMax = 180;
 
     float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 
@@ -34,12 +36,15 @@ public class CameraManager : MonoBehaviour
 
     bool restrainedCamera = false;
 
+    [SerializeField]private AnimationCurve moveSpeedAgainstHeight;
+    [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
+
     private void Update()
     {
         if (!(PlayerState.IsBrowsing() || PlayerState.IsBuilding())) return;
         //ZOOMING
-        float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * cameraZoomSpeed;
-        targetCamHeight = Mathf.Clamp(targetCamHeight, cameraMinHeight, cameraMaxHeight);
+        float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * GetWeightedZoomSpeed();
+        targetCamHeight = Mathf.Clamp(targetCamHeight, cameraHeightMin, cameraHeightMax);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
 
@@ -62,8 +67,18 @@ public class CameraManager : MonoBehaviour
             direction = direction.normalized;
             momentum = 1;
         }
-        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * cameraMoveSpeed * momentum;
+        transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * GetWeightedMoveSpeed() * momentum;
         if(restrainedCamera) transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
+    }
+
+    float GetWeightedMoveSpeed()
+    {
+        return cameraMoveSpeedOnFloor * moveSpeedAgainstHeight.Evaluate((transform.position.y - cameraHeightMin) / (cameraHeightMax - cameraHeightMin));
+    }
+
+    float GetWeightedZoomSpeed()
+    {
+        return cameraZoomSpeedOnFloor * zoomSpeedAgainstHeight.Evaluate((transform.position.y - cameraHeightMin) / (cameraHeightMax - cameraHeightMin));
     }
 
     Vector2Int GetKeyboardInput()
