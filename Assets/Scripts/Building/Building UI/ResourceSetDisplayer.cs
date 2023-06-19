@@ -14,11 +14,14 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     [SerializeField] private bool displaySpiritPoints = true;
     [SerializeField] private bool displayResource = true;
+    [SerializeField] private bool displayShadow = true;
     [SerializeField] ResourceSet resourceSet = null; 
     [SerializeField] Vector3 displacement = new Vector3(2,0,0);
     [SerializeField] GameObject spriteAmountSetTemplate;
     [SerializeField] Transform container;
     [SerializeField] GameObject spiritPointDisplay;
+    
+    Vector3 shadowDisplacement = new Vector3(0.05f, -0.05f, 0.05f);
     
     enum Alighment
     {Left, Center, Right
@@ -36,18 +39,51 @@ public class ResourceSetDisplayer : MonoBehaviour
         //Generate Spirit Point
         if (displaySpiritPoints)
         {
-            spiritPointDisplay.GetComponentInChildren<TextMeshPro>().text = ""+resourceSet.spiritPoint;
+            //Set up spirit point amount
+            SpriteRenderer sr = spiritPointDisplay.GetComponentInChildren<SpriteRenderer>();
+            TextMeshPro tmp = spiritPointDisplay.GetComponentInChildren<TextMeshPro>();
+            tmp.text = ""+resourceSet.spiritPoint;
+            
+            if (displayShadow) //generate shadow
+            {
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, spiritPointDisplay.transform).GetComponent<SpriteRenderer>();
+                srShadow.color = Color.black;
+                srShadow.transform.localPosition += shadowDisplacement;
+                
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, spiritPointDisplay.transform).GetComponent<TextMeshPro>();
+                tmpShadow.color = Color.black;
+                tmpShadow.transform.localPosition += shadowDisplacement;
+
+            }
         }
 
         // Generate Resource
         if(!displayResource) return;
-        for (int i = 0; i < resourceSet.resources.Count; i++)
+        for (int i = 0; i < resourceSet.resources.Count; i++) //Generate each resource and amount
         {
+            //generate resource and amount
             ResourceSet.ResourceAmount ra = resourceSet.resources[i];
             GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
-            go.GetComponentInChildren<SpriteRenderer>().sprite = ra.iso.iconSprite;
-            go.GetComponentInChildren<TextMeshPro>().text = "" + ra.amount;
+            SpriteRenderer sr = go.GetComponentInChildren<SpriteRenderer>();
+            TextMeshPro tmp = go.GetComponentInChildren<TextMeshPro>();
+            sr.sprite = ra.iso.iconSprite;
+            tmp.text = "" + ra.amount;
+            
+            //generate shadow
+            if (displayShadow)
+            {
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, go.transform).GetComponent<SpriteRenderer>();
+                srShadow.color = Color.black;
+                srShadow.transform.localPosition += shadowDisplacement;
+                
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, go.transform).GetComponent<TextMeshPro>();
+                tmpShadow.color = Color.black;
+                tmpShadow.transform.localPosition += shadowDisplacement;
+
+            }
+            
+            //set position according to alignment
             if (alighment == Alighment.Left)
             {
                 go.transform.position += displacement * i;
