@@ -12,16 +12,16 @@ using TMPro;
 public class ResourceSetDisplayer : MonoBehaviour
 {
 
-    [SerializeField] private bool displaySpiritPoints = true;
-    [SerializeField] private bool displayResource = true;
-    [SerializeField] private bool displayShadow = true;
-    [SerializeField] ResourceSet resourceSet = null; 
-    [SerializeField] Vector3 displacement = new Vector3(2,0,0);
-    [SerializeField] GameObject spriteAmountSetTemplate;
-    [SerializeField] Transform container;
-    [SerializeField] GameObject spiritPointDisplay;
+    [SerializeField, Tooltip("Does it display the spirit points and amount section?")] private bool displaySpiritPoints = true;
+    [SerializeField, Tooltip("Does it display the resource and amount section?")] private bool displayResource = true;
+    [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
+    [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSet = null; 
+    [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
+    [SerializeField,  Tooltip("Do not change. Indicate the GameObejct template that displays the set of sprite+text for each resource.")] GameObject spriteAmountSetTemplate;
+    [SerializeField,  Tooltip("Do not change. Indicate the container for each set of sprite+text for each resource.")] Transform container;
+    [SerializeField,  Tooltip("Do not change. Indicate the GameObject that displays the spirit points and amount.")] GameObject spiritPointDisplay;
     
-    Vector3 shadowDisplacement = new Vector3(0.05f, -0.05f, 0.05f);
+    Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, 0.04f);
     
     enum Alighment
     {Left, Center, Right
