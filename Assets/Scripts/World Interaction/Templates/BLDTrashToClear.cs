@@ -12,7 +12,7 @@ public class BLDTrashToClear : LevelUp
     [SerializeField] private ResourceSet gainResourceSet;
     private float pressedTime = 0f;
     bool logPressing = false;
-    UI_BLDUnlock ui;
+    UI_BLDTrashToClear ui;
 
     enum State {Idle, Selected}
     State state = State.Idle;
@@ -36,7 +36,7 @@ public class BLDTrashToClear : LevelUp
 
     private void Start()
     {
-        ui = GetComponent<UI_BLDUnlock>();
+        ui = GetComponent<UI_BLDTrashToClear>();
         unlockCost = GetCurrentUnlockState().unlockCost;
     }
 

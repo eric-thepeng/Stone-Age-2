@@ -2,42 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using UnityEngine.XR;
 
 public class GatherSpot : MonoBehaviour
 {
-    // Explore Spot Information
-    public static Dictionary<string, string[]> exploreSpotUnveilDic = new Dictionary<string, string[]>() {
-        { "11", new string[]{"21", "22", "23"} },
-        { "23", new string[]{"31" } },
-        { "31", new string[]{"41", "42"} },
-        { "41", new string[]{"61" } },
-        { "42", new string[]{"51", "71"} },
-    };
-    public static Dictionary<string, GatherSpot> allExploreSpots = new Dictionary<string, GatherSpot>();
-    public string spotName; // 00: area 00:level 00:position
-    
     // Gather Information
     public int gatherTime;
     public ResourceSet gatherResource;
+    
+    [Header("------ DO NOT EDIT BELOW ------")]
 
-    // Active State
-    public enum ActiveState {FREE, GATHERING}
-    ActiveState activeState = ActiveState.FREE;
-    Character gatheringCharacter = null;
-
+    // Call Back Character Icon Button
+    public GameObject callBackButton;
+    public GameObject characterSpriteHolder;
+    
     // CircularUI
     public CircularUI gatherCircularUI;
     public CircularUI energyCircularUI;
 
     // Highlight Indication
     private GameObject highlightIndicator;
-
-    private void Awake()
-    {
-        allExploreSpots.Add(spotName, this);
-    }
+    
+    // Active State
+    public enum ActiveState {FREE, GATHERING}
+    ActiveState activeState = ActiveState.FREE;
+    Character gatheringCharacter = null;
 
     private void Start()
     {
@@ -81,28 +69,17 @@ public class GatherSpot : MonoBehaviour
         energyCircularUI.SetCircularUIState(circularUIState);
     }
 
-    private void DiscoverAdjacent()
-    {
-        if (!exploreSpotUnveilDic.ContainsKey(spotName)) return;
-        foreach (string esName in exploreSpotUnveilDic[spotName])
-        {
-            if (!allExploreSpots.ContainsKey(esName)) continue;
-            
-            //TODO: SET UNLOCK STATE
-        }
-    }
-
     public void PlaceCharacter(Sprite sp, Character inCharacter)
     {
         gatheringCharacter = inCharacter;
-        transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = sp;
+        characterSpriteHolder.GetComponent<SpriteRenderer>().sprite = sp;
         activeState = ActiveState.GATHERING;
     }
 
     public void EndGathering()
     {
         gatheringCharacter = null;
-        transform.Find("Character Sprite").GetComponent<SpriteRenderer>().sprite = null;
+        characterSpriteHolder.GetComponent<SpriteRenderer>().sprite = null;
         activeState = ActiveState.FREE;
     }
 
@@ -152,13 +129,13 @@ public class GatherSpot : MonoBehaviour
     private void DisplayRecallButton()
     {
         GetComponent<WorldSpaceButton>().SetButtonActive(true);
-        transform.Find("Call Back Button").gameObject.SetActive(true);
+        callBackButton.gameObject.SetActive(true);
     }
 
     private void CancelRecallButton()
     {
         GetComponent<WorldSpaceButton>().SetButtonActive(false);
-        transform.Find("Call Back Button").gameObject.SetActive(false);
+        callBackButton.gameObject.SetActive(false);
     }
 
     public void CancelGather()

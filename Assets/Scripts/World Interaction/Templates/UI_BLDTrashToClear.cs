@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UI_BLDUnlock : MonoBehaviour
+public class UI_BLDTrashToClear : MonoBehaviour
 {
     [SerializeField] private GameObject uiGameObject;
     [SerializeField] private GameObject objectGameObject;
