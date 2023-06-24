@@ -22,7 +22,6 @@ using UnityEngine;
 
     public void GainResource()
     {
-        
         SpiritPoint.i.Add(spiritPoint);
         foreach ( ResourceAmount ra in resources)
         {

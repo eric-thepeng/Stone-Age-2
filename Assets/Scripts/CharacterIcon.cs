@@ -59,18 +59,15 @@ public class CharacterIcon : MonoBehaviour
                 transform.parent.parent.Find("Background").gameObject.SetActive(false);
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
-                    ExploreSpot toExplore = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<ExploreSpot>();
-                    if (toExplore.isUnlocked()) // DRAGGING -> PLACED
-                    {
-                        toExplore.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
-                        character.StartGather(toExplore, this);
+                        GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<GatherSpot>();
+                        toGather.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
+                        character.StartGather(toGather, this);
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
                         iconState = IconState.Gathering;
                         if(onCharacterStartGathering != null)onCharacterStartGathering();
                         return;
-                    }
                 }
                 // DRAGGING -> HOME
                 if(onCharacterQuitPickUp!=null)onCharacterQuitPickUp();

@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     enum CharacterState {Idle, Gather}
     CharacterState state = CharacterState.Idle;
 
-    ExploreSpot gatheringSpot;
+    GatherSpot gatheringSpot;
     CharacterIcon characterIcon;
     float gatherTimeLeft;
     CharacterIcon myCI;
@@ -53,7 +53,7 @@ public class Character : MonoBehaviour
         characterIcon = ci;
     }
 
-    public void StartGather(ExploreSpot es, CharacterIcon ci)
+    public void StartGather(GatherSpot es, CharacterIcon ci)
     {
         gatheringSpot = es;
         gatherTimeLeft = es.gatherTime;
@@ -87,10 +87,6 @@ public class Character : MonoBehaviour
 
     public void YieldResource()
     {
-        SpiritPoint.i.Add(gatheringSpot.spiritPoint);
-        foreach(ExploreSpot.SpotResourceInfo esri in gatheringSpot.exploreSpotResource)
-        {
-            Inventory.i.AddInventoryItem(esri.item, esri.amount);
-        }
+        gatheringSpot.gatherResource.GainResource();
     }
 }
