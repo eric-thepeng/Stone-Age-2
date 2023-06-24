@@ -4,10 +4,8 @@ using UnityEngine;
 
 public interface ISerialEffect
 {
-    public void SendSerialEffect()
-    {
-        mySEI.SendSerialEffect();
-    }
+    public void SendSerialEffect();
+    public void SetUpSerialEffectIdentifier();
     public void ReceiveSerialEffect();
     public SO_SerialEffectIdentifier mySEI { get;}
 }

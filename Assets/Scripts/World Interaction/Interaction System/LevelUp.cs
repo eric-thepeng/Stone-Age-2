@@ -64,20 +64,21 @@ public class LevelUp : WorldInteractable
         return currentState;
     }
 
-    public void UnlockToNextState()
+    public bool UnlockToNextState()
     {
         if (currentState == allUnlockStates.Count)
         {
             Debug.LogWarning("Try to exceed max amount of states with object " + gameObject.name);
-            return;
+            return false;
         }
         if (allUnlockStates[currentState].Unlock() == false)
         {
             NotEnoughResource();
-            return;
+            return false;
         }
         currentState++;
         if(currentState == allUnlockStates.Count) ReachFinalState();
+        return true;
     }
 
     public void UnlockToState(int targetState)
