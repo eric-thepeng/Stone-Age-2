@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LevelUp : WorldInteractable
 {
@@ -97,7 +98,7 @@ public class LevelUp : WorldInteractable
 
     protected virtual void NotEnoughResource()
     {
-        
+        transform.DOShakePosition(0.5f, new Vector3(0.3f,0,0),10,0);
     }
 
     protected virtual void ReachFinalState()

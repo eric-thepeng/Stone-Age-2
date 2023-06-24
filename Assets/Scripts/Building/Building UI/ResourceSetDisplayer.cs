@@ -1,62 +1,135 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
+using Sirenix.Serialization;
 using UnityEngine;
 using TMPro;
 
-public class ResourceSetDisplayer
+/// <summary>
+/// Create and display ResourceSet in worldspace
+/// </summary>
+public class ResourceSetDisplayer : MonoBehaviour
 {
 
-    ResourceSet rs;
-    Vector3 centralPosition;
-    Vector3 displacement;
-    Transform parentTransform;
-    Transform container;
-    GameObject template;
-
-    public ResourceSetDisplayer(ResourceSet rs, Transform template, Vector3 displacement, Transform parentTransform = null)
-    {
-        this.rs = rs;
-        this.centralPosition = template.position;
-        this.displacement = displacement;
-        this.parentTransform = parentTransform;
-        this.template = template.gameObject;
-        if (parentTransform == null)
-        {
-            container = MonoBehaviour.Instantiate(new GameObject("Resource Set Display")).transform;
-        }
-        else
-        {
-            container = MonoBehaviour.Instantiate(new GameObject("Resource Set Display"), parentTransform).transform;
-        }
-        Generate();
+    [SerializeField] private bool displaySpiritPoints = true;
+    [SerializeField] private bool displayResource = true;
+    [SerializeField] private bool displayShadow = true;
+    [SerializeField] ResourceSet resourceSet = null; 
+    [SerializeField] Vector3 displacement = new Vector3(2,0,0);
+    [SerializeField] GameObject spriteAmountSetTemplate;
+    [SerializeField] Transform container;
+    [SerializeField] GameObject spiritPointDisplay;
+    
+    Vector3 shadowDisplacement = new Vector3(0.05f, -0.05f, 0.05f);
+    
+    enum Alighment
+    {Left, Center, Right
     }
 
-    public void ResetResourceSet(ResourceSet rs)
+    [SerializeField] Alighment alighment = Alighment.Left;
+
+    private void Start()
     {
-        this.rs = rs;
-        Clear();
-        Generate();
+        spriteAmountSetTemplate.SetActive(false);
     }
 
-    private void Generate()
+    private void GenerateDisplay()
     {
-        for(int i = 0; i< rs.resources.Count; i++)
+        //Generate Spirit Point
+        if (displaySpiritPoints)
         {
-            ResourceSet.ResourceAmount ra = rs.resources[i];
-            GameObject go = MonoBehaviour.Instantiate(template, container);
+            //Set up spirit point amount
+            SpriteRenderer sr = spiritPointDisplay.GetComponentInChildren<SpriteRenderer>();
+            TextMeshPro tmp = spiritPointDisplay.GetComponentInChildren<TextMeshPro>();
+            tmp.text = ""+resourceSet.spiritPoint;
+            
+            if (displayShadow) //generate shadow
+            {
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, spiritPointDisplay.transform).GetComponent<SpriteRenderer>();
+                srShadow.color = Color.black;
+                srShadow.transform.localPosition += shadowDisplacement;
+                
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, spiritPointDisplay.transform).GetComponent<TextMeshPro>();
+                tmpShadow.color = Color.black;
+                tmpShadow.transform.localPosition += shadowDisplacement;
+
+            }
+        }
+
+        // Generate Resource
+        if(!displayResource) return;
+        for (int i = 0; i < resourceSet.resources.Count; i++) //Generate each resource and amount
+        {
+            //generate resource and amount
+            ResourceSet.ResourceAmount ra = resourceSet.resources[i];
+            GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
-            go.GetComponentInChildren<SpriteRenderer>().sprite = ra.iso.iconSprite;
-            go.GetComponentInChildren<TextMeshPro>().text = ""+ra.amount;
-            go.transform.position += displacement * i;
+            SpriteRenderer sr = go.GetComponentInChildren<SpriteRenderer>();
+            TextMeshPro tmp = go.GetComponentInChildren<TextMeshPro>();
+            sr.sprite = ra.iso.iconSprite;
+            tmp.text = "" + ra.amount;
+            
+            //generate shadow
+            if (displayShadow)
+            {
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, go.transform).GetComponent<SpriteRenderer>();
+                srShadow.color = Color.black;
+                srShadow.transform.localPosition += shadowDisplacement;
+                
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, go.transform).GetComponent<TextMeshPro>();
+                tmpShadow.color = Color.black;
+                tmpShadow.transform.localPosition += shadowDisplacement;
+
+            }
+            
+            //set position according to alignment
+            if (alighment == Alighment.Left)
+            {
+                go.transform.position += displacement * i;
+            }
+            else if (alighment == Alighment.Right)
+            {
+                go.transform.position -= displacement * i;
+            }
+            else if (alighment == Alighment.Center)
+            {
+                if (resourceSet.resources.Count % 2 == 1) //amount display is odd
+                {
+                    int sign = (int)Mathf.Pow(-1, i % 2);
+                    go.transform.position += sign * displacement * ((i + 1) / 2);
+                }
+                else //amount display is even
+                {
+                    int sign = (int)Mathf.Pow(-1, i % 2);
+                    go.transform.position += sign * displacement * (0.5f + (i / 2));
+                }
+            }
         }
     }
 
-    private void Clear()
+    private void ClearDisplay()
     {
         for(int i = container.childCount-1; i>= 0; i--)
         {
-            MonoBehaviour.Destroy(container.GetChild(i));
+            Destroy(container.GetChild(i).gameObject);
         }
     }
-    
+
+    public void Display(ResourceSet rs)
+    {
+        if(!displaySpiritPoints)spiritPointDisplay.gameObject.SetActive(false);
+        if(!displayResource)container.gameObject.SetActive(false);
+        /*
+        if (resourceSet == rs)
+        {
+            print("no need to recalculate");
+            return;
+        }*/
+        ClearDisplay();
+        resourceSet = rs;
+        GenerateDisplay();
+
+    }
+
 }

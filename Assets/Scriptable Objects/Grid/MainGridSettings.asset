@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9283cecb9d29e6d4a9e7c68455bc622f, type: 3}
+  m_Name: MainGridSettings
+  m_EditorClassIdentifier: 
+  Key: MainGridSettings
+  Width: 24
+  Height: 14
+  GridSizeRatio: {x: 24, y: 14}
+  AmountOfCellsX: 24
+  AmountOfCellsY: 14
+  DesiredCellSize: 1
+  GridPosition: {x: -2.5120173, y: 0.24944735, z: -5.0462084}
+  GridRotation: 0
+  ParentToGrid: 1
+  CellImage: {fileID: 21300000, guid: 461607f4fb6fc9c47850615d174f05d6, type: 3}
+  OccupiedCellImage: {fileID: 21300000, guid: 6e097060cd3d2d54b8b9c66219b7d8c9, type: 3}
+  CellColourAvailable: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 1}
+  CellColourNotAvailable: {r: 1, g: 0.5157232, b: 0.5157232, a: 1}
+  CellColourPlaced: {r: 0.21791562, g: 0.5566038, b: 0.5331839, a: 0}
+  HidePlacementCellsIfOutsideOfGrid: 1
+  ShowOccupiedCells: 1
+  GridCanvasEventCameraName: 
+  UsePlaceableMaterial: 1
+  UseUnplaceableMaterial: 1
+  ObjectPlaceableMaterial: {fileID: 2100000, guid: a8917495a10344374b0d3b6e4154f19f, type: 2}
+  ObjectUnPlaceableMaterial: {fileID: 2100000, guid: a8917495a10344374b0d3b6e4154f19f, type: 2}
+  DefaultAlignment: 0
+  InitialPlacementCellIndex: {x: 0, y: 0}
+  PlatformGridInputsDefinitionMappings:
+  - Name: Android
+    RuntimePlatform: 11
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: IPhonePlayer
+    RuntimePlatform: 8
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: LinuxEditor
+    RuntimePlatform: 16
+    GridInputDefinition: {fileID: 11400000, guid: c78afe374ada51148b802bcba525d16e, type: 2}
+  - Name: LinuxPlayer
+    RuntimePlatform: 13
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: OSXEditor
+    RuntimePlatform: 0
+    GridInputDefinition: {fileID: 11400000, guid: c78afe374ada51148b802bcba525d16e, type: 2}
+  - Name: OSXPlayer
+    RuntimePlatform: 1
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: PS4
+    RuntimePlatform: 25
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: PS5
+    RuntimePlatform: 38
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: Stadia
+    RuntimePlatform: 34
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: Switch
+    RuntimePlatform: 32
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: tvOS
+    RuntimePlatform: 31
+    GridInputDefinition: {fileID: 11400000, guid: 70fcce22272cff34b9805a0242ff3b49, type: 2}
+  - Name: WindowsEditor
+    RuntimePlatform: 7
+    GridInputDefinition: {fileID: 11400000, guid: c78afe374ada51148b802bcba525d16e, type: 2}
+  - Name: WindowsPlayer
+    RuntimePlatform: 2
+    GridInputDefinition: {fileID: 11400000, guid: c78afe374ada51148b802bcba525d16e, type: 2}
+  - Name: XboxOne
+    RuntimePlatform: 27
+    GridInputDefinition: {fileID: 11400000, guid: c78afe374ada51148b802bcba525d16e, type: 2}
+  PreventInputThroughUI: 1
+  DisplayInEditor: 1
+  SizingOption: 1
