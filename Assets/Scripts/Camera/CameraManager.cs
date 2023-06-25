@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    private float cameraZoomSpeedOnFloor = 5, cameraMoveSpeedOnFloor = 22;
+    private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
     
     private float cameraHeightMin = 50, cameraHeightMax = 180;
 
