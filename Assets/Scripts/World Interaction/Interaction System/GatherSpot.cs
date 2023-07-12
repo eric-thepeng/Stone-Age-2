@@ -114,13 +114,13 @@ public class GatherSpot : MonoBehaviour
         return text;
     }*/
     
-    private void OnMouseEnter()
+    protected virtual void OnMouseEnter()
     {
         if (activeState != ActiveState.GATHERING) return;
         DisplayRecallButton();
     }
 
-    private void OnMouseExit()
+    protected virtual void OnMouseExit()
     {
         if (activeState != ActiveState.GATHERING) return;
         CancelRecallButton();
