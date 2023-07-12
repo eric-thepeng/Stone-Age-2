@@ -57,7 +57,7 @@ public class DiscoveryGatherSpot : GatherSpot
 
     protected override void OnMouseExit()
     {
-        if (Discovered)
+        if (Discovered())
         {
             discoveryUIGameObject.SetActive(false);
         }
