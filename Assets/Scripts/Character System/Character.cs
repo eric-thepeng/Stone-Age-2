@@ -1,6 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Uniland.Character;
+
+namespace Uniland.Character
+{
+    class Energy
+    {
+
+    }
+
+    class GatherSpeed
+    {
+
+    }
+
+    class ExploreSpeed
+    {
+
+    }
+
+    class RestingSpeed
+    {
+
+    }
+
+    class HerdSize
+    {
+
+    }
+
+    class ExperiencePoint
+    {
+
+    }
+}
 
 public class Character : MonoBehaviour
 {
@@ -18,7 +52,6 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-
         currentEnergy = maxEnergy;
     }
 
