@@ -6,15 +6,10 @@ using UnityEngine.Events;
 public class DiscoveryGatherSpot : GatherSpot
 {
     [SerializeField] private float discoveryTarget = 10;
-    [SerializeField] private float discoveryCurrent = 10;
+    [SerializeField] private float discoveryCurrent = 0;
 
     [Header("--- DO NOT EDIT BELOW ---")]
     [SerializeField] private GameObject discoveryUIGameObject;
-
-    private void Start()
-    {
-        
-    }
 
     public void DiscoverySuccess()
     {
