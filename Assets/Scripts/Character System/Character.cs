@@ -1,47 +1,150 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Uniland.Character;
+using Uniland.Characters;
 
-namespace Uniland.Character
+namespace Uniland.Characters
 {
     class Energy
     {
+        private int currentEnergy;
+        private int maxEnergy;
 
+        public Energy(int maxEnergy)
+        {
+            this.maxEnergy = maxEnergy;
+            currentEnergy = this.maxEnergy;
+        }
+
+        public Energy(int currentEnergy, int maxEnergy)
+        {
+            this.currentEnergy = currentEnergy;
+            this.maxEnergy = maxEnergy;
+        }
+
+        public int GetMaxEnergy()
+        {
+            return maxEnergy;
+        }
+
+        public int GetCurrentEnergy()
+        {
+            return currentEnergy;
+        }
+
+        public void RestoreAllEnergy()
+        {
+            currentEnergy = maxEnergy;
+        }
+
+        public bool CostEnergy()
+        {
+            if(NoEnergy()) return false;
+            currentEnergy -= 1;
+            return true;
+        }
+
+        public bool NoEnergy()
+        {
+            return currentEnergy <= 0;
+        }
+
+        public float RemainEnergyPercentage()
+        {
+            return ((float)currentEnergy) / ((float)maxEnergy);
+        }
     }
 
     class GatherSpeed
     {
+        private float currentGatherSpeed;
+
+        public GatherSpeed(float currentGatherSpeed)
+        {
+            this.currentGatherSpeed = currentGatherSpeed;
+        }
+
+        public float GetCurrentGatherSpeed()
+        {
+            return currentGatherSpeed;
+        }
 
     }
 
     class ExploreSpeed
     {
+        private float exploreSpeed;
 
+        public ExploreSpeed(float exploreSpeed)
+        {
+            this.exploreSpeed = exploreSpeed;
+        }
+
+        public float GetExploreSpeed()
+        {
+            return exploreSpeed;
+        }
     }
 
     class RestingSpeed
     {
+        private float restingSpeed;
 
+        public RestingSpeed(float restingSpeed)
+        {
+            this.restingSpeed = restingSpeed;
+        }
+
+        public float GetRestingSpeed()
+        {
+            return restingSpeed;
+        }
     }
 
     class HerdSize
     {
+        private int herdSize;
+
+        public HerdSize(int herdSize)
+        {
+            this.herdSize = this.herdSize;
+        }
+
+        public int GetHerdSize()
+        {
+            return herdSize;
+        }
+
+        public void AddHerdSize(int addAmount)
+        {
+            herdSize += addAmount;
+        }
 
     }
 
-    class ExperiencePoint
+    class CharacterStats
     {
-
+        public Energy energy;
+        public GatherSpeed gatherSpeed;
+        public ExploreSpeed exploreSpeed;
+        public RestingSpeed restingSpeed;
+        public HerdSize herdSize;
+        public CharacterStats(CharacterBasicStats basicStats)
+        {
+            energy = new Energy(basicStats.energy);
+            gatherSpeed = new GatherSpeed(basicStats.gatherSpeed);
+            exploreSpeed = new ExploreSpeed(basicStats.exploreSpeed);
+            restingSpeed = new RestingSpeed(basicStats.restingSpeed);
+            herdSize = new HerdSize(basicStats.herdSize);
+        }
     }
 }
 
 public class Character : MonoBehaviour
 {
-    int gatherSpeed = 1;
-    int maxEnergy = 10;
-    int currentEnergy;
-
+    [SerializeField] private CharacterBasicStats initialStats;
+    private CharacterStats characterStats;
+    
     enum CharacterState {Idle, Gather}
     CharacterState state = CharacterState.Idle;
 
@@ -52,14 +155,14 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        currentEnergy = maxEnergy;
+        characterStats = new CharacterStats(initialStats);
     }
 
     void Update()
     {
         if(state == CharacterState.Gather)
         {
-            if(currentEnergy == 0)
+            if(characterStats.energy.NoEnergy())
             {
                 EndGather();
                 //gatheringSpot.EndGathering();
@@ -70,14 +173,14 @@ public class Character : MonoBehaviour
             if(gatherTimeLeft <= 0)
             {
                 YieldResource();
-                currentEnergy--;
+                characterStats.energy.CostEnergy();
                 gatherTimeLeft = gatheringSpot.gatherTime;
             }
             //update ui
-            gatherTimeLeft -= gatherSpeed * Time.deltaTime;
+            gatherTimeLeft -= characterStats.gatherSpeed.GetCurrentGatherSpeed() * Time.deltaTime;
 
-            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), true);
-            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), true);
+            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
         }
     }
 
@@ -94,8 +197,8 @@ public class Character : MonoBehaviour
         state = CharacterState.Gather;
         myCI = ci;
 
-        characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), false);
-        gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * ((float)currentEnergy / (float)maxEnergy), false);
+        characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
+        gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
         SetCircularUIState(CircularUI.CircularUIState.Display);
     }
 
@@ -105,7 +208,7 @@ public class Character : MonoBehaviour
 
         gatheringSpot.EndGathering();
         state = CharacterState.Idle;
-        currentEnergy = maxEnergy;
+        characterStats.energy.RestoreAllEnergy();
         myCI.ResetHome();
     }
 

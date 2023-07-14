@@ -5,11 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Character Basic Stats", menuName = "ScriptableObjects/CharacterSystem/CharacterBasicStats")]
 public class CharacterBasicStats : ScriptableObject
 {
-    string name;
-    float energy;
-    float gatherSpeed;
-    float exploreSpeed;
-
+    public string name;
+    public int energy;
+    public float gatherSpeed;
+    public float exploreSpeed;
+    public float restingSpeed;
+    public int herdSize;
+    
     public override string ToString()
     {
         return "Basic Stats of " + name + " is [energy " + energy + " ] [gather speed " + gatherSpeed + " ] [explore speed " + exploreSpeed + "]";
