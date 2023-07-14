@@ -1,0 +1,228 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Uniland.Characters;
+
+namespace Uniland.Characters
+{
+    class Energy
+    {
+        private int currentEnergy;
+        private int maxEnergy;
+
+        public Energy(int maxEnergy)
+        {
+            this.maxEnergy = maxEnergy;
+            currentEnergy = this.maxEnergy;
+        }
+
+        public Energy(int currentEnergy, int maxEnergy)
+        {
+            this.currentEnergy = currentEnergy;
+            this.maxEnergy = maxEnergy;
+        }
+
+        public int GetMaxEnergy()
+        {
+            return maxEnergy;
+        }
+
+        public int GetCurrentEnergy()
+        {
+            return currentEnergy;
+        }
+
+        public void RestoreAllEnergy()
+        {
+            currentEnergy = maxEnergy;
+        }
+
+        public bool CostEnergy()
+        {
+            if(NoEnergy()) return false;
+            currentEnergy -= 1;
+            return true;
+        }
+
+        public bool NoEnergy()
+        {
+            return currentEnergy <= 0;
+        }
+
+        public float RemainEnergyPercentage()
+        {
+            return ((float)currentEnergy) / ((float)maxEnergy);
+        }
+    }
+
+    class GatherSpeed
+    {
+        private float currentGatherSpeed;
+
+        public GatherSpeed(float currentGatherSpeed)
+        {
+            this.currentGatherSpeed = currentGatherSpeed;
+        }
+
+        public float GetCurrentGatherSpeed()
+        {
+            return currentGatherSpeed;
+        }
+
+    }
+
+    class ExploreSpeed
+    {
+        private float exploreSpeed;
+
+        public ExploreSpeed(float exploreSpeed)
+        {
+            this.exploreSpeed = exploreSpeed;
+        }
+
+        public float GetExploreSpeed()
+        {
+            return exploreSpeed;
+        }
+    }
+
+    class RestingSpeed
+    {
+        private float restingSpeed;
+
+        public RestingSpeed(float restingSpeed)
+        {
+            this.restingSpeed = restingSpeed;
+        }
+
+        public float GetRestingSpeed()
+        {
+            return restingSpeed;
+        }
+    }
+
+    class HerdSize
+    {
+        private int herdSize;
+
+        public HerdSize(int herdSize)
+        {
+            this.herdSize = this.herdSize;
+        }
+
+        public int GetHerdSize()
+        {
+            return herdSize;
+        }
+
+        public void AddHerdSize(int addAmount)
+        {
+            herdSize += addAmount;
+        }
+
+    }
+
+    class CharacterStats
+    {
+        public Energy energy;
+        public GatherSpeed gatherSpeed;
+        public ExploreSpeed exploreSpeed;
+        public RestingSpeed restingSpeed;
+        public HerdSize herdSize;
+        public CharacterStats(CharacterBasicStats basicStats)
+        {
+            energy = new Energy(basicStats.energy);
+            gatherSpeed = new GatherSpeed(basicStats.gatherSpeed);
+            exploreSpeed = new ExploreSpeed(basicStats.exploreSpeed);
+            restingSpeed = new RestingSpeed(basicStats.restingSpeed);
+            herdSize = new HerdSize(basicStats.herdSize);
+        }
+    }
+}
+
+public class Character : MonoBehaviour
+{
+    [SerializeField] private CharacterBasicStats initialStats;
+    private CharacterStats characterStats;
+    
+    enum CharacterState {Idle, Gather}
+    CharacterState state = CharacterState.Idle;
+
+    GatherSpot gatheringSpot;
+    CharacterIcon characterIcon;
+    float gatherTimeLeft;
+    CharacterIcon myCI;
+
+    void Start()
+    {
+        characterStats = new CharacterStats(initialStats);
+    }
+
+    void Update()
+    {
+        if(state == CharacterState.Gather)
+        {
+            if(characterStats.energy.NoEnergy())
+            {
+                EndGather();
+                //gatheringSpot.EndGathering();
+                //state = CharacterState.Idle;
+                //currentEnergy = maxEnergy;
+                //myCI.ResetHome();   
+            }
+            if(gatherTimeLeft <= 0)
+            {
+                YieldResource();
+                characterStats.energy.CostEnergy();
+                gatherTimeLeft = gatheringSpot.gatherTime;
+            }
+            //update ui
+            gatherTimeLeft -= characterStats.gatherSpeed.GetCurrentGatherSpeed() * Time.deltaTime;
+
+            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+        }
+    }
+
+    public void SetUp(CharacterIcon ci)
+    {
+        characterIcon = ci;
+    }
+
+    public void StartGather(GatherSpot es, CharacterIcon ci)
+    {
+        gatheringSpot = es;
+        gatherTimeLeft = es.gatherTime;
+
+        state = CharacterState.Gather;
+        myCI = ci;
+
+        characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
+        gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
+        SetCircularUIState(CircularUI.CircularUIState.Display);
+    }
+
+    public void EndGather()
+    {
+        SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
+
+        gatheringSpot.EndGathering();
+        state = CharacterState.Idle;
+        characterStats.energy.RestoreAllEnergy();
+        myCI.ResetHome();
+    }
+
+    void SetCircularUIState(CircularUI.CircularUIState circularUIState)
+    {
+        gatheringSpot.SetCircularUIState(circularUIState);
+        gatheringSpot.SetCircularUIState(circularUIState);
+
+        characterIcon.SetCircularUIState(circularUIState);
+        characterIcon.SetCircularUIState(circularUIState);
+    }
+
+    public void YieldResource()
+    {
+        gatheringSpot.gatherResource.GainResource();
+    }
+}
