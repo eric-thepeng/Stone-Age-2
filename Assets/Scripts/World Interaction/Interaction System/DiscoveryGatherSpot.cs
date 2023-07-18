@@ -57,6 +57,6 @@ public class DiscoveryGatherSpot : GatherSpot
         {
             discoveryUIGameObject.SetActive(false);
         }
-        base.OnMouseEnter();
+        base.OnMouseExit();
     }
 }
