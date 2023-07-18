@@ -173,6 +173,7 @@ public class Character : MonoBehaviour
             if(gatherTimeLeft <= 0)
             {
                 YieldResource();
+                DiscoverSpot();
                 characterStats.energy.CostEnergy();
                 gatherTimeLeft = gatheringSpot.gatherTime;
             }
@@ -224,5 +225,13 @@ public class Character : MonoBehaviour
     public void YieldResource()
     {
         gatheringSpot.gatherResource.GainResource();
+    }
+
+    public void DiscoverSpot()
+    {
+        if (gatheringSpot is DiscoveryGatherSpot)
+        {
+            ((DiscoveryGatherSpot)gatheringSpot).Discover(characterStats.exploreSpeed.GetExploreSpeed());
+        }
     }
 }

@@ -12,7 +12,7 @@ public class GatherSpot : MonoBehaviour
     [Header("------ DO NOT EDIT BELOW ------")]
 
     // Call Back Character Icon Button
-    public GameObject callBackButton;
+    public GameObject callBackButtonSprite;
     public GameObject characterSpriteHolder;
     
     // CircularUI
@@ -129,13 +129,13 @@ public class GatherSpot : MonoBehaviour
     private void DisplayRecallButton()
     {
         GetComponent<WorldSpaceButton>().SetButtonActive(true);
-        callBackButton.gameObject.SetActive(true);
+        callBackButtonSprite.gameObject.SetActive(true);
     }
 
     private void CancelRecallButton()
     {
         GetComponent<WorldSpaceButton>().SetButtonActive(false);
-        callBackButton.gameObject.SetActive(false);
+        callBackButtonSprite.gameObject.SetActive(false);
     }
 
     public void CancelGather()
