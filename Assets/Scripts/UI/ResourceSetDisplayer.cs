@@ -12,7 +12,7 @@ using TMPro;
 public class ResourceSetDisplayer : MonoBehaviour
 {
     [Header("Display a preset ResourceSet")]
-    [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSet = null;
+    [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSetToDisplay = null;
 
     [Header("OR Display a ResourceSet from IResourceSetProvider")] 
     [SerializeField] private MonoBehaviour resourceSetProvider = null;
@@ -35,23 +35,45 @@ public class ResourceSetDisplayer : MonoBehaviour
     [SerializeField] private Transform shadowsContainer;
     
     //local vairables:
+    private ResourceSet displayingResourceSet;
     Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
 
     private void Start()
     {
         spriteAmountSetTemplate.SetActive(false);
-        if (resourceSet == null)
+        if (resourceSetToDisplay == null)
         {
             if (resourceSetProvider is IResourceSetProvider)
             {
-                resourceSet = ((IResourceSetProvider)resourceSetProvider).ProvideResourceSet(resourceSetProviderIndex);
+                resourceSetToDisplay = ((IResourceSetProvider)resourceSetProvider).ProvideResourceSet(resourceSetProviderIndex);
             }
         }
 
-        Display(resourceSet);
+        Display(resourceSetToDisplay);
     }
 
-    private void GenerateDisplay()
+    public void Display(ResourceSet rs)
+    {
+        if (rs == null)
+        {
+            Debug.LogError("No resource set to be displayed.");
+            return;
+        }
+        
+        if(!displaySpiritPoints)spiritPointDisplay.gameObject.SetActive(false);
+        if(!displayResource)container.gameObject.SetActive(false);
+        
+        if (displayingResourceSet == rs)
+        {
+            print("no need to recalculate");
+            return;
+        }
+        ClearDisplay();
+        displayingResourceSet = rs;
+        GenerateIcons();
+    }
+    
+    private void GenerateIcons()
     {
         //Generate Spirit Point
         if (displaySpiritPoints)
@@ -59,7 +81,7 @@ public class ResourceSetDisplayer : MonoBehaviour
             //Set up spirit point amount
             SpriteRenderer sr = spiritPointDisplay.GetComponentInChildren<SpriteRenderer>();
             TextMeshPro tmp = spiritPointDisplay.GetComponentInChildren<TextMeshPro>();
-            tmp.text = ""+resourceSet.spiritPoint;
+            tmp.text = ""+displayingResourceSet.spiritPoint;
             
             if (displayShadow) //generate shadow
             {
@@ -76,10 +98,10 @@ public class ResourceSetDisplayer : MonoBehaviour
 
         // Generate Resource
         if(!displayResource) return;
-        for (int i = 0; i < resourceSet.resources.Count; i++) //Generate each resource and amount
+        for (int i = 0; i < displayingResourceSet.resources.Count; i++) //Generate each resource and amount
         {
             //generate resource and amount
-            ResourceSet.ResourceAmount ra = resourceSet.resources[i];
+            ResourceSet.ResourceAmount ra = displayingResourceSet.resources[i];
             GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
             SpriteRenderer sr = go.GetComponentInChildren<SpriteRenderer>();
@@ -111,7 +133,7 @@ public class ResourceSetDisplayer : MonoBehaviour
             }
             else if (alighment == Alighment.Center)
             {
-                if (resourceSet.resources.Count % 2 == 1) //amount display is odd
+                if (displayingResourceSet.resources.Count % 2 == 1) //amount display is odd
                 {
                     int sign = (int)Mathf.Pow(-1, i % 2);
                     go.transform.position += sign * displacement * ((i + 1) / 2);
@@ -133,20 +155,6 @@ public class ResourceSetDisplayer : MonoBehaviour
         }
     }
 
-    public void Display(ResourceSet rs)
-    {
-        if(!displaySpiritPoints)spiritPointDisplay.gameObject.SetActive(false);
-        if(!displayResource)container.gameObject.SetActive(false);
-        /*
-        if (resourceSet == rs)
-        {
-            print("no need to recalculate");
-            return;
-        }*/
-        ClearDisplay();
-        resourceSet = rs;
-        GenerateDisplay();
 
-    }
 
 }
