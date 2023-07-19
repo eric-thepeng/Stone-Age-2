@@ -289,6 +289,49 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3596076706544090828}
   m_maskType: 0
+--- !u!1 &1528106157215609808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6310027093225790907}
+  - component: {fileID: 5383839539267202816}
+  m_Layer: 0
+  m_Name: Shadows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6310027093225790907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528106157215609808}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8324157257485555873}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &5383839539267202816
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1528106157215609808}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
 --- !u!1 &3168006719764557257
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +394,7 @@ Transform:
   - {fileID: 1879941706441442942}
   - {fileID: 7294530754847008282}
   m_Father: {fileID: 8324157257485555873}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7230364672369778749
 GameObject:
@@ -640,6 +683,7 @@ Transform:
   m_Children:
   - {fileID: 460089301080507074}
   - {fileID: 5231164234460413039}
+  - {fileID: 6310027093225790907}
   - {fileID: 7988874064620104957}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -656,14 +700,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e052fde402914f2ba8f17885fcdfca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displaySpiritPoints: 1
-  displayResource: 1
-  displayShadow: 1
   resourceSet:
     spiritPoint: 0
     resources: []
+  resourceSetProvider: {fileID: 0}
+  resourceSetProviderIndex: 0
+  displaySpiritPoints: 1
+  displayResource: 1
+  displayShadow: 1
   displacement: {x: 1.7, y: 0, z: 0}
+  alighment: 0
   spriteAmountSetTemplate: {fileID: 460089301080507075}
   container: {fileID: 5231164234460413039}
   spiritPointDisplay: {fileID: 4110263017093421689}
-  alighment: 0
+  shadowsContainer: {fileID: 6310027093225790907}

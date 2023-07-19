@@ -11,27 +11,44 @@ using TMPro;
 /// </summary>
 public class ResourceSetDisplayer : MonoBehaviour
 {
+    [Header("Display a preset ResourceSet")]
+    [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSet = null;
 
+    [Header("OR Display a ResourceSet from IResourceSetProvider")] 
+    [SerializeField] private MonoBehaviour resourceSetProvider = null;
+    [SerializeField] private int resourceSetProviderIndex = 0;
+    
+    [Header("------EDIT BELOW------")]
     [SerializeField, Tooltip("Does it display the spirit points and amount section?")] private bool displaySpiritPoints = true;
     [SerializeField, Tooltip("Does it display the resource and amount section?")] private bool displayResource = true;
     [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
-    [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSet = null; 
     [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
+    
+    enum Alighment {Left, Center, Right }
+    [SerializeField] Alighment alighment = Alighment.Left;
+
+    [Header("------DO NOT EDIT BELOW------")]
     [SerializeField,  Tooltip("Do not change. Indicate the GameObejct template that displays the set of sprite+text for each resource.")] GameObject spriteAmountSetTemplate;
     [SerializeField,  Tooltip("Do not change. Indicate the container for each set of sprite+text for each resource.")] Transform container;
     [SerializeField,  Tooltip("Do not change. Indicate the GameObject that displays the spirit points and amount.")] GameObject spiritPointDisplay;
-    
-    Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, 0.04f);
-    
-    enum Alighment
-    {Left, Center, Right
-    }
 
-    [SerializeField] Alighment alighment = Alighment.Left;
+    [SerializeField] private Transform shadowsContainer;
+    
+    //local vairables:
+    Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
 
     private void Start()
     {
         spriteAmountSetTemplate.SetActive(false);
+        if (resourceSet == null)
+        {
+            if (resourceSetProvider is IResourceSetProvider)
+            {
+                resourceSet = ((IResourceSetProvider)resourceSetProvider).ProvideResourceSet(resourceSetProviderIndex);
+            }
+        }
+
+        Display(resourceSet);
     }
 
     private void GenerateDisplay()
@@ -46,11 +63,11 @@ public class ResourceSetDisplayer : MonoBehaviour
             
             if (displayShadow) //generate shadow
             {
-                SpriteRenderer srShadow = Instantiate(sr.gameObject, spiritPointDisplay.transform).GetComponent<SpriteRenderer>();
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, shadowsContainer).GetComponent<SpriteRenderer>();
                 srShadow.color = Color.black;
                 srShadow.transform.localPosition += shadowDisplacement;
                 
-                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, spiritPointDisplay.transform).GetComponent<TextMeshPro>();
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, shadowsContainer).GetComponent<TextMeshPro>();
                 tmpShadow.color = Color.black;
                 tmpShadow.transform.localPosition += shadowDisplacement;
 
@@ -73,11 +90,11 @@ public class ResourceSetDisplayer : MonoBehaviour
             //generate shadow
             if (displayShadow)
             {
-                SpriteRenderer srShadow = Instantiate(sr.gameObject, go.transform).GetComponent<SpriteRenderer>();
+                SpriteRenderer srShadow = Instantiate(sr.gameObject, shadowsContainer).GetComponent<SpriteRenderer>();
                 srShadow.color = Color.black;
                 srShadow.transform.localPosition += shadowDisplacement;
                 
-                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, go.transform).GetComponent<TextMeshPro>();
+                TextMeshPro tmpShadow = Instantiate(tmp.gameObject, shadowsContainer).GetComponent<TextMeshPro>();
                 tmpShadow.color = Color.black;
                 tmpShadow.transform.localPosition += shadowDisplacement;
 

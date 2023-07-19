@@ -34,6 +34,8 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
         SendSerialEffect();
     }
 
+    #region ISerialEffect
+
     public void SendSerialEffect()
     {
         serialEffectIdentifier.SendSerialEffect();
@@ -50,4 +52,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     }
 
     public SO_SerialEffectIdentifier mySEI { get => serialEffectIdentifier; }
+
+    #endregion
+
 }
