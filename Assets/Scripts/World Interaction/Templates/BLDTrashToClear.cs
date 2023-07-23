@@ -17,7 +17,7 @@ public class BLDTrashToClear : LevelUp
     enum State {Idle, Selected}
     State state = State.Idle;
 
-    private ResourceSet unlockCost;
+    private ResourceSet unlockResourceSet;
 
     void ChangeStateTo(State newState)
     {
@@ -37,7 +37,7 @@ public class BLDTrashToClear : LevelUp
     private void Start()
     {
         ui = GetComponent<UI_BLDTrashToClear>();
-        unlockCost = GetCurrentUnlockState().unlockCost;
+        unlockResourceSet = GetCurrentUnlockState().unlockCost;
     }
 
     protected override void BeginMouseHover()
@@ -95,7 +95,6 @@ public class BLDTrashToClear : LevelUp
     private void TurnOnUI()
     {
         ui.TurnOnUI();
-        ui.PassResourceSet(unlockCost, gainResourceSet);
     }
 
     public void TurnOffUI()
@@ -116,7 +115,24 @@ public class BLDTrashToClear : LevelUp
     protected override void ReachFinalState()
     {
         base.ReachFinalState();
-        unlockCost.GainResource();
+        gainResourceSet.GainResource();
         Destroy(gameObject);
+    }
+
+    public override ResourceSet ProvideResourceSet(int index = 0)
+    {
+        if (index == 0)
+        {
+            return unlockResourceSet;
+        }
+        else if (index == 1)
+        {
+            return gainResourceSet;
+        }
+        else
+        {
+            Debug.LogError("BLDTrashToClear receive non-existing index to provide resource set.");
+            return null;
+        }
     }
 }

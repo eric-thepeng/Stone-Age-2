@@ -210,7 +210,7 @@ MonoBehaviour:
     newObj: {fileID: 4531575421955322336}
     newObjAction: 2
     unlockCost:
-      spiritPoint: 10
+      spiritPoint: 15
       resources:
       - iso: {fileID: 11400000, guid: a45e0dfb50e764951a8d5cc58da226e0, type: 2}
         amount: 5
@@ -613,10 +613,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1325572922483419803, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325572922483419803, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1934341916964546038, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5809287910761234437}
+    - target: {fileID: 3422062912898525544, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
+      propertyPath: resourceSetProvider
+      value: 
+      objectReference: {fileID: 5809287910761234437}
+    - target: {fileID: 3422062912898525544, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
+      propertyPath: resourceSetProviderIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3422062912898525544, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
+      propertyPath: displayFromResourceSetProvider
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4909397541471694081, guid: 54f2fdd856980f94e9b81096a5af5abf, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -725,6 +745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiscoveryInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 8108425836917936664, guid: a7490576bb08f4b818ed85b50fcdff60, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8108425836917936665, guid: a7490576bb08f4b818ed85b50fcdff60, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -787,9 +811,25 @@ PrefabInstance:
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2356306931932646352}
+    - target: {fileID: 3279150706959948677, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7316361143718926688, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_Name
       value: DisplaySpendAndUnlockResource
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861473025324786076, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: resourceSetProvider
+      value: 
+      objectReference: {fileID: 2356306931932646352}
+    - target: {fileID: 7861473025324786076, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: resourceSetProviderIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7861473025324786076, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: displayFromResourceSetProvider
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_RootOrder
