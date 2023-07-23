@@ -60,7 +60,6 @@ public class ResourceSetDisplayer : MonoBehaviour
                 Debug.LogError("ResourceSetDisplay has nothing to display");
             }
         }
-        print("is not null at first");
         print(resourceSetToDisplay);
         Display(resourceSetToDisplay);;
     }

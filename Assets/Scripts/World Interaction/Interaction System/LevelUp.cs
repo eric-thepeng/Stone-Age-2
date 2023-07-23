@@ -109,7 +109,7 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
     
     #region IResourceSetProvider
 
-    public ResourceSet ProvideResourceSet(int index = 0)
+    public virtual ResourceSet ProvideResourceSet(int index = 0)
     {
         if (index >= allUnlockStates.Count)
         {
