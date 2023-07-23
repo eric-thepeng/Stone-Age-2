@@ -15,7 +15,8 @@ public class ResourceSetDisplayer : MonoBehaviour
     [Header("Display a preset ResourceSet")]
     [SerializeField,  Tooltip("Resource set to display")] ResourceSet resourceSetToDisplay = null;
 
-    [Header("OR Display a ResourceSet from IResourceSetProvider")] 
+    [Header("OR Display a ResourceSet from IResourceSetProvider")] [SerializeField]
+    private bool displayFromResourceSetProvider = false;
     [SerializeField] private MonoBehaviour resourceSetProvider = null;
     [SerializeField] private int resourceSetProviderIndex = 0;
 
@@ -23,7 +24,7 @@ public class ResourceSetDisplayer : MonoBehaviour
     [Header("------EDIT VARIABLES------")]
     [SerializeField, Tooltip("Does it display the spirit points and amount section?")] private bool displaySpiritPoints = true;
     [SerializeField, Tooltip("Does it display the resource and amount section?")] private bool displayResource = true;
-    [SerializeField] private bool displaySign = true;
+    [SerializeField] private string displaySign = "+";
     [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
     [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
     
@@ -48,7 +49,7 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     public void Generate()
     {
-        if (resourceSetToDisplay == null)
+        if (displayFromResourceSetProvider)
         {
             if (resourceSetProvider is IResourceSetProvider)
             {
@@ -59,7 +60,9 @@ public class ResourceSetDisplayer : MonoBehaviour
                 Debug.LogError("ResourceSetDisplay has nothing to display");
             }
         }
-        Display(resourceSetToDisplay);
+        print("is not null at first");
+        print(resourceSetToDisplay);
+        Display(resourceSetToDisplay);;
     }
 
     public void Display(ResourceSet rs)
@@ -115,15 +118,8 @@ public class ResourceSetDisplayer : MonoBehaviour
             TextMeshPro sign = go.transform.Find("Sign").GetComponent<TextMeshPro>();
             sr.sprite = ra.iso.iconSprite;
             tmp.text = "" + ra.amount;
-            if (displaySign)
-            {
-                sign.gameObject.SetActive(true);
-                sign.text = ra.amount >= 0 ? "+" : "-"; 
-            }
-            else
-            {
-                sign.gameObject.SetActive(false);
-            }
+            sign.text = displaySign;
+            
             
             //generate shadow
             /*
@@ -167,9 +163,11 @@ public class ResourceSetDisplayer : MonoBehaviour
     private void GenerateSpiritPoints()
     {
         if(!displaySpiritPoints)return;
-        SpriteRenderer sr = spiritPointDisplay.GetComponentInChildren<SpriteRenderer>();
-        TextMeshPro tmp = spiritPointDisplay.GetComponentInChildren<TextMeshPro>();
+        SpriteRenderer sr = spiritPointDisplay.transform.Find("Sprite").GetComponentInChildren<SpriteRenderer>();
+        TextMeshPro tmp = spiritPointDisplay.transform.Find("Amount").GetComponentInChildren<TextMeshPro>();
         tmp.text = ""+displayingResourceSet.spiritPoint;
+        TextMeshPro sign = spiritPointDisplay.transform.Find("Sign").GetComponentInChildren<TextMeshPro>();
+        sign.text = displaySign;
             
         /*
         if (displayShadow) //generate shadow

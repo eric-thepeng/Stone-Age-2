@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DiscoveryGatherSpot : GatherSpot
+public class DiscoveryGatherSpot : GatherSpot, IResourceSetProvider
 {
     [Header("------ EDIT THIS ------")]
     [SerializeField] private float discoveryTarget = 10;
@@ -11,6 +11,11 @@ public class DiscoveryGatherSpot : GatherSpot
 
     [Header("------ DO NOT EDIT BELOW ------")]
     [SerializeField] private GameObject discoveryUIGameObject;
+
+    public ResourceSet ProvideResourceSet(int index = 0)
+    {
+        return gatherResource;
+    }
 
     public void DiscoverySuccess()
     {
