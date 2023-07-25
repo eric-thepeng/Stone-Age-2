@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Hypertonic.GridPlacement;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
@@ -256,6 +257,16 @@ public class BuildingManager : MonoBehaviour
                 {
                     print(i);
                     hg.BuildWithCoord(i.x, i.y);
+
+                    // i should change this code 07/26 - bowen
+                    // to-do list:
+                    // 1. check which block mouse is hit on
+                    // 2. build at hypergrid programmly
+
+                    // reference: basic demo -
+                    // Assets/Plugins/HypertonicGames/GridPlacement/Samples/Basic Grid Demo/Scripts/GridCoordinates/GridCoordinateManager.cs
+                    // 
+
                 }
                 buildDragInfo.DestroyPlaceholders();
                 buildDragInfo = null;

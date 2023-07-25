@@ -23,5 +23,15 @@ namespace Hypertonic.GridPlacement.Models
             GridCellIndex = gridCellIndex;
             ObjectAlignment = objectAlignment;
         }
+
+
+        public int GridCellIndexX;
+        public int GridCellIndexY;
+
+        public void Update()
+        {
+            GridCellIndexX = GridCellIndex.x;
+            GridCellIndexY = GridCellIndex.y;
+        }
     }
 }
