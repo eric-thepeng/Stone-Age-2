@@ -7,6 +7,7 @@ public class SO_ExploreSpotSetUpInfo : ScriptableObject
 {
     public SO_SerialEffectIdentifier serialEffectIdentifier;
     public ResourceSet unlockResourceSet;
-    public float gatherTime = 5;
-    public ResourceSet gainResourceSet;
+    public int gatherTime = 5;
+    public ResourceSet gatherResource;
+    public bool startInLockedState = false;
 }
