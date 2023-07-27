@@ -5,17 +5,31 @@ using UnityEngine;
 
 public class BLDExploreSpot : LevelUp, ISerialEffect
 {
-    [SerializeField] private int startState = 0;
-    [SerializeField] private SO_SerialEffectIdentifier serialEffectIdentifier;
+    [Header("---Assign only [Set Up Info] and nothing else---")]
+    [SerializeField] private SO_ExploreSpotSetUpInfo setUpInfo = null;
+    private int startState = 0;
+    private SO_SerialEffectIdentifier serialEffectIdentifier;
 
     private void Awake()
     {
-        SetUpSerialEffectIdentifier();
+        if (setUpInfo != null)
+        {
+            GetUnlockState(1).SetUpUnlockCost(setUpInfo.unlockResourceSet);
+            serialEffectIdentifier = setUpInfo.serialEffectIdentifier;
+            GatherSpot gatherSpot = GetComponentInChildren<GatherSpot>(includeInactive: true);
+            gatherSpot.gatherTime = setUpInfo.gatherTime;
+            gatherSpot.gatherResource = setUpInfo.gatherResource;
+            SetUpSerialEffectIdentifier();
+        }
+        else
+        {
+            Debug.LogError(name + " does not have a Explore Spot Set Up Info");
+        }
     }
 
     private void Start()
     {
-        if (startState == 1)
+        if (setUpInfo.startInLockedState)
         {
             unlockToState_1_Locked();
         }

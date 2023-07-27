@@ -54,6 +54,11 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
                 Destroy(go);
             }
         }
+
+        public void SetUpUnlockCost(ResourceSet resourceSet)
+        {
+            unlockCost = resourceSet;
+        }
     }
 
     [SerializeField] List<UnlockState> allUnlockStates;
@@ -62,6 +67,11 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
     public int GetCurrentState()
     {
         return currentState;
+    }
+
+    protected UnlockState GetUnlockState(int stateNum)
+    {
+        return allUnlockStates[stateNum];
     }
 
     public bool UnlockToNextState()
