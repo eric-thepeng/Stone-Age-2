@@ -5,7 +5,7 @@ using Hypertonic.GridPlacement;
 
 public class GridCoordinateManager : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     private GridManager _gridManager;
 
     // [SerializeField]
@@ -15,7 +15,7 @@ public class GridCoordinateManager : MonoBehaviour
 
     private void Awake()
     {
-        // _gridCoordinates.text = string.Empty;
+        _gridManager = GetComponent<GridOperationManager>()._gridManager;
     }
 
     private void OnEnable()

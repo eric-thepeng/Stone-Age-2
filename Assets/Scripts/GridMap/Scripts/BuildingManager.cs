@@ -239,7 +239,10 @@ public class BuildingManager : MonoBehaviour
 
         gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
 
-        hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
+        //hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
+
+        int x = GetComponent<GridCoordinateManager>().coordinateX;
+        int z = GetComponent<GridCoordinateManager>().coordinateY;
 
         if (buildDragInfo == null) //NEW BUILD DRAG
         {
@@ -255,17 +258,19 @@ public class BuildingManager : MonoBehaviour
             {
                 foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
                 {
-                    print(i);
+                    //print(i);
                     hg.BuildWithCoord(i.x, i.y);
 
                     // i should change this code 07/26 - bowen
                     // to-do list:
+
+                    // 同步homeGrid 和 hyperGrid; homeGrid负责indicator, hyper负责储存和放置
                     // 1. check which block mouse is hit on
                     // 2. build at hypergrid programmly
 
                     // reference: basic demo -
                     // Assets/Plugins/HypertonicGames/GridPlacement/Samples/Basic Grid Demo/Scripts/GridCoordinates/GridCoordinateManager.cs
-                    // 
+                    //
 
                 }
                 buildDragInfo.DestroyPlaceholders();

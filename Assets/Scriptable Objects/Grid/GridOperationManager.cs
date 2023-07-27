@@ -10,7 +10,7 @@ public class GridOperationManager : MonoBehaviour
     [SerializeField]
     private GameObject _gridEmptyObjectPrefab;
 
-    private GridManager _gridManager;
+    public GridManager _gridManager;
 
     public bool operateStatus;
     public GameObject itemPlaced;
@@ -33,6 +33,8 @@ public class GridOperationManager : MonoBehaviour
         _gridManager.Setup(_gridSettings);
 
         StartCoroutine(CheckForInput());
+        AddGridCoordinateManager();
+
     }
 
 
@@ -56,6 +58,16 @@ public class GridOperationManager : MonoBehaviour
     {
         _gridManager.EndPaintMode();
     }
+
+    private void AddGridCoordinateManager()
+    {
+        if (GetComponent<GridCoordinateManager>() == null)
+        {
+            gameObject.AddComponent<GridCoordinateManager>();
+
+        }
+    }
+
 
     private IEnumerator CheckForInput()
     {
