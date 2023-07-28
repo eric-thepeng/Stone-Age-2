@@ -13,7 +13,7 @@ public class ItemScriptableObject : SerializedScriptableObject
 {
     public string tetrisHoverName = "not set";
     public GameObject myPrefab = null; 
-    public Recipe myRecipe = null;
+    [SerializeField] private bool[,] recipeInBool = new bool[8,8];
     public Sprite tetrisSprite;
     public Sprite iconSprite;
     public bool isCraftingStation = false;
@@ -24,7 +24,23 @@ public class ItemScriptableObject : SerializedScriptableObject
     {
         get
         {
-            return myRecipe.getCoordForm();
+            List<KeyValuePair<Vector2, ItemScriptableObject>> export =
+                new List<KeyValuePair<Vector2, ItemScriptableObject>>();
+
+            for (int x = 0; x < recipeInBool.GetLength(0); x++)
+            {
+                for (int y = 0; y < recipeInBool.GetLength(1); y++)
+                {
+                    // Check if the value at the current coordinate is true
+                    if (recipeInBool[x, y])
+                    {
+                        // Add the coordinate to the list
+                        export.Add(new KeyValuePair<Vector2, ItemScriptableObject>(new Vector2(x, y),this));
+                    }
+                }
+            }
+            
+            return export;
         }
     }
 
