@@ -44,6 +44,7 @@ public class TetrisBuildingToolEditor : Editor
                 Vector3 unitPosition = new Vector3(coord.x * builder.unitLength, -coord.y * builder.unitLength, 0);
                 GameObject newUnit = Instantiate(builder.unitGameObject, unitPosition, Quaternion.identity);
                 newUnit.transform.parent = unitsContainer.transform;
+                newUnit.GetComponent<SpriteRenderer>().color = builder.tetrisColor;
                 
                 //add edges
                 foreach (Vector2Int dir in directions)
@@ -58,7 +59,7 @@ public class TetrisBuildingToolEditor : Editor
                     newEdge.GetComponent<Edge>().SetFacingAccordingToDirection(dirToSetEdge);
                 }
             }
-            
+
             // add text
             GameObject newLabel = Instantiate(builder.labelGameObject, newGameObject.transform);
             newLabel.GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
@@ -67,6 +68,26 @@ public class TetrisBuildingToolEditor : Editor
             GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
             newImage.transform.SetParent(newGameObject.transform);
             
+            // create outline
+            if (builder.outlineWidth != 0)
+            {
+                GameObject outlineContainer = new GameObject();
+                outlineContainer.transform.SetParent(newGameObject.transform);
+                GameObject outlineLeft = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
+                GameObject outlineRight = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
+                GameObject outlineUp = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
+                GameObject outlineDown = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
+                foreach (SpriteRenderer sr in outlineContainer.GetComponentsInChildren<SpriteRenderer>())
+                {
+                    sr.color = builder.outlineColor;
+                    sr.sortingOrder -= 1;
+                }
+                outlineLeft.transform.localPosition = new Vector3(builder.outlineWidth,0,0);
+                outlineRight.transform.localPosition = new Vector3(-builder.outlineWidth,0,0);
+                outlineUp.transform.localPosition = new Vector3(0,builder.outlineWidth,0);
+                outlineDown.transform.localPosition = new Vector3(0,-builder.outlineWidth,0);
+            }
+
             // create shadow
             GameObject shadow = Instantiate(unitsContainer.gameObject, newGameObject.transform);
             shadow.transform.localPosition = new Vector3(0,0,0) + builder.shadowOffsetStandard;
@@ -74,7 +95,7 @@ public class TetrisBuildingToolEditor : Editor
             foreach (SpriteRenderer sr in shadow.GetComponentsInChildren<SpriteRenderer>())
             {
                 sr.color = Color.black;
-                sr.sortingOrder -= 1;
+                sr.sortingOrder -= 2;
             }
 
             // adjust size
