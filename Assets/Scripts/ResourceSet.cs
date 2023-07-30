@@ -29,4 +29,14 @@ using UnityEngine;
             UnityEngine.Debug.Log("gain resource " + ra.iso + "  x  " + ra.amount);
         }
     }
+
+    public override string ToString()
+    {
+        string stringToPrint = "Spirit Points: " + spiritPoint + " ";
+        foreach (ResourceAmount ra in resources)
+        {
+            stringToPrint += ra.iso + " " + ra.amount + " ";
+        }
+        return stringToPrint;
+    }
 }

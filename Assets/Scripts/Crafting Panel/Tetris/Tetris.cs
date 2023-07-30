@@ -41,18 +41,9 @@ public class Tetris : DragInventoryItem
     //The special effect during merge
     [SerializeField] GameObject craftEffect;
 
-    //Shadowing and Animation
-    GameObject shadow = null;
-    Vector3 shadowOffsetStandard = new Vector3(-0.1f, -0.1f, 0.2f);
-
     //To trigger and check recipe-related actions
     public RecipeCombinator myRC;
-
-
-    private void Start()
-    {
-        CreateShadow();
-    }
+    
 
     private void Update()
     {
@@ -91,22 +82,7 @@ public class Tetris : DragInventoryItem
         myRC.DestroyCraftPreview();
         myRC = null;
     }
-
-
-    private void CreateShadow()
-    {
-        shadow = Instantiate(new GameObject("shadow of " + gameObject.name), this.transform);
-        shadow.transform.localPosition = new Vector3(0,0,0) + shadowOffsetStandard;
-        shadow.transform.localScale = new Vector3(1, 1, 1); //gameObject.transform.localScale;
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
-        shadow.AddComponent<SpriteRenderer>();
-        shadow.GetComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
-        shadow.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
-        shadow.GetComponent<SpriteRenderer>().sortingLayerName = "Crafting System";
-        shadow.GetComponent<SpriteRenderer>().sortingOrder = 9;
-
-    }
-
+    
     private void SetState(state newState)
     {
         if (isStaticCraftStation) return;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class LevelUp : WorldInteractable
+public class LevelUp : WorldInteractable, IResourceSetProvider
 {
     [Serializable]
     protected class UnlockState
@@ -54,6 +54,11 @@ public class LevelUp : WorldInteractable
                 Destroy(go);
             }
         }
+
+        public void SetUpUnlockCost(ResourceSet resourceSet)
+        {
+            unlockCost = resourceSet;
+        }
     }
 
     [SerializeField] List<UnlockState> allUnlockStates;
@@ -62,6 +67,11 @@ public class LevelUp : WorldInteractable
     public int GetCurrentState()
     {
         return currentState;
+    }
+
+    protected UnlockState GetUnlockState(int stateNum)
+    {
+        return allUnlockStates[stateNum];
     }
 
     public bool UnlockToNextState()
@@ -106,4 +116,19 @@ public class LevelUp : WorldInteractable
     {
         
     }
+    
+    #region IResourceSetProvider
+
+    public virtual ResourceSet ProvideResourceSet(int index = 0)
+    {
+        if (index >= allUnlockStates.Count)
+        {
+            Debug.LogError("LevelUp's IResourceSetProvider being requested a out of range index.");
+            return null;
+        }
+        return allUnlockStates[index].unlockCost;
+    }
+
+
+    #endregion
 }

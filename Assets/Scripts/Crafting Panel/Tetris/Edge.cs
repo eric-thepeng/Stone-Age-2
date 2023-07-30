@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Edge : MonoBehaviour
 {
@@ -142,6 +143,18 @@ public class Edge : MonoBehaviour
         else
         {
             Debug.LogError("Edge Rotate More Than Once");
+        }
+    }
+
+    public void SetFacingAccordingToDirection(Vector2Int direction)
+    {
+        if (direction == Vector2Int.left) myFacing = facing.Left;
+        else if (direction == Vector2Int.right) myFacing = facing.Right;
+        else if (direction == Vector2Int.down) myFacing = facing.Down;
+        else if (direction == Vector2Int.up) myFacing = facing.Up;
+        else
+        {
+            Debug.LogError("Invalid input direction to set facing of an edge");
         }
     }
     
