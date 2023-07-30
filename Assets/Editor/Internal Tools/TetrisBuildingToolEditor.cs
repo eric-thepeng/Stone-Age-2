@@ -80,7 +80,7 @@ public class TetrisBuildingToolEditor : Editor
                 foreach (SpriteRenderer sr in outlineContainer.GetComponentsInChildren<SpriteRenderer>())
                 {
                     sr.color = builder.outlineColor;
-                    sr.sortingOrder -= 1;
+                    sr.sortingOrder -= 2;
                 }
                 outlineLeft.transform.localPosition = new Vector3(builder.outlineWidth,0,0);
                 outlineRight.transform.localPosition = new Vector3(-builder.outlineWidth,0,0);
@@ -95,7 +95,7 @@ public class TetrisBuildingToolEditor : Editor
             foreach (SpriteRenderer sr in shadow.GetComponentsInChildren<SpriteRenderer>())
             {
                 sr.color = Color.black;
-                sr.sortingOrder -= 2;
+                sr.sortingOrder -= 3;
             }
 
             // adjust size
