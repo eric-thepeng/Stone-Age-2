@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Hypertonic.GridPlacement;
+using Hypertonic.GridPlacement.Example.AddProgramatically.Models;
+using Hypertonic.GridPlacement.Models;
 using UnityEngine;
+using static Inventory;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -23,6 +27,8 @@ public class BuildingManager : MonoBehaviour
 
     public bool building = false;
     public GameObject placeholdingBuilding;
+
+    public GameObject gridOperationManager;
 
     float gridCellSize; 
 
@@ -239,10 +245,10 @@ public class BuildingManager : MonoBehaviour
 
         gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
 
-        //hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
+        hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
 
-        int x = GetComponent<GridCoordinateManager>().coordinateX;
-        int z = GetComponent<GridCoordinateManager>().coordinateY;
+        //int x = gridOperationManager.GetComponent<GridCoordinateManager>().coordinateX;
+        //int z = gridOperationManager.GetComponent<GridCoordinateManager>().coordinateY;
 
         if (buildDragInfo == null) //NEW BUILD DRAG
         {
@@ -256,28 +262,61 @@ public class BuildingManager : MonoBehaviour
             buildDragInfo.SetEndPosition(new Vector2Int(x, z)); //RESET BUILD DRAG
             if (Input.GetMouseButtonUp(0)) //LIFT MOUSE AND BUILD
             {
-                foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
-                {
-                    //print(i);
-                    hg.BuildWithCoord(i.x, i.y);
+                _ = AddObjectsToGrid(buildDragInfo);
 
-                    // i should change this code 07/26 - bowen
-                    // to-do list:
+                //foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
+                //{
+                //    //print(i);
+                    //hg.BuildWithCoord(i.x, i.y);
 
-                    // 同步homeGrid 和 hyperGrid; homeGrid负责indicator, hyper负责储存和放置
-                    // 1. check which block mouse is hit on
-                    // 2. build at hypergrid programmly
+                //}
 
-                    // reference: basic demo -
-                    // Assets/Plugins/HypertonicGames/GridPlacement/Samples/Basic Grid Demo/Scripts/GridCoordinates/GridCoordinateManager.cs
-                    //
-
-                }
                 buildDragInfo.DestroyPlaceholders();
                 buildDragInfo = null;
                 UI_BuildingPointer.i.SetPrebuildUseAmount(0);
             }
         }
+    }
+
+    private async Task AddObjectsToGrid(BuildDragInfo buildDragInfo)
+    {
+        foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
+        {
+            //print(i);
+            //hg.BuildWithCoord(i.x, i.y);
+
+            GameObject placingObject = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab());
+
+            await GridManagerAccessor.GridManager.AddObjectToGrid(placingObject, i, Hypertonic.GridPlacement.Enums.ObjectAlignment.UPPER_LEFT);
+
+            // i should change this code 07/26 - bowen
+            // to-do list:
+
+            // 同步homeGrid 和 hyperGrid; homeGrid负责indicator, hyper负责储存和放置
+            // 1. check which block mouse is hit on
+            // 2. build at hypergrid programmly
+            // (√ finished at 08/02)
+
+            // 08/03
+            // 1. add stock check & overlap check (at indication & placing part)
+
+            // reference: HomeGrid.BuildWithCoord
+            //
+
+        }
+
+        //buildDragInfo.DestroyPlaceholders();
+        //buildDragInfo = null;
+        //UI_BuildingPointer.i.SetPrebuildUseAmount(0);
+
+        //for (int i = 0; i < _gridObjectSpawnDatas.Count; i++)
+        //{
+        //    GridObjectSpawnData gridObjectPositionData = _gridObjectSpawnDatas[i];
+        //    GameObject gridObject = Instantiate(gridObjectPositionData.GridObject);
+        //    gridObject.transform.localRotation = Quaternion.Euler(gridObjectPositionData.ObjectRotation);
+
+        //    await GridManagerAccessor.GridManager.AddObjectToGrid(gridObject, gridObjectPositionData.GridCellIndex, gridObjectPositionData.ObjectAlignment);
+        //}
     }
 
     public void OpenBuilding()
