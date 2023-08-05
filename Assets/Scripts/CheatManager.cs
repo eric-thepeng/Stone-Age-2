@@ -5,17 +5,7 @@ using UnityEngine;
 public class CheatManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject allItemGO;
-
-    List<ItemScriptableObject> allItems = new List<ItemScriptableObject>();
-
-    private void Start()
-    {
-        foreach (Transform child in allItemGO.transform)
-        {
-            allItems.Add(child.GetComponent<Tetris>().itemSO);
-        }
-    }
+    ItemSOListScriptableObject allISOList;
 
     void Update()
     {
@@ -37,13 +27,9 @@ public class CheatManager : MonoBehaviour
 
     void AddItem()
     {
-        foreach (ItemScriptableObject item in allItems)
+        foreach (ItemScriptableObject item in allISOList.list)
         {
-            Inventory.i.AddInventoryItem(item);
-            Inventory.i.AddInventoryItem(item);
-            Inventory.i.AddInventoryItem(item);
-            Inventory.i.AddInventoryItem(item);
-            Inventory.i.AddInventoryItem(item);
+            Inventory.i.AddInventoryItem(item,5);
         }
     }
 
