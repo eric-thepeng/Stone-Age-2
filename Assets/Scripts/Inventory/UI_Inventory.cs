@@ -25,6 +25,10 @@ public class UI_Inventory : MonoBehaviour
     int maxRows = 5;
     [SerializeField] float horizontalDisplacement;
     [SerializeField] float verticalDisplacement;
+    [SerializeField] private GameObject categoryIndicatorBuildings;
+    [SerializeField] private GameObject categoryIndicatorMaterials;
+
+    
 
     public bool resetBackground = false;
 
@@ -35,7 +39,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void DisplayCategory(ItemScriptableObject.Category cat)
     {
-        print("display cat");
+        SetCategoryDisplayIndicator(cat);
         displayingCategory = cat;
         foreach(UI_InventoryBlock ib in allInventoryBlocks)
         {
@@ -131,6 +135,20 @@ public class UI_Inventory : MonoBehaviour
     public void ButtonDisplayCategoryMaterials()
     {
         DisplayCategory(ItemScriptableObject.Category.Material);
+    }
+    
+    public void SetCategoryDisplayIndicator(ItemScriptableObject.Category displayCategory)
+    {
+        if (displayCategory == ItemScriptableObject.Category.Building)
+        {
+            categoryIndicatorBuildings.SetActive(true);
+            categoryIndicatorMaterials.SetActive(false);
+        }
+        else if (displayCategory == ItemScriptableObject.Category.Material)
+        {
+            categoryIndicatorBuildings.SetActive(false);
+            categoryIndicatorMaterials.SetActive(true);
+        }
     }
 
 }
