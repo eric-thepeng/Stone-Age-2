@@ -28,21 +28,9 @@ public class UI_Inventory : MonoBehaviour
 
     public bool resetBackground = false;
 
-    [SerializeField] GameObject dragRawMaterial;
-    [SerializeField] GameObject dragCraftMaterial;
-    [SerializeField] GameObject dragFood;
-    [SerializeField] GameObject dragFurniture;
-    [SerializeField] GameObject dragObject;
-    [SerializeField] GameObject dragTool;
-
     private void Awake()
     {
         CreateInventoryBlocks();
-    }
-
-    private void Start()
-    {
-        
     }
 
     public void DisplayCategory(ItemScriptableObject.Category cat)
@@ -131,6 +119,16 @@ public class UI_Inventory : MonoBehaviour
     public void CancelDisplayItemDetail()
     {
         transform.Find("Item Detail UI").gameObject.SetActive(false);
+    }
+
+    public void ButtonDisplayCategoryBuildings()
+    {
+        DisplayCategory(ItemScriptableObject.Category.Building);
+    }
+    
+    public void ButtonDisplayCategoryMaterials()
+    {
+        DisplayCategory(ItemScriptableObject.Category.Material);
     }
 
 }

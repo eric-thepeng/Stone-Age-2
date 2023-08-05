@@ -17,8 +17,8 @@ public class ItemScriptableObject : SerializedScriptableObject
     public Sprite tetrisSprite;
     public Sprite iconSprite;
     public bool isCraftingStation = false;
-    public enum Category { Regular, Building }
-    public Category category = Category.Regular;
+    public enum Category { Material, Building }
+    public Category category = Category.Material;
 
     public List<KeyValuePair<Vector2, ItemScriptableObject>> FormationRecipeCoord
     {
