@@ -35,6 +35,7 @@ public class UI_Inventory : MonoBehaviour
 
     public void DisplayCategory(ItemScriptableObject.Category cat)
     {
+        print("display cat");
         displayingCategory = cat;
         foreach(UI_InventoryBlock ib in allInventoryBlocks)
         {
@@ -45,8 +46,9 @@ public class UI_Inventory : MonoBehaviour
         {
             if(Inventory.i.CategoryToList(cat)[i].inStockAmount > 0)
             {
+                Inventory.ItemInfo itemInfoToDisplay = Inventory.i.CategoryToList(cat)[i];
                 //print("blocks count: " + allInventoryBlocks.Count + ", count: " + Inventory.i.CategoryToList(cat).Count + ", i: " + i);
-                allInventoryBlocks[j].SetUpDisplay(Inventory.i.CategoryToList(cat)[i]);
+                allInventoryBlocks[j].SetUpDisplay(itemInfoToDisplay);
                 j++;
             }
         }
