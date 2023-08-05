@@ -14,6 +14,6 @@ public class FogWithSDFController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(fogVFX.aliveParticleCount);
+        //Debug.Log(fogVFX.aliveParticleCount);
     }
 }

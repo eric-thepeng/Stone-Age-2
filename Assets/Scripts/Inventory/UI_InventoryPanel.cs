@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class UI_InventoryPanel : MonoBehaviour
 {
-    Transform PanelTransform, OpenPanelTransform, ClosePanelTransform;
-    bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
+    //Dependencies
+    [SerializeField, Header("---Dependencies, DO NOT CHANGE---")] Transform PanelTransform;
+    [SerializeField] Transform OpenPanelTransform;
+    [SerializeField] Transform ClosePanelTransform;
+    
+    //Private Variables
+    bool panelOpen = false;
+    
     static UI_InventoryPanel instance;
     public static UI_InventoryPanel i
     {
@@ -20,32 +26,7 @@ public class UI_InventoryPanel : MonoBehaviour
             return instance;
         }
     }
-
-    private void Start()
-    {
-        PanelTransform = transform.Find("Inventory Panel");
-        OpenPanelTransform = transform.Find("Open Panel Transform");
-        ClosePanelTransform = transform.Find("Close Panel Transform");
-    }
-
-
-    private void Update()
-    {
-        //print(WorldUtility.GetMouseHitPoint());
-        /*
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            if (panelOpen)
-            {
-                if(!CraftingManager.i.isPanelOpen()) StartCoroutine(ClosePanelCor());
-            }
-            else
-            {
-                StartCoroutine(OpenPanelCor());
-            }
-        }*/
-    }
-
+    
     IEnumerator OpenPanelCor()
     {
         panelOpen = true;

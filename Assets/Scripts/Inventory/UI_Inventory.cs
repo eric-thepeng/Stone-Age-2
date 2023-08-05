@@ -25,28 +25,21 @@ public class UI_Inventory : MonoBehaviour
     int maxRows = 5;
     [SerializeField] float horizontalDisplacement;
     [SerializeField] float verticalDisplacement;
+    [SerializeField] private GameObject categoryIndicatorBuildings;
+    [SerializeField] private GameObject categoryIndicatorMaterials;
+
+    
 
     public bool resetBackground = false;
-
-    [SerializeField] GameObject dragRawMaterial;
-    [SerializeField] GameObject dragCraftMaterial;
-    [SerializeField] GameObject dragFood;
-    [SerializeField] GameObject dragFurniture;
-    [SerializeField] GameObject dragObject;
-    [SerializeField] GameObject dragTool;
 
     private void Awake()
     {
         CreateInventoryBlocks();
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void DisplayCategory(ItemScriptableObject.Category cat)
     {
+        SetCategoryDisplayIndicator(cat);
         displayingCategory = cat;
         foreach(UI_InventoryBlock ib in allInventoryBlocks)
         {
@@ -57,8 +50,9 @@ public class UI_Inventory : MonoBehaviour
         {
             if(Inventory.i.CategoryToList(cat)[i].inStockAmount > 0)
             {
+                Inventory.ItemInfo itemInfoToDisplay = Inventory.i.CategoryToList(cat)[i];
                 //print("blocks count: " + allInventoryBlocks.Count + ", count: " + Inventory.i.CategoryToList(cat).Count + ", i: " + i);
-                allInventoryBlocks[j].SetUpDisplay(Inventory.i.CategoryToList(cat)[i]);
+                allInventoryBlocks[j].SetUpDisplay(itemInfoToDisplay);
                 j++;
             }
         }
@@ -131,6 +125,30 @@ public class UI_Inventory : MonoBehaviour
     public void CancelDisplayItemDetail()
     {
         transform.Find("Item Detail UI").gameObject.SetActive(false);
+    }
+
+    public void ButtonDisplayCategoryBuildings()
+    {
+        DisplayCategory(ItemScriptableObject.Category.Building);
+    }
+    
+    public void ButtonDisplayCategoryMaterials()
+    {
+        DisplayCategory(ItemScriptableObject.Category.Material);
+    }
+    
+    public void SetCategoryDisplayIndicator(ItemScriptableObject.Category displayCategory)
+    {
+        if (displayCategory == ItemScriptableObject.Category.Building)
+        {
+            categoryIndicatorBuildings.SetActive(true);
+            categoryIndicatorMaterials.SetActive(false);
+        }
+        else if (displayCategory == ItemScriptableObject.Category.Material)
+        {
+            categoryIndicatorBuildings.SetActive(false);
+            categoryIndicatorMaterials.SetActive(true);
+        }
     }
 
 }

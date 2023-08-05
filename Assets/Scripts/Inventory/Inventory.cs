@@ -38,13 +38,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public List<ItemInfo> catRawMaterial = new List<ItemInfo>();
-    public List<ItemInfo> catCraftMaterial = new List<ItemInfo>();
-    public List<ItemInfo> catFood = new List<ItemInfo>();
-    public List<ItemInfo> catTool = new List<ItemInfo>();
-    public List<ItemInfo> catFurniture = new List<ItemInfo>();
-    public List<ItemInfo> catObject = new List<ItemInfo>();
-    public List<ItemInfo> catTemporary = new List<ItemInfo>();
+    private List<ItemInfo> CatListBuilding = new List<ItemInfo>();
+    private List<ItemInfo> CatListMaterial = new List<ItemInfo>();
 
     public void AddInventoryItem(ItemScriptableObject newISO, int amount = 1)
     {
@@ -162,15 +157,10 @@ public class Inventory : MonoBehaviour
 
     public List<ItemInfo> CategoryToList(ItemScriptableObject.Category cat)
     {
-        /*
-        if (cat == InventoryItemSO.Category.RawMaterial) return catRawMaterial;
-        else if (cat == InventoryItemSO.Category.CraftMaterial) return catCraftMaterial;
-        else if (cat == InventoryItemSO.Category.Food) return catFood;
-        else if (cat == InventoryItemSO.Category.Tool) return catTool;
-        else if (cat == InventoryItemSO.Category.Furniture) return catFurniture;
-        else if (cat == InventoryItemSO.Category.Object) return catObject;
-        return null;*/
-        return catTemporary;
+        if (cat == ItemScriptableObject.Category.Material) return CatListMaterial;
+        if (cat == ItemScriptableObject.Category.Building) return CatListBuilding;
+        Debug.LogError("There is a ISO Category without a CatList in Inventory");
+        return CatListBuilding;
     }
 
 
