@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141bb5e2ce6f24cf5ac9020ace34b1eb, type: 3}
   m_Name: 1-3 ExploreSpotSUI
   m_EditorClassIdentifier: 
-  serialEffectIdentifier: {fileID: 11400000, guid: 5c80b9c964d1dbc4daca7b96425ff14e, type: 2}
+  serialEffectIdentifier: {fileID: 11400000, guid: 7cfcb18ae3e3cf849aeeb05b5d838165, type: 2}
   unlockResourceSet:
-    spiritPoint: 30
+    spiritPoint: 0
     resources: []
   gatherTime: 5
   gatherResource:
-    spiritPoint: 60
-    resources: []
+    spiritPoint: 2
+    resources:
+    - iso: {fileID: 11400000, guid: 80ee106361eac4879a69a9c70099537d, type: 2}
+      amount: 1
+    - iso: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
+      amount: 1
   startInLockedState: 0
