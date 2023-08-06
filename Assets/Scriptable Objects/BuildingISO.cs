@@ -11,6 +11,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemScriptableObject", menuName = "ScriptableObjects/CraftingSystem/BuildingISO")]
 public class BuildingISO : ItemScriptableObject
 {
+    [Header("--- EDIT BELOW ---")]
     public GameObject buildingPrefab;
     [SerializeField] int width = 1;
     [SerializeField] int height = 1;
