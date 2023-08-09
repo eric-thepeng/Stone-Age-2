@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TetrisBuildingTool : MonoBehaviour
 {
-    [SerializeField, Header("------Baisc Info------")] public List<ItemScriptableObject> isoListToProcess;
+    [SerializeField, Header("------Baisc Info------")] public ItemSOListScriptableObject allISOList;
     [SerializeField] public float unitLength = 1;
     [SerializeField] public string folderPath;
     [SerializeField] public float targetScale = 0.15f;

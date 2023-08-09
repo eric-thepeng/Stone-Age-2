@@ -25,8 +25,13 @@ public class TetrisBuildingToolEditor : Editor
         //binding target
         TetrisBuildingTool builder = (TetrisBuildingTool)target;
         
+        //build a folder
+        string newFolderName = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        AssetDatabase.CreateFolder(builder.folderPath, newFolderName);
+        string newFolderPath = builder.folderPath + "/" + newFolderName;
+        
         //building for each iso
-        foreach (ItemScriptableObject iso in builder.isoListToProcess)
+        foreach (ItemScriptableObject iso in builder.allISOList.list)
         {
             // make new game object
             GameObject newGameObject = Instantiate(builder.tetrisBaseGameObject, new Vector3(0,0,0),quaternion.identity); //new GameObject("Tetris_"+iso.name);
@@ -102,11 +107,13 @@ public class TetrisBuildingToolEditor : Editor
             newGameObject.transform.localScale *= builder.targetScale;
             
             // save as prefab
-            string localPath = builder.folderPath + "/" + newGameObject.name + ".prefab";
+            string localPath = newFolderPath + "/" + newGameObject.name + ".prefab";
             localPath = AssetDatabase.GenerateUniqueAssetPath(localPath);
             
             // dependency binding
             iso.myPrefab = PrefabUtility.SaveAsPrefabAssetAndConnect(newGameObject, localPath, InteractionMode.UserAction);
+            EditorUtility.SetDirty(iso);
+            AssetDatabase.SaveAssets();
         }
     }
 }
