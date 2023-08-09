@@ -60,7 +60,7 @@ public class ResourceSetDisplayer : MonoBehaviour
                 Debug.LogError("ResourceSetDisplay has nothing to display");
             }
         }
-        print(resourceSetToDisplay);
+        //print(resourceSetToDisplay);
         Display(resourceSetToDisplay);;
     }
 
