@@ -8,7 +8,7 @@ public class SpiritPoint : MonoBehaviour
     static SpiritPoint instance;
     public int startingAmount;
     TextMeshPro displayText;
-    int amount;
+    [ReadOnly,SerializeField]int amount;
 
     public static SpiritPoint i
     {
