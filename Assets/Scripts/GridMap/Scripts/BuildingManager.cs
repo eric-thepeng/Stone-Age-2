@@ -246,39 +246,83 @@ public class BuildingManager : MonoBehaviour
 
         Vector3 hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);
 
-        gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
+        //gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
 
         hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
 
-        //int x = gridOperationManager.GetComponent<GridCoordinateManager>().coordinateX;
-        //int z = gridOperationManager.GetComponent<GridCoordinateManager>().coordinateY;
-
-        if (buildDragInfo == null) //NEW BUILD DRAG
+        if (Input.GetMouseButtonDown(0) && GetSelectedBuildingISO() != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
             {
-                buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
+                GridManagerAccessor.GridManager.CancelPlacement();
+                Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
+                _position.y -= 10;
+
+                GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
+
+                objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
+                GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
             }
         }
-        else
+            //if (buildDragInfo == null) //NEW BUILD DRAG
+            //{
+        if (Input.GetMouseButtonUp(0) )
         {
-            buildDragInfo.SetEndPosition(new Vector2Int(x, z)); //RESET BUILD DRAG
-            if (Input.GetMouseButtonUp(0)) //LIFT MOUSE AND BUILD
+            if (GetSelectedBuildingISO() != null)
             {
-                _ = PlaceObjectsToGrid(buildDragInfo);
+                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+                {
+                    bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
+                    if (_confirm)
+                    {
+                        Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
+                    }
+                }
 
-                //foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
-                //{
-                //    //print(i);
-                    //hg.BuildWithCoord(i.x, i.y);
+                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+                {
+                    GridManagerAccessor.GridManager.CancelPlacement();
+                    Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
+                    _position.y -= 10;
 
-                //}
+                    GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
 
-                buildDragInfo.DestroyPlaceholders();
-                buildDragInfo = null;
-                UI_BuildingPointer.i.SetPrebuildUseAmount(0);
+                    objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
+                    GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                }
+                else
+                {
+                    GridManagerAccessor.GridManager.CancelPlacement(false);
+
+                }
+
+                //buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
+
+            } else
+            {
+
             }
         }
+        //}
+        //else
+        //{
+        //    buildDragInfo.SetEndPosition(new Vector2Int(x, z)); //RESET BUILD DRAG
+        //    if (Input.GetMouseButtonUp(0)) //LIFT MOUSE AND BUILD
+        //    {
+        //        _ = PlaceObjectsToGrid(buildDragInfo);
+
+        //        //foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
+        //        //{
+        //        //    //print(i);
+        //            //hg.BuildWithCoord(i.x, i.y);
+
+        //        //}
+
+        //        buildDragInfo.DestroyPlaceholders();
+        //        buildDragInfo = null;
+        //        UI_BuildingPointer.i.SetPrebuildUseAmount(0);
+        //    }
+        //}
     }
 
 

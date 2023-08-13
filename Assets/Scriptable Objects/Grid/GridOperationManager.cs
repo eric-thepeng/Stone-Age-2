@@ -32,7 +32,7 @@ public class GridOperationManager : MonoBehaviour
         _gridManager = new GameObject("Grid Manager").AddComponent<GridManager>();
         _gridManager.Setup(_gridSettings);
 
-        StartCoroutine(CheckForInput());
+        //StartCoroutine(CheckForInput());
         AddGridCoordinateManager();
 
     }
@@ -51,6 +51,7 @@ public class GridOperationManager : MonoBehaviour
 
     public void StartPaintMode()
     {
+        Debug.Log("Paint mode entered");
         _gridManager.StartPaintMode(_gridEmptyObjectPrefab);
     }
 
@@ -94,8 +95,8 @@ public class GridOperationManager : MonoBehaviour
         if (Input.GetMouseButton(0) && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
         {
                 //Debug.Log(_gridManager.ConfirmPlacement());
-                itemPlaced = _gridManager.ObjectToPlace;
-            operateStatus = _gridManager.ConfirmPlacement();
+            //    itemPlaced = _gridManager.ObjectToPlace;
+            //operateStatus = _gridManager.ConfirmPlacement();
         }
 #endif
         }

@@ -97,23 +97,57 @@ public class UI_InventoryBlock : MonoBehaviour
         }else if (PlayerState.IsBuilding())
         {
             if (!(itemInfo.iso is BuildingISO)) return;
-            BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-            SetSelectedBackground(true);
+
+            if ((BuildingISO)this.GetISO() == BuildingManager.i.GetSelectedBuildingISO())
+            {
+                BuildingManager.i.CancelSelectedBuidling();
+
+                SetSelectedBackground(false);
+                GridManagerAccessor.GridManager.CancelPlacement(false);
+
+            } else
+            {
+                BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
+
+                GridManagerAccessor.GridManager.CancelPlacement();
+
+                Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
+                _position.y -= 10;
+
+                GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
+
+                objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
+                GridManagerAccessor.GridManager.CancelPlacement(false);
+                GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                //GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
+
+                SetSelectedBackground(true);
+            }
+
+
         }
 
         // 06/09/23 - new grid items
-        else if (GridManagerAccessor.GridManager.IsPlacingGridObject)
-        {
-            if (itemInfo.iso is BuildingISO)
-            {
-                //BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-                //SetSelectedBackground(true);
+        //else if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+        //{
+        //    if (itemInfo.iso is BuildingISO)
+        //    {
+        //        //BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
+        //        //SetSelectedBackground(true);
 
-                GridManagerAccessor.GridManager.EndPaintMode();
-                GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
-            }
 
-        }
+        //        //GridManagerAccessor.GridManager.CancelPlacement();
+
+        //        //GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), GridManagerAccessor.GridManager.GetGridPosition(), new Quaternion());
+
+        //        //objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
+        //        //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+        //        GridManagerAccessor.GridManager.CancelPlacement(false);
+        //        GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
+                
+        //    }
+
+        //}
 
     }
 
