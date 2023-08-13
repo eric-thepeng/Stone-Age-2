@@ -30,7 +30,10 @@ public class BuildingManager : MonoBehaviour
 
     public GameObject gridOperationManager;
 
-    float gridCellSize; 
+    float gridCellSize;
+
+    [SerializeField]
+    private Transform initialTransform;
 
     class GridIndication
     {
@@ -262,7 +265,7 @@ public class BuildingManager : MonoBehaviour
             buildDragInfo.SetEndPosition(new Vector2Int(x, z)); //RESET BUILD DRAG
             if (Input.GetMouseButtonUp(0)) //LIFT MOUSE AND BUILD
             {
-                _ = AddObjectsToGrid(buildDragInfo);
+                _ = PlaceObjectsToGrid(buildDragInfo);
 
                 //foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
                 //{
@@ -278,16 +281,33 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    private async Task AddObjectsToGrid(BuildDragInfo buildDragInfo)
+
+    private async Task PlaceObjectsToGrid(BuildDragInfo buildDragInfo)
     {
         foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
         {
             //print(i);
             //hg.BuildWithCoord(i.x, i.y);
 
-            GameObject placingObject = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab());
+            GameObject placingObject = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), initialTransform);
 
-            await GridManagerAccessor.GridManager.AddObjectToGrid(placingObject, i, Hypertonic.GridPlacement.Enums.ObjectAlignment.UPPER_LEFT);
+
+            if (GridManagerAccessor.GridManager.CanAddObjectAtCell(placingObject,i))
+            {
+
+                await GridManagerAccessor.GridManager.AddObjectToGrid(placingObject, i, Hypertonic.GridPlacement.Enums.ObjectAlignment.UPPER_LEFT);
+
+                Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
+
+                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) == 0)
+                {
+                    BuildingManager.i.CancelSelectedBuidling();
+                }
+
+            } else
+            {
+                Destroy(placingObject);
+            }
 
             // i should change this code 07/26 - bowen
             // to-do list:
