@@ -60,9 +60,10 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
         serialEffectIdentifier.SetUpSerialEffectInterface(this);
     }
 
-    public void ReceiveSerialEffect()
+    public void ReceiveSerialEffect(SO_SerialEffectIdentifier origionSEI)
     {
         unlockToState_1_Locked();
+        UI_ExploreSpotsConnection.i.UnlockLine(origionSEI, mySEI);
     }
 
     public SO_SerialEffectIdentifier mySEI { get => serialEffectIdentifier; }

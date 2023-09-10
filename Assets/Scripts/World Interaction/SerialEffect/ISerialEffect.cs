@@ -6,6 +6,6 @@ public interface ISerialEffect
 {
     public void SendSerialEffect();
     public void SetUpSerialEffectIdentifier();
-    public void ReceiveSerialEffect();
+    public void ReceiveSerialEffect(SO_SerialEffectIdentifier origionSEI);
     public SO_SerialEffectIdentifier mySEI { get;}
 }
