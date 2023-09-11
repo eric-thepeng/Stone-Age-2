@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using TMPro;
 using UnityEngine.Serialization;
 
@@ -39,17 +38,11 @@ public class BLDTrashToClear : LevelUp
         ui = GetComponent<UI_BLDTrashToClear>();
         unlockResourceSet = GetCurrentUnlockState().unlockCost;
     }
-
-    protected override void BeginMouseHover()
-    {
-        base.BeginMouseHover();
-        TurnOnHighlight();
-    }
+    
 
     protected override void EndMouseHover()
     {
         if (state == State.Selected) ChangeStateTo(State.Idle);
-        TurnOffHighlight();
         base.EndMouseHover();
     }
 
@@ -100,16 +93,6 @@ public class BLDTrashToClear : LevelUp
     public void TurnOffUI()
     {
         ui.TurnOffUI();
-    }
-
-    private void TurnOnHighlight()
-    {
-        transform.DOShakePosition(0.3f, new Vector3(0.1f,0,0),10,0);
-    }
-
-    private void TurnOffHighlight()
-    {
-        
     }
 
     protected override void ReachFinalState()
