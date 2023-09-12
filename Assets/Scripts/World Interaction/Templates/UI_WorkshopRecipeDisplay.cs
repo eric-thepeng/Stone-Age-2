@@ -16,6 +16,8 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
     [SerializeField] private GameObject p1;
     [SerializeField] private GameObject p2;
     
+    //This ui is hard-coded, bite me ~_~
+    
     public void Display(SO_WorkshopRecipe workshopRecipe)
     {
         bothComp.SetActive(true);
@@ -30,6 +32,7 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
             
             //display m length = 1
             m1.GetComponent<SpriteRenderer>().sprite = workshopRecipe.materials[0].iconSprite;
+            product.GetComponent<SpriteRenderer>().sprite = workshopRecipe.product.iconSprite;
             if(workshopRecipe.materials.Count == 1) return;
             //display m length = 2
             m2.GetComponent<SpriteRenderer>().sprite = workshopRecipe.materials[1].iconSprite;
