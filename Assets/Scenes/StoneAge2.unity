@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.2
@@ -280,10 +280,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 8717060414068365597, guid: a343830b846f9d340b979c75376e2ca6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a343830b846f9d340b979c75376e2ca6, type: 3}
 --- !u!1001 &1943575136789865408
@@ -591,6 +587,10 @@ PrefabInstance:
     - target: {fileID: 3941866035689039089, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: m_Name
       value: '[Main Camera]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941866035689039089, guid: 583987c9ad802984e953634aee049821, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035950600230, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: serializationData.Prefab
