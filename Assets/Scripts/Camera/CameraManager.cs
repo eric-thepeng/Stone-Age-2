@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
 
     private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
     
-    private float cameraHeightMin = 50, cameraHeightMax = 180;
+    private float cameraHeightMin = 90, cameraHeightMax = 180;
 
     float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 

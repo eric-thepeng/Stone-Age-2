@@ -24,6 +24,7 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
         if (workshopRecipe.unlocked)
         {
             unlockedComp.SetActive(true);
+            lockedComp.SetActive(false);
             
             m2.SetActive(false);
             m3.SetActive(false);
@@ -46,6 +47,7 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
         }
         else
         {
+            unlockedComp.SetActive(false);
             lockedComp.SetActive(true);
         }
     }
