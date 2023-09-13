@@ -26,6 +26,7 @@ public class BLDWorkshop : WorldInteractable
         {
             ui.TurnOnUI();
             state = State.Assigning;
+            CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,15), 100f);
         }
         base.BeginMousePress();
     }

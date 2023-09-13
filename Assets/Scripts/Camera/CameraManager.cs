@@ -111,6 +111,26 @@ public class CameraManager : MonoBehaviour
     {
         transform.DOMove(firstExploreSpotCameraPosition, 0.5f);
     }
-
+    
+    public void MoveToDisplayLocation(Vector3 locationToDisplay, bool moveToHeight = false)
+    {
+        Vector3 targetCameraPosition = new Vector3(0,0,0);
+        targetCameraPosition.x = locationToDisplay.x;
+        float targetHeight = moveToHeight ? locationToDisplay.y : transform.position.y;
+        targetCameraPosition.y = targetHeight;
+        targetCameraPosition.z = locationToDisplay.z - targetHeight;
+        
+        transform.DOMove(targetCameraPosition, 0.5f);
+    }
+    
+    public void MoveToDisplayLocation(Vector3 locationToDisplay, float targetHeight)
+    {
+        Vector3 targetCameraPosition = new Vector3(0,0,0);
+        targetCameraPosition.x = locationToDisplay.x;
+        targetCameraPosition.y = targetHeight;
+        targetCameraPosition.z = locationToDisplay.z - targetHeight;
+        
+        transform.DOMove(targetCameraPosition, 0.5f);
+    }
 
 }
