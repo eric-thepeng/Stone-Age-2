@@ -52,7 +52,7 @@ public class DialogueManager : MonoBehaviour
         if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
         else
         {
-            QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
+            if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
         }
     }
 

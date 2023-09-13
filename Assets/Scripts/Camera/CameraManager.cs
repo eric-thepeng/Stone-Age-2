@@ -57,11 +57,13 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
+            /* MOVEMENT BY MOUSE IS DISABLED BECAUSE SHIT IS USELESS
             if(moveByMouseDirection != new Vector2Int(0, 0)) //move by mouse
             {
                 direction = moveByMouseDirection;
             }
-            else //move by keyboard
+            else */ 
+            //move by keyboard
             {
                 direction = GetKeyboardInput();
             }
@@ -79,6 +81,8 @@ public class CameraManager : MonoBehaviour
 
     float GetWeightedZoomSpeed()
     {
+        return cameraZoomSpeedOnFloor;
+        // ZOOM SPEED WEIGHT IS DISABLE, WILL REVISE IN THE FUTURE 漂泊牧歌 still sticky movement clamp
         return cameraZoomSpeedOnFloor * zoomSpeedAgainstHeight.Evaluate((transform.position.y - cameraHeightMin) / (cameraHeightMax - cameraHeightMin));
     }
 
