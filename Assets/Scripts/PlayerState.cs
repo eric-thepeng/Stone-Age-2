@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class PlayerState
 {
-    public enum State { Browsing, Crafting, Recipe, Building }
+    public enum State { Browsing, Crafting, Recipe, Building, AllocatingBackpack }
     static public State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
@@ -199,6 +199,11 @@ public static class PlayerState
     public static bool IsBuilding()
     {
         return state == State.Building;
+    }
+
+    public static bool IsAllocatingBackpack()
+    {
+        return state == State.AllocatingBackpack;
     }
 
 

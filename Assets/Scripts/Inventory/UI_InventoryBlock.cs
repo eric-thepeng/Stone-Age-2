@@ -89,16 +89,26 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseDown()
     {
         if (itemInfo == null) return;
+        
+        // create tetris
         if (PlayerState.IsCrafting())
         {
             //InventoryHoverInfo.i.Disappear();
-            CreateDrag();
-            return;
-        }else if (PlayerState.IsBuilding())
+            CreateTetrisDrag();
+        }
+        
+        // building item
+        else if (PlayerState.IsBuilding())
         {
             if (!(itemInfo.iso is BuildingISO)) return;
             BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
             SetSelectedBackground(true);
+        }
+        
+        // workshop item
+        else if (PlayerState.IsAllocatingBackpack())
+        {
+            CreateIconDrag();
         }
 
         // 06/09/23 - new grid items
@@ -127,7 +137,7 @@ public class UI_InventoryBlock : MonoBehaviour
         //if ( mouseOver ) { InventoryHoverInfo.i.Display(transform.position); }
     }
 
-    void CreateDrag()
+    void CreateTetrisDrag()
     {
         //itemSprite.color = dragColr;
         if (CraftingManager.i.isPanelOpen()) //TETRIS
@@ -137,12 +147,12 @@ public class UI_InventoryBlock : MonoBehaviour
         }
     }
 
-    public void PlaceDrag()
+    void CreateIconDrag()
     {
-        itemSprite.color = normalColr;
+        
     }
 
-    public void CancelDrag()
+    public void PlaceDrag()
     {
         itemSprite.color = normalColr;
     }
