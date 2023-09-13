@@ -48,6 +48,7 @@ public class UI_BLDWorkshop : MonoBehaviour
 
     public void TurnOffUI()
     {
+        UI_FullScreenShading.i.HideShading();
         uiGameObject.SetActive(false);
     }
 

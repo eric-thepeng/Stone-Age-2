@@ -38,6 +38,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField]private AnimationCurve moveSpeedAgainstHeight;
     [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
+    [SerializeField] private AnimationCurve stickyHeightAgainstHeight;
 
     private void Update()
     {
