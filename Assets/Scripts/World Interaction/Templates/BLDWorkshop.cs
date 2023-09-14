@@ -26,6 +26,7 @@ public class BLDWorkshop : WorldInteractable
         {
             ui.TurnOnUI();
             state = State.Assigning;
+            PlayerState.OpenCloseAllocatingBackpack(true);
             CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,15), 100f);
         }
         base.BeginMousePress();
@@ -55,6 +56,7 @@ public class BLDWorkshop : WorldInteractable
         {
             ui.TurnOffUI();
             state = State.Idle;
+            PlayerState.OpenCloseAllocatingBackpack(false);
         }
         else
         {

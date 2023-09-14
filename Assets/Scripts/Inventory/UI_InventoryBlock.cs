@@ -149,7 +149,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
     void CreateIconDrag()
     {
-        
+        DraggingISOIconManager.i.CreateDraggingISOIcon(itemInfo.iso);
     }
 
     public void PlaceDrag()
