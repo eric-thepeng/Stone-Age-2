@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour
 
     private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
     
-    private float cameraHeightMin = 50, cameraHeightMax = 180;
+    private float cameraHeightMin = 90, cameraHeightMax = 180;
 
     float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 
@@ -38,6 +38,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField]private AnimationCurve moveSpeedAgainstHeight;
     [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
+    [SerializeField] private AnimationCurve stickyHeightAgainstHeight;
 
     private void Update()
     {
@@ -56,11 +57,13 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
+            /* MOVEMENT BY MOUSE IS DISABLED BECAUSE SHIT IS USELESS
             if(moveByMouseDirection != new Vector2Int(0, 0)) //move by mouse
             {
                 direction = moveByMouseDirection;
             }
-            else //move by keyboard
+            else */ 
+            //move by keyboard
             {
                 direction = GetKeyboardInput();
             }
@@ -78,6 +81,8 @@ public class CameraManager : MonoBehaviour
 
     float GetWeightedZoomSpeed()
     {
+        return cameraZoomSpeedOnFloor;
+        // ZOOM SPEED WEIGHT IS DISABLE, WILL REVISE IN THE FUTURE 漂泊牧歌 still sticky movement clamp
         return cameraZoomSpeedOnFloor * zoomSpeedAgainstHeight.Evaluate((transform.position.y - cameraHeightMin) / (cameraHeightMax - cameraHeightMin));
     }
 
@@ -110,6 +115,26 @@ public class CameraManager : MonoBehaviour
     {
         transform.DOMove(firstExploreSpotCameraPosition, 0.5f);
     }
-
+    
+    public void MoveToDisplayLocation(Vector3 locationToDisplay, bool moveToHeight = false)
+    {
+        Vector3 targetCameraPosition = new Vector3(0,0,0);
+        targetCameraPosition.x = locationToDisplay.x;
+        float targetHeight = moveToHeight ? locationToDisplay.y : transform.position.y;
+        targetCameraPosition.y = targetHeight;
+        targetCameraPosition.z = locationToDisplay.z - targetHeight;
+        
+        transform.DOMove(targetCameraPosition, 0.5f);
+    }
+    
+    public void MoveToDisplayLocation(Vector3 locationToDisplay, float targetHeight)
+    {
+        Vector3 targetCameraPosition = new Vector3(0,0,0);
+        targetCameraPosition.x = locationToDisplay.x;
+        targetCameraPosition.y = targetHeight;
+        targetCameraPosition.z = locationToDisplay.z - targetHeight;
+        
+        transform.DOMove(targetCameraPosition, 0.5f);
+    }
 
 }

@@ -68,6 +68,7 @@ public class TetrisBuildingToolEditor : Editor
             // add text
             GameObject newLabel = Instantiate(builder.labelGameObject, newGameObject.transform);
             newLabel.GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+            newLabel.gameObject.name = "Temporary Label";
             
             // add image
             GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
@@ -78,6 +79,7 @@ public class TetrisBuildingToolEditor : Editor
             {
                 GameObject outlineContainer = new GameObject();
                 outlineContainer.transform.SetParent(newGameObject.transform);
+                outlineContainer.gameObject.name = "Outline container";
                 GameObject outlineLeft = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
                 GameObject outlineRight = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
                 GameObject outlineUp = Instantiate(unitsContainer.gameObject, outlineContainer.transform);
@@ -95,6 +97,7 @@ public class TetrisBuildingToolEditor : Editor
 
             // create shadow
             GameObject shadow = Instantiate(unitsContainer.gameObject, newGameObject.transform);
+            shadow.gameObject.name = "Shadow container";
             shadow.transform.localPosition = new Vector3(0,0,0) + builder.shadowOffsetStandard;
             shadow.transform.localScale = new Vector3(1, 1, 1);
             foreach (SpriteRenderer sr in shadow.GetComponentsInChildren<SpriteRenderer>())

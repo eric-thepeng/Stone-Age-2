@@ -20,21 +20,21 @@ public class SO_SerialEffectIdentifier : ScriptableObject
             {
                 if (relationship.direction == SO_SerialEffectIdentifierGroup.Relationship.Direction.OneWay)
                 {
-                    if (relationship.FirstUnit == this) { relationship.SecondUnit.ReceiveSerialEffect();}
+                    if (relationship.FirstUnit == this) { relationship.SecondUnit.ReceiveSerialEffect(this);}
                 }
                 else
                 {
-                    if (relationship.FirstUnit == this) { relationship.SecondUnit.ReceiveSerialEffect();}
-                    if (relationship.SecondUnit == this) { relationship.FirstUnit.ReceiveSerialEffect();}
+                    if (relationship.FirstUnit == this) { relationship.SecondUnit.ReceiveSerialEffect(this);}
+                    if (relationship.SecondUnit == this) { relationship.FirstUnit.ReceiveSerialEffect(this);}
                 }
             }
         }
     }
 
-    public void ReceiveSerialEffect()
+    public void ReceiveSerialEffect(SO_SerialEffectIdentifier origionSEI)
     {
         if(interfaceSerialEffect == null) Debug.LogError("Not set");
-        interfaceSerialEffect.ReceiveSerialEffect();
+        interfaceSerialEffect.ReceiveSerialEffect(origionSEI);
     }
 
     public void SetUpSerialEffectInterface(ISerialEffect interfaceSerialEffect)

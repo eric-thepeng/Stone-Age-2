@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Serial Effect Identifier Group", menuName = "ScriptableObjects/WorldInteraction/SerialEffectIdentifierGroup")]
+[CreateAssetMenu(fileName = "Serial Effect Identifier Group", menuName = "ScriptableObjects/WorldInteraction/SerialEffect Identifier Group")]
 public class SO_SerialEffectIdentifierGroup : ScriptableObject
 {
     [Serializable]

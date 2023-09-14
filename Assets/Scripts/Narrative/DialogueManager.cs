@@ -9,7 +9,6 @@ public class DialogueManager : MonoBehaviour
     NarrativeSequence currentNS = null;
     int currentLine = 0;
 
-    GameObject backgroundShadingGO = null;
     GameObject dialogueGO = null;
     GameObject nextLineIndicationGO = null;
     TextMeshPro lineDispaly = null;
@@ -46,7 +45,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        backgroundShadingGO = transform.Find("Background Shading").gameObject;
         dialogueGO = transform.Find("Dialogue").gameObject;
         lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
         nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;
@@ -54,7 +52,7 @@ public class DialogueManager : MonoBehaviour
         if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
         else
         {
-            QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
+            if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
         }
     }
 
@@ -98,7 +96,7 @@ public class DialogueManager : MonoBehaviour
     {
         print("start perform");
         dialogueGO.SetActive(true);
-        backgroundShadingGO.SetActive(true);
+        UI_FullScreenShading.i.ShowDialogueShading();
         PerformLine(currentLine);
     }
 
@@ -124,7 +122,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentNS.HasQuest()) { QuestManager.i.StartQuestByID(currentNS.questIDToQue); }
         dialogueGO.SetActive(false);
-        backgroundShadingGO.SetActive(false);
+        UI_FullScreenShading.i.HideShading();
         currentNS = null; 
     }
 
