@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using DG.Tweening;
 
 public class CharacterIcon : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class CharacterIcon : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 if(onCharacterQuitPickUp!=null)onCharacterQuitPickUp();
-                transform.parent.parent.Find("Background").gameObject.SetActive(false);
+                UI_FullScreenUIDragCollider.i.Close();
                 if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT, true)) // DRAGGING -> find a explore spot
                 {
                         GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<GatherSpot>();
@@ -103,7 +104,7 @@ public class CharacterIcon : MonoBehaviour
     {
         if (iconState == IconState.Home && PlayerState.IsBrowsing())
         {
-            transform.parent.parent.Find("Background").gameObject.SetActive(true);
+            UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
 
