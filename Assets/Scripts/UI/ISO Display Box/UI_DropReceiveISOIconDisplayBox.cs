@@ -6,11 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class UI_DropReceiveISOIconDisplayBox : UI_ISOIconDisplayBox
 {
-    private void OnMouseUp()
+    public void Display(ItemScriptableObject iso)
     {
-        if (true)
-        {
-            
-        }
+        GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
     }
 }
