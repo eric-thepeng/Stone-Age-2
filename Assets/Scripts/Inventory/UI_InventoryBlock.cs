@@ -28,6 +28,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
     public ItemScriptableObject GetISO()
     {
+        if (itemInfo == null) return null;
         return itemInfo.iso;
     }
 
@@ -112,7 +113,6 @@ public class UI_InventoryBlock : MonoBehaviour
                 GridManagerAccessor.GridManager.CancelPlacement();
 
                 Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
-                _position.y -= 10;
 
                 GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
 

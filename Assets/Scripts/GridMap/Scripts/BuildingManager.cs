@@ -5,6 +5,7 @@ using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.Example.AddProgramatically.Models;
 using Hypertonic.GridPlacement.Models;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Inventory;
 
 public class BuildingManager : MonoBehaviour
@@ -266,7 +267,7 @@ public class BuildingManager : MonoBehaviour
         }
             //if (buildDragInfo == null) //NEW BUILD DRAG
             //{
-        if (Input.GetMouseButtonUp(0) )
+        if (Input.GetMouseButton(0) )
         {
             if (GetSelectedBuildingISO() != null)
             {
@@ -278,21 +279,22 @@ public class BuildingManager : MonoBehaviour
                         Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
                     }
                 }
-
-                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+                if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
                 {
+                    
                     GridManagerAccessor.GridManager.CancelPlacement();
-                    Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
-                    _position.y -= 10;
-
+                    Vector3 _position = new Vector3(0, -10, 0);
                     GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
-
+                    
                     objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
                     GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
                 }
                 else
                 {
                     GridManagerAccessor.GridManager.CancelPlacement(false);
+                    i.CancelSelectedBuidling();
+
+                    i.selectedUIIB.SetSelectedBackground(false);
 
                 }
 
@@ -409,7 +411,7 @@ public class BuildingManager : MonoBehaviour
 
     public BuildingISO GetSelectedBuildingISO()
     {
-        if (selectedUIIB == null) return null;
+        if (selectedUIIB == null || selectedUIIB.GetISO() == null) return null;
         ItemScriptableObject returnISO = selectedUIIB.GetISO();
         return returnISO is BuildingISO ? (BuildingISO)returnISO :null;
     }
