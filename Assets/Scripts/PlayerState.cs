@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class PlayerState
 {
-    public enum State { Browsing, Crafting, Recipe, Building }
+    public enum State { Browsing, Crafting, Recipe, Building, AllocatingBackpack }
     static public State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
@@ -29,6 +29,9 @@ public static class PlayerState
         else if (state == State.Building)
         {
             BuildingManager.i.CloseBuilding();
+        }else if (state == State.AllocatingBackpack)
+        {
+            
         }
     }
 
@@ -61,13 +64,13 @@ public static class PlayerState
         {
             ChangeInventoryPanel(true);
             BuildingManager.i.OpenBuilding();
+        }else if (enterState == State.AllocatingBackpack)
+        {
+            ChangeInventoryPanel(true);
         }
 
         state = enterState;
     }
-
-
-
 
 
     static void ChangeInventoryPanel(bool changeTo)
@@ -103,6 +106,26 @@ public static class PlayerState
         recipeViewerPanelState= changeTo;
     }
 
+    
+    public static void OpenCloseAllocatingBackpack(bool open)
+    {
+        if (open) //open
+        {
+            if (state != State.AllocatingBackpack)
+            {
+                ExitState();
+                EnterState(State.AllocatingBackpack);
+            }
+        }
+        else 
+        {
+            if (state == State.AllocatingBackpack)
+            {
+                ExitState();
+                EnterState(State.AllocatingBackpack);
+            }
+        }
+    }
 
 
 
@@ -178,9 +201,6 @@ public static class PlayerState
         }
     }
 
-
-
-
     public static bool IsBrowsing()
     {
         return state == State.Browsing;
@@ -199,6 +219,11 @@ public static class PlayerState
     public static bool IsBuilding()
     {
         return state == State.Building;
+    }
+
+    public static bool IsAllocatingBackpack()
+    {
+        return state == State.AllocatingBackpack;
     }
 
 

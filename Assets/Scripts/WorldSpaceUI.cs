@@ -18,13 +18,6 @@ public class WorldSpaceUI : MonoBehaviour
         }
     }
 
-    Transform backgroundCollider;
-
-    private void Start()
-    {
-        backgroundCollider = transform.Find("Background").GetComponent<Transform>();
-    }
-
     private void Update()
     {
         if (Input.GetKey(KeyCode.Backspace))
@@ -35,12 +28,13 @@ public class WorldSpaceUI : MonoBehaviour
 
     public Vector3 GetMouseWorldPositionAtWorldSpaceUI()
     {
-        backgroundCollider.gameObject.SetActive(true);
+        UI_FullScreenUIDragCollider.i.Open(this);
+
         Vector3 positionToReturn = new Vector3(0, 0, 0);
         try
         {
             positionToReturn = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
-            backgroundCollider.gameObject.SetActive(false);
+            UI_FullScreenUIDragCollider.i.Close();
             return positionToReturn;
         }
         catch
