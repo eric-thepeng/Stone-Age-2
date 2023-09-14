@@ -29,7 +29,11 @@ public class BuildingManager : MonoBehaviour
     public bool building = false;
     public GameObject placeholdingBuilding;
 
+    public bool editing = false;
+    public bool deleting = false;
+
     public GameObject gridOperationManager;
+    public GameObject particlePrefab;
 
     float gridCellSize;
 
@@ -75,8 +79,8 @@ public class BuildingManager : MonoBehaviour
             currentDisplayStartPosition = startPosition;
 
             //set things active
-            indicationHolder.gameObject.SetActive(true);
-            indicationTemplate.gameObject.SetActive(true);
+            //indicationHolder.gameObject.SetActive(true);
+            //indicationTemplate.gameObject.SetActive(true);
 
             //add to display coords
             List<Vector2Int> coordsToPlace = new List<Vector2Int>();
@@ -269,6 +273,7 @@ public class BuildingManager : MonoBehaviour
             //{
         if (Input.GetMouseButton(0) )
         {
+
             if (GetSelectedBuildingISO() != null)
             {
                 if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
@@ -276,6 +281,7 @@ public class BuildingManager : MonoBehaviour
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
+                        Instantiate(particlePrefab, hitPoint, new Quaternion());
                         Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
                     }
                 }
@@ -294,7 +300,6 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.CancelPlacement(false);
                     i.CancelSelectedBuidling();
 
-                    i.selectedUIIB.SetSelectedBackground(false);
 
                 }
 
