@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.Example.AddProgramatically.Models;
 using Hypertonic.GridPlacement.Models;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Inventory;
@@ -29,8 +30,8 @@ public class BuildingManager : MonoBehaviour
     public bool building = false;
     public GameObject placeholdingBuilding;
 
-    public bool editing = false;
-    public bool deleting = false;
+    public bool editing;
+    public bool deleting;
 
     public GameObject gridOperationManager;
     public GameObject particlePrefab;
@@ -255,9 +256,12 @@ public class BuildingManager : MonoBehaviour
 
         hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
 
-        if (Input.GetMouseButtonDown(0) && GetSelectedBuildingISO() != null)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+            if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
             {
                 GridManagerAccessor.GridManager.CancelPlacement();
                 Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
@@ -267,14 +271,50 @@ public class BuildingManager : MonoBehaviour
 
                 objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
                 GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+            } else if (editing)
+            {
+
+                // 如果射线与Collider相交，则返回true并将碰撞信息存储在hitInfo中
+                if (Physics.Raycast(ray, out hitInfo))
+                {
+                    // 如果碰撞到的是自己所属的Collider，做出响应
+                    if (hitInfo.collider.GetComponent<GridObjectTags>() != null) {
+
+                        if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+                        {
+                            if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+                            {
+                                if (GridManagerAccessor.GridManager.ConfirmPlacement())
+                                {
+                                    Instantiate(particlePrefab, hitPoint, new Quaternion());
+                                    //editing = false;
+                                    //GridManagerAccessor.GridManager.emptycube
+                                }
+
+                            } else
+                            {
+                                GridManagerAccessor.GridManager.CancelPlacement(false);
+                                GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
+                            }
+
+
+                        } else
+                        {
+
+                            GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
+                        }
+
+                    }
+                }
             }
         }
-            //if (buildDragInfo == null) //NEW BUILD DRAG
-            //{
-        if (Input.GetMouseButton(0) )
+        //if (buildDragInfo == null) //NEW BUILD DRAG
+        //{
+
+        if (Input.GetMouseButton(0))
         {
 
-            if (GetSelectedBuildingISO() != null)
+            if (GetSelectedBuildingISO() != null && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
             {
                 if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
                 {
@@ -300,13 +340,9 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.CancelPlacement(false);
                     i.CancelSelectedBuidling();
 
-
                 }
 
                 //buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
-
-            } else
-            {
 
             }
         }

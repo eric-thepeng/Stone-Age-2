@@ -163,7 +163,7 @@ public class HomeGrid : MonoBehaviour
 
     public void ShowGridLines()
     {
-        girdMarksContainer.gameObject.SetActive(true);
+        //girdMarksContainer.gameObject.SetActive(true);
     }
 
     public void HideGridLines()
