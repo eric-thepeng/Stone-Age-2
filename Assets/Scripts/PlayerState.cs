@@ -122,7 +122,7 @@ public static class PlayerState
             if (state == State.AllocatingBackpack)
             {
                 ExitState();
-                EnterState(State.AllocatingBackpack);
+                EnterState(State.Browsing);
             }
         }
     }
