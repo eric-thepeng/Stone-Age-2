@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
-public class UI_BLDWorkshop : MonoBehaviour
+public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
 {
     [SerializeField] private GameObject uiGameObject = null;
+
+    [SerializeField] private UI_ISOIconDisplayBox productISODisplayBox = null;
+    
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
     [SerializeField] private Transform workshopRecipeDisplayContainer;
@@ -56,5 +59,19 @@ public class UI_BLDWorkshop : MonoBehaviour
     {
         TurnOffUI();
         workshop.ExitUI();
+    }
+
+    #region Interface ISOReceiver
+
+    public void ReceiveISOWithIndex(ItemScriptableObject iso, int index)
+    {
+        workshop.UpdateMaterialList(iso, index);
+    }
+
+    #endregion
+    
+    public void UpdateProductIcon(ItemScriptableObject iso = null)
+    {
+        productISODisplayBox.Display(iso);
     }
 }

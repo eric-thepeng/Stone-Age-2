@@ -15,11 +15,17 @@ public class BLDWorkshop : WorldInteractable
 
     private bool isWorking = false;
 
+    private ItemScriptableObject[] currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
+
+    private ItemScriptableObject currentProduct = null;
+
     private void Start()
     {
         ui = GetComponent<UI_BLDWorkshop>();
     }
 
+    #region interaction logic
+    
     protected override void BeginMousePress()
     {
         if (state == State.Idle)
@@ -63,4 +69,34 @@ public class BLDWorkshop : WorldInteractable
             Debug.LogError("Exit workshop UI while UI is not opened?");
         }
     }
+    
+    #endregion
+
+    public void UpdateMaterialList(ItemScriptableObject iso, int index)
+    {
+        currentMaterialsArray[index - 1] = iso;
+        CheckMaterialListMatch();
+    }
+
+    private void CheckMaterialListMatch()
+    {
+        SO_WorkshopRecipe[] allWorkshopRecipes = Resources.LoadAll<SO_WorkshopRecipe>("World Interaction/Workshop Recipes");
+        foreach (SO_WorkshopRecipe wr in allWorkshopRecipes)
+        {
+            //Check if there is a match.
+            if (wr.CheckMaterialMatch(currentMaterialsArray))
+            {
+                UpdateProduct(wr.product);
+                return;
+            }
+        }
+        UpdateProduct(null);
+    }
+
+    private void UpdateProduct(ItemScriptableObject iso = null)
+    {
+        ui.UpdateProductIcon(iso);
+        currentProduct = iso;
+    }
+    
 }

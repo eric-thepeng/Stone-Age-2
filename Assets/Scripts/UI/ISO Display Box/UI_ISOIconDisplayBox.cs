@@ -7,6 +7,9 @@ using UnityEngine;
 public class UI_ISOIconDisplayBox : MonoBehaviour
 {
     private SpriteRenderer sr;
+    [SerializeField] private int index;
+    public MonoBehaviour monoBehaviourWithIISOReceiver;
+    
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -14,6 +17,19 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
 
     public void Display(ItemScriptableObject iso)
     {
-        sr.sprite = iso.iconSprite;
+        if (iso == null)
+        {
+            Clear();
+        }
+        else
+        {
+            sr.sprite = iso.iconSprite;
+            ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+        }
+    }
+
+    public void Clear()
+    {
+        sr.sprite = null;
     }
 }

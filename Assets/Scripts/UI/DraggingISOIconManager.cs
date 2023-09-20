@@ -33,8 +33,9 @@ public class DraggingISOIconManager : MonoBehaviour
 
     public void DeleteDraggingISOIcon()
     {
-        UI_FullScreenUIDragCollider.i.Close();
+        Destroy(draggingGameObject);
         draggingGameObject = null;
+        UI_FullScreenUIDragCollider.i.Close();
         if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.WORLD_INTERACTABLE, true))
         {
             WorldUtility.GetMouseHitObject(WorldUtility.LAYER.WORLD_INTERACTABLE, true).GetComponent<UI_ISOIconDisplayBox>()?.Display(draggingIso);
