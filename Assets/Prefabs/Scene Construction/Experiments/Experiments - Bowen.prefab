@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSettings: {fileID: 11400000, guid: c5fb4d8f3c72247129b6ebf1151f6f11, type: 2}
   _gridEmptyObjectPrefab: {fileID: 1760037766763816239, guid: b42a30ae9953c448c93cf1050b0b8a27, type: 3}
+  _gridManager: {fileID: 0}
   operateStatus: 0
   itemPlaced: {fileID: 0}
 --- !u!114 &6575296075786377672
@@ -174,11 +175,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3997058859223342348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2009d447855804ce9b35097201f939ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider: {fileID: 0}
+  spriteToRender: {fileID: 0}
 --- !u!54 &8837978231183879986
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -322,6 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2009d447855804ce9b35097201f939ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider: {fileID: 0}
+  spriteToRender: {fileID: 0}
 --- !u!1 &9090270145958325828
 GameObject:
   m_ObjectHideFlags: 0
