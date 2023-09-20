@@ -12,7 +12,6 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
     [SerializeField] private bool clickToCancel = true;
     
     public MonoBehaviour monoBehaviourWithIISOReceiver;
-    public enum ClickEffect{Reset}
     
     private void Awake()
     {
@@ -21,6 +20,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
 
     public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon)
     {
+        if(!receiveDrop && triggerByDroppingISOIcon) return;
         if (iso == null)
         {
             Clear();
