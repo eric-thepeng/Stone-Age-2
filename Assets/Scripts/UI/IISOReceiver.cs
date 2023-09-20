@@ -11,4 +11,6 @@ public interface IISOReceiver
     }
 
     public void ReceiveISOWithIndex(ItemScriptableObject iso, int index);
+
+    public void CancelISO(int index);
 }

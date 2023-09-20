@@ -68,6 +68,11 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshop.UpdateMaterialList(iso, index);
     }
 
+    public void CancelISO(int index)
+    {
+        workshop.UpdateMaterialList(null, index);
+    }
+
     #endregion
     
     public void UpdateProductIcon(ItemScriptableObject iso = null)

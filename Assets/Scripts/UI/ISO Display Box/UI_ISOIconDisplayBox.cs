@@ -9,6 +9,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
     private SpriteRenderer sr;
     [SerializeField] private int index;
     public MonoBehaviour monoBehaviourWithIISOReceiver;
+    public enum ClickEffect{Reset}
     
     private void Awake()
     {
@@ -24,12 +25,18 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         else
         {
             sr.sprite = iso.iconSprite;
-            ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+            if(monoBehaviourWithIISOReceiver != null) ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
         }
     }
 
     public void Clear()
     {
         sr.sprite = null;
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        Clear();
+        if(monoBehaviourWithIISOReceiver != null) ((IISOReceiver)monoBehaviourWithIISOReceiver).CancelISO(index);
     }
 }
