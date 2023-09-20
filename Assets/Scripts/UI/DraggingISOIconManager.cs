@@ -38,7 +38,7 @@ public class DraggingISOIconManager : MonoBehaviour
         UI_FullScreenUIDragCollider.i.Close();
         if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.WORLD_INTERACTABLE, true))
         {
-            WorldUtility.GetMouseHitObject(WorldUtility.LAYER.WORLD_INTERACTABLE, true).GetComponent<UI_ISOIconDisplayBox>()?.Display(draggingIso);
+            WorldUtility.GetMouseHitObject(WorldUtility.LAYER.WORLD_INTERACTABLE, true).GetComponent<UI_ISOIconDisplayBox>()?.Display(draggingIso,true);
         }
         draggingIso = null;
     }

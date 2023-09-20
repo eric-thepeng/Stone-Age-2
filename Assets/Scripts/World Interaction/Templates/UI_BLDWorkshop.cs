@@ -77,6 +77,6 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     
     public void UpdateProductIcon(ItemScriptableObject iso = null)
     {
-        productISODisplayBox.Display(iso);
+        productISODisplayBox.Display(iso,false);
     }
 }

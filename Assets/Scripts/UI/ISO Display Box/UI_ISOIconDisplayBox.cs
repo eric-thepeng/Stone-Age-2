@@ -8,6 +8,9 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
 {
     private SpriteRenderer sr;
     [SerializeField] private int index;
+    [SerializeField] private bool receiveDrop = true;
+    [SerializeField] private bool clickToCancel = true;
+    
     public MonoBehaviour monoBehaviourWithIISOReceiver;
     public enum ClickEffect{Reset}
     
@@ -16,7 +19,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    public void Display(ItemScriptableObject iso)
+    public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon)
     {
         if (iso == null)
         {
@@ -36,6 +39,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        if(!clickToCancel) return;
         Clear();
         if(monoBehaviourWithIISOReceiver != null) ((IISOReceiver)monoBehaviourWithIISOReceiver).CancelISO(index);
     }
