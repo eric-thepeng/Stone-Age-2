@@ -9,6 +9,10 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     [SerializeField] private GameObject uiGameObject = null;
 
     [SerializeField] private UI_ISOIconDisplayBox productISODisplayBox = null;
+    [SerializeField] private UI_ISOIconDisplayBox material1ISODisplayBox = null;
+    [SerializeField] private UI_ISOIconDisplayBox material2ISODisplayBox = null;
+    [SerializeField] private UI_ISOIconDisplayBox material3ISODisplayBox = null;
+
     
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
@@ -78,5 +82,13 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     public void UpdateProductIcon(ItemScriptableObject iso = null)
     {
         productISODisplayBox.Display(iso,false);
+    }
+
+    public void ClearAllMaterialAndProductIcon()
+    {
+        productISODisplayBox.Clear();
+        material1ISODisplayBox.Clear();
+        material2ISODisplayBox.Clear();
+        material3ISODisplayBox.Clear();
     }
 }

@@ -62,6 +62,7 @@ public class BLDWorkshop : WorldInteractable
         {
             ui.TurnOffUI();
             state = State.Idle;
+            ClearAllMaterialAndProduct();
             PlayerState.OpenCloseAllocatingBackpack(false);
         }
         else
@@ -71,6 +72,13 @@ public class BLDWorkshop : WorldInteractable
     }
     
     #endregion
+
+    private void ClearAllMaterialAndProduct()
+    {
+        currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
+        currentProduct = null;
+        ui.ClearAllMaterialAndProductIcon();
+    }
 
     public void UpdateMaterialList(ItemScriptableObject iso, int index)
     {
