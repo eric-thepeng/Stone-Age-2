@@ -263,14 +263,16 @@ public class BuildingManager : MonoBehaviour
         {
             if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
             {
-                GridManagerAccessor.GridManager.CancelPlacement();
+                //GridManagerAccessor.GridManager.CancelPlacement();
+                GridManagerAccessor.GridManager.EndPaintMode(false);
+
                 Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
                 _position.y -= 10;
 
-                GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
+                //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
 
-                objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
-                GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
+                GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
             } else if (editing)
             {
 
@@ -293,7 +295,9 @@ public class BuildingManager : MonoBehaviour
 
                             } else
                             {
-                                GridManagerAccessor.GridManager.CancelPlacement(false);
+                                //GridManagerAccessor.GridManager.CancelPlacement(false);
+                                GridManagerAccessor.GridManager.EndPaintMode(false);
+
                                 GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                             }
 
@@ -327,17 +331,22 @@ public class BuildingManager : MonoBehaviour
                 }
                 if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
                 {
-                    
-                    GridManagerAccessor.GridManager.CancelPlacement();
+
+                    //GridManagerAccessor.GridManager.CancelPlacement();
+                    GridManagerAccessor.GridManager.EndPaintMode(false);
+
                     Vector3 _position = new Vector3(0, -10, 0);
-                    GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
-                    
-                    objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
-                    GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                    //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
+
+                    //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
+                    //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+
+                    GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
                 }
                 else
                 {
-                    GridManagerAccessor.GridManager.CancelPlacement(false);
+                    //GridManagerAccessor.GridManager.CancelPlacement(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(false);
                     i.CancelSelectedBuidling();
 
                 }

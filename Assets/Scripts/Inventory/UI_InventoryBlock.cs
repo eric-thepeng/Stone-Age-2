@@ -104,22 +104,26 @@ public class UI_InventoryBlock : MonoBehaviour
                 BuildingManager.i.CancelSelectedBuidling();
 
                 SetSelectedBackground(false);
-                GridManagerAccessor.GridManager.CancelPlacement(false);
+                //GridManagerAccessor.GridManager.CancelPlacement(false);
+                GridManagerAccessor.GridManager.EndPaintMode(false);
 
             } else
             {
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
 
-                GridManagerAccessor.GridManager.CancelPlacement();
+                //GridManagerAccessor.GridManager.CancelPlacement();
+                GridManagerAccessor.GridManager.EndPaintMode(false);
 
                 Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
 
-                GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
+                //GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
 
-                objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
-                GridManagerAccessor.GridManager.CancelPlacement(false);
-                GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
-                //GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
+                //objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
+                //GridManagerAccessor.GridManager.CancelPlacement(false);
+                GridManagerAccessor.GridManager.EndPaintMode(false);
+
+                //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
 
                 SetSelectedBackground(true);
             }
