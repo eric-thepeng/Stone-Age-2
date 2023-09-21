@@ -13,6 +13,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     [SerializeField] private UI_ISOIconDisplayBox material2ISODisplayBox = null;
     [SerializeField] private UI_ISOIconDisplayBox material3ISODisplayBox = null;
 
+    [SerializeField] private GameObject startCraftingButton = null;
     
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
@@ -65,6 +66,11 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshop.ExitUI();
     }
 
+    public void StartCraftingButtonClicked()
+    {
+        workshop.StartCrafting();
+    }
+
     #region Interface ISOReceiver
 
     public void ReceiveISOWithIndex(ItemScriptableObject iso, int index)
@@ -82,6 +88,14 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     public void UpdateProductIcon(ItemScriptableObject iso = null)
     {
         productISODisplayBox.Display(iso,false);
+        if (iso == null)
+        {
+            startCraftingButton.SetActive(false);
+        }
+        else
+        {
+            startCraftingButton.SetActive(true);
+        }
     }
 
     public void ClearAllMaterialAndProductIcon()

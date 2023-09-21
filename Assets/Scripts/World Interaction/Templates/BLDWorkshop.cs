@@ -106,5 +106,10 @@ public class BLDWorkshop : WorldInteractable
         ui.UpdateProductIcon(iso);
         currentProduct = iso;
     }
+
+    public void StartCrafting()
+    {
+        ExitUI();
+    }
     
 }
