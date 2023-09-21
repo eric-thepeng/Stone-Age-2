@@ -19,12 +19,22 @@ public class Obstacle : MonoBehaviour
 
         spriteToRender = gridOperationManager.ObstacleSprite;
 
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            rb = gameObject.AddComponent<Rigidbody>();
+
+        if (GetComponent<BoxCollider>() == null)
+            gameObject.AddComponent<BoxCollider>();
+
         boxColliders = gameObject.GetComponents<BoxCollider>();
 
         // 获取Box Collider的尺寸和位置
 
         foreach (BoxCollider boxCollider in boxColliders)
         {
+            boxCollider.isTrigger = true;
+            rb.useGravity = false;
+            rb.isKinematic = true;
 
             Vector3 colliderSize = boxCollider.bounds.size;
             Vector2 colliderCenter = boxCollider.bounds.center;
