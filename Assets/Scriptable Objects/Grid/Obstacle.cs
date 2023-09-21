@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Hypertonic.GridPlacement;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Obstacle : MonoBehaviour
 {
     //[SerializeField]
@@ -12,7 +14,6 @@ public class Obstacle : MonoBehaviour
 
     private GridOperationManager gridOperationManager;
 
-
     void Start()
     {
         gridOperationManager = FindObjectOfType<GridOperationManager>();
@@ -20,11 +21,6 @@ public class Obstacle : MonoBehaviour
         spriteToRender = gridOperationManager.ObstacleSprite;
 
         Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody>();
-
-        if (GetComponent<BoxCollider>() == null)
-            gameObject.AddComponent<BoxCollider>();
 
         boxColliders = gameObject.GetComponents<BoxCollider>();
 
@@ -44,7 +40,7 @@ public class Obstacle : MonoBehaviour
             spriteObjs.Add(spriteObj);
             SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
             imageMask.sprite = spriteToRender;
-            //ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
+            ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
 
             float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
             float SpriteSizeXCeiled = (float)Mathf.Ceil(colliderSize.x / cellSize) * cellSize;
@@ -72,8 +68,8 @@ public class Obstacle : MonoBehaviour
                 newPosition.z += cellSize / 2;
             }
 
-            //obsMask.cellSizeX = SpriteSizeXCeiled;
-            //obsMask.cellSizeY = SpriteSizeZCeiled;
+            obsMask.cellSizeX = SpriteSizeXCeiled;
+            obsMask.cellSizeY = SpriteSizeZCeiled;
 
             // 定位Sprite到Box Collider的底部
             //spriteObj.transform.SetParent(this.transform);
