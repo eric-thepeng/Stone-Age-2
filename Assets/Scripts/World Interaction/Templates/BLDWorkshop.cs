@@ -17,11 +17,26 @@ public class BLDWorkshop : WorldInteractable
 
     private ItemScriptableObject[] currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
 
-    private ItemScriptableObject currentProduct = null;
+    private SO_WorkshopRecipe currentRecipe = null;
+
+    [SerializeField] private GameObject workshopCraftingUI = null;
+    private WorkshopCraftingController wcc;
+
+    private void Awake()
+    {
+        wcc = new WorkshopCraftingController(workshopCraftingUI);
+
+    }
 
     private void Start()
     {
         ui = GetComponent<UI_BLDWorkshop>();
+
+    }
+
+    private void Update()
+    {
+        wcc.UpdateCraftingUI(Time.deltaTime);
     }
 
     #region interaction logic
@@ -30,10 +45,7 @@ public class BLDWorkshop : WorldInteractable
     {
         if (state == State.Idle)
         {
-            ui.TurnOnUI();
-            state = State.Assigning;
-            PlayerState.OpenCloseAllocatingBackpack(true);
-            CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,15), 100f);
+            EnterUI();
         }
         base.BeginMousePress();
     }
@@ -56,13 +68,28 @@ public class BLDWorkshop : WorldInteractable
         base.EndMouseHover();
     }*/
 
+    public void EnterUI()
+    {
+        ui.TurnOnUI();
+        state = State.Assigning;
+        PlayerState.OpenCloseAllocatingBackpack(true);
+        CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,15), 100f);
+    }
+
     public void ExitUI()
     {
         if (state == State.Assigning)
         {
             ui.TurnOffUI();
             state = State.Idle;
-            ClearAllMaterialAndProduct();
+            if (wcc.isCrafting)
+            {
+                
+            }
+            else
+            {
+                ClearAllMaterialAndProduct();
+            }
             PlayerState.OpenCloseAllocatingBackpack(false);
         }
         else
@@ -76,7 +103,7 @@ public class BLDWorkshop : WorldInteractable
     private void ClearAllMaterialAndProduct()
     {
         currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
-        currentProduct = null;
+        currentRecipe = null;
         ui.ClearAllMaterialAndProductIcon();
     }
 
@@ -94,22 +121,89 @@ public class BLDWorkshop : WorldInteractable
             //Check if there is a match.
             if (wr.CheckMaterialMatch(currentMaterialsArray))
             {
-                UpdateProduct(wr.product);
+                UpdateProductAndRecipe(wr);
                 return;
             }
         }
-        UpdateProduct(null);
+        UpdateProductAndRecipe(null);
     }
 
-    private void UpdateProduct(ItemScriptableObject iso = null)
+    private void UpdateProductAndRecipe(SO_WorkshopRecipe wr = null)
     {
-        ui.UpdateProductIcon(iso);
-        currentProduct = iso;
+        ui.UpdateProductIcon(wr?.product);
+        currentRecipe = wr;
     }
 
     public void StartCrafting()
     {
-        ExitUI();
+        wcc.StartAndSetUpCrafting(currentRecipe);
+        ExitUI(); //put this after wwc.StartAndSetUpCrafting to avoid currentRecipe reset
+    }
+    
+}
+
+public class WorkshopCraftingController
+{
+    private SO_WorkshopRecipe craftingWR;
+    public bool isCrafting;
+    private GameObject ui;
+    private UI_ISOIconDisplayBox productDisplayBox;
+    private CircularUI circularUI;
+
+    private float currentCraftingTime = 0;
+    
+    enum State {Idle, Crafting, HiddenCrafting}
+
+    public WorkshopCraftingController(GameObject wwcUI)
+    {
+        ui = wwcUI;
+    }
+
+    public void StartAndSetUpCrafting(SO_WorkshopRecipe recipeToCraft)
+    {
+        craftingWR = recipeToCraft;
+        currentCraftingTime = 0;
+        ShowCraftingUI();
+        productDisplayBox = ui.GetComponentInChildren<UI_ISOIconDisplayBox>();
+        circularUI = ui.GetComponentInChildren<CircularUI>();
+        isCrafting = true;
+        productDisplayBox.Display(craftingWR.product, false);
+    }
+    
+    public void StopCrafting()
+    {
+        isCrafting = false;
+        HideCraftingUI();
+    }
+    
+    public void UpdateCraftingUI(float deltaTime)
+    {
+        if(!isCrafting) return;
+        currentCraftingTime += deltaTime;
+        circularUI.SetCircularUIPercentage(currentCraftingTime * 100f/ craftingWR.workTime,false);
+        if (currentCraftingTime >= craftingWR.workTime)
+        {
+            currentCraftingTime = 0;
+            
+            SpawnProduct();
+        }
+    }
+
+    public void ShowCraftingUI()
+    {
+        ui.SetActive(true);
+    }
+    
+
+    public void HideCraftingUI()
+    {
+        productDisplayBox.Clear();
+        ui.SetActive(false);
+    }
+
+    public void SpawnProduct()
+    {
+        Inventory.i.AddInventoryItem(craftingWR.product);
     }
     
 }
