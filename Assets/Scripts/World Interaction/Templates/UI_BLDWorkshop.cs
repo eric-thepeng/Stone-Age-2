@@ -71,6 +71,11 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshop.StartCrafting();
     }
 
+    public void AdjustProductAmountClicked(int amount)
+    {
+        
+    }
+
     #region Interface ISOReceiver
 
     public void ReceiveISOWithIndex(ItemScriptableObject iso, int index)
