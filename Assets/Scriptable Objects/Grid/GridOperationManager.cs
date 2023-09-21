@@ -4,8 +4,8 @@ using Hypertonic.GridPlacement;
 
 public class GridOperationManager : MonoBehaviour
 {
-    [SerializeField]
-    private GridSettings _gridSettings;
+    //[SerializeField]
+    public GridSettings _gridSettings;
 
     [SerializeField]
     private GameObject _gridEmptyObjectPrefab;
@@ -14,6 +14,8 @@ public class GridOperationManager : MonoBehaviour
 
     public bool operateStatus;
     public GameObject itemPlaced;
+
+    public Sprite ObstacleSprite;
 
     private void Start()
     {
@@ -69,6 +71,23 @@ public class GridOperationManager : MonoBehaviour
         }
     }
 
+    public Vector2Int GetCellIndexFromWorldPosition(Vector3 WorldPosition)
+    {
+        Vector3 _gridCenterPosition = _gridSettings.GridPosition;
+
+        int cellIndexX = Mathf.FloorToInt((WorldPosition.x - (_gridCenterPosition.x - _gridSettings.AmountOfCellsX * _gridSettings.CellSize / 2)) / _gridSettings.CellSize);
+        int cellIndexZ = Mathf.FloorToInt((WorldPosition.z - (_gridCenterPosition.z - _gridSettings.AmountOfCellsY * _gridSettings.CellSize / 2)) / _gridSettings.CellSize);
+
+        return new Vector2Int(cellIndexX, cellIndexZ);
+    }
+
+    public Vector2 GetWorldPositionFromCellIndex(Vector2 CellIndex)
+    {
+        double posX = (_gridSettings.GridPosition.x - _gridSettings.AmountOfCellsX * _gridSettings.CellSize / 2) + (CellIndex.x + 0.5) * _gridSettings.CellSize;
+        double posY = (_gridSettings.GridPosition.z - _gridSettings.AmountOfCellsY * _gridSettings.CellSize / 2) + (CellIndex.y + 0.5) * _gridSettings.CellSize;
+
+        return new Vector2((float)posX, (float)posY);
+    }
 
     private IEnumerator CheckForInput()
     {
