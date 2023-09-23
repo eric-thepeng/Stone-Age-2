@@ -281,8 +281,8 @@ public class BuildingManager : MonoBehaviour
                 //GridManagerAccessor.GridManager.CancelPlacement();
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
-                Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
-                _position.y -= 10;
+                //Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
+                //_position.y -= 10;
 
                 //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
 
@@ -334,7 +334,7 @@ public class BuildingManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
 
-            if (GetSelectedBuildingISO() != null && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
+            if (GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
             {
                 if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
                 {
