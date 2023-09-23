@@ -151,6 +151,26 @@ public class BLDWorkshop : WorldInteractable
     
     public void AdjustProductAmountClicked(int amount)
     {
+        if (amount > 0) // putting iso into workshop
+        {
+            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            {
+                if (Inventory.i.GetISOInstockAmount(iso) <= 0) return;
+            }
+            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            {
+                Inventory.i.InWorkshopItem(iso, true);
+            }
+        }
+        else // putting iso into inventory
+        {
+            if(wcc.GetCurrentCraftingAmount() < amount || wcc.GetCurrentCraftingAmount() <= 0) return;
+            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            {
+                Inventory.i.InWorkshopItem(iso, false);
+            }
+        }
+        
         wcc.AdjustCurrentCraftingAmount(amount);
     }
 
@@ -227,6 +247,11 @@ public class WorkshopCraftingController
         Inventory.i.AddInventoryItem(craftingWR.product);
     }
 
+    public int GetCurrentCraftingAmount()
+    {
+        return currentCraftingAmount;
+    }
+    
     public void ResetCurrentCraftingAmount()
     {
         currentCraftingAmount = 0;
