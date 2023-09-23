@@ -23,15 +23,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
     public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon, int amount = -1)
     {
         if(!receiveDrop && triggerByDroppingISOIcon) return;
-        if (amount == -1)
-        {
-            textAmount.SetActive(false);
-        }
-        else
-        {
-            textAmount.SetActive(true);
-            textAmount.GetComponent<TextMeshPro>().text = "" + amount;
-        }
+        DisplayAmount(amount != -1, amount);
         if (iso == null)
         {
             Clear();
@@ -40,6 +32,24 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         {
             sr.sprite = iso.iconSprite;
             if(monoBehaviourWithIISOReceiver != null) ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+        }
+    }
+
+    public void DisplayAmount(bool display, int amount)
+    {
+        DisplayAmount(display);
+        textAmount.GetComponent<TextMeshPro>().text = "" + amount;
+    }
+
+    public void DisplayAmount(bool display)
+    {
+        if (display)
+        {
+            textAmount.SetActive(true);
+        }
+        else
+        {
+            textAmount.SetActive(false);
         }
     }
 

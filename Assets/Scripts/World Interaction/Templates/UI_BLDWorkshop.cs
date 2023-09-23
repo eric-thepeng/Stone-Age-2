@@ -71,11 +71,6 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshop.StartCrafting();
     }
 
-    public void AdjustProductAmountClicked(int amount)
-    {
-        
-    }
-
     #region Interface ISOReceiver
 
     public void ReceiveISOWithIndex(ItemScriptableObject iso, int index)
@@ -92,15 +87,32 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     
     public void UpdateProductIcon(ItemScriptableObject iso = null)
     {
-        productISODisplayBox.Display(iso,false);
         if (iso == null)
         {
+            productISODisplayBox.Display(iso,false);
             startCraftingButton.SetActive(false);
         }
         else
         {
+            productISODisplayBox.Display(iso,false,0);
             startCraftingButton.SetActive(true);
         }
+    }
+
+    public void UpdateProductAndRecipeAmount(bool material1, bool material2, bool material3, int amount)
+    {
+        material1ISODisplayBox.DisplayAmount(material1, amount);
+        material2ISODisplayBox.DisplayAmount(material2, amount);
+        material3ISODisplayBox.DisplayAmount(material3, amount);
+        productISODisplayBox.DisplayAmount(true, amount);
+    }
+
+    public void ClearProductAndRecipeAmount()
+    {
+        material1ISODisplayBox.DisplayAmount(false, 0);
+        material2ISODisplayBox.DisplayAmount(false, 0);
+        material3ISODisplayBox.DisplayAmount(false, 0);
+        productISODisplayBox.DisplayAmount(false, 0);
     }
 
     public void ClearAllMaterialAndProductIcon()

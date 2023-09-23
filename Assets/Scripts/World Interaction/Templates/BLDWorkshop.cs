@@ -131,6 +131,15 @@ public class BLDWorkshop : WorldInteractable
     private void UpdateProductAndRecipe(SO_WorkshopRecipe wr = null)
     {
         ui.UpdateProductIcon(wr?.product);
+        if (wr != null)
+        {
+            ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, 0);
+            wcc.ResetCurrentCraftingAmount();
+        }
+        else
+        {
+            ui.ClearProductAndRecipeAmount();
+        }
         currentRecipe = wr;
     }
 
@@ -138,6 +147,11 @@ public class BLDWorkshop : WorldInteractable
     {
         wcc.StartAndSetUpCrafting(currentRecipe);
         ExitUI(); //put this after wwc.StartAndSetUpCrafting to avoid currentRecipe reset
+    }
+    
+    public void AdjustProductAmountClicked(int amount)
+    {        
+        ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, wcc.AdjustCurrentCraftingAmount(amount));
     }
     
 }
@@ -151,6 +165,8 @@ public class WorkshopCraftingController
     private CircularUI circularUI;
 
     private float currentCraftingTime = 0;
+
+    private int currentCraftingAmount = 0;
     
     enum State {Idle, Crafting, HiddenCrafting}
 
@@ -204,6 +220,17 @@ public class WorkshopCraftingController
     public void SpawnProduct()
     {
         Inventory.i.AddInventoryItem(craftingWR.product);
+    }
+
+    public void ResetCurrentCraftingAmount()
+    {
+        
+    }
+
+    public int AdjustCurrentCraftingAmount(int delta)
+    {
+        currentCraftingAmount += delta;
+        return currentCraftingAmount;
     }
     
 }
