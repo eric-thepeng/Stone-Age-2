@@ -41,11 +41,25 @@ public class BuildingManager : MonoBehaviour
     [SerializeField]
     private Transform initialTransform;
 
+
+    [SerializeField]
+    private Transform editingIndicator;
+
+    [SerializeField]
+    private Transform deletingIndicator;
+
+    [SerializeField]
+    private Transform editingButton;
+
+    [SerializeField]
+    private Transform deletingButton;
+
     class GridIndication
     {
         Transform indicationHolder;
         Transform indicationTemplate;
         List<Transform> displayingBlocks;
+
 
         Vector3 currentDisplayStartPosition = new Vector3(0,0,0); 
 
@@ -63,7 +77,7 @@ public class BuildingManager : MonoBehaviour
             indicationTemplate.gameObject.SetActive(false);
             indicationHolder.gameObject.SetActive(false);
 
-            for(int i = displayingBlocks.Count-1; i>=0; i--)
+            for (int i = displayingBlocks.Count-1; i>=0; i--)
             {
                 Destroy(displayingBlocks[i].gameObject);
             }
@@ -234,6 +248,7 @@ public class BuildingManager : MonoBehaviour
     {
         gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
+        
     }
 
     void Update()
@@ -288,7 +303,8 @@ public class BuildingManager : MonoBehaviour
                             {
                                 if (GridManagerAccessor.GridManager.ConfirmPlacement())
                                 {
-                                    Instantiate(particlePrefab, hitPoint, new Quaternion());
+                                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                                    //Instantiate(particlePrefab, hitPoint, new Quaternion());
                                     //editing = false;
                                     //GridManagerAccessor.GridManager.emptycube
                                 }
@@ -438,7 +454,12 @@ public class BuildingManager : MonoBehaviour
     public void OpenBuilding()
     {
         building = true;
-        foreach(HomeGrid hg in allHomeGrids)
+        editingButton.gameObject.SetActive(true);
+        deletingButton.gameObject.SetActive(true);
+        editingIndicator.gameObject.SetActive(false);
+        editingIndicator.gameObject.SetActive(false);
+
+        foreach (HomeGrid hg in allHomeGrids)
         {
             hg.ShowGridLines();
         }
@@ -447,6 +468,8 @@ public class BuildingManager : MonoBehaviour
     public void CloseBuilding()
     {
         building = false;
+        editingButton.gameObject.SetActive(false);
+        deletingButton.gameObject.SetActive(false);
         foreach (HomeGrid hg in allHomeGrids)
         {
             hg.HideGridLines();
@@ -482,7 +505,20 @@ public class BuildingManager : MonoBehaviour
         UI_BuildingPointer.i.TurnOff();
     }
 
-
+    public void ToggleEditing()
+    {
+        if (editing && GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+        {
+            editing = false;
+            editingIndicator.gameObject.SetActive(false);
+        } else if (!editing)
+        {
+            CancelSelectedBuidling();
+            GridManagerAccessor.GridManager.EndPaintMode(false);
+            editing = true;
+            editingIndicator.gameObject.SetActive(true);
+        }
+    }
 
 
 

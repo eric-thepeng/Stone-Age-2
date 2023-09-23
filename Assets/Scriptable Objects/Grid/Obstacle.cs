@@ -51,7 +51,7 @@ public class Obstacle : MonoBehaviour
 
             Camera mainCamera = Camera.main;
             //Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
-            Vector2Int cellIndex = gridOperationManager.GetCellIndexFromWorldPosition(gameObject.transform.position);
+            Vector2Int cellIndex = gridOperationManager.GetCellIndexFromWorldPosition(gameObject.transform.position + boxCollider.center);
 
             //obsMask.cellX = cellIndex.x;
             //obsMask.cellY = cellIndex.y;
