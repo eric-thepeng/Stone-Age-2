@@ -24,7 +24,7 @@ public class BLDWorkshop : WorldInteractable
 
     private void Awake()
     {
-        wcc = new WorkshopCraftingController(workshopCraftingUI);
+        wcc = new WorkshopCraftingController(this, workshopCraftingUI);
 
     }
 
@@ -80,7 +80,7 @@ public class BLDWorkshop : WorldInteractable
     {
         if (state == State.Assigning)
         {
-            ui.TurnOffUI();
+            ui.TurnOffUIDisplay();
             state = State.Idle;
             if (wcc.isCrafting)
             {
@@ -150,14 +150,20 @@ public class BLDWorkshop : WorldInteractable
     }
     
     public void AdjustProductAmountClicked(int amount)
-    {        
-        ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, wcc.AdjustCurrentCraftingAmount(amount));
+    {
+        wcc.AdjustCurrentCraftingAmount(amount);
+    }
+
+    public void AdjustProductAmountUI(int amount)
+    {
+        ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
     }
     
 }
 
 public class WorkshopCraftingController
 {
+    private BLDWorkshop workshop;
     private SO_WorkshopRecipe craftingWR;
     public bool isCrafting;
     private GameObject ui;
@@ -165,13 +171,11 @@ public class WorkshopCraftingController
     private CircularUI circularUI;
 
     private float currentCraftingTime = 0;
-
     private int currentCraftingAmount = 0;
     
-    enum State {Idle, Crafting, HiddenCrafting}
-
-    public WorkshopCraftingController(GameObject wwcUI)
+    public WorkshopCraftingController(BLDWorkshop workshop, GameObject wwcUI)
     {
+        this.workshop = workshop;
         ui = wwcUI;
     }
 
@@ -186,7 +190,7 @@ public class WorkshopCraftingController
         productDisplayBox.Display(craftingWR.product, false);
     }
     
-    public void StopCrafting()
+    public void ExitCrafting()
     {
         isCrafting = false;
         HideCraftingUI();
@@ -195,12 +199,13 @@ public class WorkshopCraftingController
     public void UpdateCraftingUI(float deltaTime)
     {
         if(!isCrafting) return;
+        if(currentCraftingAmount == 0) ExitCrafting();
         currentCraftingTime += deltaTime;
         circularUI.SetCircularUIPercentage(currentCraftingTime * 100f/ craftingWR.workTime,false);
         if (currentCraftingTime >= craftingWR.workTime)
         {
             currentCraftingTime = 0;
-            
+            AdjustCurrentCraftingAmount(-1);
             SpawnProduct();
         }
     }
@@ -224,12 +229,14 @@ public class WorkshopCraftingController
 
     public void ResetCurrentCraftingAmount()
     {
-        
+        currentCraftingAmount = 0;
     }
 
     public int AdjustCurrentCraftingAmount(int delta)
     {
         currentCraftingAmount += delta;
+        //change inventory
+        workshop.AdjustProductAmountUI(currentCraftingAmount);
         return currentCraftingAmount;
     }
     

@@ -56,6 +56,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
     public void Clear()
     {
         sr.sprite = null;
+        DisplayAmount(false,0);
     }
 
     private void OnMouseUpAsButton()

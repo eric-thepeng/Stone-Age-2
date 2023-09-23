@@ -54,7 +54,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshopRecipeDisplayTemplate.gameObject.SetActive(false);
     }
 
-    public void TurnOffUI()
+    public void TurnOffUIDisplay()
     {
         UI_FullScreenShading.i.HideShading();
         uiGameObject.SetActive(false);
@@ -62,8 +62,8 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
 
     public void ExitButtonClicked()
     {
-        TurnOffUI();
         workshop.ExitUI();
+        //TurnOffUIDisplay();
     }
 
     public void StartCraftingButtonClicked()
