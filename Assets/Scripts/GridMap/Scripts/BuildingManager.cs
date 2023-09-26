@@ -333,19 +333,21 @@ public class BuildingManager : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-
             if (GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
             {
-                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+                BuildingISO selectedISO = GetSelectedBuildingISO();
+                if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
-                        Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
+                        Inventory.i.InBuildItem(selectedISO, true);
+                        
+                        //print(Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()));
                     }
                 }
-                if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+                if (selectedISO != null && Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
 
                     //GridManagerAccessor.GridManager.CancelPlacement();
@@ -357,13 +359,14 @@ public class BuildingManager : MonoBehaviour
                     //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
                     //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
 
-                    GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
+                    GridManagerAccessor.GridManager.StartPaintMode(selectedISO.GetBuildingPrefab());
                 }
                 else
                 {
                     //GridManagerAccessor.GridManager.CancelPlacement(false);
                     GridManagerAccessor.GridManager.EndPaintMode(false);
                     i.CancelSelectedBuidling();
+                    Debug.Log("CancelSelectedBuidling");
 
                 }
 
