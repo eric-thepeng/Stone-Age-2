@@ -107,12 +107,18 @@ public class UI_InventoryBlock : MonoBehaviour
                 //GridManagerAccessor.GridManager.CancelPlacement(false);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
+                BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+
             } else
             {
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
                 if(BuildingManager.i.editing)
                 {
                     BuildingManager.i.ToggleEditing();
+                }
+                if (BuildingManager.i.deleting)
+                {
+                    BuildingManager.i.ToggleDeleting();
                 }
                 //GridManagerAccessor.GridManager.CancelPlacement();
                 GridManagerAccessor.GridManager.EndPaintMode(false);
