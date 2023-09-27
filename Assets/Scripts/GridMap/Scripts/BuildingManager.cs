@@ -37,6 +37,7 @@ public class BuildingManager : MonoBehaviour
     public GameObject gridOperationManager;
     public GameObject particlePrefab;
 
+    Vector3 hitPoint;
     float gridCellSize;
 
     [SerializeField]
@@ -280,11 +281,11 @@ public class BuildingManager : MonoBehaviour
         //set up homegrid, hitpoint, and display
         HomeGrid hg = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true).GetComponent<HomeGrid>();
 
-        Vector3 hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);
+        hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);
 
         //gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
 
-        hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
+        //hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
@@ -490,6 +491,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
+                        Instantiate(particlePrefab, hitPoint, new Quaternion());
                         GridManagerAccessor.GridManager.EndPaintMode(false);
 
                         gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
@@ -504,6 +506,7 @@ public class BuildingManager : MonoBehaviour
                     //GridManagerAccessor.GridManager.CancelPlacement(false);
                     GridManagerAccessor.GridManager.EndPaintMode(false);
 
+                    Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                 }
 
@@ -565,6 +568,7 @@ public class BuildingManager : MonoBehaviour
         {
             if (!handleItem.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
             {
+                Instantiate(particlePrefab, hitPoint, new Quaternion());
                 GridManagerAccessor.GridManager.DeleteObject(handleItem);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
@@ -598,6 +602,7 @@ public class BuildingManager : MonoBehaviour
                 }
                 else
                 {
+                    Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.DeleteObject(hitInfo.collider.gameObject);
                     GridManagerAccessor.GridManager.EndPaintMode(false);
 
