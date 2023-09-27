@@ -304,6 +304,8 @@ public class BuildingManager : MonoBehaviour
                                 if (GridManagerAccessor.GridManager.ConfirmPlacement())
                                 {
                                     GridManagerAccessor.GridManager.EndPaintMode(false);
+
+                                    gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
                                     //Instantiate(particlePrefab, hitPoint, new Quaternion());
                                     //editing = false;
                                     //GridManagerAccessor.GridManager.emptycube
@@ -347,13 +349,14 @@ public class BuildingManager : MonoBehaviour
                         //print(Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()));
                     }
                 }
+
                 if (selectedISO != null && Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
 
                     //GridManagerAccessor.GridManager.CancelPlacement();
                     GridManagerAccessor.GridManager.EndPaintMode(false);
 
-                    Vector3 _position = new Vector3(0, -10, 0);
+                    //Vector3 _position = new Vector3(0, -10, 0);
                     //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
 
                     //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
@@ -367,6 +370,8 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.EndPaintMode(false);
                     i.CancelSelectedBuidling();
                     Debug.Log("CancelSelectedBuidling");
+
+                    gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
                 }
 
@@ -396,63 +401,6 @@ public class BuildingManager : MonoBehaviour
         //}
     }
 
-
-    private async Task PlaceObjectsToGrid(BuildDragInfo buildDragInfo)
-    {
-        foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
-        {
-            //print(i);
-            //hg.BuildWithCoord(i.x, i.y);
-
-            GameObject placingObject = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), initialTransform);
-
-
-            if (GridManagerAccessor.GridManager.CanAddObjectAtCell(placingObject,i))
-            {
-
-                await GridManagerAccessor.GridManager.AddObjectToGrid(placingObject, i, Hypertonic.GridPlacement.Enums.ObjectAlignment.UPPER_LEFT);
-
-                Inventory.i.InBuildItem(GetSelectedBuildingISO(), true);
-
-                if (Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) == 0)
-                {
-                    BuildingManager.i.CancelSelectedBuidling();
-                }
-
-            } else
-            {
-                Destroy(placingObject);
-            }
-
-            // i should change this code 07/26 - bowen
-            // to-do list:
-
-            // 同步homeGrid 和 hyperGrid; homeGrid负责indicator, hyper负责储存和放置
-            // 1. check which block mouse is hit on
-            // 2. build at hypergrid programmly
-            // (√ finished at 08/02)
-
-            // 08/03
-            // 1. add stock check & overlap check (at indication & placing part)
-
-            // reference: HomeGrid.BuildWithCoord
-            //
-
-        }
-
-        //buildDragInfo.DestroyPlaceholders();
-        //buildDragInfo = null;
-        //UI_BuildingPointer.i.SetPrebuildUseAmount(0);
-
-        //for (int i = 0; i < _gridObjectSpawnDatas.Count; i++)
-        //{
-        //    GridObjectSpawnData gridObjectPositionData = _gridObjectSpawnDatas[i];
-        //    GameObject gridObject = Instantiate(gridObjectPositionData.GridObject);
-        //    gridObject.transform.localRotation = Quaternion.Euler(gridObjectPositionData.ObjectRotation);
-
-        //    await GridManagerAccessor.GridManager.AddObjectToGrid(gridObject, gridObjectPositionData.GridCellIndex, gridObjectPositionData.ObjectAlignment);
-        //}
-    }
 
     public void OpenBuilding()
     {
@@ -520,6 +468,8 @@ public class BuildingManager : MonoBehaviour
             GridManagerAccessor.GridManager.EndPaintMode(false);
             editing = true;
             editingIndicator.gameObject.SetActive(true);
+
+            gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
         }
     }
 

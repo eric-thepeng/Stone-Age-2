@@ -110,7 +110,10 @@ public class UI_InventoryBlock : MonoBehaviour
             } else
             {
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-
+                if(BuildingManager.i.editing)
+                {
+                    BuildingManager.i.ToggleEditing();
+                }
                 //GridManagerAccessor.GridManager.CancelPlacement();
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
