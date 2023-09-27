@@ -7,46 +7,60 @@ using UnityEngine;
     /// in the scene. If it is, it will mark the component as having an invalid placement.
     /// </summary>
     [RequireComponent(typeof(CustomValidator))]
-    public class GridValidator : MonoBehaviour
+public class GridValidator : MonoBehaviour
+{
+    private CustomValidator _customValidator;
+    private bool _collisionStay = false;
+
+    private void Awake()
     {
-        private CustomValidator _customValidator;
+        _customValidator = GetComponent<CustomValidator>();
+    }
 
-        private void Awake()
-        {
-            _customValidator = GetComponent<CustomValidator>();
-        }
+    /// <summary>
+    /// We will check what object we hit. If it a wall object we'll set the 
+    /// custom validation to be invalid.
+    /// </summary>
+    /// <param name="other"></param>
 
-        /// <summary>
-        /// We will check what object we hit. If it a wall object we'll set the 
-        /// custom validation to be invalid.
-        /// </summary>
-        /// <param name="other"></param>
-        private void OnTriggerEnter(Collider other)
-        {
-            // To avoid adding a "wall" tag to the package, we will check the object
-            // we've collided with based on if it has the demo wall component. You could also check 
-            // which object it is by checking the name or however else you wish.
-            if(other.gameObject.GetComponent<Obstacle>() != null)
-            {
-                HandleEnteredWallArea();
-            }
-        }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.GetComponent<Obstacle>() != null)
-            {
-                HandleExitedWallArea();
-            }
-        }
 
-        private void HandleEnteredWallArea()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
         {
-            _customValidator.SetValidation(false);
-        }
-
-        private void HandleExitedWallArea()
-        {
-            _customValidator.SetValidation(true);
+            HandleEnteredWallArea();
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
+        {
+            if (!_collisionStay)
+            HandleExitedWallArea();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
+        {
+            _collisionStay = true;
+        } else
+        {
+            _collisionStay = false;
+        }
+    }
+
+
+    private void HandleEnteredWallArea()
+    {
+        _customValidator.SetValidation(false);
+    }
+
+    private void HandleExitedWallArea()
+    {
+        _customValidator.SetValidation(true);
+    }
+}
