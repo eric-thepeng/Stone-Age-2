@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera to use this.
@@ -23,6 +24,7 @@ public class WorldUtility : MonoBehaviour //Attach a physical raycast to camera 
         public static LayerID EXPLORATION_SPOT_VIEWER = new LayerID(LayerMask.GetMask("Exploration Spot Viewer"));
         public static LayerID RECIPE_BLOCK_VIEWER = new LayerID(LayerMask.GetMask("Recipe Block Viewer"));
         public static LayerID HOME_GRID = new LayerID(LayerMask.GetMask("Home Grid"));
+        public static LayerID WORLD_INTERACTABLE = new LayerID(LayerMask.GetMask("World Interactable"));
     }
 
 

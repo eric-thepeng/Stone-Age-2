@@ -48,11 +48,13 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public void OpenPanel()
     {
+        UI_FullScreenUIDragCollider.i.Open(this);
         StartCoroutine(OpenPanelCor());
     }
 
     public void ClosePanel()
     {
+        UI_FullScreenUIDragCollider.i.Close();
         StartCoroutine(ClosePanelCor());
     }
 
