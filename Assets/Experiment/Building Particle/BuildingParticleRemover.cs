@@ -19,7 +19,6 @@ public class BuildingParticleRemover : MonoBehaviour
 
         if (vfx.aliveParticleCount == 0 && lifetimeCount > 0.5f)
         {
-            Debug.Log("des");
             Destroy(gameObject);
         }
     }
