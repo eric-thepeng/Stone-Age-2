@@ -143,6 +143,8 @@ namespace Hypertonic.GridPlacement
             _gridSpriteRenderer.size = new Vector2(GridSettings.AmountOfCellsX, GridSettings.AmountOfCellsY);
             _gridSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
 
+            _gridSpriteRenderer.color = GridSettings.CellColourAvailable;
+
             //RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
             //backGroundImageRectTransform.anchorMin = Vector2.zero;
             //backGroundImageRectTransform.anchorMax = Vector2.one;

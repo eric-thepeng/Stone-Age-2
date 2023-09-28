@@ -36,6 +36,7 @@ public class GridOperationManager : MonoBehaviour
 
         //StartCoroutine(CheckForInput());
         AddGridCoordinateManager();
+        AddMaskGenerateManager();
 
     }
 
@@ -67,6 +68,16 @@ public class GridOperationManager : MonoBehaviour
         if (GetComponent<GridCoordinateManager>() == null)
         {
             gameObject.AddComponent<GridCoordinateManager>();
+
+        }
+    }
+
+    private void AddMaskGenerateManager()
+    {
+        if (GetComponent<MaskGenerateManager>() == null)
+        {
+            gameObject.AddComponent<MaskGenerateManager>().defaultSizePrefab = _gridEmptyObjectPrefab;
+
 
         }
     }
