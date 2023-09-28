@@ -24,7 +24,7 @@ public class GridValidator : MonoBehaviour
     /// <param name="other"></param>
 
 
-    private int collisionCount = 0;
+    public int collisionCount = 0;
     private bool wasOnTerrainLastFrame = false; // 用于跟踪上一帧的状态
 
     private void Update()
@@ -60,12 +60,12 @@ public class GridValidator : MonoBehaviour
     }
 
 
-    private void HandleEnteredWallArea()
+    public void HandleEnteredWallArea()
     {
         _customValidator.SetValidation(false);
     }
 
-    private void HandleExitedWallArea()
+    public void HandleExitedWallArea()
     {
         _customValidator.SetValidation(true);
     }

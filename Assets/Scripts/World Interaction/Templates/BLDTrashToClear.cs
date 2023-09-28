@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Serialization;
+using Hypertonic.GridPlacement;
 
 public class BLDTrashToClear : LevelUp
 {
@@ -100,6 +101,13 @@ public class BLDTrashToClear : LevelUp
         base.ReachFinalState();
         gainResourceSet.GainResource();
         Destroy(gameObject);
+
+        // temp
+        GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().collisionCount--;
+        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().collisionCount == 0)
+        {
+            GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().HandleExitedWallArea();
+        }
     }
 
     public override ResourceSet ProvideResourceSet(int index = 0)

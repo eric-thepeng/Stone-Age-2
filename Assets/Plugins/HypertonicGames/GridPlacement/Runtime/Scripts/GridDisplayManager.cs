@@ -140,10 +140,14 @@ namespace Hypertonic.GridPlacement
             _gridSpriteRenderer.sprite = GridSettings.CellImage;
             _gridSpriteRenderer.drawMode = SpriteDrawMode.Tiled;
 
+            //Vector3 _pos = _gridSpriteRenderer.gameObject.transform.position;
+            //_pos.y -= 0.5f;
+            //_gridSpriteRenderer.gameObject.transform.position = _pos;
+
             _gridSpriteRenderer.size = new Vector2(GridSettings.AmountOfCellsX, GridSettings.AmountOfCellsY);
             _gridSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
 
-            _gridSpriteRenderer.color = GridSettings.CellColourAvailable;
+            _gridSpriteRenderer.color = GridSettings.CellColourDefault;
 
             //RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
             //backGroundImageRectTransform.anchorMin = Vector2.zero;
