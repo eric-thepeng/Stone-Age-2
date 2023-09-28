@@ -65,7 +65,7 @@ public class Obstacle : MonoBehaviour
             }
             if (SpriteSizeZCeiled / cellSize % 2 == 0)
             {
-                newPosition.z += cellSize / 2;
+                newPosition.z -= cellSize / 2;
             }
 
             obsMask.cellSizeX = SpriteSizeXCeiled;
