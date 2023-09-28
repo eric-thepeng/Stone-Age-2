@@ -24,11 +24,20 @@ public class GridValidator : MonoBehaviour
     /// <param name="other"></param>
 
 
+    private int collisionCount = 0;
+    private bool wasOnTerrainLastFrame = false; // 用于跟踪上一帧的状态
+
+    private void Update()
+    {
+        CheckTerrainCollision();
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
         {
+            collisionCount++;
             HandleEnteredWallArea();
         }
     }
@@ -37,20 +46,17 @@ public class GridValidator : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
         {
-            if (!_collisionStay)
-            HandleExitedWallArea();
+            collisionCount--;
+            if (collisionCount == 0)
+            {
+                HandleExitedWallArea();
+            }
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
-        {
-            _collisionStay = true;
-        } else
-        {
-            _collisionStay = false;
-        }
+        Debug.Log("Trigger colliding in the collider");
     }
 
 
@@ -63,4 +69,25 @@ public class GridValidator : MonoBehaviour
     {
         _customValidator.SetValidation(true);
     }
+
+    private void CheckTerrainCollision()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+        {
+            if (hit.collider is TerrainCollider && !wasOnTerrainLastFrame)
+            {
+                HandleExitedWallArea();
+                wasOnTerrainLastFrame = true;
+                Debug.Log("Exited the terrin collider");
+            }
+        }
+        else if (wasOnTerrainLastFrame)
+        {
+            HandleEnteredWallArea();
+            wasOnTerrainLastFrame = false;
+            Debug.Log("Entered the terrin collider");
+        }
+    }
+
 }
