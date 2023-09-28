@@ -7,46 +7,87 @@ using UnityEngine;
     /// in the scene. If it is, it will mark the component as having an invalid placement.
     /// </summary>
     [RequireComponent(typeof(CustomValidator))]
-    public class GridValidator : MonoBehaviour
+public class GridValidator : MonoBehaviour
+{
+    private CustomValidator _customValidator;
+    private bool _collisionStay = false;
+
+    private void Awake()
     {
-        private CustomValidator _customValidator;
+        _customValidator = GetComponent<CustomValidator>();
+    }
 
-        private void Awake()
+    /// <summary>
+    /// We will check what object we hit. If it a wall object we'll set the 
+    /// custom validation to be invalid.
+    /// </summary>
+    /// <param name="other"></param>
+
+
+    public int collisionCount = 0;
+    private bool wasOnTerrainLastFrame = false; // 用于跟踪上一帧的状态
+
+    private void Update()
+    {
+        CheckTerrainCollision();
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
         {
-            _customValidator = GetComponent<CustomValidator>();
+            collisionCount++;
+            HandleEnteredWallArea();
         }
+    }
 
-        /// <summary>
-        /// We will check what object we hit. If it a wall object we'll set the 
-        /// custom validation to be invalid.
-        /// </summary>
-        /// <param name="other"></param>
-        private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
         {
-            // To avoid adding a "wall" tag to the package, we will check the object
-            // we've collided with based on if it has the demo wall component. You could also check 
-            // which object it is by checking the name or however else you wish.
-            if(other.gameObject.GetComponent<Obstacle>() != null)
-            {
-                HandleEnteredWallArea();
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.GetComponent<Obstacle>() != null)
+            collisionCount--;
+            if (collisionCount == 0)
             {
                 HandleExitedWallArea();
             }
         }
+    }
 
-        private void HandleEnteredWallArea()
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log("Trigger colliding in the collider");
+    }
+
+
+    public void HandleEnteredWallArea()
+    {
+        _customValidator.SetValidation(false);
+    }
+
+    public void HandleExitedWallArea()
+    {
+        _customValidator.SetValidation(true);
+    }
+
+    private void CheckTerrainCollision()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
         {
-            _customValidator.SetValidation(false);
+            if (hit.collider is TerrainCollider && !wasOnTerrainLastFrame)
+            {
+                HandleExitedWallArea();
+                wasOnTerrainLastFrame = true;
+                Debug.Log("Exited the terrin collider");
+            }
         }
-
-        private void HandleExitedWallArea()
+        else if (wasOnTerrainLastFrame)
         {
-            _customValidator.SetValidation(true);
+            HandleEnteredWallArea();
+            wasOnTerrainLastFrame = false;
+            Debug.Log("Entered the terrin collider");
         }
     }
+
+}

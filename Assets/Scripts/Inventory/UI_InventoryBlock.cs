@@ -108,22 +108,35 @@ public class UI_InventoryBlock : MonoBehaviour
                 BuildingManager.i.CancelSelectedBuidling();
 
                 SetSelectedBackground(false);
-                GridManagerAccessor.GridManager.CancelPlacement(false);
+                //GridManagerAccessor.GridManager.CancelPlacement(false);
+                GridManagerAccessor.GridManager.EndPaintMode(false);
+
+                BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
             } else
             {
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-
-                GridManagerAccessor.GridManager.CancelPlacement();
+                if(BuildingManager.i.editing)
+                {
+                    BuildingManager.i.ToggleEditing();
+                }
+                if (BuildingManager.i.deleting)
+                {
+                    BuildingManager.i.ToggleDeleting();
+                }
+                //GridManagerAccessor.GridManager.CancelPlacement();
+                GridManagerAccessor.GridManager.EndPaintMode(false);
 
                 Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
 
-                GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
+                //GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
 
-                objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
-                GridManagerAccessor.GridManager.CancelPlacement(false);
-                GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
-                //GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
+                //objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
+                //GridManagerAccessor.GridManager.CancelPlacement(false);
+                GridManagerAccessor.GridManager.EndPaintMode(false);
+
+                //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
+                GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
 
                 SetSelectedBackground(true);
             }

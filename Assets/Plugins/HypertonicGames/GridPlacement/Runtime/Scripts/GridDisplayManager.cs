@@ -31,6 +31,8 @@ namespace Hypertonic.GridPlacement
         private int _gridCellDisplayImageSize = 10;
 
         private Canvas _gridCanvas;
+
+        private SpriteRenderer _gridSpriteRenderer;
         private RectTransform _gridCanvasRectTransform;
 
         public GridSettings GridSettings { get; private set; }
@@ -104,6 +106,29 @@ namespace Hypertonic.GridPlacement
             return canvasGameObject;
         }
 
+        //private void GenerateGridBackground(GridSettings gridSettings, Transform gridTransform)
+        //{
+        //    GameObject backgroundImage = new GameObject("Background Image");
+        //    backgroundImage.transform.SetParent(gridTransform, false);
+
+        //    backgroundImage.layer = LayerMask.NameToLayer("Grid");
+
+        //    RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
+        //    backGroundImageRectTransform.anchorMin = Vector2.zero;
+        //    backGroundImageRectTransform.anchorMax = Vector2.one;
+        //    backGroundImageRectTransform.localPosition = Vector3.zero;
+        //    backGroundImageRectTransform.localScale = Vector3.one;
+        //    backGroundImageRectTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        //    backGroundImageRectTransform.sizeDelta = Vector2.zero;
+
+        //    _gridImage = backgroundImage.AddComponent<Image>();
+        //    _gridImage.sprite = GridSettings.CellImage;
+        //    _gridImage.type = Image.Type.Tiled;
+
+        //    SetGridSize(gridSettings);
+        //}
+
+
         private void GenerateGridBackground(GridSettings gridSettings, Transform gridTransform)
         {
             GameObject backgroundImage = new GameObject("Background Image");
@@ -111,19 +136,34 @@ namespace Hypertonic.GridPlacement
 
             backgroundImage.layer = LayerMask.NameToLayer("Grid");
 
-            RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
-            backGroundImageRectTransform.anchorMin = Vector2.zero;
-            backGroundImageRectTransform.anchorMax = Vector2.one;
-            backGroundImageRectTransform.localPosition = Vector3.zero;
-            backGroundImageRectTransform.localScale = Vector3.one;
-            backGroundImageRectTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            backGroundImageRectTransform.sizeDelta = Vector2.zero;
+            _gridSpriteRenderer = backgroundImage.AddComponent<SpriteRenderer>();
+            _gridSpriteRenderer.sprite = GridSettings.CellImage;
+            _gridSpriteRenderer.drawMode = SpriteDrawMode.Tiled;
 
-            _gridImage = backgroundImage.AddComponent<Image>();
-            _gridImage.sprite = GridSettings.CellImage;
-            _gridImage.type = Image.Type.Tiled;
+            //Vector3 _pos = _gridSpriteRenderer.gameObject.transform.position;
+            //_pos.y -= 0.5f;
+            //_gridSpriteRenderer.gameObject.transform.position = _pos;
 
-            SetGridSize(gridSettings);
+            _gridSpriteRenderer.size = new Vector2(GridSettings.AmountOfCellsX, GridSettings.AmountOfCellsY);
+            _gridSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+
+            _gridSpriteRenderer.color = GridSettings.CellColourDefault;
+
+            //RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
+            //backGroundImageRectTransform.anchorMin = Vector2.zero;
+            //backGroundImageRectTransform.anchorMax = Vector2.one;
+            //backGroundImageRectTransform.localPosition = Vector3.zero;
+            //backGroundImageRectTransform.localScale = Vector3.one;
+            //backGroundImageRectTransform.localRotation = Quaternion.Euler(0, 0, 0);
+            //backGroundImageRectTransform.sizeDelta = Vector2.zero;
+
+            //_gridImage = backgroundImage.AddComponent<Image>();
+            //_gridImage.sprite = GridSettings.CellImage;
+            //_gridImage.type = Image.Type.Tiled;
+            _gridSpriteRenderer.gameObject.transform.localScale = new Vector3(gridSettings.CellSize*10, gridSettings.CellSize * 10, gridSettings.CellSize * 10);
+
+            //SetGridSize(gridSettings);
+
         }
 
         private void SetGridSize(GridSettings gridSettings)

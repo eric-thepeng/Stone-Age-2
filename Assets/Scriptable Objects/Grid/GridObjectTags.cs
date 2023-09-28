@@ -9,6 +9,9 @@ public class GridObjectTags : MonoBehaviour
     [SerializeField]
     private List<string> _gridObjectTags;
 
+    [SerializeField]
+    private BuildingISO BISO;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,5 +28,10 @@ public class GridObjectTags : MonoBehaviour
     {
         if (_gridObjectTags.Contains(ObjectTag)) return true;
         else return false;
+    }
+
+    public BuildingISO GetBuildingISO()
+    {
+        return BISO;
     }
 }

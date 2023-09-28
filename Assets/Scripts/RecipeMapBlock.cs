@@ -50,6 +50,7 @@ public class RecipeMapBlock : MonoBehaviour
     public SpriteRenderer[] blockLines = new SpriteRenderer[4];
 
     // Color
+    public SpriteRenderer iconSpriteRenderer;
     private Color32 unlockedColor;
     private Color32 lockedColor;
     private Color32 unknownColor;
@@ -189,15 +190,15 @@ public class RecipeMapBlock : MonoBehaviour
         // Icon Color
         if (state == State.Unlocked)
         {
-            spriteRenderer.color = unlockedColor;
+            iconSpriteRenderer.color = unlockedColor;
         }
         else if (state == State.Locked)
         {
-            spriteRenderer.color = lockedColor;
+            iconSpriteRenderer.color = lockedColor;
         }
         else
         {
-            spriteRenderer.color = unknownColor;
+            iconSpriteRenderer.color = unknownColor;
         }
 
         // BG & Lines Color
