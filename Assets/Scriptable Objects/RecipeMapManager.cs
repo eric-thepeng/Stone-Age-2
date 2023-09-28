@@ -104,13 +104,13 @@ public class RecipeMapManager : SerializedMonoBehaviour
         RecipeViewer = transform.parent.gameObject.transform.Find("=Recipe Viewer=").transform.Find("Recipe Viewer Panel").gameObject;
         RecipeUpgradeSet = RecipeViewer.transform.Find("Upgrade Set").gameObject;
 
-        RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject;
-        RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject;
-        RecipeViewerLevels[2] = RecipeViewer.transform.Find("Description").gameObject;
-        RecipeViewerLevels[3] = RecipeViewer.transform.Find("Graph").gameObject;
+        RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject; //name
+        RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject; //material
+        RecipeViewerLevels[2] = RecipeViewer.transform.Find("Graph").gameObject; //graph
+        //RecipeViewerLevels[3] = null; //detailed graph
 
         LockIcons[0] = RecipeViewer.transform.Find("Lock 1").gameObject;
-        LockIcons[1] = RecipeViewer.transform.Find("Lock 2").gameObject;
+        //LockIcons[1] = RecipeViewer.transform.Find("Lock 2").gameObject;
         
         shadowBoxManager = new ShadowBoxManager(RecipeViewer.transform.Find("Shadow Box Manager"));
     }
@@ -136,7 +136,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
 
         RecipeUpgradeSet.SetActive(true);
 
-        for (int count = 0; count < RecipeViewerLevels.Length; count ++)
+        for (int count = 0; count < RecipeViewerLevels.Length-1; count ++)
         {
             RecipeViewerLevels[count].SetActive(false);
             if (count + 1 <= RMB.GetLevelInt())
@@ -146,7 +146,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
 
         LockIcons[0].SetActive(true);
-        LockIcons[1].SetActive(true);
+        //LockIcons[1].SetActive(true);
 
         if (RMB.GetLevelInt() >= 1) {
             // Dont do shit, since name is already set up there
@@ -157,6 +157,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
         {
             LockIcons[0].SetActive(false);
 
+            
             RecipeViewerLevels[1].GetComponent<TextMeshPro>().text =
                 RMB.material;
 
@@ -164,23 +165,26 @@ public class RecipeMapManager : SerializedMonoBehaviour
         }
         if (RMB.GetLevelInt() >= 3)
         {
-            LockIcons[1].SetActive(false);
+            //LockIcons[1].SetActive(false);
 
-            RecipeViewerLevels[2].GetComponent<TextMeshPro>().text =
-                RMB.craftDescription;
-
-            RecipeUpgradeSet.transform.position = RecipeViewerLevels[3].transform.position;
-        }
-        if (RMB.GetLevelInt() >= 4)
-        {
-            RecipeViewerLevels[3].GetComponent<TextMeshPro>().text = "Shape:";
+            //RecipeViewerLevels[2].GetComponent<TextMeshPro>().text =
+             //   RMB.craftDescription;
+            
+            RecipeViewerLevels[2].GetComponent<TextMeshPro>().text = "Shape:";
+            RecipeUpgradeSet.SetActive(false);
             shadowBoxManager.GenerateBoxes(RMB.myICSO.GetDefaultRecipeCoords());
+            
+            //RecipeUpgradeSet.transform.position = RecipeViewerLevels[3].transform.position;
+        }
+        //if (RMB.GetLevelInt() >= 4)
+        {
+            
             //RecipeViewerLevels[3].transform.position
         }
 
-        if (RMB.GetLevelInt() == 4)
+        if (RMB.GetLevelInt() == 3)
         {
-            RecipeUpgradeSet.SetActive(false);
+            
         }
         else {
             shadowBoxManager.HideBoxes();

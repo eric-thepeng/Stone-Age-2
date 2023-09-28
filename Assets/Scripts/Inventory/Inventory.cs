@@ -21,9 +21,10 @@ public class Inventory : MonoBehaviour
         public ItemScriptableObject iso;
         public int totalAmount;
         public int inUseAmount;
+        public int inWorkshopAmount;
         public int inBuildAmount;
 
-        public int inStockAmount { get { return totalAmount - inUseAmount - inBuildAmount; } }
+        public int inStockAmount { get { return totalAmount - inUseAmount - inWorkshopAmount - inBuildAmount; } }
         public ItemScriptableObject.Category category
         {
             get { return iso.category;}
@@ -34,6 +35,7 @@ public class Inventory : MonoBehaviour
             iso = newISO;
             totalAmount = 1;
             inUseAmount = 0;
+            inWorkshopAmount = 0;
             inBuildAmount = 0;
         }
     }
@@ -75,12 +77,12 @@ public class Inventory : MonoBehaviour
         if (GetItemInfo(newISO) == null) return 0;
         return GetItemInfo(newISO).inStockAmount;
     }
-
-/// <summary>
-/// true: total -> inUse     false: inUse -> total
-/// </summary>
-/// <param name="iiso"></param>
-/// <param name="use"></param>
+    
+    /// <summary>
+    /// Exists in form of Tetris
+    /// </summary>
+    /// <param name="iso"></param>
+    /// <param name="use"></param>
     public void InUseItem(ItemScriptableObject iso, bool use)
     {
         if (use)
@@ -94,6 +96,27 @@ public class Inventory : MonoBehaviour
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
 
+    /// <summary>
+    /// Exists in crafting in Workshop
+    /// </summary>
+    public void InWorkshopItem(ItemScriptableObject iso, bool use)
+    {
+        if (use)
+        {
+            GetItemInfo(iso).inWorkshopAmount += 1;
+        }
+        else
+        {
+            GetItemInfo(iso).inWorkshopAmount -= 1;
+        }
+        UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
+    }
+    
+    /// <summary>
+    /// Exists in form of Building
+    /// </summary>
+    /// <param name="biso"></param>
+    /// <param name="use"></param>
     public void InBuildItem(BuildingISO biso, bool use)
     {
         if (use)
