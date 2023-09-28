@@ -525,6 +525,11 @@ public class BuildingManager : MonoBehaviour
 
     public void ToggleDeleting()
     {
+        if (!GridManagerAccessor.GridManager.IsPlacingGridObject)
+        {
+            gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+            Debug.LogWarning("Grid Manager is not in Paint Mode! Please figure it out to avoid future problems.");
+        }
         if (deleting && GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
         {
             deleting = false;
