@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/* NOTES Oct 1 2023 Peng Guo
+
+Overview：
+PlayerState 这个class用于统一管理玩家正在交互的state。Specifically，进行一下两件事情：
+1. 提供统一的function进入这些state
+2. 统一管理在进入和退出state的时候游戏内的变化。（比如说在进入哪些state的时候自动打开inventory panel，这样程序加入新的state的时候更加轻松）
+
+State Explanation：
+Browsing - 玩家在家园界面的默认状态
+Crafting - 玩家在Crafting Panel使用Tetris制作物品
+Recipe - 玩家在Research Tree研究解锁新的Blueprint
+Building - 玩家在家园界面的建筑状态
+AllocatingBackpack - 玩家在家园界面，但是在一种特殊的交互当中。在这个状态下玩家要使用背包里的东西并且assign他们。例如在crafting station制作的时候或者是未来给小动物味东西的时候。
+*/
+
+
 public static class PlayerState
 {
     public enum State { Browsing, Crafting, Recipe, Building, AllocatingBackpack }
@@ -201,6 +217,9 @@ public static class PlayerState
         }
     }
 
+    //-----------------------------------------
+    // Determines Current State
+    //-----------------------------------------
     public static bool IsBrowsing()
     {
         return state == State.Browsing;

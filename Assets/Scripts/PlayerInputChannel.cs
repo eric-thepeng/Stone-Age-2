@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 一个统一的地方接收button input并执行
+ */
 public class PlayerInputChannel : MonoBehaviour
 {
     static PlayerInputChannel instance = null;
