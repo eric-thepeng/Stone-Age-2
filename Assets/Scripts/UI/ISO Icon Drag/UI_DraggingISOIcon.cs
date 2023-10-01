@@ -12,8 +12,6 @@ public class UI_DraggingISOIcon : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             DraggingISOIconManager.i.DeleteDraggingISOIcon();
-            //bind to the shit
-            Destroy(this.gameObject);
         }
     }
 }
