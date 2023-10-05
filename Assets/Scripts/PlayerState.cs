@@ -239,9 +239,8 @@ public static class PlayerState
         }
     }
 
-    //-----------------------------------------
-    // Determines Current State
-    //-----------------------------------------
+    #region Determines Current State
+
     public static bool IsBrowsing()
     {
         return state == State.Browsing;
@@ -266,6 +265,13 @@ public static class PlayerState
     {
         return state == State.AllocatingBackpack;
     }
+
+    public static bool IsExploreMap()
+    {
+        return state == State.ExploreMap;
+    }
+
+    #endregion
 
 
 }
