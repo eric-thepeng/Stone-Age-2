@@ -19,7 +19,7 @@ public class PlayerInputChannel : MonoBehaviour
             return instance;
         }
     }
-    public enum WorldButtons { Crafting, HomeReturn, Research, Building, Inventory, RecipeViewer, CameraBackHome }
+    public enum WorldButtons { Crafting, HomeReturn, Research, Building, Inventory, RecipeViewer, CameraBackHome, ExploreMap }
 
     public delegate void OnPlayerPressWorldButton(WorldButtons wb);
     public static event OnPlayerPressWorldButton onPlayerPressWorldButton;
@@ -30,6 +30,7 @@ public class PlayerInputChannel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) HomeReturnButton();
         if (Input.GetKeyDown(KeyCode.B)) InventoryPanelOpenButton();
         if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
+        if (Input.GetKeyDown(KeyCode.E)) ExploreMapButton();
     }
 
     public static void InventoryPanelOpenButton()
@@ -72,5 +73,11 @@ public class PlayerInputChannel : MonoBehaviour
     {
         if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.CameraBackHome);
         CameraManager.i.MoveBackToHome();
+    }
+
+    public static void ExploreMapButton()
+    {
+        if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.ExploreMap);
+        PlayerState.ExploreMapButton();
     }
 }
