@@ -91,6 +91,7 @@ public static class PlayerState
         }else if (enterState == State.ExploreMap)
         {
             ExploreMapPanel.i.OpenPanel();
+            ChangeRecipeViewerPanel(RecipeViewerState.Close);
         }
 
         state = enterState;
@@ -227,7 +228,11 @@ public static class PlayerState
 
     public static void ExploreMapButton()
     {
-        if (state != State.AllocatingBackpack)
+        if (state == State.ExploreMap)
+        {
+            ExitState();
+            EnterState(State.Browsing);
+        }else if (state != State.AllocatingBackpack)
         {
             ExitState();
             EnterState(State.ExploreMap);
