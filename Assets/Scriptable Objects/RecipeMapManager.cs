@@ -182,7 +182,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
             //RecipeViewerLevels[3].transform.position
         }
 
-        if (RMB.GetLevelInt() == 3)
+        if (RMB.GetLevelInt() >= 3)
         {
             
         }

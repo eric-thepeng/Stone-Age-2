@@ -17,5 +17,6 @@ public class TetrisBuildingTool : MonoBehaviour
     [SerializeField, Header("------Config, DO NOT EDIT------")] public GameObject unitGameObject;
     [SerializeField] public GameObject edgeGameObject;
     [SerializeField] public GameObject labelGameObject;
+    [SerializeField] public GameObject iconSpriteGameObject;
     [SerializeField] public GameObject tetrisBaseGameObject;
 }
