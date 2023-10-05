@@ -172,6 +172,8 @@ public class RecipeMapBlock : MonoBehaviour
             state = State.Unlocked;
             recipeLevel = RecipeLevel.Graph; // turn the level the highest
 
+            
+            
             for (int count = 0; count < 4; count ++) {
                 if (adjacentBlocks[count] != null) {
                     adjacentBlocks[count].RecipeDiscover();
