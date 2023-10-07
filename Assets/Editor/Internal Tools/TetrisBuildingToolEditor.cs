@@ -66,13 +66,16 @@ public class TetrisBuildingToolEditor : Editor
             }
 
             // add text
+            /*
             GameObject newLabel = Instantiate(builder.labelGameObject, newGameObject.transform);
             newLabel.GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
-            newLabel.gameObject.name = "Temporary Label";
+            newLabel.gameObject.name = "Temporary Label";*/
             
             // add image
-            GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
-            newImage.transform.SetParent(newGameObject.transform);
+            //GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
+            GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
+            newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
+            newImage.gameObject.name = "Icon Sprite";
             
             // create outline
             if (builder.outlineWidth != 0)

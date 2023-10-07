@@ -26,13 +26,14 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
         {
             unlockedComp.SetActive(true);
             lockedComp.SetActive(false);
-            
+            m1.SetActive(false);
             m2.SetActive(false);
             m3.SetActive(false);
             p1.SetActive(false);
             p2.SetActive(false);
             
             //display m length = 1
+            m1.SetActive(true);
             m1.GetComponent<SpriteRenderer>().sprite = workshopRecipe.materials[0].iconSprite;
             product.GetComponent<SpriteRenderer>().sprite = workshopRecipe.product.iconSprite;
             if(workshopRecipe.materials.Count == 1) return;

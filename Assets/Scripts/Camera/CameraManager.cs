@@ -50,7 +50,7 @@ public class CameraManager : MonoBehaviour
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
 
         //MOVEMENT
-        if (GetKeyboardInput() == new Vector2Int(0,0) && moveByMouseDirection == new Vector2Int(0, 0)) 
+        if (PlayerInputChannel.i.GetKeyBoardInputDirection() == new Vector2Int(0,0) && moveByMouseDirection == new Vector2Int(0, 0)) 
         {
             momentum -= Time.deltaTime * 6f;
             momentum = Mathf.Clamp(momentum, 0, 1f);
@@ -65,7 +65,7 @@ public class CameraManager : MonoBehaviour
             else */ 
             //move by keyboard
             {
-                direction = GetKeyboardInput();
+                direction = PlayerInputChannel.i.GetKeyBoardInputDirection();
             }
             direction = direction.normalized;
             momentum = 1;
@@ -84,16 +84,6 @@ public class CameraManager : MonoBehaviour
         return cameraZoomSpeedOnFloor;
         // ZOOM SPEED WEIGHT IS DISABLE, WILL REVISE IN THE FUTURE 漂泊牧歌 still sticky movement clamp
         return cameraZoomSpeedOnFloor * zoomSpeedAgainstHeight.Evaluate((transform.position.y - cameraHeightMin) / (cameraHeightMax - cameraHeightMin));
-    }
-
-    Vector2Int GetKeyboardInput()
-    {
-        Vector2Int ip = new Vector2Int(0,0);
-        if (Input.GetKey(KeyCode.W)) ip.y += 1;
-        if (Input.GetKey(KeyCode.S)) ip.y -= 1;
-        if (Input.GetKey(KeyCode.A)) ip.x -= 1;
-        if (Input.GetKey(KeyCode.D)) ip.x += 1;
-        return ip;
     }
 
     public void SetMoveByMouse(Vector2Int toWhich)
