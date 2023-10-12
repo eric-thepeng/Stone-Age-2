@@ -102,7 +102,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && PlayerState.IsBrowsing())
+        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()))
         {
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;

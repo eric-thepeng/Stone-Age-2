@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 一个统一的地方接收button input并执行
+ */
 public class PlayerInputChannel : MonoBehaviour
 {
     static PlayerInputChannel instance = null;
@@ -16,7 +19,7 @@ public class PlayerInputChannel : MonoBehaviour
             return instance;
         }
     }
-    public enum WorldButtons { Crafting, HomeReturn, Research, Building, Inventory, RecipeViewer, CameraBackHome }
+    public enum WorldButtons { Crafting, HomeReturn, Research, Building, Inventory, RecipeViewer, CameraBackHome, ExploreMap }
 
     public delegate void OnPlayerPressWorldButton(WorldButtons wb);
     public static event OnPlayerPressWorldButton onPlayerPressWorldButton;
@@ -27,6 +30,7 @@ public class PlayerInputChannel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) HomeReturnButton();
         if (Input.GetKeyDown(KeyCode.B)) InventoryPanelOpenButton();
         if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
+        if (Input.GetKeyDown(KeyCode.E)) ExploreMapButton();
     }
 
     public static void InventoryPanelOpenButton()
@@ -69,5 +73,21 @@ public class PlayerInputChannel : MonoBehaviour
     {
         if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.CameraBackHome);
         CameraManager.i.MoveBackToHome();
+    }
+
+    public static void ExploreMapButton()
+    {
+        if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.ExploreMap);
+        PlayerState.ExploreMapButton();
+    }
+    
+    public Vector2Int GetKeyBoardInputDirection()
+    {
+        Vector2Int ip = new Vector2Int(0,0);
+        if (Input.GetKey(KeyCode.W)) ip.y += 1;
+        if (Input.GetKey(KeyCode.S)) ip.y -= 1;
+        if (Input.GetKey(KeyCode.A)) ip.x -= 1;
+        if (Input.GetKey(KeyCode.D)) ip.x += 1;
+        return ip;
     }
 }

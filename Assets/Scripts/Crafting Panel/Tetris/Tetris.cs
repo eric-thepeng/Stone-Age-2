@@ -251,14 +251,14 @@ public class Tetris : DragInventoryItem
     //set zone
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name != "Background") return;
+        if (collision.gameObject.name != "Tetris Return Zone") return;
         CraftingManager.i.mouseExitTetris();
         zoneNow = Zone.Back;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.name != "Background") return;
+        if (collision.gameObject.name != "Tetris Return Zone") return;
         zoneNow = Zone.Craft;
     }
 
