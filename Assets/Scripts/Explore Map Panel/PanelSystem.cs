@@ -10,13 +10,13 @@ public class PanelSystem : MonoBehaviour
 
     public void OpenPanel()
     {
-        panelBody.transform.localPosition = new Vector3(0, 0, 30);
+        panelBody.transform.localPosition -= new Vector3(30, 0, 0);
         isPanelOpen = true;
     }
 
     public void ClosePanel()
     {
-        panelBody.transform.localPosition = new Vector3(30, 0, 30);
+        panelBody.transform.localPosition += new Vector3(30, 0, 0);
         isPanelOpen = false;
     }
 }
