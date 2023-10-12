@@ -3293,6 +3293,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3941866034647738805, guid: 583987c9ad802984e953634aee049821, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3941866034810074843, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3311,7 +3315,7 @@ PrefabInstance:
       objectReference: {fileID: 926808012}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -3324,11 +3328,11 @@ PrefabInstance:
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 926808012}
+      objectReference: {fileID: 915110692}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2061977772}
+      objectReference: {fileID: 2051624047}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -3342,16 +3346,24 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
+      propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleModifying
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SwitchPaintMode
+      value: ButtonDisplayCategoryBuildings
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: ButtonDisplayCategoryBuildings
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
+      propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BuildingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: GridOperationManager, Assembly-CSharp
+      value: UI_Inventory, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3941866035074884978, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -3448,6 +3460,10 @@ PrefabInstance:
     - target: {fileID: 3941866036223882776, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941866036320228642, guid: 583987c9ad802984e953634aee049821, type: 3}
+      propertyPath: m_text
+      value: Modify
       objectReference: {fileID: 0}
     - target: {fileID: 3941866036473239166, guid: 583987c9ad802984e953634aee049821, type: 3}
       propertyPath: serializationData.Prefab
