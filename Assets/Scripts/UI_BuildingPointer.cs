@@ -50,13 +50,14 @@ public class UI_BuildingPointer : MonoBehaviour
     {
         displayingISO = biso;
         pointerObject.gameObject.SetActive(true);
-        if(pointerObject.GetChild(0).childCount > 1)
-        {
-            Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
-        }
-        GameObject go = Instantiate(biso.buildingPrefab, pointerObject.GetChild(0));
-        go.transform.Rotate(new Vector3(1,0,0),-45);
-        go.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
+        pointerObject.GetChild(0).GetChild(1).gameObject.GetComponent<SpriteRenderer>().sprite = biso.iconSprite;
+        //if(pointerObject.GetChild(0).childCount > 1)
+        //{
+        //    Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
+        //}
+        //GameObject go = Instantiate(biso.buildingPrefab, pointerObject.GetChild(0));
+        //go.transform.Rotate(new Vector3(1,0,0),-45);
+        //go.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
     }
 
     private void UpdateDisplayAmount()
@@ -68,10 +69,10 @@ public class UI_BuildingPointer : MonoBehaviour
     public void TurnOff()
     {
         displayingISO = null;
-        if (pointerObject.GetChild(0).childCount > 1)
-        {
-            Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
-        }
+        //if (pointerObject.GetChild(0).childCount > 1)
+        //{
+        //    Destroy(pointerObject.GetChild(0).GetChild(1).gameObject);
+        //}
         pointerObject.gameObject.SetActive(false);
     }
 
