@@ -46,6 +46,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField]
     private Transform initialTransform;
 
+    public float duration = 0.1f;
 
 
     class GridIndication
@@ -236,6 +237,8 @@ public class BuildingManager : MonoBehaviour
     }
 
     BuildDragInfo buildDragInfo = null;
+    private Quaternion targetRotation;
+
 
 
     private void Start()
@@ -290,20 +293,20 @@ public class BuildingManager : MonoBehaviour
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
                 GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                _selectedGridObject.transform.Rotate(new Vector3(0, -90, 0));
-                GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, -90, 0);
+                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
             }
         }
-        else
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
                 GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                _selectedGridObject.transform.Rotate(new Vector3(0, 90, 0));
-                GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, 90, 0);
+                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
             }
         }
+
 
         //if (buildDragInfo == null) //NEW BUILD DRAG
         //{
@@ -385,6 +388,21 @@ public class BuildingManager : MonoBehaviour
         }
 
 
+    }
+
+    IEnumerator SmoothRotateObject(GameObject obj, Quaternion targetRot)
+    {
+        float elapsed = 0f;
+        Quaternion startRotation = obj.transform.rotation;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            obj.transform.rotation = Quaternion.Slerp(startRotation, targetRot, elapsed / duration);
+            yield return null;
+        }
+        obj.transform.rotation = targetRot;  // 确保旋转完全完成
+        GridManagerAccessor.GridManager.HandleGridObjectRotated();
     }
 
 
