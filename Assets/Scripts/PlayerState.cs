@@ -46,7 +46,7 @@ public static class PlayerState
         }
         else if (state == State.Building)
         {
-            BuildingManager.i.CloseBuilding();
+            BuildingManager.i.CloseBuildingMode();
         }else if (state == State.AllocatingBackpack)
         {
             
@@ -84,7 +84,7 @@ public static class PlayerState
         else if (enterState == State.Building)
         {
             ChangeInventoryPanel(true);
-            BuildingManager.i.OpenBuilding();
+            BuildingManager.i.OpenBuildingMode  ();
         }else if (enterState == State.AllocatingBackpack)
         {
             ChangeInventoryPanel(true);
@@ -98,7 +98,7 @@ public static class PlayerState
     }
 
 
-    static void ChangeInventoryPanel(bool changeTo)
+    public static void ChangeInventoryPanel(bool changeTo)
     {
         if (changeTo == inventoryPanelOpen) return;
         if (changeTo)
@@ -152,7 +152,10 @@ public static class PlayerState
         }
     }
 
-
+    public static bool isInventoryPanelOpen()
+    {
+        return inventoryPanelOpen;
+    }
 
     public static void OpenCloseChangeInventoryPanel()
     {
@@ -209,6 +212,7 @@ public static class PlayerState
         {
             ExitState();
             EnterState(State.Browsing);
+            //ChangeInventoryPanel(true);
         }
         else
         {

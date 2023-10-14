@@ -99,46 +99,38 @@ public class UI_InventoryBlock : MonoBehaviour
         }
         
         // building item
-        else if (PlayerState.IsBuilding())
+        else if (PlayerState.IsBrowsing() || PlayerState.IsBuilding())
         {
             if (!(itemInfo.iso is BuildingISO)) return;
 
             if ((BuildingISO)this.GetISO() == BuildingManager.i.GetSelectedBuildingISO())
             {
-                BuildingManager.i.CancelSelectedBuidling();
+                //BuildingManager.i.CancelSelectedBuidling();
 
                 SetSelectedBackground(false);
                 //GridManagerAccessor.GridManager.CancelPlacement(false);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
+                BuildingManager.i.CloseBuildingMode();
 
-                BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
+                //BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
             } else
             {
+                BuildingManager.i.CloseModifyMode();
+
+                BuildingManager.i.OpenBuildingMode();
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-                if(BuildingManager.i.editing)
-                {
-                    BuildingManager.i.ToggleEditing();
-                }
-                if (BuildingManager.i.deleting)
-                {
-                    BuildingManager.i.ToggleDeleting();
-                }
                 //GridManagerAccessor.GridManager.CancelPlacement();
-                GridManagerAccessor.GridManager.EndPaintMode(false);
-
-                Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
-
-                //GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), _position, new Quaternion());
-
-                //objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
-                //GridManagerAccessor.GridManager.CancelPlacement(false);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
                 //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
                 GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
 
                 SetSelectedBackground(true);
+
+                //PlayerState.OpenCloseBuildingPanel();
+                BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
             }
 
 

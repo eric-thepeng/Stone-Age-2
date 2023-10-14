@@ -7,6 +7,7 @@ using Hypertonic.GridPlacement.Models;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Cinemachine.CinemachineTransposer;
 using static Inventory;
 
 public class BuildingManager : MonoBehaviour
@@ -27,12 +28,14 @@ public class BuildingManager : MonoBehaviour
     UI_InventoryBlock selectedUIIB = null;
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
-    public bool building = false;
+    public bool buildingMode = false;
     public GameObject placeholdingBuilding;
 
-    public bool editing;
-    public bool deleting;
-    public bool HandItemRemoveable;
+    private bool editing;
+    //public bool deleting;
+    private bool HandItemRemoveable;
+
+    private bool modifying = false;
 
     public GameObject gridOperationManager;
     public GameObject particlePrefab;
@@ -42,25 +45,6 @@ public class BuildingManager : MonoBehaviour
 
     [SerializeField]
     private Transform initialTransform;
-
-
-    [SerializeField]
-    private Transform editingIndicator;
-
-    [SerializeField]
-    private Transform deletingIndicator;
-
-    [SerializeField]
-    private Transform removeHandItemIndicator;
-
-    [SerializeField]
-    private Transform editingButton;
-
-    [SerializeField]
-    private Transform deletingButton;
-
-    [SerializeField]
-    private Transform removeHandItemButton;
 
 
     class GridIndication
@@ -258,20 +242,13 @@ public class BuildingManager : MonoBehaviour
         gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
 
-
-        editingButton.gameObject.SetActive(false);
-        deletingButton.gameObject.SetActive(false);
-        removeHandItemButton.gameObject.SetActive(false);
-        editingIndicator.gameObject.SetActive(false);
-        deletingIndicator.gameObject.SetActive(false);
-        removeHandItemIndicator.gameObject.SetActive(false);
     }
+
 
     void Update()
     {
-        if (!building) return; //return if not building mode
+        if (!buildingMode) return; //return if not building mode
 
-        
         if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true)) //hide indicator if mouse is not on grid
         {
             gridIndication.Hide();
@@ -290,9 +267,23 @@ public class BuildingManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
+        //if (!modifying && (editing || deleting))
+        //{
+        //    CloseModifyMode();
+        //}
+
         if (Input.GetMouseButtonDown(0))
         {
             bool _rayHit = Physics.Raycast(ray, out hitInfo);
+            if (modifying)
+            {
+
+                // 如果射线与Collider相交，则返回true并将碰撞信息存储在hitInfo中
+                if (_rayHit)
+                {
+                    EditingProcessHitItem(hitInfo);
+                }
+            } else
             if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
             {
                 //GridManagerAccessor.GridManager.CancelPlacement();
@@ -305,22 +296,11 @@ public class BuildingManager : MonoBehaviour
 
                 //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
                 GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
-            } else if (editing)
-            {
-
-                // 如果射线与Collider相交，则返回true并将碰撞信息存储在hitInfo中
-                if (_rayHit)
-                {
-                    EditingProcessHitItem(hitInfo);
-                }
-            } else if (deleting)
-            {
-                if (_rayHit)
-                {
-                    DeletingProcessHitItem(hitInfo);
-                }
             }
         }
+
+
+
         //if (buildDragInfo == null) //NEW BUILD DRAG
         //{
 
@@ -331,10 +311,13 @@ public class BuildingManager : MonoBehaviour
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                    Quaternion _rotation = GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation;
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
-                        Instantiate(particlePrefab, hitPoint, new Quaternion());
+                        Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
+
                         Inventory.i.InBuildItem(selectedISO, true);
                         
                         //print(Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()));
@@ -358,50 +341,89 @@ public class BuildingManager : MonoBehaviour
                 else
                 {
                     //GridManagerAccessor.GridManager.CancelPlacement(false);
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
                     i.CancelSelectedBuidling();
                     Debug.Log("CancelSelectedBuidling");
 
-                    gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                    CloseBuildingMode();
+                    //gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
+                    //PlayerState.OpenCloseBuildingPanel();
+                    //gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
                 }
 
                 //buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
 
             }
         }
-        //}
-        //else
-        //{
-        //    buildDragInfo.SetEndPosition(new Vector2Int(x, z)); //RESET BUILD DRAG
-        //    if (Input.GetMouseButtonUp(0)) //LIFT MOUSE AND BUILD
-        //    {
-        //        _ = PlaceObjectsToGrid(buildDragInfo);
+        else if (Input.GetMouseButtonDown(1))
+        {
 
-        //        //foreach (Vector2Int i in buildDragInfo.GetKeyCoords())
-        //        //{
-        //        //    //print(i);
-        //            //hg.BuildWithCoord(i.x, i.y);
+            bool _rayHit = Physics.Raycast(ray, out hitInfo);
+            if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
+            {
+                if (modifying)
+                {
+                    if (_rayHit)
+                    {
+                        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+                        {
+                            bool _hit = DeletingProcessHitItem(hitInfo);
+                            if (!_hit) ToggleModifying();
+                        }
+                        else
+                        {
+                            DeleteHandItem();
+                        }
+                    }
+                }
+                else
+                {
+                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    buildingMode = false;
+                    if (GetSelectedBuildingISO() != null)
+                    {
+                        i.CancelSelectedBuidling();
+                        Debug.Log("CancelSelectedBuidling");
+                    }
 
-        //        //}
+                    //gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
-        //        buildDragInfo.DestroyPlaceholders();
-        //        buildDragInfo = null;
-        //        UI_BuildingPointer.i.SetPrebuildUseAmount(0);
-        //    }
-        //}
+                    //PlayerState.OpenCloseBuildingPanel();
+                    CloseBuildingMode();
+                    gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
+                }
+
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+            {
+                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                _selectedGridObject.transform.Rotate(new Vector3(0, -90, 0));
+                //GridManagerAccessor.GridManager.HandleGridObjectRotated();
+            }
+        } else 
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+                {
+                    GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                    _selectedGridObject.transform.Rotate(new Vector3(0, 90, 0));
+                    //GridManagerAccessor.GridManager.HandleGridObjectRotated();
+            }
+            }
+
     }
 
 
-    public void OpenBuilding()
+    public void OpenBuildingMode()
     {
-        building = true;
-        editingButton.gameObject.SetActive(true);
-        deletingButton.gameObject.SetActive(true);
-        removeHandItemButton.gameObject.SetActive(true);
-        editingIndicator.gameObject.SetActive(false);
-        deletingIndicator.gameObject.SetActive(false);
-        removeHandItemIndicator.gameObject.SetActive(false);
+        buildingMode = true;
+        PlayerState.ChangeInventoryPanel(false);
+        PlayerState.state = PlayerState.State.Building;
 
         foreach (HomeGrid hg in allHomeGrids)
         {
@@ -409,12 +431,11 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    public void CloseBuilding()
+    public void CloseBuildingMode()
     {
-        building = false;
-        editingButton.gameObject.SetActive(false);
-        deletingButton.gameObject.SetActive(false);
-        removeHandItemButton.gameObject.SetActive(false);
+        buildingMode = false;
+        PlayerState.ChangeInventoryPanel(true);
+        PlayerState.state = PlayerState.State.Browsing;
 
         foreach (HomeGrid hg in allHomeGrids)
         {
@@ -441,7 +462,7 @@ public class BuildingManager : MonoBehaviour
         selectedUIIB = uiib;
         Debug.Log(uiib);
         UI_BuildingPointer.i.SetUp((BuildingISO)uiib.GetISO());
-        Debug.Log((BuildingISO)uiib.GetISO());
+        //Debug.Log((BuildingISO)uiib.GetISO());
     }
 
     public void CancelSelectedBuidling()
@@ -451,30 +472,56 @@ public class BuildingManager : MonoBehaviour
         UI_BuildingPointer.i.TurnOff();
     }
 
-    public void ToggleEditing()
-    {
-        if (!GridManagerAccessor.GridManager.IsPlacingGridObject)
-        {
-            gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-            Debug.LogWarning("Grid Manager is not in Paint Mode! Please figure it out to avoid future problems.");
-        }
 
-        if (editing && GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+    public void StartEditingChildMode()
+    {
+
+        CancelSelectedBuidling();
+        GridManagerAccessor.GridManager.EndPaintMode(false);
+        editing = true;
+        //editingIndicator.gameObject.SetActive(true);
+        //if (deleting)
+        //{
+        //    ToggleDeleting();
+        //}
+
+        gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+    }
+
+    public void EndEditingChildMode()
+    {
+        editing = false;
+        GridManagerAccessor.GridManager.EndPaintMode(false);
+        //editingIndicator.gameObject.SetActive(false);
+    }
+
+    private bool previousInventoryPanelOpen = false;
+
+    public void ToggleModifying()
+    {
+        if (modifying)
         {
-            editing = false;
-            editingIndicator.gameObject.SetActive(false);
-        } else if (!editing)
+            CloseModifyMode();
+        }
+        else if (!modifying)
         {
+            previousInventoryPanelOpen = PlayerState.isInventoryPanelOpen();
+            buildingMode = true;
+
             CancelSelectedBuidling();
             GridManagerAccessor.GridManager.EndPaintMode(false);
-            editing = true;
-            editingIndicator.gameObject.SetActive(true);
-            if (deleting)
-            {
-                ToggleDeleting();
-            }
+            modifying = true;
+            //editingIndicator.gameObject.SetActive(true);
+            //if (deleting)
+            //{
+            //    ToggleDeleting();
+            //}
 
             gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+            PlayerState.ExitState();
+            PlayerState.ChangeInventoryPanel(false);
+
+            StartEditingChildMode();
         }
     }
 
@@ -510,7 +557,7 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                 }
 
-                CheckHandItemRemoveable();
+                //CheckHandItemRemoveable();
 
             }
             else
@@ -523,46 +570,19 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    public void ToggleDeleting()
-    {
-        if (deleting && GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
-        {
-            deleting = false;
-            deletingIndicator.gameObject.SetActive(false);
-        }
-        else if (!deleting)
-        {
-            CancelSelectedBuidling();
-            GridManagerAccessor.GridManager.EndPaintMode(false);
-            gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
-            if (editing)
-            {
-                ToggleEditing();
-            }
-
-            deleting = true;
-            deletingIndicator.gameObject.SetActive(true);
-
-        }
-    }
-
-    public void CheckHandItemRemoveable()
+    public bool DeleteHandItem()
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject &&
             GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
         {
             HandItemRemoveable = false;
-            removeHandItemIndicator.gameObject.SetActive(false);
-        } else
+        }
+        else
         {
             HandItemRemoveable = true;
-            removeHandItemIndicator.gameObject.SetActive(true);
         }
-    }
 
-    public void DeleteHandItem()
-    {
         GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
         if (HandItemRemoveable)
         {
@@ -576,19 +596,22 @@ public class BuildingManager : MonoBehaviour
                 Inventory.i.AddInventoryItem(handleItem.GetComponent<GridObjectTags>().GetBuildingISO());
 
                 gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-                CheckHandItemRemoveable();
+                //CheckHandItemRemoveable();
+                return true;
             }
             else
             {
                 Debug.LogError("Wrong writeup, causes DeleteHandItem to be triggered invalid");
+                return false;
             }
-
+        } else
+        {
+            return false;
         }
     }
 
-    public void DeletingProcessHitItem(RaycastHit hitInfo)
+    public bool DeletingProcessHitItem(RaycastHit hitInfo)
     {
-
         // 如果碰撞到的是自己所属的Collider，做出响应
         if (hitInfo.collider.GetComponent<GridObjectTags>() != null)
         {
@@ -610,6 +633,7 @@ public class BuildingManager : MonoBehaviour
                     Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<GridObjectTags>().GetBuildingISO());
 
                     gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                    return true;
                 }
 
 
@@ -622,7 +646,17 @@ public class BuildingManager : MonoBehaviour
             }
 
         }
+        return false;
     }
 
+    public void CloseModifyMode()
+    {
+        modifying = false;
+        EndEditingChildMode();
+        GridManagerAccessor.GridManager.EndPaintMode(true);
+        buildingMode = false;
+
+        PlayerState.ChangeInventoryPanel(previousInventoryPanelOpen);
+    }
 
 }
