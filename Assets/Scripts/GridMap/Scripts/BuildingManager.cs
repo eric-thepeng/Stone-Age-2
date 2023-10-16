@@ -324,7 +324,7 @@ public class BuildingManager : MonoBehaviour
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
-                        //Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
+                        Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
@@ -525,6 +525,8 @@ public class BuildingManager : MonoBehaviour
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
+                        //GridUtilities.GetCellIndexesRequiredForObject
+
                         GridManagerAccessor.GridManager.EndPaintMode(false);
 
                         gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
