@@ -11,10 +11,10 @@ public class CharacterMovement : MonoBehaviour
     private Transform _visual;
     private CubismModel _model;
     private Animator _animator;
-    [SerializeField] private CubismParameter _leafShadow;
+    private CubismParameter _leafShadow;
     Vector3 _originalScale;
 
-    // 为了保证prewalk不会在换方向时再次触发
+    // ensure prewalk doesn't trigger when changing direction
     Vector3 _previousMovement;
 
     void Start()
@@ -28,7 +28,24 @@ public class CharacterMovement : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        Vector3 movement = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            movement.z += 1;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            movement.z -= 1;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            movement.x -= 1;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            movement.x += 1;
+        }
 
         if (movement == Vector3.zero && _previousMovement == Vector3.zero)
         {
@@ -56,6 +73,4 @@ public class CharacterMovement : MonoBehaviour
 
         _previousMovement = movement;
     }
-
-
 }
