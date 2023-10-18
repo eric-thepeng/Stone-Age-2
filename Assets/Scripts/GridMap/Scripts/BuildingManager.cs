@@ -409,7 +409,8 @@ public class BuildingManager : MonoBehaviour
     public void OpenBuildingMode()
     {
         buildingMode = true;
-        PlayerState.ChangeInventoryPanel(false);
+        //PlayerState.EnterState(PlayerState.State.Building);
+        //PlayerState.ChangeInventoryPanel(false);
         PlayerState.state = PlayerState.State.Building;
 
         foreach (HomeGrid hg in allHomeGrids)
@@ -421,7 +422,7 @@ public class BuildingManager : MonoBehaviour
     public void CloseBuildingMode()
     {
         buildingMode = false;
-        PlayerState.ChangeInventoryPanel(true);
+        //PlayerState.ChangeInventoryPanel(true);
         PlayerState.state = PlayerState.State.Browsing;
 
         foreach (HomeGrid hg in allHomeGrids)
@@ -475,14 +476,8 @@ public class BuildingManager : MonoBehaviour
         gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
     }
 
-    public void EndEditingChildMode()
-    {
-        editing = false;
-        GridManagerAccessor.GridManager.EndPaintMode(false);
-        //editingIndicator.gameObject.SetActive(false);
-    }
 
-    private bool previousInventoryPanelOpen = false;
+    public bool previousInventoryPanelOpen = false;
 
     public void ToggleModifying()
     {
@@ -505,7 +500,8 @@ public class BuildingManager : MonoBehaviour
             //}
 
             gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-            PlayerState.ExitState();
+            //PlayerState.ExitState();
+            PlayerState.state = PlayerState.State.Building;
             PlayerState.ChangeInventoryPanel(false);
 
             StartEditingChildMode();
@@ -636,11 +632,18 @@ public class BuildingManager : MonoBehaviour
 
     public void CloseModifyMode()
     {
-        modifying = false;
-        EndEditingChildMode();
+        if (modifying && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject") && !GridManagerAccessor.GridManager.ConfirmPlacement())
+        {
+            GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
+            Inventory.i.AddInventoryItem(handleItem.GetComponent<GridObjectTags>().GetBuildingISO());
+        }
         GridManagerAccessor.GridManager.EndPaintMode(true);
+        modifying = false;
+        editing = false;
+
         buildingMode = false;
 
+        PlayerState.state = PlayerState.State.Browsing;
         PlayerState.ChangeInventoryPanel(previousInventoryPanelOpen);
     }
 

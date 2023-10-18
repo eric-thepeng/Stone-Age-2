@@ -108,18 +108,17 @@ public class UI_InventoryBlock : MonoBehaviour
                 //BuildingManager.i.CancelSelectedBuidling();
 
                 SetSelectedBackground(false);
-                //GridManagerAccessor.GridManager.CancelPlacement(false);
-                GridManagerAccessor.GridManager.EndPaintMode(false);
+                //GridManagerAccessor.GridManager.EndPaintMode(false);
                 BuildingManager.i.CloseBuildingMode();
-
                 BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
-                //BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
 
             } else
             {
+                BuildingManager.i.previousInventoryPanelOpen = true;
                 BuildingManager.i.CloseModifyMode();
 
                 BuildingManager.i.OpenBuildingMode();
+                //PlayerState.EnterState(PlayerState.State.Building);
                 BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
                 //GridManagerAccessor.GridManager.CancelPlacement();
                 GridManagerAccessor.GridManager.EndPaintMode(false);
