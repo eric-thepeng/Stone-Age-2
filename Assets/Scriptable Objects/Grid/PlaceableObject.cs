@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(GridHeightPositioner))]
 [RequireComponent(typeof(GridValidator))]
 
-public class BuildingInteractable : MonoBehaviour
+public class PlaceableObject : MonoBehaviour
 {
     public string GridKey { get; private set; }
 
