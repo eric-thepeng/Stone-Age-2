@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8291756094773245604}
   - component: {fileID: 4979949609778236112}
   - component: {fileID: 7916508653958166864}
-  - component: {fileID: 7710672393583480261}
   - component: {fileID: 2278451288467499416}
   - component: {fileID: 7259028074167575742}
+  - component: {fileID: 7655591819459287635}
   m_Layer: 0
   m_Name: Empty Cube 1x1
   m_TagString: Untagged
@@ -118,21 +118,6 @@ MonoBehaviour:
   _gridHeightGizmoSize: 0.05
   _gridHeightGizmoColor: {r: 0, g: 0, b: 0, a: 1}
   _enableHandles: 1
---- !u!114 &7710672393583480261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1760037766763816239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e466b0e73dd44cd59a8bcbe23e04ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridObjectTags:
-  - EmptyObject
-  BISO: {fileID: 0}
 --- !u!114 &2278451288467499416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +143,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaea92c0aa594d5cb18c5758012ac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionCount: 0
+--- !u!114 &7655591819459287635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e735a8ddf038c4a14898dc6a46a93910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridCellIndex: {x: 0, y: 0}
+  BISO: {fileID: 0}
+  _gridObjectTags:
+  - EmptyObject

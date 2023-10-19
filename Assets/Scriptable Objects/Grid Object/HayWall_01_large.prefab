@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5606478375859459695}
   - component: {fileID: 7851013023878235435}
-  - component: {fileID: -1156300159930745875}
   - component: {fileID: 6551483158588495688}
   - component: {fileID: 1044563642751082968}
   - component: {fileID: 6319732883396528879}
+  - component: {fileID: 6202368080337451997}
   m_Layer: 0
   m_Name: HayWall_01_large
   m_TagString: Untagged
@@ -52,20 +52,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &-1156300159930745875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932418518791680853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e466b0e73dd44cd59a8bcbe23e04ddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridObjectTags: []
-  BISO: {fileID: 11400000, guid: b8f4a2decddd348bab871275fd48ab92, type: 2}
 --- !u!114 &6551483158588495688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +95,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionCount: 0
+--- !u!114 &6202368080337451997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932418518791680853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e735a8ddf038c4a14898dc6a46a93910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridCellIndex: {x: 0, y: 0}
+  _gridObjectTags: []
+  BISO: {fileID: 11400000, guid: b8f4a2decddd348bab871275fd48ab92, type: 2}
 --- !u!1 &1637170665924320302
 GameObject:
   m_ObjectHideFlags: 0
