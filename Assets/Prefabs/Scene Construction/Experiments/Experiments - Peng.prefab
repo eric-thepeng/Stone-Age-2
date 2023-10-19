@@ -1033,7 +1033,7 @@ GameObject:
   - component: {fileID: 7815698928772055099}
   - component: {fileID: 4478924418439649825}
   m_Layer: 0
-  m_Name: QuestSystem
+  m_Name: Test UniQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1067,12 +1067,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerQuestCondition:
+    hasBeenTrigged: 0
     uponGameStart: 0
+    duringTutorial: 0
     uponDiscoverExploreSpot: {fileID: 0}
     uponUnlockExploreSpot: {fileID: 0}
     uponStartGatherExploreSpot: {fileID: 0}
-    uponFirstObtainISO: {fileID: 0}
-    uponFirstBuildBISO: {fileID: 0}
+    uponObtainISO: {fileID: 0}
+    uponObtainISOAmount: 0
+    uponBuildBISO: {fileID: 0}
+    uponBuildBISOAmount: 0
+  beginningQuestAction:
+    gameObjectActions: []
+  descriptionDialogue:
+    allLines: []
+    currentLineIndex: 0
+  endingDialogue:
+    allLines: []
+    currentLineIndex: 0
+  endingQuestAction:
+    gameObjectActions: []
 --- !u!1 &8952507450529086315
 GameObject:
   m_ObjectHideFlags: 0
