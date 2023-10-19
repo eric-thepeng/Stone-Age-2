@@ -15,12 +15,10 @@ public class DialogueManager : MonoBehaviour
 
     public bool performing { get { return currentNS != null; } }
     bool loggingLine = false;
+    
 
-    [SerializeField] NarrativeSequenceList NSList;
-    Dictionary<string, NarrativeSequence> allNSDictionary = new Dictionary<string, NarrativeSequence>();
-
-    [SerializeField] private bool debugMode = false;
-    [SerializeField] private string debugQueNS = "";
+    //[SerializeField] private bool debugMode = false;
+    //[SerializeField] private string debugQueNS = "";
 
     static DialogueManager instance;
     public static DialogueManager i
@@ -35,25 +33,17 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        foreach(NarrativeSequence ns in NSList.data)
-        {
-            allNSDictionary.Add(ns.narrativeSequenceID, ns);
-        }
-    }
-
     private void Start()
     {
         dialogueGO = transform.Find("Dialogue").gameObject;
         lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
         nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;
-        
+        /*
         if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
         else
         {
             if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
-        }
+        }*/
     }
 
     private void Update()
@@ -72,12 +62,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
     
-    public NarrativeSequence GetNarrativeSequenceByID(string id)
-    {
-        if (!allNSDictionary.ContainsKey(id)) Debug.Log("Does not contain Narrative Sequence of ID: " + id);
-        return allNSDictionary[id];
-    }
 
+    /// <summary>
+    /// Trigger a QuestDialogue
+    /// </summary>
+    /// <param name="sequence"></param>
+    /// <returns></returns>
     public bool QueueNarrativeSequence(NarrativeSequence sequence)
     {
         if (performing) return false;
@@ -86,11 +76,7 @@ public class DialogueManager : MonoBehaviour
         StartPerforming();
         return true;
     }
-
-    public bool QueueNarrativeSequence(string NSID)
-    {
-        return QueueNarrativeSequence(GetNarrativeSequenceByID(NSID));
-    }
+    
 
     void StartPerforming()
     {
@@ -120,7 +106,6 @@ public class DialogueManager : MonoBehaviour
 
     void EndPerforming()
     {
-        if (currentNS.HasQuest()) { QuestManager.i.StartQuestByID(currentNS.questIDToQue); }
         dialogueGO.SetActive(false);
         UI_FullScreenShading.i.HideShading();
         currentNS = null; 
