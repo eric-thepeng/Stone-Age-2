@@ -46,8 +46,11 @@ public static class PlayerState
         }
         else if (state == State.Building)
         {
+            BuildingManager.i.CloseModifyMode();
             BuildingManager.i.CloseBuildingMode();
-        }else if (state == State.AllocatingBackpack)
+            BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
+        }
+        else if (state == State.AllocatingBackpack)
         {
             
         }else if (state == State.ExploreMap)
@@ -85,7 +88,8 @@ public static class PlayerState
         {
             ChangeInventoryPanel(true);
             BuildingManager.i.OpenBuildingMode  ();
-        }else if (enterState == State.AllocatingBackpack)
+        }
+        else if (enterState == State.AllocatingBackpack)
         {
             ChangeInventoryPanel(true);
         }else if (enterState == State.ExploreMap)

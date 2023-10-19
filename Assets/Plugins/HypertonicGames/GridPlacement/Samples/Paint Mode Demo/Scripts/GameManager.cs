@@ -43,6 +43,30 @@ namespace Hypertonic.GridPlacement.Example.PaintMode
             _gridManager.EndPaintMode();
         }
 
+        public void Update()
+        {
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+                {
+                    GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                    _selectedGridObject.transform.Rotate(new Vector3(0, -90, 0));
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                }
+            }
+            else
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+                {
+                    GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                    _selectedGridObject.transform.Rotate(new Vector3(0, 90, 0));
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                }
+            }
+        }
+
         private IEnumerator CheckForInput()
         {
             while (true)
@@ -67,8 +91,12 @@ namespace Hypertonic.GridPlacement.Example.PaintMode
 #if ENABLE_LEGACY_INPUT_MANAGER
             if (Input.GetMouseButtonDown(0))
             {
-                _gridManager.ConfirmPlacement();
-            }
+
+                    Quaternion _rotation = GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation;
+                    _gridManager.ConfirmPlacement();
+                    GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                }
 #endif
             }
         }

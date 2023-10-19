@@ -46,6 +46,8 @@ public class BuildingManager : MonoBehaviour
     [SerializeField]
     private Transform initialTransform;
 
+    public float duration = 0.1f;
+
 
     class GridIndication
     {
@@ -235,18 +237,21 @@ public class BuildingManager : MonoBehaviour
     }
 
     BuildDragInfo buildDragInfo = null;
+    private Quaternion targetRotation;
+
 
 
     private void Start()
     {
         gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
-
     }
 
 
     void Update()
     {
+
+
         if (!buildingMode) return; //return if not building mode
 
         if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true)) //hide indicator if mouse is not on grid
@@ -255,22 +260,14 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
-        //set up homegrid, hitpoint, and display
         HomeGrid hg = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true).GetComponent<HomeGrid>();
 
         hitPoint = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.HOME_GRID, true);
 
-        //gridIndication.Display(hg.GetGridWorldPositionFromPosition(hitPoint), GetSelectedBuildingISO());
-
-        //hg.GetGridCoordFromPosition(hitPoint, out int x, out int z);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        //if (!modifying && (editing || deleting))
-        //{
-        //    CloseModifyMode();
-        //}
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -278,27 +275,37 @@ public class BuildingManager : MonoBehaviour
             if (modifying)
             {
 
-                // 如果射线与Collider相交，则返回true并将碰撞信息存储在hitInfo中
                 if (_rayHit)
                 {
                     EditingProcessHitItem(hitInfo);
                 }
-            } else
-            if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
-            {
-                //GridManagerAccessor.GridManager.CancelPlacement();
-                GridManagerAccessor.GridManager.EndPaintMode(false);
-
-                //Vector3 _position = GridManagerAccessor.GridManager.GetGridPosition();
-                //_position.y -= 10;
-
-                //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
-
-                //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
-                GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
             }
+            //else if (GetSelectedBuildingISO() != null && Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()) > 0)
+            //{
+            //    GridManagerAccessor.GridManager.EndPaintMode(false);
+            //    GridManagerAccessor.GridManager.StartPaintMode(GetSelectedBuildingISO().GetBuildingPrefab());
+            //}
         }
 
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+            {
+                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, -90, 0);
+                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+            {
+                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, 90, 0);
+                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
+            }
+        }
 
 
         //if (buildDragInfo == null) //NEW BUILD DRAG
@@ -311,48 +318,34 @@ public class BuildingManager : MonoBehaviour
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
-                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+
                     Quaternion _rotation = GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation;
+
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
                         Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
 
                         Inventory.i.InBuildItem(selectedISO, true);
-                        
-                        //print(Inventory.i.ItemInStockAmount(GetSelectedBuildingISO()));
+                        GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
+                        GridManagerAccessor.GridManager.HandleGridObjectRotated();
                     }
                 }
 
                 if (selectedISO != null && Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
+                    //GridManagerAccessor.GridManager.EndPaintMode(false);
 
-                    //GridManagerAccessor.GridManager.CancelPlacement();
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
-
-                    //Vector3 _position = new Vector3(0, -10, 0);
-                    //GameObject objectToPlace = Instantiate(GetSelectedBuildingISO().GetBuildingPrefab(), _position, new Quaternion());
-
-                    //objectToPlace.name = GetSelectedBuildingISO().GetBuildingPrefab().name;
-                    //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
-
-                    GridManagerAccessor.GridManager.StartPaintMode(selectedISO.GetBuildingPrefab());
+                    //GridManagerAccessor.GridManager.StartPaintMode(selectedISO.GetBuildingPrefab());
                 }
                 else
                 {
-                    //GridManagerAccessor.GridManager.CancelPlacement(false);
                     GridManagerAccessor.GridManager.EndPaintMode(true);
                     i.CancelSelectedBuidling();
                     Debug.Log("CancelSelectedBuidling");
 
                     CloseBuildingMode();
-                    //gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-
-                    //PlayerState.OpenCloseBuildingPanel();
-                    //gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
                 }
-
-                //buildDragInfo = new BuildDragInfo(new Vector2Int(x,z), hg, GetSelectedBuildingISO());
 
             }
         }
@@ -366,7 +359,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     if (_rayHit)
                     {
-                        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+                        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
                         {
                             bool _hit = DeletingProcessHitItem(hitInfo);
                             if (!_hit) ToggleModifying();
@@ -387,9 +380,6 @@ public class BuildingManager : MonoBehaviour
                         Debug.Log("CancelSelectedBuidling");
                     }
 
-                    //gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-
-                    //PlayerState.OpenCloseBuildingPanel();
                     CloseBuildingMode();
                     gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
                 }
@@ -397,32 +387,30 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (GridManagerAccessor.GridManager.IsPlacingGridObject)
-            {
-                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                _selectedGridObject.transform.Rotate(new Vector3(0, -90, 0));
-                //GridManagerAccessor.GridManager.HandleGridObjectRotated();
-            }
-        } else 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                if (GridManagerAccessor.GridManager.IsPlacingGridObject)
-                {
-                    GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                    _selectedGridObject.transform.Rotate(new Vector3(0, 90, 0));
-                    //GridManagerAccessor.GridManager.HandleGridObjectRotated();
-            }
-            }
 
+    }
+
+    IEnumerator SmoothRotateObject(GameObject obj, Quaternion targetRot)
+    {
+        float elapsed = 0f;
+        Quaternion startRotation = obj.transform.rotation;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            obj.transform.rotation = Quaternion.Slerp(startRotation, targetRot, elapsed / duration);
+            yield return null;
+        }
+        obj.transform.rotation = targetRot;  // 确保旋转完全完成
+        GridManagerAccessor.GridManager.HandleGridObjectRotated();
     }
 
 
     public void OpenBuildingMode()
     {
         buildingMode = true;
-        PlayerState.ChangeInventoryPanel(false);
+        //PlayerState.EnterState(PlayerState.State.Building);
+        //PlayerState.ChangeInventoryPanel(false);
         PlayerState.state = PlayerState.State.Building;
 
         foreach (HomeGrid hg in allHomeGrids)
@@ -434,7 +422,7 @@ public class BuildingManager : MonoBehaviour
     public void CloseBuildingMode()
     {
         buildingMode = false;
-        PlayerState.ChangeInventoryPanel(true);
+        //PlayerState.ChangeInventoryPanel(true);
         PlayerState.state = PlayerState.State.Browsing;
 
         foreach (HomeGrid hg in allHomeGrids)
@@ -488,14 +476,8 @@ public class BuildingManager : MonoBehaviour
         gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
     }
 
-    public void EndEditingChildMode()
-    {
-        editing = false;
-        GridManagerAccessor.GridManager.EndPaintMode(false);
-        //editingIndicator.gameObject.SetActive(false);
-    }
 
-    private bool previousInventoryPanelOpen = false;
+    public bool previousInventoryPanelOpen = false;
 
     public void ToggleModifying()
     {
@@ -518,7 +500,8 @@ public class BuildingManager : MonoBehaviour
             //}
 
             gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-            PlayerState.ExitState();
+            //PlayerState.ExitState();
+            PlayerState.state = PlayerState.State.Building;
             PlayerState.ChangeInventoryPanel(false);
 
             StartEditingChildMode();
@@ -528,23 +511,21 @@ public class BuildingManager : MonoBehaviour
     public void EditingProcessHitItem(RaycastHit hitInfo)
     {
 
-        // 如果碰撞到的是自己所属的Collider，做出响应
-        if (hitInfo.collider.GetComponent<GridObjectTags>() != null)
+        if (hitInfo.collider.GetComponent<BuildingInteractable>() != null)
         {
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
                 {
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
+                        //GridUtilities.GetCellIndexesRequiredForObject
+
                         GridManagerAccessor.GridManager.EndPaintMode(false);
 
                         gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
-                        //Instantiate(particlePrefab, hitPoint, new Quaternion());
-                        //editing = false;
-                        //GridManagerAccessor.GridManager.emptycube
                     }
 
                 }
@@ -574,7 +555,7 @@ public class BuildingManager : MonoBehaviour
     public bool DeleteHandItem()
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject &&
-            GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+            GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
         {
             HandItemRemoveable = false;
         }
@@ -586,14 +567,14 @@ public class BuildingManager : MonoBehaviour
         GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
         if (HandItemRemoveable)
         {
-            if (!handleItem.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+            if (!handleItem.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
             {
                 Instantiate(particlePrefab, hitPoint, new Quaternion());
                 GridManagerAccessor.GridManager.DeleteObject(handleItem);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
                 //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
-                Inventory.i.AddInventoryItem(handleItem.GetComponent<GridObjectTags>().GetBuildingISO());
+                Inventory.i.AddInventoryItem(handleItem.GetComponent<BuildingInteractable>().GetBuildingISO());
 
                 gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
                 //CheckHandItemRemoveable();
@@ -618,7 +599,7 @@ public class BuildingManager : MonoBehaviour
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
                 {
                     Debug.LogError("BuildingManager tries to process deleting, but an object is handling in the hand!");
 
@@ -630,7 +611,7 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.EndPaintMode(false);
 
                     //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
-                    Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<GridObjectTags>().GetBuildingISO());
+                    Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<BuildingInteractable>().GetBuildingISO());
 
                     gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
                     return true;
@@ -651,11 +632,18 @@ public class BuildingManager : MonoBehaviour
 
     public void CloseModifyMode()
     {
-        modifying = false;
-        EndEditingChildMode();
+        if (modifying && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject") && !GridManagerAccessor.GridManager.ConfirmPlacement())
+        {
+            GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
+            Inventory.i.AddInventoryItem(handleItem.GetComponent<BuildingInteractable>().GetBuildingISO());
+        }
         GridManagerAccessor.GridManager.EndPaintMode(true);
+        modifying = false;
+        editing = false;
+
         buildingMode = false;
 
+        PlayerState.state = PlayerState.State.Browsing;
         PlayerState.ChangeInventoryPanel(previousInventoryPanelOpen);
     }
 

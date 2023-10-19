@@ -54,11 +54,6 @@ public class GridValidator : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        Debug.Log("Trigger colliding in the collider");
-    }
-
 
     public void HandleEnteredWallArea()
     {
@@ -79,14 +74,14 @@ public class GridValidator : MonoBehaviour
             {
                 HandleExitedWallArea();
                 wasOnTerrainLastFrame = true;
-                Debug.Log("Exited the terrin collider");
+                //Debug.Log("Exited the terrin collider");
             }
         }
         else if (wasOnTerrainLastFrame)
         {
             HandleEnteredWallArea();
             wasOnTerrainLastFrame = false;
-            Debug.Log("Entered the terrin collider");
+            //Debug.Log("Entered the terrin collider");
         }
     }
 

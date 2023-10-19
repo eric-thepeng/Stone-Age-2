@@ -5,6 +5,8 @@ using Hypertonic.GridPlacement;
 public class GridOperationManager : MonoBehaviour
 {
     //[SerializeField]
+
+    [Header("Grid Manager Related")]
     public GridSettings _gridSettings;
 
     [SerializeField]
@@ -12,9 +14,12 @@ public class GridOperationManager : MonoBehaviour
 
     public GridManager _gridManager;
 
+    [Header("Nearby Objects Related")]
     public bool operateStatus;
     public GameObject itemPlaced;
 
+    [Header("Obstacle Masks")]
+    public bool enableObstacleMasks;
     public Sprite ObstacleSprite;
 
     private void Start()
@@ -100,35 +105,35 @@ public class GridOperationManager : MonoBehaviour
         return new Vector2((float)posX, (float)posY);
     }
 
-    private IEnumerator CheckForInput()
-    {
-        while (true)
-        {
+//    private IEnumerator CheckForInput()
+//    {
+//        while (true)
+//        {
 
-            yield return null;
+//            yield return null;
 
-            // Don't check for input if the grid manager isn't placing an object
-            if (!_gridManager.IsPlacingGridObject)
-                continue;
+//            // Don't check for input if the grid manager isn't placing an object
+//            if (!_gridManager.IsPlacingGridObject)
+//                continue;
 
-            // Check input from new Input System
-#if ENABLE_INPUT_SYSTEM
-            if (UnityEngine.InputSystem.Mouse.current.leftButton.isPressed)
-            {
-                _gridManager.ConfirmPlacement();
-            }
-#endif
+//            // Check input from new Input System
+//#if ENABLE_INPUT_SYSTEM
+//            if (UnityEngine.InputSystem.Mouse.current.leftButton.isPressed)
+//            {
+//                _gridManager.ConfirmPlacement();
+//            }
+//#endif
 
 
-            // Check input from old Input System
-#if ENABLE_LEGACY_INPUT_MANAGER
-        if (Input.GetMouseButton(0) && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
-        {
-                //Debug.Log(_gridManager.ConfirmPlacement());
-            //    itemPlaced = _gridManager.ObjectToPlace;
-            //operateStatus = _gridManager.ConfirmPlacement();
-        }
-#endif
-        }
-    }
+//            // Check input from old Input System
+//#if ENABLE_LEGACY_INPUT_MANAGER
+//        if (Input.GetMouseButton(0) && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridObjectTags>().containsTag("EmptyObject"))
+//        {
+//                //Debug.Log(_gridManager.ConfirmPlacement());
+//            //    itemPlaced = _gridManager.ObjectToPlace;
+//            //operateStatus = _gridManager.ConfirmPlacement();
+//        }
+//#endif
+//        }
+//    }
 }
