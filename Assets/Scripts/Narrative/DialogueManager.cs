@@ -6,20 +6,24 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
+    //Current NS Info
     NarrativeSequence currentNS = null;
     int currentLine = 0;
+    
+    //Current State
+    public bool performing { get { return currentNS != null; } }
+    bool loggingLine = false;
 
+    //Game Objects and UIs
     GameObject dialogueGO = null;
     GameObject nextLineIndicationGO = null;
     TextMeshPro lineDispaly = null;
 
-    public bool performing { get { return currentNS != null; } }
-    bool loggingLine = false;
+    /* Debug
+    [SerializeField] private bool debugMode = false;
+    [SerializeField] private string debugQueNS = "";
+    */
     
-
-    //[SerializeField] private bool debugMode = false;
-    //[SerializeField] private string debugQueNS = "";
-
     static DialogueManager instance;
     public static DialogueManager i
     {
