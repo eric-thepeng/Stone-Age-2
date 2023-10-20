@@ -1,10 +1,11 @@
+using System;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "NarrativeSequence", menuName = "ScriptableObjects/Narrative/NarrativeSequence")]
-public class NarrativeSequence// : SerializedScriptableObject
+[Serializable]public class NarrativeSequence// : SerializedScriptableObject
 {
     public List<string> data = new List<string>();
     public string GetLine(int index) { return data[index]; }

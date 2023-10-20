@@ -1078,15 +1078,17 @@ MonoBehaviour:
     uponBuildBISO: {fileID: 0}
     uponBuildBISOAmount: 0
   beginningQuestAction:
-    gameObjectActions: []
-  descriptionDialogue:
-    allLines: []
-    currentLineIndex: 0
-  endingDialogue:
-    allLines: []
-    currentLineIndex: 0
-  endingQuestAction:
-    gameObjectActions: []
+  - gameObjectAction:
+      actionType: 0
+      targetGameObject: {fileID: 0}
+      targetVector: {x: 0, y: 0, z: 0}
+    narrativeSequenceAction:
+      narrativeSequenceToPlay:
+        data:
+        - 1112312312312312
+        - 'sdgf s sdf sd  sdf sd s df sd '
+        - sd f d s s df
+  endingQuestAction: []
 --- !u!1 &8952507450529086315
 GameObject:
   m_ObjectHideFlags: 0

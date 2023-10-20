@@ -61,13 +61,13 @@ public class CharacterMovement : MonoBehaviour
         if (movement.x < 0)
         {
             _leafShadow.Value = 1;
-            Debug.Log(_leafShadow.Value);
+            //Debug.Log(_leafShadow.Value);
             _visual.transform.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
         }
         else if (movement.x > 0)
         {
             _leafShadow.Value = 0;
-            Debug.Log(_leafShadow.Value);
+            //Debug.Log(_leafShadow.Value);
             _visual.transform.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);
         }
 

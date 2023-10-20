@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Quest:MonoBehaviour
 {
+    
     public string questName = "default quest name";
     public string questDescription = "default quest description";
     public string questID = "default quest ID";
@@ -46,7 +47,7 @@ public class Quest:MonoBehaviour
     private IEnumerator CorQueEndingNS()
     {
         yield return new WaitForSeconds(endDelay);
-        DialogueManager.i.QueueNarrativeSequence(narrativeSequenceIDToQue);
+        //DialogueManager.i.QueueNarrativeSequence(narrativeSequenceIDToQue);
     }
 
     protected virtual void StartQuest() {

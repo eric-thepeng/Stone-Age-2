@@ -48,48 +48,19 @@ public class UniQuest : MonoBehaviour
             return currentLineIndex < allLines.Count;
         }
     }
-
-    [Serializable]
-    public class QuestAction
-    {
-        [Serializable]public class GameObjectAction
-        {
-            public enum ActionType{LocalMoveAmount, GlobalMoveAmount, Enable, Disable}
-
-            public ActionType actionType = ActionType.LocalMoveAmount;
-            public GameObject targetGameObject;
-            public Vector3 targetVector;
-
-            public void PerformAction()
-            {
-                if (actionType == ActionType.LocalMoveAmount) targetGameObject.transform.localPosition += targetVector;
-                else if (actionType == ActionType.LocalMoveAmount) targetGameObject.transform.position += targetVector;
-                else if (actionType == ActionType.Enable) targetGameObject.SetActive(true);
-                else if (actionType == ActionType.Disable) targetGameObject.SetActive(false);
-            }
-        }
-
-        public List<GameObjectAction> gameObjectActions;
-
-        public void PerformActions()
-        {
-            foreach (GameObjectAction goa in gameObjectActions)
-            {
-                goa.PerformAction();
-            }
-        }
-    }
+    
 
     #endregion
 
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;
-    [SerializeField]public QuestAction beginningQuestAction;
-    [SerializeField]public QuestDialogue descriptionDialogue;
-    [SerializeField]public QuestDialogue endingDialogue;
-    [SerializeField]public QuestAction endingQuestAction;
+    [SerializeField]public List<UniAction> beginningQuestAction;
+    [SerializeField]public List<UniAction> endingQuestAction;
 
     private void Start()
     {
-        
+        foreach (var VARIABLE in beginningQuestAction)
+        {
+            VARIABLE.PerformAction();
+        }
     }
 }
