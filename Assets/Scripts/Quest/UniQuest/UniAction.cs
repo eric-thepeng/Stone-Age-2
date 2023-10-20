@@ -5,6 +5,8 @@ using UnityEngine;
 
 [Serializable]public class UniAction
 {
+    [SerializeField, Header("Delay an amount of time when executing action.")] private float delayTime;
+    
     public interface IUniAction
     {
         public void PerformAction();
@@ -47,6 +49,24 @@ using UnityEngine;
         }
     }
 
+    [Serializable]
+    public class UniQuestAction : IUniAction
+    {
+        public UniQuest targetUniQuest;
+        public enum ActionType{Trigger}
+        public ActionType actionType = ActionType.Trigger;
+        
+        public void PerformAction()
+        {
+            
+        }
+
+        public bool IsAssigned()
+        {
+            return false;
+        }
+    }
+
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
     
@@ -64,10 +84,21 @@ using UnityEngine;
         {
             if (uniAction.IsAssigned())
             {
-                uniAction.PerformAction();
+                DelayAndPerformAction(uniAction);
                 return;
             }
         }
+    }
+
+    IEnumerator DelayAndPerformAction(IUniAction uniActionToPerform)
+    {
+        float timeCount = 0;
+        while (timeCount<delayTime)
+        {
+            timeCount += Time.deltaTime;
+            yield return null;
+        }
+        uniActionToPerform.PerformAction();
     }
     
     

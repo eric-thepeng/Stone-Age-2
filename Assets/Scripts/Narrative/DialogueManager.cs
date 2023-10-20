@@ -15,9 +15,9 @@ public class DialogueManager : MonoBehaviour
     bool loggingLine = false;
 
     //Game Objects and UIs
-    GameObject dialogueGO = null;
-    GameObject nextLineIndicationGO = null;
-    TextMeshPro lineDispaly = null;
+    [Header("DO NOT EDIT BELOW")][SerializeField]GameObject dialogueGO;
+    [SerializeField]GameObject nextLineIndicationGO;
+    [SerializeField]TextMeshPro lineDispaly;
 
     /* Debug
     [SerializeField] private bool debugMode = false;
@@ -36,12 +36,15 @@ public class DialogueManager : MonoBehaviour
             return instance;
         }
     }
+    
+    
 
     private void Start()
     {
+        /*
         dialogueGO = transform.Find("Dialogue").gameObject;
         lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
-        nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;
+        nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;*/
         /*
         if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
         else
