@@ -324,7 +324,7 @@ public class BuildingManager : MonoBehaviour
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
-                        Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
+                        Instantiate(particlePrefab, hitPoint, new Quaternion());
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
