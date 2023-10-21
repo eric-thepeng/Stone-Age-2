@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BLDFarmland : CropGrowth
 {
-    public bool isPlaced;
+    private bool isPlaced;
 
     [Header("Current State")]
     UnlockState unlockState;
@@ -43,8 +43,8 @@ public class BLDFarmland : CropGrowth
             float bgScale = background.transform.localScale.x;
             _pos.x = - bgScale / 2 + _scale.x/2;
 
-            progress.transform.localPosition = _pos;
-            progress.transform.localScale = _scale;
+            if (!float.IsNaN(_pos.x) && !float.IsInfinity(_pos.x)) progress.transform.localPosition = _pos;
+            if (!float.IsNaN(_scale.x) && !float.IsInfinity(_scale.x)) progress.transform.localScale = _scale;
         } else
         {
             Bar.SetActive(false);
@@ -53,8 +53,6 @@ public class BLDFarmland : CropGrowth
 
     private void OnMouseDown()
     {
-
-
         //if (WorldUtility.GetMouseHitObject(WorldUtility.LAYER.WORLD_INTERACTABLE, true).Equals(this) )
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -72,6 +70,7 @@ public class BLDFarmland : CropGrowth
         }
 
     }
+    // added long-press
 
     public void Reward()
     {
