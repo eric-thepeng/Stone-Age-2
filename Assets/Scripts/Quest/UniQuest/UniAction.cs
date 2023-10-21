@@ -88,7 +88,7 @@ using UnityEngine;
         {
             if (uniAction.IsAssigned())
             {
-                
+                DialogueManager.i.StartCoroutine(DelayAndPerformAction(uniAction));
                 //DelayAndPerformAction(uniAction);
                 return;
             }
