@@ -324,7 +324,7 @@ public class BuildingManager : MonoBehaviour
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
-                        Instantiate(particlePrefab, hitPoint, new Quaternion()).transform.rotation = _rotation;
+                        Instantiate(particlePrefab, hitPoint, new Quaternion());
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
@@ -359,7 +359,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     if (_rayHit)
                     {
-                        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
+                        if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
                         {
                             bool _hit = DeletingProcessHitItem(hitInfo);
                             if (!_hit) ToggleModifying();
@@ -511,12 +511,12 @@ public class BuildingManager : MonoBehaviour
     public void EditingProcessHitItem(RaycastHit hitInfo)
     {
 
-        if (hitInfo.collider.GetComponent<BuildingInteractable>() != null)
+        if (hitInfo.collider.GetComponent<PlaceableObject>() != null)
         {
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
+                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
                 {
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
@@ -555,7 +555,7 @@ public class BuildingManager : MonoBehaviour
     public bool DeleteHandItem()
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject &&
-            GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
+            GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
         {
             HandItemRemoveable = false;
         }
@@ -567,14 +567,14 @@ public class BuildingManager : MonoBehaviour
         GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
         if (HandItemRemoveable)
         {
-            if (!handleItem.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
+            if (!handleItem.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
             {
                 Instantiate(particlePrefab, hitPoint, new Quaternion());
                 GridManagerAccessor.GridManager.DeleteObject(handleItem);
                 GridManagerAccessor.GridManager.EndPaintMode(false);
 
                 //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
-                Inventory.i.AddInventoryItem(handleItem.GetComponent<BuildingInteractable>().GetBuildingISO());
+                Inventory.i.AddInventoryItem(handleItem.GetComponent<PlaceableObject>().GetBuildingISO());
 
                 gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
                 //CheckHandItemRemoveable();
@@ -599,7 +599,7 @@ public class BuildingManager : MonoBehaviour
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject"))
+                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
                 {
                     Debug.LogError("BuildingManager tries to process deleting, but an object is handling in the hand!");
 
@@ -611,7 +611,7 @@ public class BuildingManager : MonoBehaviour
                     GridManagerAccessor.GridManager.EndPaintMode(false);
 
                     //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
-                    Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<BuildingInteractable>().GetBuildingISO());
+                    Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<PlaceableObject>().GetBuildingISO());
 
                     gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
                     return true;
@@ -632,10 +632,10 @@ public class BuildingManager : MonoBehaviour
 
     public void CloseModifyMode()
     {
-        if (modifying && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<BuildingInteractable>().containsTag("EmptyObject") && !GridManagerAccessor.GridManager.ConfirmPlacement())
+        if (modifying && !GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject") && !GridManagerAccessor.GridManager.ConfirmPlacement())
         {
             GameObject handleItem = GridManagerAccessor.GridManager.ObjectToPlace;
-            Inventory.i.AddInventoryItem(handleItem.GetComponent<BuildingInteractable>().GetBuildingISO());
+            Inventory.i.AddInventoryItem(handleItem.GetComponent<PlaceableObject>().GetBuildingISO());
         }
         GridManagerAccessor.GridManager.EndPaintMode(true);
         modifying = false;
