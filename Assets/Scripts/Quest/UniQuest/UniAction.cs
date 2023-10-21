@@ -52,21 +52,20 @@ using UnityEngine;
         }
     }
 
-    [Serializable]
-    public class UniQuestAction : IUniAction
+    [Serializable] public class UniQuestAction : IUniAction
     {
-        public UniQuest targetUniQuest;
-        public enum ActionType{Trigger}
-        public ActionType actionType = ActionType.Trigger;
+        public UniQuest targetUniQuest = null;
+        public enum ActionType{TriggerQuest,LoadDescription}
+        public ActionType actionType = ActionType.TriggerQuest;
         
         public void PerformAction()
         {
-            
+            targetUniQuest.QueQuest();
         }
 
         public bool IsAssigned()
         {
-            return false;
+            return targetUniQuest != null;
         }
     }
 

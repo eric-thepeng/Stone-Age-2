@@ -63,4 +63,6 @@ public class UniQuest : MonoBehaviour
             VARIABLE.PerformAction();
         }
     }
+
+    public void QueQuest(){}
 }
