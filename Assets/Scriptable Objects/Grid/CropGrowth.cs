@@ -21,16 +21,13 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
 
         [Header("Objects & Actions")]
+        public DoAction InitAction = DoAction.ENABLE;
+        public DoAction FinishAction = DoAction.DISABLE;
+
         public GameObject dryObj = null;
-        public DoAction dryObjInitAction = DoAction.ENABLE;
-        public DoAction dryObjFinishAction = DoAction.DISABLE;
+        public GameObject wetObj = null;
 
         public ResourceSet waterCost = null;
-
-        public GameObject wetObj = null;
-        public DoAction wetObjInitAction = DoAction.ENABLE;
-        public DoAction wetObjFinishAction = DoAction.DISABLE;
-
         public float GrowthTime;
 
         //[HideInInspector]
@@ -65,8 +62,8 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
                     return false;
                 }
             }
-            AdjustObjToAction(dryObj, dryObjFinishAction);
-            AdjustObjToAction(wetObj, wetObjInitAction);
+            AdjustObjToAction(dryObj, FinishAction);
+            AdjustObjToAction(wetObj, InitAction);
 
             IsCountingDown = true;
             countdownStartTime = Time.time;
@@ -83,14 +80,14 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         public void Initialize()
         {
-            AdjustObjToAction(dryObj, dryObjInitAction); // enable
-            AdjustObjToAction(wetObj, wetObjFinishAction); //disable
+            AdjustObjToAction(dryObj, InitAction); // enable
+            AdjustObjToAction(wetObj, FinishAction); //disable
         }
 
         public void Finish()
         {
-            AdjustObjToAction(dryObj, dryObjFinishAction); // enable
-            AdjustObjToAction(wetObj, wetObjFinishAction); //disable
+            AdjustObjToAction(dryObj, FinishAction); // enable
+            AdjustObjToAction(wetObj, FinishAction); //disable
         }
 
         private IEnumerator GrowthCountdown(MonoBehaviour runner)
@@ -98,7 +95,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             yield return new WaitForSeconds(GrowthTime); // 等待设定的生长时间
 
             IsCountingDown = false;
-            AdjustObjToAction(wetObj, wetObjFinishAction); // 应用结束动作
+            AdjustObjToAction(wetObj, FinishAction); // 应用结束动作
 
             OnGrowthComplete?.Invoke(); // 触发成长完成事件
         }
@@ -133,7 +130,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     [SerializeField] List<UnlockState> allUnlockStates;
 
-    public int currentState = 0;
+    private int currentState = 0;
 
     public UnityEvent matureRewardEvent;
     public UnityEvent stateChangeEvent;

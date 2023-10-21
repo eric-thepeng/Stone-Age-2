@@ -207,38 +207,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591854c666df2426cacdfd7844611922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseHovering: 0
   allUnlockStates:
-  - dryObj: {fileID: 4178412235384188211}
-    dryObjInitAction: 2
-    dryObjFinishAction: 3
-    waterCost:
-      spiritPoint: 0
-      resources: []
+  - InitAction: 2
+    FinishAction: 3
+    dryObj: {fileID: 4178412235384188211}
     wetObj: {fileID: 7392266181706308509}
-    wetObjInitAction: 2
-    wetObjFinishAction: 3
+    waterCost:
+      spiritPoint: 0
+      resources: []
     GrowthTime: 2
-  - dryObj: {fileID: 1462077639419864620}
-    dryObjInitAction: 2
-    dryObjFinishAction: 3
-    waterCost:
-      spiritPoint: 0
-      resources: []
+  - InitAction: 2
+    FinishAction: 3
+    dryObj: {fileID: 1462077639419864620}
     wetObj: {fileID: 1592326401106139600}
-    wetObjInitAction: 2
-    wetObjFinishAction: 3
-    GrowthTime: 4
-  - dryObj: {fileID: 6919601959574617987}
-    dryObjInitAction: 2
-    dryObjFinishAction: 3
     waterCost:
       spiritPoint: 0
       resources: []
+    GrowthTime: 4
+  - InitAction: 2
+    FinishAction: 3
+    dryObj: {fileID: 6919601959574617987}
     wetObj: {fileID: 0}
-    wetObjInitAction: 2
-    wetObjFinishAction: 3
+    waterCost:
+      spiritPoint: 0
+      resources: []
     GrowthTime: 0
-  currentState: 0
   matureRewardEvent:
     m_PersistentCalls:
       m_Calls:
@@ -587,7 +581,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Color: {r: 0.6792453, g: 0.54536265, b: 0.2979708, a: 0.6745098}
   m_FlipX: 0
   m_FlipY: 0
