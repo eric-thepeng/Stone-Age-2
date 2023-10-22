@@ -42,7 +42,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
     [SerializeField] private AnimationCurve stickyHeightAgainstHeight;
 
-    [SerializeField] private float urpShadowDistanceMix = 1;
+    [SerializeField] private float urpShadowDistanceMin = 1;
     [SerializeField] private float urpShadowDistanceMax = 10;
     private float urpShadowDistance;
     
@@ -54,11 +54,13 @@ public class CameraManager : MonoBehaviour
         targetCamHeight = Mathf.Clamp(targetCamHeight, cameraHeightMin, cameraHeightMax);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
+
+        float ratio = (targetCamHeight - cameraHeightMin) / (cameraHeightMax - cameraHeightMin);
+        urpShadowDistance = (urpShadowDistanceMax - urpShadowDistanceMin) * ratio + urpShadowDistanceMin;
         
-        /*
         QualitySettings.shadowDistance = urpShadowDistance;
         UniversalRenderPipelineAsset urp = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
-        urp.shadowDistance = urpShadowDistance;*/
+        urp.shadowDistance = urpShadowDistance;
         
 
         //MOVEMENT
