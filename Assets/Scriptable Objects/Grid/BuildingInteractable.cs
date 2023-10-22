@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Hypertonic.GridPlacement;
 using UnityEngine;
 
 public class BuildingInteractable : WorldInteractable
@@ -13,6 +14,16 @@ public class BuildingInteractable : WorldInteractable
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    protected override void BeginMouseHover()
+    {
+        mouseHovering = true;
+        if (!GridManagerAccessor.GridManager.IsPlacingGridObject)
+        {
+            TurnOnHighlight();
+        }
+
     }
 }

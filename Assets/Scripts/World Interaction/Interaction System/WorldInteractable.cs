@@ -7,7 +7,8 @@ using DG.Tweening;
 public class WorldInteractable : MonoBehaviour
 {
     //hovering//
-    private bool mouseHovering = false;
+    [HideInInspector]
+    public bool mouseHovering = false;
     protected virtual void BeginMouseHover()
     {
         mouseHovering = true;
