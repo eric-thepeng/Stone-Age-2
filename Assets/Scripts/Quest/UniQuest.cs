@@ -23,33 +23,22 @@ public class UniQuest : MonoBehaviour
         public int uponObtainISOAmount = 0;
         public BuildingISO uponBuildBISO = null;
         public int uponBuildBISOAmount = 0;
-        
+
+        private bool triggeredByUniAction = false;
+
         public bool isTriggered()
         {
             if (hasBeenTrigged) return false;
             //determin if is has been triggered, remember to change hasBeenTriggered.
             return false;
         }
-    }
-    
-    [Serializable] public class QuestDialogue
-    {
-        public List<string> allLines;
-        public int currentLineIndex = 0;
 
-        public string GetCurrentLine()
+        public void TriggerByUniAction()
         {
-            return allLines[currentLineIndex];
-        }
-
-        public bool AdvanceLine()
-        {
-            currentLineIndex += 1;
-            return currentLineIndex < allLines.Count;
+            triggeredByUniAction = true;
         }
     }
     
-
     #endregion
 
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;

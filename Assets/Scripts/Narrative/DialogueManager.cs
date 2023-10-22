@@ -89,11 +89,11 @@ public class DialogueManager : MonoBehaviour
     void StartPerforming()
     {
         print("start perform");
-        dialogueGO.transform.DOLocalMove(new Vector3(0, 0, 0), 1f);
-        //UI_FullScreenShading.i.ShowDialogueShading();
-        PerformLine(currentLine);
+        dialogueGO.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).onComplete = PerformCurrentLine;
     }
-
+    
+    void PerformCurrentLine(){PerformLine(currentLine);}
+    
     void PerformLine(int line)
     {
         StartCoroutine(LogLine(currentNSA.narrativeSequenceToPlay.GetLine(line)));
@@ -104,7 +104,7 @@ public class DialogueManager : MonoBehaviour
         if(currentNSA.narrativeSequenceToPlay.HasLine(currentLine+1))
         {
             currentLine++;
-            PerformLine(currentLine);
+            PerformCurrentLine();
         }
         else
         {

@@ -1084,7 +1084,9 @@ MonoBehaviour:
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
         targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
       narrativeSequenceAction:
         narrativeSequenceToPlay:
           data:
@@ -1094,11 +1096,26 @@ MonoBehaviour:
       uniQuestAction:
         targetUniQuest: {fileID: 0}
         actionType: 0
+    - delayTime: 0.5
+      gameObjectAction:
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        targetUniQuest: {fileID: 0}
+        actionType: 0
     - delayTime: 2
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
         targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
       narrativeSequenceAction:
         narrativeSequenceToPlay:
           data:
