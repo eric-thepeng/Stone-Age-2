@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -52,23 +54,22 @@ public class DialogueManager : MonoBehaviour
             if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
         }*/
     }
-
-    private void Update()
+    
+    private void OnMouseUpAsButton()
     {
         if (!performing) return;
-        if (Input.GetMouseButtonDown(0))
+
+        if (loggingLine)
         {
-            if (loggingLine)
-            {
-                LogLineImmediately(currentNSA.narrativeSequenceToPlay.GetLine(currentLine));
-            }
-            else
-            {
-                PerformNextLine();
-            }
+            LogLineImmediately(currentNSA.narrativeSequenceToPlay.GetLine(currentLine));
         }
+        else
+        {
+            PerformNextLine();
+        }
+        
     }
-    
+
 
     /// <summary>
     /// Trigger a QuestDialogue
@@ -88,8 +89,8 @@ public class DialogueManager : MonoBehaviour
     void StartPerforming()
     {
         print("start perform");
-        dialogueGO.SetActive(true);
-        UI_FullScreenShading.i.ShowDialogueShading();
+        dialogueGO.transform.DOLocalMove(new Vector3(0, 0, 0), 1f);
+        //UI_FullScreenShading.i.ShowDialogueShading();
         PerformLine(currentLine);
     }
 
@@ -113,9 +114,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndPerforming()
     {
-        dialogueGO.SetActive(false);
-        UI_FullScreenShading.i.HideShading();
-        currentNSA.onActionCompletes?.Invoke();
+        dialogueGO.transform.DOLocalMove(new Vector3(-10, 0, 0), 1f).onComplete = currentNSA.onActionCompletes.Invoke;
         currentNSA = null; 
     }
 
