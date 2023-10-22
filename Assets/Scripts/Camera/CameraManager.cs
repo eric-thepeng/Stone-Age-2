@@ -5,6 +5,8 @@ using Cinemachine;
 using UnityEngine.PlayerLoop;
 using DG.Tweening;
 using Sirenix.Utilities;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
 {
@@ -40,6 +42,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
     [SerializeField] private AnimationCurve stickyHeightAgainstHeight;
 
+    [SerializeField] private float urpShadowDistanceMix = 1;
+    [SerializeField] private float urpShadowDistanceMax = 10;
+    private float urpShadowDistance;
+    
     private void Update()
     {
         if (!(PlayerState.IsBrowsing() || PlayerState.IsBuilding())) return;
@@ -48,6 +54,12 @@ public class CameraManager : MonoBehaviour
         targetCamHeight = Mathf.Clamp(targetCamHeight, cameraHeightMin, cameraHeightMax);
         float yTrueDelta = targetCamHeight - transform.position.y;
         transform.position = new Vector3(transform.position.x, targetCamHeight ,transform.position.z-yTrueDelta);
+        
+        /*
+        QualitySettings.shadowDistance = urpShadowDistance;
+        UniversalRenderPipelineAsset urp = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+        urp.shadowDistance = urpShadowDistance;*/
+        
 
         //MOVEMENT
         if (PlayerInputChannel.i.GetKeyBoardInputDirection() == new Vector2Int(0,0) && moveByMouseDirection == new Vector2Int(0, 0)) 
