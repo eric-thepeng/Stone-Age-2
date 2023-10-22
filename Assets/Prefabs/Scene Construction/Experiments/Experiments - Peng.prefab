@@ -567,6 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415ff43deca6113488c518cb59091035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseHovering: 0
   allUnlockStates:
   - orgObj: {fileID: 3728001429888695799}
     orgObjAction: 3
@@ -1068,7 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerQuestCondition:
     hasBeenTrigged: 0
-    uponGameStart: 0
+    uponGameStart: 1
     duringTutorial: 0
     uponDiscoverExploreSpot: {fileID: 0}
     uponUnlockExploreSpot: {fileID: 0}
@@ -1077,19 +1078,38 @@ MonoBehaviour:
     uponObtainISOAmount: 0
     uponBuildBISO: {fileID: 0}
     uponBuildBISOAmount: 0
-  beginningQuestAction:
-  - delayTime: 1
-    gameObjectAction:
-      actionType: 0
-      targetGameObject: {fileID: 0}
-      targetVector: {x: 0, y: 0, z: 0}
-    narrativeSequenceAction:
-      narrativeSequenceToPlay:
-        data:
-        - 1112312312312312
-        - 'sdgf s sdf sd  sdf sd s df sd '
-        - sd f d s s df
-  endingQuestAction: []
+  beginQuestUniActionSequence:
+    allUniActions:
+    - delayTime: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetVector: {x: 0, y: 0, z: 0}
+      narrativeSequenceAction:
+        narrativeSequenceToPlay:
+          data:
+          - 12
+          - '12 12 12 12 '
+          - '12 12 12 12 12 12 12 12 '
+      uniQuestAction:
+        targetUniQuest: {fileID: 0}
+        actionType: 0
+    - delayTime: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetVector: {x: 0, y: 0, z: 0}
+      narrativeSequenceAction:
+        narrativeSequenceToPlay:
+          data:
+          - 13
+          - 13 13 13 13 13
+          - 13 13 13 13 13 13 13 13 13 13
+      uniQuestAction:
+        targetUniQuest: {fileID: 0}
+        actionType: 0
+  endQuestUniActionSequence:
+    allUniActions: []
 --- !u!1 &8952507450529086315
 GameObject:
   m_ObjectHideFlags: 0

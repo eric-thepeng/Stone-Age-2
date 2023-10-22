@@ -53,16 +53,14 @@ public class UniQuest : MonoBehaviour
     #endregion
 
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;
-    [SerializeField]public List<UniAction> beginningQuestAction;
-    [SerializeField]public List<UniAction> endingQuestAction;
+    [SerializeField]public UniActionSequence beginQuestUniActionSequence;
+    [SerializeField]public UniActionSequence endQuestUniActionSequence;
 
     private void Start()
     {
-        foreach (var VARIABLE in beginningQuestAction)
-        {
-            VARIABLE.PerformAction();
-        }
+        if(triggerQuestCondition.uponGameStart) beginQuestUniActionSequence.PerformAction();
     }
 
     public void QueQuest(){}
+    public void LoadDescription(){}
 }

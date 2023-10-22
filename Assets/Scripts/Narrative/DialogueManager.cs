@@ -7,11 +7,11 @@ using UnityEngine;
 public class DialogueManager : MonoBehaviour
 {
     //Current NS Info
-    NarrativeSequence currentNS = null;
+    NarrativeSequenceAction currentNSA = null;
     int currentLine = 0;
     
     //Current State
-    public bool performing { get { return currentNS != null; } }
+    public bool performing { get { return currentNSA != null; } }
     bool loggingLine = false;
 
     //Game Objects and UIs
@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
         {
             if (loggingLine)
             {
-                LogLineImmediately(currentNS.GetLine(currentLine));
+                LogLineImmediately(currentNSA.narrativeSequenceToPlay.GetLine(currentLine));
             }
             else
             {
@@ -75,10 +75,10 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     /// <param name="sequence"></param>
     /// <returns></returns>
-    public bool QueueNarrativeSequence(NarrativeSequence sequence)
+    public bool QueueNarrativeSequence(NarrativeSequenceAction narrativeSequenceAction)
     {
         if (performing) return false;
-        currentNS = sequence;
+        currentNSA = narrativeSequenceAction;
         currentLine = 0;
         StartPerforming();
         return true;
@@ -95,12 +95,12 @@ public class DialogueManager : MonoBehaviour
 
     void PerformLine(int line)
     {
-        StartCoroutine(LogLine(currentNS.GetLine(line)));
+        StartCoroutine(LogLine(currentNSA.narrativeSequenceToPlay.GetLine(line)));
     }
 
     void PerformNextLine()
     {
-        if(currentNS.HasLine(currentLine+1))
+        if(currentNSA.narrativeSequenceToPlay.HasLine(currentLine+1))
         {
             currentLine++;
             PerformLine(currentLine);
@@ -115,7 +115,8 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueGO.SetActive(false);
         UI_FullScreenShading.i.HideShading();
-        currentNS = null; 
+        currentNSA.onActionCompletes?.Invoke();
+        currentNSA = null; 
     }
 
     IEnumerator LogLine(string lineText)
