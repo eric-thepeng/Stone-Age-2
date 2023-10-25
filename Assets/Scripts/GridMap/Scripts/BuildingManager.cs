@@ -593,7 +593,6 @@ public class BuildingManager : MonoBehaviour
 
     public bool DeletingProcessHitItem(RaycastHit hitInfo)
     {
-        // 如果碰撞到的是自己所属的Collider，做出响应
         if (hitInfo.collider.GetComponent<GridObjectTags>() != null)
         {
 

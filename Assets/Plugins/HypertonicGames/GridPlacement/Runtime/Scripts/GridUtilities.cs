@@ -554,34 +554,37 @@ namespace Hypertonic.GridPlacement
                 tranformBoundsDataAbsolute.Add(rootColliders[i].bounds.max);
             }
 
-            while (childObjects.Count > 0)
+            if (gridSettings.CalculateChildColliders)
             {
-                Transform endTransform = FindUnprocessedEndTransform(childObjects, processedTransforms);
-
-                if (endTransform == null)
+                while (childObjects.Count > 0)
                 {
-                    break;
-                }
+                    Transform endTransform = FindUnprocessedEndTransform(childObjects, processedTransforms);
 
-                if (endTransform && endTransform.TryGetComponent<Collider>(out var collider))
-                {
-                    Collider[] colliders = endTransform.GetComponents<Collider>();
-
-                    for (int i = 0; i < colliders.Length; i++)
+                    if (endTransform == null)
                     {
-                        tranformBoundsDataAbsolute.Add(colliders[i].bounds.min);
-                        tranformBoundsDataAbsolute.Add(colliders[i].bounds.max);
-
-                        Vector3 childBoundsRelativeMin = CalculateBoundsForChildTransformRelativeMin(colliders[i], gridObject.transform.position);
-                        tranformBoundsDataRelative.Add(childBoundsRelativeMin);
-
-                        Vector3 childBoundsRelativeMax = CalculateBoundsForChildTransformRelativeMax(colliders[i], gridObject.transform.position);
-                        tranformBoundsDataRelative.Add(childBoundsRelativeMax);
+                        break;
                     }
-                }
 
-                childObjects.Remove(endTransform);
-                processedTransforms.Add(endTransform);
+                    if (endTransform && endTransform.TryGetComponent<Collider>(out var collider))
+                    {
+                        Collider[] colliders = endTransform.GetComponents<Collider>();
+
+                        for (int i = 0; i < colliders.Length; i++)
+                        {
+                            tranformBoundsDataAbsolute.Add(colliders[i].bounds.min);
+                            tranformBoundsDataAbsolute.Add(colliders[i].bounds.max);
+
+                            Vector3 childBoundsRelativeMin = CalculateBoundsForChildTransformRelativeMin(colliders[i], gridObject.transform.position);
+                            tranformBoundsDataRelative.Add(childBoundsRelativeMin);
+
+                            Vector3 childBoundsRelativeMax = CalculateBoundsForChildTransformRelativeMax(colliders[i], gridObject.transform.position);
+                            tranformBoundsDataRelative.Add(childBoundsRelativeMax);
+                        }
+                    }
+
+                    childObjects.Remove(endTransform);
+                    processedTransforms.Add(endTransform);
+                }
             }
 
             objectBounds = GetObjectBounds(gridSettings, tranformBoundsDataAbsolute);
