@@ -92,6 +92,8 @@ namespace Hypertonic.GridPlacement
         public Material ObjectUnPlaceableMaterial;
 
         [Header("Placement Settings")]
+        public bool CalculateChildColliders = false;
+
         [Tooltip("This sets the initial alignment of an object being added to the grid")]
         public ObjectAlignment DefaultAlignment = ObjectAlignment.UPPER_LEFT;
 

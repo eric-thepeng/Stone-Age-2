@@ -2,8 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Hypertonic.GridPlacement;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class CropGrowth : BuildingInteractable, IResourceSetProvider
 {
@@ -19,20 +22,17 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         }
 
 
-        [Header("Objects & Actions")]
+        //[Header("Objects & Actions")]
+        public DoAction InitAction = DoAction.ENABLE;
+        public DoAction FinishAction = DoAction.DISABLE;
+
         public GameObject dryObj = null;
-        public DoAction dryObjInitAction = DoAction.ENABLE;
-        public DoAction dryObjFinishAction = DoAction.DISABLE;
+        public GameObject wetObj = null;
 
         public ResourceSet waterCost = null;
-
-        public GameObject wetObj = null;
-        public DoAction wetObjInitAction = DoAction.ENABLE;
-        public DoAction wetObjFinishAction = DoAction.DISABLE;
-
         public float GrowthTime;
 
-        [HideInInspector]
+        //[HideInInspector]
         public Action OnGrowthComplete;
 
         // 新增的倒计时协程
@@ -43,12 +43,12 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         public float TotalGrowthTime => GrowthTime;
         private float countdownStartTime;
 
-        public float RemainingTime
+        public float ElapsedTime
         {
             get
             {
                 if (!IsCountingDown) return 0;
-                return GrowthTime - (Time.time - countdownStartTime);
+                return (Time.time - countdownStartTime);
             }
         }
 
@@ -64,16 +64,17 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
                     return false;
                 }
             }
-            AdjustObjToAction(dryObj, dryObjFinishAction);
-            AdjustObjToAction(wetObj, wetObjInitAction);
+            AdjustObjToAction(dryObj, FinishAction);
+            AdjustObjToAction(wetObj, InitAction);
 
             IsCountingDown = true;
             countdownStartTime = Time.time;
             // 开始倒计时
             if (growthCoroutine != null)
             {
-                //runner.StopCoroutine(growthCoroutine);
-                return false;
+                Debug.Log("Still in counting!");
+                runner.StopCoroutine(growthCoroutine);
+                //return false;
             }
             growthCoroutine = runner.StartCoroutine(GrowthCountdown(runner));
             return true;
@@ -81,14 +82,14 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         public void Initialize()
         {
-            AdjustObjToAction(dryObj, dryObjInitAction); // enable
-            AdjustObjToAction(wetObj, wetObjFinishAction); //disable
+            AdjustObjToAction(dryObj, InitAction); // enable
+            AdjustObjToAction(wetObj, FinishAction); //disable
         }
 
         public void Finish()
         {
-            AdjustObjToAction(dryObj, dryObjFinishAction); // enable
-            AdjustObjToAction(wetObj, wetObjFinishAction); //disable
+            AdjustObjToAction(dryObj, FinishAction); // enable
+            AdjustObjToAction(wetObj, FinishAction); //disable
         }
 
         private IEnumerator GrowthCountdown(MonoBehaviour runner)
@@ -96,7 +97,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             yield return new WaitForSeconds(GrowthTime); // 等待设定的生长时间
 
             IsCountingDown = false;
-            AdjustObjToAction(wetObj, wetObjFinishAction); // 应用结束动作
+            AdjustObjToAction(wetObj, FinishAction); // 应用结束动作
 
             OnGrowthComplete?.Invoke(); // 触发成长完成事件
         }
@@ -131,8 +132,25 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     [SerializeField] List<UnlockState> allUnlockStates;
 
-    public int currentState = 0;
-    public UnityEvent rewardEvent;
+    private int currentState = 0;
+
+    public UnityEvent matureRewardEvent;
+    public UnityEvent stateChangeEvent;
+
+    public FinishedAction finishedAction = FinishedAction.RESET;
+
+    [Header("Rewards")]
+    public ItemScriptableObject rewardObjects;
+    public int rewardAmount;
+
+    public enum FinishedAction
+    {
+        //NONE,
+        RESET,
+        RESET_WATER,
+        DISABLE,
+        DESTROY
+    }
 
     public int GetCurrentState()
     {
@@ -144,32 +162,79 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         for (int i = 0; i < allUnlockStates.Count; i++)
         {
             int stateIndex = i; // 为了在闭包中捕获
+            allUnlockStates[i].Finish();
             allUnlockStates[i].OnGrowthComplete += () =>
             {
                 HandleGrowthCompletion(stateIndex);
             };
         }
+        allUnlockStates[0].Initialize();
     }
 
     protected virtual void HandleGrowthCompletion(int stateIndex)
     {
+        if (stateChangeEvent != null) stateChangeEvent.Invoke();
+
         if (stateIndex == allUnlockStates.Count - 1)
         {
+            Debug.Log("HandleGrowthCompletion to 0");
 
-            CropMatured();
-            allUnlockStates[stateIndex].Finish(); // Disable / Destroy / 重置到第一个状态
+            if (rewardObjects != null) Inventory.i.AddInventoryItem(rewardObjects,rewardAmount);
+            if (matureRewardEvent != null) matureRewardEvent.Invoke();
 
-            currentState = 0;
+            //if (finishedAction == FinishedAction.NONE)
+            //{
+            //    allUnlockStates[stateIndex].Finish();
+            //    allUnlockStates[stateIndex].Finish();
+
+            //}
+            //else
+            if (finishedAction == FinishedAction.RESET)
+            {
+                allUnlockStates[stateIndex].Finish(); // Disable / Destroy / 重置到第一个状态
+
+                currentState = 0;
+                allUnlockStates[0].Initialize();
+            }
+            else if (finishedAction == FinishedAction.RESET_WATER)
+            {
+                allUnlockStates[stateIndex].Finish();
+
+                currentState = 0;
+                allUnlockStates[0].Initialize();
+
+                Water();
+            }
+            else if (finishedAction == FinishedAction.DISABLE)
+            {
+                gameObject.SetActive(false);
+            } else if (finishedAction == FinishedAction.DESTROY)
+            {
+                GridManagerAccessor.GridManager.DeleteObject(gameObject);
+            }
+
         }
         else
         {
+            Debug.Log("HandleGrowthCompletion");
             UnlockToNextState(); // 否则，转到下一个状态
         }
+
+    }
+
+    public bool Water()
+    {
+        Debug.Log("Watering state: " + currentState);
+        if (allUnlockStates[currentState].Water(this) == false)
+        {
+            NotEnoughResource();
+            return false;
+        }
+        return true;
     }
 
     public bool UnlockToNextState()
     {
-        Debug.Log("Trying to unlock to next state!");
         if (currentState == allUnlockStates.Count)
         {
             Debug.LogWarning("Try to exceed max amount of states with object " + gameObject.name);
@@ -177,11 +242,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         }
         //if (allUnlockStates[currentState].IsCountingDown) return false; // 检查是否正在倒计时
 
-        if (allUnlockStates[currentState].Water(this) == false)
-        {
-            NotEnoughResource();
-            return false;
-        }
         currentState++;
 
         allUnlockStates[currentState].Initialize();
@@ -189,7 +249,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         //if (currentState == allUnlockStates.Count) CropMatured();
         return true;
     }
-
+    
     public void UnlockToState(int targetState)
     {
         if (targetState >= allUnlockStates.Count)
@@ -213,7 +273,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     protected virtual void NotEnoughResource()
     {
-        //transform.DOShakePosition(0.5f, new Vector3(0.3f, 0, 0), 10, 0);
+        transform.DOShakePosition(0.5f, new Vector3(0.3f, 0, 0), 10, 0);
     }
 
     protected virtual void CropMatured()
@@ -231,9 +291,9 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         return GetCurrentUnlockState().TotalGrowthTime;
     }
 
-    public float CurrentRemainingTime()
+    public float CurrentElapsedTime()
     {
-        return GetCurrentUnlockState().RemainingTime;
+        return GetCurrentUnlockState().ElapsedTime;
     }
 
 
