@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Hypertonic.GridPlacement;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -20,7 +22,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         }
 
 
-        [Header("Objects & Actions")]
+        //[Header("Objects & Actions")]
         public DoAction InitAction = DoAction.ENABLE;
         public DoAction FinishAction = DoAction.DISABLE;
 
@@ -135,6 +137,21 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
     public UnityEvent matureRewardEvent;
     public UnityEvent stateChangeEvent;
 
+    public FinishedAction finishedAction = FinishedAction.RESET;
+
+    [Header("Rewards")]
+    public ItemScriptableObject rewardObjects;
+    public int rewardAmount;
+
+    public enum FinishedAction
+    {
+        //NONE,
+        RESET,
+        RESET_WATER,
+        DISABLE,
+        DESTROY
+    }
+
     public int GetCurrentState()
     {
         return currentState;
@@ -161,12 +178,41 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         if (stateIndex == allUnlockStates.Count - 1)
         {
             Debug.Log("HandleGrowthCompletion to 0");
+
+            if (rewardObjects != null) Inventory.i.AddInventoryItem(rewardObjects,rewardAmount);
             if (matureRewardEvent != null) matureRewardEvent.Invoke();
 
-            allUnlockStates[stateIndex].Finish(); // Disable / Destroy / 重置到第一个状态
+            //if (finishedAction == FinishedAction.NONE)
+            //{
+            //    allUnlockStates[stateIndex].Finish();
+            //    allUnlockStates[stateIndex].Finish();
 
-            currentState = 0;
-            allUnlockStates[0].Initialize();
+            //}
+            //else
+            if (finishedAction == FinishedAction.RESET)
+            {
+                allUnlockStates[stateIndex].Finish(); // Disable / Destroy / 重置到第一个状态
+
+                currentState = 0;
+                allUnlockStates[0].Initialize();
+            }
+            else if (finishedAction == FinishedAction.RESET_WATER)
+            {
+                allUnlockStates[stateIndex].Finish();
+
+                currentState = 0;
+                allUnlockStates[0].Initialize();
+
+                Water();
+            }
+            else if (finishedAction == FinishedAction.DISABLE)
+            {
+                gameObject.SetActive(false);
+            } else if (finishedAction == FinishedAction.DESTROY)
+            {
+                GridManagerAccessor.GridManager.DeleteObject(gameObject);
+            }
+
         }
         else
         {
@@ -203,7 +249,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         //if (currentState == allUnlockStates.Count) CropMatured();
         return true;
     }
-
+    
     public void UnlockToState(int targetState)
     {
         if (targetState >= allUnlockStates.Count)
