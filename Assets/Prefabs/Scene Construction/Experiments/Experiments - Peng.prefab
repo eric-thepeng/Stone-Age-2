@@ -1088,14 +1088,71 @@ MonoBehaviour:
         targetVector: {x: 0, y: 0, z: 0}
         moveTime: 1
       narrativeSequenceAction:
+        actionType: 1
         narrativeSequenceToPlay:
           data:
-          - '12 12 12 12 12 12 12 12 '
-          - 13 13 13 13 13 13 13 13
-          - 14 14 14 14 14 14 14 14 14 14
+          - Hi welcome to Uniland
+          - Use WASD to move around
+          - See the trash pile? Click and Long Press to clear out the space.
+          - Clear out 3 piles of trash first!
       uniQuestAction:
-        targetUniQuest: {fileID: 0}
         actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+    - delayTime: 0
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 1
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 3
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+    - delayTime: 0
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton_WorldSpaceButton
     - delayTime: 0.5
       gameObjectAction:
         actionType: 3
@@ -1104,12 +1161,22 @@ MonoBehaviour:
         targetVector: {x: 0, y: 0, z: 0}
         moveTime: 1
       narrativeSequenceAction:
+        actionType: 0
         narrativeSequenceToPlay:
           data: []
       uniQuestAction:
-        targetUniQuest: {fileID: 0}
         actionType: 0
-    - delayTime: 2
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+    - delayTime: 1
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}
@@ -1117,14 +1184,71 @@ MonoBehaviour:
         targetVector: {x: 0, y: 0, z: 0}
         moveTime: 1
       narrativeSequenceAction:
+        actionType: 1
         narrativeSequenceToPlay:
           data:
-          - 'ab ab ab ab ab ab ab ab '
-          - ac ac ac ac ac ac ac ac ac ac a c
-          - 'ad ad ad ad ad ad ad ad ad ad ad ad '
+          - See the new button on bottom right?
+          - Click on it and head to the research panel
       uniQuestAction:
-        targetUniQuest: {fileID: 0}
         actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+    - delayTime: 0
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 2
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton_WorldSpaceButton
+    - delayTime: 0
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Good Job!
+          - Click on straw wall and unlock all levels.
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
   endQuestUniActionSequence:
     allUniActions: []
 --- !u!1 &8952507450529086315

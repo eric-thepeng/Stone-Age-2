@@ -8,9 +8,13 @@ using UnityEngine.UI;
 [Serializable]public class UniAction : IPerformableAction
 {
     [SerializeField, Header("Delay an amount of time when executing action.")] private float delayTime;
+    
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
     public UniQuestAction uniQuestAction;
+    public WaitForPlayerStatsAchieveAction waitForPlayerStatsAchieveAction;
+    public ButtonAction buttonAction;
+    
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
     public UnityEvent onActionStarts { get { return _onActionStarts; } }
@@ -19,14 +23,29 @@ using UnityEngine.UI;
 
     public void PerformAction()
     {
-        IPerformableAction[] allIUniActions = {gameObjectAction,  narrativeSequenceAction, uniQuestAction};
+        IPerformableAction[] allIUniActions = {gameObjectAction,  narrativeSequenceAction, uniQuestAction, waitForPlayerStatsAchieveAction, buttonAction};
         int assignCount = 0;
         foreach (IPerformableAction pAction in allIUniActions)
         {
             if (pAction.IsAssigned()) assignCount++;
         }
         if(assignCount == 0) Debug.LogError("UniAction is not assigned any action");
-        else if(assignCount != 1) Debug.LogError("UniAction need to be assigned only 1 action");
+        else if (assignCount != 1)
+        {
+            string debugLog = " ";
+            int i = 0;
+            foreach (IPerformableAction pAction in allIUniActions)
+            {
+                if (pAction.IsAssigned())
+                {
+                    assignCount++;
+                    debugLog += i + " ";
+                }
+                i++;
+            }
+            
+            Debug.LogError("UniAction need to be assigned only 1 action, "+debugLog);
+        }
         foreach (IPerformableAction pAction in allIUniActions)
         {
             if (pAction.IsAssigned())
