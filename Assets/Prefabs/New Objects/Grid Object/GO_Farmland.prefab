@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5606478375859459695}
   - component: {fileID: 7851013023878235435}
+  - component: {fileID: -1156300159930745875}
   - component: {fileID: 6551483158588495688}
   - component: {fileID: 1044563642751082968}
   - component: {fileID: 6319732883396528879}
-  - component: {fileID: 4035312466939258344}
+  - component: {fileID: 3744110875158180778}
   m_Layer: 0
-  m_Name: OakBed
+  m_Name: GO_Farmland
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3716469461667526511}
-  - {fileID: 2600900556985776107}
+  - {fileID: 3437152009262294133}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,7 +51,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 0.5, z: -0.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-1156300159930745875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932418518791680853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e466b0e73dd44cd59a8bcbe23e04ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6551483158588495688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad6ee8fa14e7b647935be13e3657d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridHeight: 0
+  _gridHeight: -0
   _drawGridHeightGizmo: 1
   _gridHeightGizmoSize: 0.05
   _gridHeightGizmoColor: {r: 1, g: 0, b: 1, a: 1}
@@ -94,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionCount: 0
---- !u!114 &4035312466939258344
+--- !u!114 &3744110875158180778
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,12 +116,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 932418518791680853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16df5182d06243289e4a15106d556e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c3c6dcfe372b264c98e17c70ead8e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCellIndex: {x: 0, y: 0}
-  BISO: {fileID: 11400000, guid: 7f72d1479f7fee145a98215bc38c2be9, type: 2}
-  _gridObjectTags: []
+  GridCellIndexX: 0
+  GridCellIndexY: 0
 --- !u!1 &5245277701691095226
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,81 +153,77 @@ Transform:
   m_Father: {fileID: 5606478375859459695}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7502962570117465625
+--- !u!1001 &3819460679338288217
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 5606478375859459695}
     m_Modifications:
-    - target: {fileID: 5137605927139519304, guid: e8d20e639392256438d2745a564de23e, type: 3}
-      propertyPath: m_Name
-      value: Oak_Bed
-      objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.307
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.47
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
+    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
+    - target: {fileID: 3888293578324307174, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+      propertyPath: m_Name
+      value: Farmland
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e8d20e639392256438d2745a564de23e, type: 3}
---- !u!4 &2600900556985776107 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+--- !u!4 &3437152009262294133 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5478525533575180786, guid: e8d20e639392256438d2745a564de23e, type: 3}
-  m_PrefabInstance: {fileID: 7502962570117465625}
+  m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+  m_PrefabInstance: {fileID: 3819460679338288217}
   m_PrefabAsset: {fileID: 0}
