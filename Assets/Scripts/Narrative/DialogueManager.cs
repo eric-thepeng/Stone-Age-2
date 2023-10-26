@@ -89,6 +89,7 @@ public class DialogueManager : MonoBehaviour
     void StartPerforming()
     {
         print("start perform");
+        ClearLine();
         dialogueGO.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).onComplete = PerformCurrentLine;
     }
     
@@ -97,6 +98,11 @@ public class DialogueManager : MonoBehaviour
     void PerformLine(int line)
     {
         StartCoroutine(LogLine(currentNSA.narrativeSequenceToPlay.GetLine(line)));
+    }
+
+    void ClearLine()
+    {
+        StartCoroutine(LogLine(""));
     }
 
     void PerformNextLine()
