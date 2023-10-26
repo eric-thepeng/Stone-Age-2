@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BLDWorkshop : WorldInteractable
+public class BLDWorkshop : BuildingInteractable
 {
     private UI_BLDWorkshop ui;
 
@@ -25,7 +25,6 @@ public class BLDWorkshop : WorldInteractable
     private void Awake()
     {
         wcc = new WorkshopCraftingController(this, workshopCraftingUI);
-
     }
 
     private void Start()
@@ -43,11 +42,12 @@ public class BLDWorkshop : WorldInteractable
     
     protected override void BeginMousePress()
     {
+        base.BeginMousePress();
+
         if (state == State.Idle)
         {
             EnterUI();
         }
-        base.BeginMousePress();
     }
 
     protected override void TurnOnHighlight()

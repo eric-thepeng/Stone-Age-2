@@ -3,20 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Hypertonic.GridPlacement;
 
 public class WorldInteractable : MonoBehaviour
 {
+    protected bool isBuildingInteractable
+    {
+        get { return this is BuildingInteractable; }
+    }
+
+    protected bool CanInteract()
+    {
+        return !isBuildingInteractable || !GridManagerAccessor.GridManager.IsPlacingGridObject;
+    }
+    
+    
     //hovering//
     [HideInInspector]
     public bool mouseHovering = false;
     protected virtual void BeginMouseHover()
     {
+        if(!CanInteract()) return;
         mouseHovering = true;
         TurnOnHighlight();
     }
 
     protected virtual void EndMouseHover()
     {
+        if(!CanInteract()) return;
         mouseHovering = false;
         TurnOffHighlight();
     }
@@ -31,17 +45,19 @@ public class WorldInteractable : MonoBehaviour
 
     protected virtual void BeginMousePress()
     {
+        if(!CanInteract()) return;
         mousePressing = true;
     }
 
     protected virtual void EndMousePress()
     {
+        if(!CanInteract()) return;
         mousePressing = false;
     }
 
     protected virtual void WhileMousePress()
     {
-
+        if(!CanInteract()) return;
     }
 
     protected bool isMousePressing()
@@ -52,7 +68,7 @@ public class WorldInteractable : MonoBehaviour
     //click//
     protected virtual void MouseClick()
     {
-
+        if(!CanInteract()) return;
     }
     
     protected virtual void TurnOnHighlight()
@@ -62,7 +78,6 @@ public class WorldInteractable : MonoBehaviour
     
     protected virtual void TurnOffHighlight()
     {
-        
     }
     
     #region Mouse Interaction Configuration
