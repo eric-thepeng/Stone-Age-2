@@ -51,6 +51,12 @@ public class TetrisBuildingToolEditor : Editor
                 newUnit.transform.parent = unitsContainer.transform;
                 newUnit.GetComponent<SpriteRenderer>().color = builder.tetrisColor;
                 
+                //GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
+                GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
+                newImage.transform.localPosition = unitPosition;
+                newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
+                newImage.gameObject.name = "Icon Sprite";
+                
                 //add edges
                 foreach (Vector2Int dir in directions)
                 {
@@ -72,10 +78,7 @@ public class TetrisBuildingToolEditor : Editor
             newLabel.gameObject.name = "Temporary Label";*/
             
             // add image
-            //GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
-            GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
-            newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
-            newImage.gameObject.name = "Icon Sprite";
+
             
             // create outline
             if (builder.outlineWidth != 0)
