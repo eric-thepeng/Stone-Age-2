@@ -8,7 +8,6 @@ public class UI_BLDTrashToClear : MonoBehaviour
     [SerializeField] private GameObject uiGameObject;
     [SerializeField] private GameObject objectGameObject;
     [SerializeField] TextMeshPro progressText;
-    
 
     public void SetProgress(float percent)
     {

@@ -100,14 +100,18 @@ public class BLDTrashToClear : LevelUp
     {
         base.ReachFinalState();
         gainResourceSet.GainResource();
+        PlayerStatsMonitor.trashTotalClear.TriggerStatsChange(PlayerStatsMonitor.PlayerStatsType.TrashTotalClear, 1);
         Destroy(gameObject);
-
+        
+        /*
         // temp
         GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().collisionCount--;
         if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().collisionCount == 0)
         {
             GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().HandleExitedWallArea();
-        }
+        }*/
+        
+
     }
 
     public override ResourceSet ProvideResourceSet(int index = 0)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class WorldSpaceButton : MonoBehaviour
+public class WorldSpaceButton : MonoBehaviour, IPerformableAction
 {
     [SerializeField] UnityEvent clickEvent;
     [SerializeField] protected Color32 normalColor;
@@ -16,6 +16,10 @@ public class WorldSpaceButton : MonoBehaviour
     [SerializeField] bool buttonActive = true;
     [SerializeField] SpriteRenderer affectSR = null;
     [SerializeField] string customClickSoundID = "Default Sound";
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionComplets = new UnityEvent();
+    
     string buttonClickSoundID {
         get
         {
@@ -69,6 +73,7 @@ public class WorldSpaceButton : MonoBehaviour
     {
         if (!buttonActive) return;
         targetSR.color = pressColor;
+        onActionStarts.Invoke();
     }
 
     private void OnMouseUpAsButton()
@@ -78,6 +83,7 @@ public class WorldSpaceButton : MonoBehaviour
         targetSR.color = hoverColor;
         AudioChannel.i.PlayButtonSound(buttonClickSoundID);
         // Check button event type and play sound - Will
+        onActionCompletes.Invoke();
     }
 
     public void AddClickAction(UnityAction actionToAdd)
@@ -104,4 +110,18 @@ public class WorldSpaceButton : MonoBehaviour
     {
         return buttonActive;
     }
+
+    public void PerformAction()
+    {
+        //leaves blank
+        //NEED TO IMPLEMENT IPerformableAction Better
+    }
+
+    public bool IsAssigned()
+    {
+        return IsActive();
+    }
+
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionComplets; } }
 }

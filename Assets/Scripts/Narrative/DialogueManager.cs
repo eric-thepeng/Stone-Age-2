@@ -1,27 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    NarrativeSequence currentNS = null;
+    //Current NS Info
+    NarrativeSequenceAction currentNSA = null;
     int currentLine = 0;
-
-    GameObject dialogueGO = null;
-    GameObject nextLineIndicationGO = null;
-    TextMeshPro lineDispaly = null;
-
-    public bool performing { get { return currentNS != null; } }
+    
+    //Current State
+    public bool performing { get { return currentNSA != null; } }
     bool loggingLine = false;
 
-    [SerializeField] NarrativeSequenceList NSList;
-    Dictionary<string, NarrativeSequence> allNSDictionary = new Dictionary<string, NarrativeSequence>();
+    //Game Objects and UIs
+    [Header("DO NOT EDIT BELOW")][SerializeField]GameObject dialogueGO;
+    [SerializeField]GameObject nextLineIndicationGO;
+    [SerializeField]TextMeshPro lineDispaly;
 
+    /* Debug
     [SerializeField] private bool debugMode = false;
     [SerializeField] private string debugQueNS = "";
-
+    */
+    
     static DialogueManager instance;
     public static DialogueManager i
     {
@@ -34,83 +38,73 @@ public class DialogueManager : MonoBehaviour
             return instance;
         }
     }
-
-    private void Awake()
-    {
-        foreach(NarrativeSequence ns in NSList.data)
-        {
-            allNSDictionary.Add(ns.narrativeSequenceID, ns);
-        }
-    }
+    
+    
 
     private void Start()
     {
+        /*
         dialogueGO = transform.Find("Dialogue").gameObject;
         lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
-        nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;
-        
+        nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;*/
+        /*
         if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
         else
         {
             if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
-        }
-    }
-
-    private void Update()
-    {
-        if (!performing) return;
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (loggingLine)
-            {
-                LogLineImmediately(currentNS.GetLine(currentLine));
-            }
-            else
-            {
-                PerformNextLine();
-            }
-        }
+        }*/
     }
     
-    public NarrativeSequence GetNarrativeSequenceByID(string id)
+    private void OnMouseUpAsButton()
     {
-        if (!allNSDictionary.ContainsKey(id)) Debug.Log("Does not contain Narrative Sequence of ID: " + id);
-        return allNSDictionary[id];
+        if (!performing) return;
+
+        if (loggingLine)
+        {
+            LogLineImmediately(currentNSA.narrativeSequenceToPlay.GetLine(currentLine));
+        }
+        else
+        {
+            PerformNextLine();
+        }
+        
     }
 
-    public bool QueueNarrativeSequence(NarrativeSequence sequence)
+
+    /// <summary>
+    /// Trigger a QuestDialogue
+    /// </summary>
+    /// <param name="sequence"></param>
+    /// <returns></returns>
+    public bool QueueNarrativeSequence(NarrativeSequenceAction narrativeSequenceAction)
     {
         if (performing) return false;
-        currentNS = sequence;
+        currentNSA = narrativeSequenceAction;
         currentLine = 0;
         StartPerforming();
         return true;
     }
-
-    public bool QueueNarrativeSequence(string NSID)
-    {
-        return QueueNarrativeSequence(GetNarrativeSequenceByID(NSID));
-    }
+    
 
     void StartPerforming()
     {
         print("start perform");
-        dialogueGO.SetActive(true);
-        UI_FullScreenShading.i.ShowDialogueShading();
-        PerformLine(currentLine);
+        dialogueGO.transform.DOLocalMove(new Vector3(0, 0, 0), 1f).onComplete = PerformCurrentLine;
     }
-
+    
+    void PerformCurrentLine(){PerformLine(currentLine);}
+    
     void PerformLine(int line)
     {
-        StartCoroutine(LogLine(currentNS.GetLine(line)));
+        StartCoroutine(LogLine(currentNSA.narrativeSequenceToPlay.GetLine(line)));
     }
 
     void PerformNextLine()
     {
-        if(currentNS.HasLine(currentLine+1))
+        if(currentNSA.narrativeSequenceToPlay.HasLine(currentLine+1))
         {
             currentLine++;
-            PerformLine(currentLine);
+            PerformCurrentLine();
         }
         else
         {
@@ -120,10 +114,8 @@ public class DialogueManager : MonoBehaviour
 
     void EndPerforming()
     {
-        if (currentNS.HasQuest()) { QuestManager.i.StartQuestByID(currentNS.questIDToQue); }
-        dialogueGO.SetActive(false);
-        UI_FullScreenShading.i.HideShading();
-        currentNS = null; 
+        dialogueGO.transform.DOLocalMove(new Vector3(-10, 0, 0), 1f).onComplete = currentNSA.onActionCompletes.Invoke;
+        currentNSA = null; 
     }
 
     IEnumerator LogLine(string lineText)
