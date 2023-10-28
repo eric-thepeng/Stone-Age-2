@@ -43,6 +43,8 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         public float TotalGrowthTime => GrowthTime;
         private float countdownStartTime;
 
+        public float timeToClear;
+
         public float ElapsedTime
         {
             get
@@ -82,6 +84,8 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         public void Initialize()
         {
+
+
             AdjustObjToAction(dryObj, InitAction); // enable
             AdjustObjToAction(wetObj, FinishAction); //disable
         }
@@ -168,19 +172,48 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
                 HandleGrowthCompletion(stateIndex);
             };
         }
-        allUnlockStates[0].Initialize();
+        InitializeCrop(0);
+        //allUnlockStates[0].Initialize();
+    }
+
+    private void InitializeCrop(int num)
+    {
+        allUnlockStates[num].Initialize();
+        Debug.LogWarning(num);
+
+        if (num == allUnlockStates.Count - 1 )
+        {
+            onCropMatured();
+        }
+        else if (num < allUnlockStates.Count - 1)
+        {
+            onStateChange();
+        }
+        else
+        {
+            Debug.LogWarning("Out of the state!");
+        }
+    }
+
+    protected virtual void onStateChange()
+    {
+        if (stateChangeEvent != null) stateChangeEvent.Invoke();
+    }
+
+    protected virtual void onCropMatured()
+    {
+
     }
 
     protected virtual void HandleGrowthCompletion(int stateIndex)
     {
-        if (stateChangeEvent != null) stateChangeEvent.Invoke();
 
         if (stateIndex == allUnlockStates.Count - 1)
         {
             Debug.Log("HandleGrowthCompletion to 0");
 
             if (rewardObjects != null) Inventory.i.AddInventoryItem(rewardObjects,rewardAmount);
-            if (matureRewardEvent != null) matureRewardEvent.Invoke();
+            //if (matureRewardEvent != null) matureRewardEvent.Invoke();
 
             //if (finishedAction == FinishedAction.NONE)
             //{
@@ -194,14 +227,16 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
                 allUnlockStates[stateIndex].Finish(); // Disable / Destroy / 重置到第一个状态
 
                 currentState = 0;
-                allUnlockStates[0].Initialize();
+                InitializeCrop(0);
+                //allUnlockStates[0].Initialize();
             }
             else if (finishedAction == FinishedAction.RESET_WATER)
             {
                 allUnlockStates[stateIndex].Finish();
 
                 currentState = 0;
-                allUnlockStates[0].Initialize();
+                InitializeCrop(0);
+                //allUnlockStates[0].Initialize();
 
                 Water();
             }
@@ -244,9 +279,10 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         currentState++;
 
-        allUnlockStates[currentState].Initialize();
 
-        //if (currentState == allUnlockStates.Count) CropMatured();
+
+        //allUnlockStates[currentState].Initialize();
+        InitializeCrop(currentState);
         return true;
     }
     
@@ -276,10 +312,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         transform.DOShakePosition(0.5f, new Vector3(0.3f, 0, 0), 10, 0);
     }
 
-    protected virtual void CropMatured()
-    {
-
-    }
 
     public bool IsCurrentlyCountingDown()
     {
