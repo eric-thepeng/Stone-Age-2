@@ -39,16 +39,16 @@ public class BLDWorkshop : BuildingInteractable
     }
 
     #region interaction logic
-    
-    protected override void BeginMousePress()
-    {
-        base.BeginMousePress();
 
+    protected override void MouseClick()
+    {
+        base.MouseClick();
         if (state == State.Idle)
         {
             EnterUI();
         }
     }
+    
 
     protected override void TurnOnHighlight()
     {
