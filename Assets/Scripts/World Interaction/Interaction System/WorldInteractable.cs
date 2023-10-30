@@ -35,19 +35,34 @@ public class WorldInteractable : MonoBehaviour
         
         private float progressDuration;
         private bool isCompleted = false;
-        public void ResetProgress()
+
+        public float GetProgressPercent()
+        {
+            return progressDuration/pressDuration;
+        }
+        public void ResetProgress(bool resetUI = false)
         {
             progressDuration = 0;
+            if(resetUI)UniversalUIManager.i.DisplayComponent(this);
         }
         public void AdvanceProgress()
         {
             progressDuration += Time.deltaTime;
+            UniversalUIManager.i.DisplayComponent(this);
             if (progressDuration >= pressDuration)
             {
                 CompleteInteraction();
             }
         }
-        public void CompleteInteraction()
+
+        public void CompleteClick()
+        {
+            if (typeName == TypeName.Click)
+            {
+                CompleteInteraction();
+            }
+        }
+        private void CompleteInteraction()
         {
             isCompleted = true;
             triggerEvent.Invoke();
@@ -70,8 +85,7 @@ public class WorldInteractable : MonoBehaviour
         }
     }
 
-    public InteractionType currentInteraction;
-    
+    public InteractionType currentInteraction = null;
 
     //BISO and CanInteract
     protected bool isBuildingInteractable
@@ -122,6 +136,7 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         mousePressing = false;
+        currentInteraction?.ResetProgress(true);
     }
 
     protected virtual void WhileMousePress()
@@ -143,8 +158,11 @@ public class WorldInteractable : MonoBehaviour
     protected virtual void MouseClick()
     {
         if(!CanInteract()) return;
-        currentInteraction?.CompleteInteraction();
-        currentInteraction = null;
+        currentInteraction?.CompleteClick();
+        if (currentInteraction.IsCompleted())
+        {
+            currentInteraction = null;
+        }
     }
     
     //UI Related//

@@ -95,22 +95,29 @@ public class UniversalUIManager : MonoBehaviour
 
     private void Update()
     {
-        displayingUIComponent?.SetPosition();
+        if (displayingUIComponent == null)
+        {
+            print("is null");
+        }
+        else
+        {
+            print("not");
+            displayingUIComponent.SetPosition();
+        }
     }
 
     public void DisplayComponent(WorldInteractable.InteractionType wiit)
     {
         displayingWIIT = wiit;
-        if (displayingWIIT.typeName == WorldInteractable.InteractionType.TypeName.Click)
-            displayingUIComponent = myClickUI;
-        else if (displayingWIIT.typeName == WorldInteractable.InteractionType.TypeName.Click)
-            displayingUIComponent = myLongPressUI;
         
         foreach (var uiComponent in allUIComponent)
         {
             if (uiComponent.identifier == wiit.typeName)
             {
-                uiComponent.OpenUI();
+                displayingUIComponent = uiComponent;
+                displayingUIComponent.OpenUI();
+                displayingUIComponent.SetPosition();
+                displayingUIComponent.SetValue(wiit.GetProgressPercent());
             }
             else
             {
@@ -123,6 +130,7 @@ public class UniversalUIManager : MonoBehaviour
     {
         if(displayingWIIT != wiit) return;
         displayingWIIT = null;
+        displayingUIComponent = null;
         foreach (var uiComponent in allUIComponent)
         {
             uiComponent.CloseUI();
