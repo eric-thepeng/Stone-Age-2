@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class UniversalUIManager : MonoBehaviour
 {
+    static UniversalUIManager instance=null;
+    public static UniversalUIManager i
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<UniversalUIManager>();
+            }
+            return instance;
+        }
+    }
+    
     public class UniversalUIComponent
     {
-        public enum Identifier
-        {
-            LongPress,
-            Click
-        }
-
-        public Identifier identifier;
+        public WorldInteractable.InteractionType.TypeName identifier;
 
         public GameObject uiGameObject;
         private RectTransform recTransform = null;
@@ -68,6 +75,9 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
 
+    private WorldInteractable.InteractionType displayingWIIT;
+    private UniversalUIComponent displayingUIComponent;
+    
     public LongPressUI myLongPressUI;
     public ClickUI myClickUI;
 
@@ -85,22 +95,37 @@ public class UniversalUIManager : MonoBehaviour
 
     private void Update()
     {
-        myLongPressUI.SetPosition();
+        displayingUIComponent?.SetPosition();
     }
 
-    public void DisplaySingleComponent(UniversalUIComponent.Identifier id, float value)
+    public void DisplayComponent(WorldInteractable.InteractionType wiit)
     {
+        displayingWIIT = wiit;
+        if (displayingWIIT.typeName == WorldInteractable.InteractionType.TypeName.Click)
+            displayingUIComponent = myClickUI;
+        else if (displayingWIIT.typeName == WorldInteractable.InteractionType.TypeName.Click)
+            displayingUIComponent = myLongPressUI;
+        
         foreach (var uiComponent in allUIComponent)
         {
-            if (uiComponent.identifier == id)
+            if (uiComponent.identifier == wiit.typeName)
             {
                 uiComponent.OpenUI();
-                uiComponent.SetValue(value);
             }
             else
             {
                 uiComponent.CloseUI();
             }
+        }
+    }
+
+    public void CancelDisplayComponent(WorldInteractable.InteractionType wiit)
+    {
+        if(displayingWIIT != wiit) return;
+        displayingWIIT = null;
+        foreach (var uiComponent in allUIComponent)
+        {
+            uiComponent.CloseUI();
         }
     }
 }

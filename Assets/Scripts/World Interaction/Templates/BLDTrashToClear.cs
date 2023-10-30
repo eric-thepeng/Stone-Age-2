@@ -56,6 +56,7 @@ public class BLDTrashToClear : LevelUp
 
     protected override void WhileMousePress()
     {
+        /*
         base.WhileMousePress();
         if (logPressing)
         {
@@ -67,7 +68,7 @@ public class BLDTrashToClear : LevelUp
                 pressedTime = 0;
                 logPressing = false;
             }
-        }
+        }*/
     }
 
     protected override void NotEnoughResource()
@@ -114,6 +115,12 @@ public class BLDTrashToClear : LevelUp
 
     }
 
+
+    public void TryUnlockToNextState()
+    {
+        base.UnlockToNextState();
+    }
+    
     public override ResourceSet ProvideResourceSet(int index = 0)
     {
         if (index == 0)
