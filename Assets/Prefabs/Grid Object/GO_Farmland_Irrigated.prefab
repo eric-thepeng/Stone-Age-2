@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6319732883396528879}
   - component: {fileID: 3744110875158180778}
   m_Layer: 0
-  m_Name: GO_Farmland
+  m_Name: GO_Farmland_Irrigated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3716469461667526511}
-  - {fileID: 3437152009262294133}
+  - {fileID: 2788574086215883743}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -153,77 +153,81 @@ Transform:
   m_Father: {fileID: 5606478375859459695}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3819460679338288217
+--- !u!1001 &4323813608881347571
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 5606478375859459695}
     m_Modifications:
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.035
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3888293578324307174, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
+    - target: {fileID: 3888293578324307174, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_Name
-      value: Farmland
+      value: FarmLand_Irrigated
+      objectReference: {fileID: 0}
+    - target: {fileID: 4515726235590539764, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
+      propertyPath: m_Name
+      value: Water
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
---- !u!4 &3437152009262294133 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
+--- !u!4 &2788574086215883743 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: 24754305cc449ad4e8240782442bc4cd, type: 3}
-  m_PrefabInstance: {fileID: 3819460679338288217}
+  m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
+  m_PrefabInstance: {fileID: 4323813608881347571}
   m_PrefabAsset: {fileID: 0}
