@@ -19,6 +19,8 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
     
+    
+    
     public class UniversalUIComponent
     {
         public WorldInteractable.InteractionType.TypeName identifier;
@@ -39,7 +41,7 @@ public class UniversalUIManager : MonoBehaviour
         }
         public void SetPosition()
         {
-            recTransform.anchoredPosition = Input.mousePosition;
+            recTransform.anchoredPosition = Input.mousePosition + new Vector3(0,15,0);
         }
 
         public virtual void SetValue(float v)
@@ -70,8 +72,7 @@ public class UniversalUIManager : MonoBehaviour
     {
         public override void SetValue(float v)
         {
-            if (v == 1) OpenUI();
-            else CloseUI();
+            
         }
     }
 
@@ -89,8 +90,8 @@ public class UniversalUIManager : MonoBehaviour
         foreach (var uiComponent in allUIComponent)
         {
             uiComponent.Initialize();
+            uiComponent.CloseUI();
         }
-        myLongPressUI.Initialize();
     }
 
     private void Update()

@@ -143,7 +143,7 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         currentInteraction?.AdvanceProgress();
-        if (currentInteraction.IsCompleted())
+        if (currentInteraction != null && currentInteraction.IsCompleted())
         {
             currentInteraction = null;
         }
@@ -159,7 +159,7 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         currentInteraction?.CompleteClick();
-        if (currentInteraction.IsCompleted())
+        if (currentInteraction!=null && currentInteraction.IsCompleted())
         {
             currentInteraction = null;
         }
