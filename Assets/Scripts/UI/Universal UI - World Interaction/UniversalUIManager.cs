@@ -98,11 +98,9 @@ public class UniversalUIManager : MonoBehaviour
     {
         if (displayingUIComponent == null)
         {
-            print("is null");
         }
         else
         {
-            print("not");
             displayingUIComponent.SetPosition();
         }
     }
