@@ -217,6 +217,7 @@ MonoBehaviour:
       spiritPoint: 0
       resources: []
     GrowthTime: 2
+    timeToClear: 0.5
   - InitAction: 2
     FinishAction: 3
     dryObj: {fileID: 1462077639419864620}
@@ -225,6 +226,7 @@ MonoBehaviour:
       spiritPoint: 0
       resources: []
     GrowthTime: 4
+    timeToClear: 0.5
   - InitAction: 2
     FinishAction: 3
     dryObj: {fileID: 6919601959574617987}
@@ -233,12 +235,13 @@ MonoBehaviour:
       spiritPoint: 0
       resources: []
     GrowthTime: 0
+    timeToClear: 0
   matureRewardEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7176098621607333584}
         m_TargetAssemblyTypeName: BLDFarmland, Assembly-CSharp
-        m_MethodName: Reward
+        m_MethodName: PlayParticle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -263,9 +266,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  finishedAction: 0
   rewardObjects: {fileID: 11400000, guid: f53c006bd98494cc2937c882c25c1c2b, type: 2}
   rewardAmount: 2
-  finishedAction: 0
+  needWaterIcon: {fileID: -1996632339, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
+  matureIcon: {fileID: -624859945, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
+  Icon: {fileID: 5794558405493886292}
   Bar: {fileID: 3308394934014969829}
   progress: {fileID: 2784201919706273980}
   background: {fileID: 2576802523156868052}
@@ -872,6 +878,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3942834618814642322}
   - {fileID: 1098665785623148575}
   m_Father: {fileID: 5606478375859459695}
   m_RootOrder: 3
@@ -907,7 +914,7 @@ Transform:
   - {fileID: 8927598870929350065}
   - {fileID: 3181663674285866175}
   m_Father: {fileID: 256210611583488678}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1 &3354217880400492988
 GameObject:
@@ -1192,7 +1199,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3942834618814642322}
   - {fileID: 2050681195664890867}
   - {fileID: 4970989097165173104}
   m_Father: {fileID: 3723192852283108928}
@@ -1261,7 +1267,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5780408884980511110}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2632368406461182630
 MeshFilter:
@@ -1365,7 +1371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3942834618814642322
 Transform:
   m_ObjectHideFlags: 0
@@ -1374,11 +1380,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5794558405493886292}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0.015342236, y: 1.485, z: 0.42}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalPosition: {x: -0.55, y: -0.74, z: 0.914}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 5780408884980511110}
+  m_Father: {fileID: 256210611583488678}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2100683313998709637
@@ -1422,7 +1428,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1f1a6493ae856e54eb05db74f549056f, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1430,7 +1436,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6028850072990855373
@@ -1808,7 +1814,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5780408884980511110}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
