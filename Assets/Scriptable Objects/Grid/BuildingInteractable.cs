@@ -5,14 +5,4 @@ using UnityEngine;
 
 public class BuildingInteractable : WorldInteractable
 {
-
-    protected override void BeginMouseHover()
-    {
-        mouseHovering = true;
-        if (!GridManagerAccessor.GridManager.IsPlacingGridObject)
-        {
-            TurnOnHighlight();
-        }
-
-    }
 }
