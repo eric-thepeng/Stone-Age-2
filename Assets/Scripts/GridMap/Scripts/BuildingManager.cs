@@ -248,6 +248,8 @@ public class BuildingManager : MonoBehaviour
     }
 
 
+    public bool mouseInPlacementMode = false;
+
     void Update()
     {
 
@@ -287,6 +289,10 @@ public class BuildingManager : MonoBehaviour
             //}
         }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            mouseInPlacementMode = true;
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -311,9 +317,12 @@ public class BuildingManager : MonoBehaviour
         //if (buildDragInfo == null) //NEW BUILD DRAG
         //{
 
+
+
         if (Input.GetMouseButton(0))
         {
-            if (GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
+            //Debug.Log(mouseInPlacementMode);
+            if (mouseInPlacementMode && GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
             {
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)

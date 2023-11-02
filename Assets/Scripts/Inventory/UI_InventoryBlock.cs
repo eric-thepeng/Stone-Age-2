@@ -130,6 +130,8 @@ public class UI_InventoryBlock : MonoBehaviour
 
                 //PlayerState.OpenCloseBuildingPanel();
                 BuildingManager.i.gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+
+                BuildingManager.i.mouseInPlacementMode = false;
             }
 
 
@@ -141,27 +143,6 @@ public class UI_InventoryBlock : MonoBehaviour
             CreateIconDrag();
         }
 
-        // 06/09/23 - new grid items
-        //else if (GridManagerAccessor.GridManager.IsPlacingGridObject)
-        //{
-        //    if (itemInfo.iso is BuildingISO)
-        //    {
-        //        //BuildingManager.i.SetSelectedBuilding(this);// (BuildingISO)itemInfo.iso);
-        //        //SetSelectedBackground(true);
-
-
-        //        //GridManagerAccessor.GridManager.CancelPlacement();
-
-        //        //GameObject objectToPlace = Instantiate(((BuildingISO)itemInfo.iso).GetBuildingPrefab(), GridManagerAccessor.GridManager.GetGridPosition(), new Quaternion());
-
-        //        //objectToPlace.name = ((BuildingISO)itemInfo.iso).GetBuildingPrefab().name;
-        //        //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
-        //        GridManagerAccessor.GridManager.CancelPlacement(false);
-        //        GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
-                
-        //    }
-
-        //}
 
     }
 
