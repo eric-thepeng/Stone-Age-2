@@ -59,7 +59,7 @@ public class GridOperationManager : MonoBehaviour
 
     public void StartPaintMode()
     {
-        Debug.Log("Paint mode entered");
+        //Debug.Log("Paint mode entered");
         _gridManager.StartPaintMode(_gridEmptyObjectPrefab);
     }
 

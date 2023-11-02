@@ -14,76 +14,31 @@ public class BLDTrashToClear : LevelUp
     bool logPressing = false;
     UI_BLDTrashToClear ui;
 
-    enum State {Idle, Selected}
-    State state = State.Idle;
-
     private ResourceSet unlockResourceSet;
-
-    void ChangeStateTo(State newState)
-    {
-        if(newState == State.Selected)
-        {
-            state = State.Selected;
-            TurnOnUI();
-            ui.SetProgress(pressedTime/timeToClear);
-        }
-        else if(newState == State.Idle)
-        {
-            state = State.Idle;
-            TurnOffUI();
-        }
-    }
+    
 
     private void Start()
     {
         ui = GetComponent<UI_BLDTrashToClear>();
         unlockResourceSet = GetCurrentUnlockState().unlockCost;
     }
-    
+
+    protected override void BeginMouseHover()
+    {
+        base.BeginMouseHover();
+        TurnOnUI();
+    }
 
     protected override void EndMouseHover()
     {
-        if (state == State.Selected) ChangeStateTo(State.Idle);
         base.EndMouseHover();
-    }
-
-    protected override void BeginMousePress()
-    {
-        base.BeginMousePress();
-        if (state == State.Idle) ChangeStateTo(State.Selected);
-        else if (state == State.Selected)logPressing = true;
-    }
-
-    protected override void WhileMousePress()
-    {
-        base.WhileMousePress();
-        if (logPressing)
-        {
-            pressedTime += Time.deltaTime;
-            ui.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
-            if (pressedTime > timeToClear)
-            {
-                UnlockToNextState();
-                pressedTime = 0;
-                logPressing = false;
-            }
-        }
+        TurnOffUI();
     }
 
     protected override void NotEnoughResource()
     {
         base.NotEnoughResource();
         ui.SetProgress(0);
-    }
-
-    protected override void EndMousePress()
-    {
-        base.EndMousePress();
-        if (state == State.Selected)
-        {
-            pressedTime = 0;
-            ui.SetProgress(Mathf.Clamp(pressedTime / timeToClear,0,1));
-        }
     }
 
     private void TurnOnUI()
@@ -114,6 +69,12 @@ public class BLDTrashToClear : LevelUp
 
     }
 
+
+    public void TryUnlockToNextState()
+    {
+        base.UnlockToNextState();
+    }
+    
     public override ResourceSet ProvideResourceSet(int index = 0)
     {
         if (index == 0)

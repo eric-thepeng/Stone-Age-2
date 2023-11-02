@@ -163,7 +163,8 @@ public static class PlayerState
 
     public static void OpenCloseChangeInventoryPanel()
     {
-        if (!IsBrowsing()) return;
+        Debug.Log("Is browsing:" + IsBrowsing() + ",  inventory panel open:" + inventoryPanelOpen);
+        if (!IsBrowsing() && !IsBuilding()) return;
         ChangeInventoryPanel(!inventoryPanelOpen);
     }
 

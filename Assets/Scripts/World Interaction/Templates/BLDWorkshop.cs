@@ -30,7 +30,7 @@ public class BLDWorkshop : BuildingInteractable
     private void Start()
     {
         ui = GetComponent<UI_BLDWorkshop>();
-
+        currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
     }
 
     private void Update()
@@ -40,15 +40,13 @@ public class BLDWorkshop : BuildingInteractable
 
     #region interaction logic
 
-    protected override void MouseClick()
+    private void ClickEvent()
     {
-        base.MouseClick();
         if (state == State.Idle)
         {
             EnterUI();
         }
     }
-    
 
     protected override void TurnOnHighlight()
     {
@@ -80,6 +78,8 @@ public class BLDWorkshop : BuildingInteractable
     {
         if (state == State.Assigning)
         {
+            currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
+            
             ui.TurnOffUIDisplay();
             state = State.Idle;
             if (wcc.isCrafting)
