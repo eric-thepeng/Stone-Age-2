@@ -544,6 +544,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591854c666df2426cacdfd7844611922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentInteraction:
+    typeName: 0
+    pressDuration: 0
+    triggerEvent:
+      m_PersistentCalls:
+        m_Calls: []
   mouseHovering: 0
   allUnlockStates:
   - InitAction: 2
@@ -554,7 +560,9 @@ MonoBehaviour:
       spiritPoint: 0
       resources: []
     GrowthTime: 5
-    timeToClear: 0
+    timeToClear: 0.25
+    growParticle: {fileID: 0}
+    waterParticle: {fileID: 0}
   - InitAction: 2
     FinishAction: 3
     dryObj: {fileID: 1462077639419864620}
@@ -564,6 +572,8 @@ MonoBehaviour:
       resources: []
     GrowthTime: 5
     timeToClear: 0
+    growParticle: {fileID: 0}
+    waterParticle: {fileID: 0}
   - InitAction: 2
     FinishAction: 3
     dryObj: {fileID: 6919601959574617987}
@@ -573,6 +583,8 @@ MonoBehaviour:
       resources: []
     GrowthTime: 0
     timeToClear: 0
+    growParticle: {fileID: 0}
+    waterParticle: {fileID: 0}
   matureRewardEvent:
     m_PersistentCalls:
       m_Calls:
@@ -606,13 +618,13 @@ MonoBehaviour:
   finishedAction: 0
   rewardObjects: {fileID: 11400000, guid: d1245991139504505b04b6c1395e055a, type: 2}
   rewardAmount: 1
+  Icon: {fileID: 5794558405493886292}
   needWaterIcon: {fileID: -1996632339, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   matureIcon: {fileID: -624859945, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
-  Icon: {fileID: 5794558405493886292}
+  Visibility: 0
   Bar: {fileID: 3308394934014969829}
   progress: {fileID: 2784201919706273980}
   background: {fileID: 2576802523156868052}
-  particlePrefab: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
 --- !u!1 &1462077639419864620
 GameObject:
   m_ObjectHideFlags: 0
