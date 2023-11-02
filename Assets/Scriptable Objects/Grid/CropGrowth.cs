@@ -54,8 +54,8 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             }
         }
 
-        public GameObject growParticle;
-        public GameObject waterParticle;
+        public GameObject finishedParticle;
+        public GameObject overtimeParticle;
 
         public bool Water(MonoBehaviour runner)
         {
@@ -219,7 +219,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     protected virtual void HandleGrowthCompletion(int stateIndex)
     {
-        PlayGrowthParticle(GetCurrentUnlockState().growParticle);
+        PlayGrowthParticle(GetCurrentUnlockState().finishedParticle);
         if (stateIndex == allUnlockStates.Count - 1)
         {
             //Debug.Log("HandleGrowthCompletion to 0");

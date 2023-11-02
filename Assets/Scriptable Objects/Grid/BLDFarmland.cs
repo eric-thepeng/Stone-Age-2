@@ -129,7 +129,7 @@ public class BLDFarmland : CropGrowth
     {
         base.BeginMousePress();
 
-        PlayWaterEffect(GetCurrentUnlockState().waterParticle);
+        PlayWaterEffect(GetCurrentUnlockState().overtimeParticle);
 
         transform.DOShakePosition(0.3f, new Vector3(0.1f, 0, 0), 10, 0);
     }
