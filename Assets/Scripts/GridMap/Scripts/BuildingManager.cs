@@ -371,6 +371,7 @@ public class BuildingManager : MonoBehaviour
                         if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
                         {
                             bool _hit = DeletingProcessHitItem(hitInfo);
+                            Debug.Log(_hit);
                             if (!_hit) ToggleModifying();
                         }
                         else
@@ -502,16 +503,12 @@ public class BuildingManager : MonoBehaviour
             CancelSelectedBuidling();
             GridManagerAccessor.GridManager.EndPaintMode(false);
             modifying = true;
-            //editingIndicator.gameObject.SetActive(true);
-            //if (deleting)
-            //{
-            //    ToggleDeleting();
-            //}
-
             gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
             //PlayerState.ExitState();
             PlayerState.state = PlayerState.State.Building;
-            PlayerState.ChangeInventoryPanel(false);
+
+            // edited close inventory panel
+            //PlayerState.ChangeInventoryPanel(false);
 
             StartEditingChildMode();
         }
@@ -602,7 +599,7 @@ public class BuildingManager : MonoBehaviour
 
     public bool DeletingProcessHitItem(RaycastHit hitInfo)
     {
-        if (hitInfo.collider.GetComponent<GridObjectTags>() != null)
+        if (hitInfo.collider.GetComponent<PlaceableObject>() != null)
         {
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
