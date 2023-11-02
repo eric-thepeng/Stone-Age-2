@@ -19,13 +19,13 @@ public class BLDFarmland : CropGrowth
     private float totalGrowthTime;
     private float elapsedTime;
 
-    [Header("UI Sprite")]
+    [Header("UI - Icon")]
+    public GameObject Icon;
     public Sprite needWaterIcon;
     public Sprite matureIcon;
 
-    [Header("Progress Bar")]
+    [Header("UI - Progress Bar")]
     public bool Visibility;
-    public GameObject Icon;
     public GameObject Bar;
     public GameObject progress;
     public GameObject background;
