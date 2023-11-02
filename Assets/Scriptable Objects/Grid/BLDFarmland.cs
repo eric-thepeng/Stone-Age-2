@@ -73,7 +73,8 @@ public class BLDFarmland : CropGrowth
                 if (!float.IsNaN(_pos.x) && !float.IsInfinity(_pos.x)) progress.transform.localPosition = _pos;
                 if (!float.IsNaN(_scale.x) && !float.IsInfinity(_scale.x)) progress.transform.localScale = _scale;
             }
-        } else
+        }
+        else
         {
             Bar.SetActive(false);
         }
@@ -100,7 +101,7 @@ public class BLDFarmland : CropGrowth
         //Debug.LogWarning("State Change --!");
         //PlayParticle();
         goalSprite = needWaterIcon;
-        
+
     }
 
     protected override void onCropMatured()
@@ -111,9 +112,24 @@ public class BLDFarmland : CropGrowth
         goalSprite = matureIcon;
     }
 
+    private GameObject waterObject;
+
+    public void PlayWaterEffect(GameObject particlePrefab)
+    {
+
+        if (particlePrefab != null)
+        {
+            Vector3 position = transform.position;
+            position.y += 0.5f;
+            waterObject = Instantiate(particlePrefab, position, Quaternion.identity);
+        }
+    }
+
     protected override void BeginMousePress()
     {
         base.BeginMousePress();
+
+        PlayWaterEffect(GetCurrentUnlockState().waterParticle);
 
         transform.DOShakePosition(0.3f, new Vector3(0.1f, 0, 0), 10, 0);
     }
@@ -130,18 +146,21 @@ public class BLDFarmland : CropGrowth
     //}
 
 
-    //protected override void EndMousePress()
-    //{
-    //    base.EndMousePress();
+    protected override void EndMousePress()
+    {
+        Destroy(waterObject);
+        base.EndMousePress();
 
 
-    //    if (isPlaced & pressedTime > timeToClear)
-    //    {
-    //        if (Water())
-    //        {
-    //            Debug.Log("Unlock to Next State");
-    //        }
-    //        pressedTime = 0;
-    //    }
-    //}
+
+        //    if (isPlaced & pressedTime > timeToClear)
+        //    {
+        //        if (Water())
+        //        {
+        //            Debug.Log("Unlock to Next State");
+        //        }
+        //        pressedTime = 0;
+        //    }
+        //}
+    }
 }

@@ -219,7 +219,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     protected virtual void HandleGrowthCompletion(int stateIndex)
     {
-        Destroy(waterObject);
         PlayGrowthParticle(GetCurrentUnlockState().growParticle);
         if (stateIndex == allUnlockStates.Count - 1)
         {
@@ -278,15 +277,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         Instantiate(particlePrefab, position, Quaternion.identity);
     }
 
-    private GameObject waterObject;
-
-    public void PlayWaterEffect(GameObject particlePrefab)
-    {
-        Vector3 position = transform.position;
-        position.y += 0.5f;
-        waterObject = Instantiate(particlePrefab, position, Quaternion.identity);
-    }
-
 
     public bool Water()
     {
@@ -297,7 +287,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             return false;
         }
 
-        PlayWaterEffect(GetCurrentUnlockState().waterParticle);
         return true;
     }
 
