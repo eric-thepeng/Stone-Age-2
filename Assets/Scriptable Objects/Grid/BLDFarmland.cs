@@ -19,12 +19,10 @@ public class BLDFarmland : CropGrowth
     private float totalGrowthTime;
     private float elapsedTime;
 
-    [Header("UI - Icon")]
+    [Header("UI Objects - Icon")]
     public GameObject Icon;
-    public Sprite needWaterIcon;
-    public Sprite matureIcon;
 
-    [Header("UI - Progress Bar")]
+    [Header("UI Objects - Progress Bar")]
     public bool Visibility;
     public GameObject Bar;
     public GameObject progress;
@@ -100,7 +98,7 @@ public class BLDFarmland : CropGrowth
         base.onStateChange();
         //Debug.LogWarning("State Change --!");
         //PlayParticle();
-        goalSprite = needWaterIcon;
+        goalSprite = GetCurrentUnlockState().interactableIcon;
 
     }
 
@@ -109,7 +107,8 @@ public class BLDFarmland : CropGrowth
         base.onCropMatured();
         //Debug.LogWarning("Matured!");
         //PlayParticle();
-        goalSprite = matureIcon;
+        //goalSprite = matureIcon;
+        goalSprite = GetCurrentUnlockState().interactableIcon;
     }
 
     private GameObject waterObject;

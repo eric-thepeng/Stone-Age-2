@@ -22,14 +22,18 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         }
 
 
-        //[Header("Objects & Actions")]
+        [Header("Actions")]
         public DoAction InitAction = DoAction.ENABLE;
         public DoAction FinishAction = DoAction.DISABLE;
+        public ResourceSet waterCost = null;
 
+
+        [Header("Objects")]
         public GameObject dryObj = null;
         public GameObject wetObj = null;
 
-        public ResourceSet waterCost = null;
+
+        [Header("Time")]
         public float GrowthTime;
 
         //[HideInInspector]
@@ -54,8 +58,13 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             }
         }
 
+        [Header("Particles")]
         public GameObject finishedParticle;
         public GameObject overtimeParticle;
+
+
+        [Header("Icon")]
+        public Sprite interactableIcon;
 
         public bool Water(MonoBehaviour runner)
         {

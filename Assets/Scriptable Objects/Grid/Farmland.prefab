@@ -227,37 +227,40 @@ MonoBehaviour:
   allUnlockStates:
   - InitAction: 2
     FinishAction: 3
+    waterCost:
+      spiritPoint: 0
+      resources: []
     dryObj: {fileID: 4178412235384188211}
     wetObj: {fileID: 7392266181706308509}
-    waterCost:
-      spiritPoint: 0
-      resources: []
     GrowthTime: 2
     timeToClear: 1
-    growParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
-    waterParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    finishedParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
+    overtimeParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    interactableIcon: {fileID: 502513679, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   - InitAction: 2
     FinishAction: 3
+    waterCost:
+      spiritPoint: 0
+      resources: []
     dryObj: {fileID: 1462077639419864620}
     wetObj: {fileID: 1592326401106139600}
-    waterCost:
-      spiritPoint: 0
-      resources: []
     GrowthTime: 4
     timeToClear: 3
-    growParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
-    waterParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    finishedParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
+    overtimeParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    interactableIcon: {fileID: 502513679, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   - InitAction: 2
     FinishAction: 3
-    dryObj: {fileID: 6919601959574617987}
-    wetObj: {fileID: 0}
     waterCost:
       spiritPoint: 0
       resources: []
+    dryObj: {fileID: 6919601959574617987}
+    wetObj: {fileID: 0}
     GrowthTime: 0
     timeToClear: 0
-    growParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
-    waterParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    finishedParticle: {fileID: 2902519304942050945, guid: 8a304449f33e2cf4eac966c7fa2ebaee, type: 3}
+    overtimeParticle: {fileID: 1329226754775365189, guid: 7a27f6879575a074082fb48aa7cb226a, type: 3}
+    interactableIcon: {fileID: -624859945, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   matureRewardEvent:
     m_PersistentCalls:
       m_Calls:
@@ -291,10 +294,8 @@ MonoBehaviour:
   finishedAction: 0
   rewardObjects: {fileID: 11400000, guid: f53c006bd98494cc2937c882c25c1c2b, type: 2}
   rewardAmount: 2
-  needWaterIcon: {fileID: -1996632339, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
-  matureIcon: {fileID: -624859945, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
-  Visibility: 0
   Icon: {fileID: 5794558405493886292}
+  Visibility: 0
   Bar: {fileID: 3308394934014969829}
   progress: {fileID: 2784201919706273980}
   background: {fileID: 2576802523156868052}
@@ -813,9 +814,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3292755072554466423}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.29034224, y: 1.579, z: -0.037}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3942834618814642322}
   - {fileID: 1098665785623148575}
@@ -1287,7 +1288,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5794558405493886292}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -0.55, y: -0.74, z: 0.914}
+  m_LocalPosition: {x: 0, y: 2.75, z: 0.602}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1335,15 +1336,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 502513679, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.3, y: 2.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6028850072990855373
