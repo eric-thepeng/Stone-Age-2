@@ -61,6 +61,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         [Header("Particles")]
         public GameObject finishedParticle;
         public GameObject overtimeParticle;
+        public GameObject finishedWaterParticle;
 
 
         [Header("Icon")]
@@ -77,6 +78,8 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
                     return false;
                 }
             }
+
+
             AdjustObjToAction(dryObj, FinishAction);
             AdjustObjToAction(wetObj, InitAction);
 
@@ -295,6 +298,10 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             NotEnoughResource();
             return false;
         }
+
+        Vector3 position = transform.position;
+        position.y += 0.5f;
+        Instantiate(GetCurrentUnlockState().finishedWaterParticle, position, Quaternion.identity);
 
         return true;
     }

@@ -51,12 +51,14 @@ public class BLDFarmland : CropGrowth
         }
         else
         {
-            Icon.GetComponent<SpriteRenderer>().sprite = null;
+            Icon.SetActive(false);
+            //Icon.GetComponent<SpriteRenderer>().sprite = null;
         }
 
         if (isCountingDown)
         {
-            Icon.GetComponent<SpriteRenderer>().sprite = null;
+            Icon.SetActive(false);
+            //Icon.GetComponent<SpriteRenderer>().sprite = null;
 
             if (Visibility)
             {
@@ -148,6 +150,7 @@ public class BLDFarmland : CropGrowth
     protected override void EndMousePress()
     {
         Destroy(waterObject);
+
         base.EndMousePress();
 
 
