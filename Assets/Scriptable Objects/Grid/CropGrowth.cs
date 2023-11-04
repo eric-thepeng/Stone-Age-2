@@ -231,7 +231,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     protected virtual void HandleGrowthCompletion(int stateIndex)
     {
-        PlayGrowthParticle(GetCurrentUnlockState().finishedParticle);
+        PlayParticle(GetCurrentUnlockState().finishedParticle);
         if (stateIndex == allUnlockStates.Count - 1)
         {
             //Debug.Log("HandleGrowthCompletion to 0");
@@ -282,11 +282,11 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     }
 
-    public void PlayGrowthParticle(GameObject particlePrefab)
+    public void PlayParticle(GameObject particlePrefab)
     {
         Vector3 position = transform.position;
         position.y += 0.5f;
-        Instantiate(particlePrefab, position, Quaternion.identity);
+        if (particlePrefab != null) Instantiate(particlePrefab, position, Quaternion.identity);
     }
 
 
@@ -299,9 +299,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             return false;
         }
 
-        Vector3 position = transform.position;
-        position.y += 0.5f;
-        Instantiate(GetCurrentUnlockState().finishedWaterParticle, position, Quaternion.identity);
+        PlayParticle(GetCurrentUnlockState().finishedWaterParticle);
 
         return true;
     }
