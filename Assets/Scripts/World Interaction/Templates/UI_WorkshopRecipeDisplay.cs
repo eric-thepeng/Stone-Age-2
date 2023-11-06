@@ -22,7 +22,7 @@ public class UI_WorkshopRecipeDisplay : MonoBehaviour
     {
         UI_FullScreenShading.i.ShowWorkshopShading();
         bothComp.SetActive(true);
-        if (workshopRecipe.unlocked)
+        if (true)
         {
             unlockedComp.SetActive(true);
             lockedComp.SetActive(false);

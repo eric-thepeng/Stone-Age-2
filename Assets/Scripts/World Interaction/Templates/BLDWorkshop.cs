@@ -20,6 +20,8 @@ public class BLDWorkshop : BuildingInteractable
     [SerializeField] private GameObject workshopCraftingUI = null;
     private WorkshopCraftingController wcc;
 
+    public SO_WorkshopRecipe.WorkshopType workshopType;
+
     private void Awake()
     {
         wcc = new WorkshopCraftingController(this, workshopCraftingUI);
