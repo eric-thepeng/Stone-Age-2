@@ -1,10 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BLDWorkshop : BuildingInteractable
 {
+    public class WorkshopData
+    {
+        public struct ISOAndAmount
+        {
+            public ItemScriptableObject iso;
+            public int amount;
+            public ISOAndAmount(ItemScriptableObject iso, int amount)
+            {
+                this.iso = iso;
+                this.amount = amount;
+            }
+        }
+
+        public List<ISOAndAmount> materialStat;
+        public ISOAndAmount productStat;
+
+    }
+
     enum State
     {Idle, Assigning
     }
@@ -52,18 +71,7 @@ public class BLDWorkshop : BuildingInteractable
         if(state == State.Assigning) return;
         base.TurnOnHighlight();
     }
-
-
-    /*
-    protected override void EndMouseHover()
-    {
-        if (state == State.Assigning)
-        {
-            ui.TurnOffUI();
-            state = State.Idle;
-        }
-        base.EndMouseHover();
-    }*/
+    
 
     public void EnterUI()
     {
@@ -79,16 +87,9 @@ public class BLDWorkshop : BuildingInteractable
         {
             currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
             
-            UI_BLDWorkshop.i.TurnOffUIDisplay();
+            UI_BLDWorkshop.i.TurnOffUI();
             state = State.Idle;
-            if (wcc.isCrafting)
-            {
-                
-            }
-            else
-            {
-                ClearAllMaterialAndProduct();
-            }
+            ClearAllMaterialAndProduct();
             PlayerState.OpenCloseAllocatingBackpack(false);
         }
         else

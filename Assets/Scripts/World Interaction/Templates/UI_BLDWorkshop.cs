@@ -18,6 +18,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
     [SerializeField] private Transform workshopRecipeDisplayContainer;
+    
     private BLDWorkshop workshop;
 
     static UI_BLDWorkshop instance;
@@ -33,16 +34,11 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         }
     }
 
-    
-    private void Start()
-    {
-        workshop = GetComponent<BLDWorkshop>();
-    }
-
     public void TurnOnUI(BLDWorkshop orgWorkshop)
     {
         // Turn On UI
         uiGameObject.SetActive(true);
+        workshop = orgWorkshop;
         
         // Gather Unlocked Workshop Recipes
         SO_WorkshopRecipe[] allWorkshopRecipes = Resources.LoadAll<SO_WorkshopRecipe>("World Interaction/Workshop Recipes");
@@ -69,21 +65,26 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         workshopRecipeDisplayTemplate.gameObject.SetActive(false);
     }
 
-    public void TurnOffUIDisplay()
+    public void TurnOffUI()
     {
         UI_FullScreenShading.i.HideShading();
         uiGameObject.SetActive(false);
     }
 
-    public void ExitButtonClicked()
+    public void Button_ExitButtonClicked()
     {
         workshop.ExitUI();
         //TurnOffUIDisplay();
     }
 
-    public void StartCraftingButtonClicked()
+    public void Button_StartCraftingButtonClicked()
     {
         workshop.StartCrafting();
+    }
+
+    public void Button_AdjustProductAmountButtonClicked(int amount)
+    {
+        workshop.AdjustProductAmountClicked(amount);
     }
 
     #region Interface ISOReceiver
@@ -132,9 +133,9 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
 
     public void ClearAllMaterialAndProductIcon()
     {
-        productISODisplayBox.Clear();
         material1ISODisplayBox.Clear();
         material2ISODisplayBox.Clear();
         material3ISODisplayBox.Clear();
+        productISODisplayBox.Clear();
     }
 }

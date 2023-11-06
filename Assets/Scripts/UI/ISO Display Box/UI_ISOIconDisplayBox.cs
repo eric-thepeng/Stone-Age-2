@@ -13,6 +13,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
     [SerializeField] private bool clickToCancel = true;
     [SerializeField] private GameObject textAmount;
     
+    [Header("Leaves below empty if not notifying anything")]
     public MonoBehaviour monoBehaviourWithIISOReceiver;
     
     private void Awake()
@@ -31,7 +32,14 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         else
         {
             sr.sprite = iso.iconSprite;
-            if(monoBehaviourWithIISOReceiver != null) ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+            if (monoBehaviourWithIISOReceiver != null)
+            {
+                ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+            }
+            else
+            {
+                //Debug.LogError("ISOIconDisplayBox should receives drop icon but does not have a mono behaviour with IISOReceiver interface assigned.");
+            }
         }
     }
 
