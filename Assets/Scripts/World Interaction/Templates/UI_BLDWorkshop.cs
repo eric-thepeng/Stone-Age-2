@@ -20,12 +20,26 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     [SerializeField] private Transform workshopRecipeDisplayContainer;
     private BLDWorkshop workshop;
 
+    static UI_BLDWorkshop instance;
+    public static UI_BLDWorkshop i
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<UI_BLDWorkshop>();
+            }
+            return instance;
+        }
+    }
+
+    
     private void Start()
     {
         workshop = GetComponent<BLDWorkshop>();
     }
 
-    public void TurnOnUI()
+    public void TurnOnUI(BLDWorkshop orgWorkshop)
     {
         // Turn On UI
         uiGameObject.SetActive(true);

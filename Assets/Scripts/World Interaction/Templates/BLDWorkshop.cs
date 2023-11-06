@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class BLDWorkshop : BuildingInteractable
 {
-    private UI_BLDWorkshop ui;
-
     enum State
     {Idle, Assigning
     }
@@ -29,7 +27,6 @@ public class BLDWorkshop : BuildingInteractable
 
     private void Start()
     {
-        ui = GetComponent<UI_BLDWorkshop>();
         currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
     }
 
@@ -68,7 +65,7 @@ public class BLDWorkshop : BuildingInteractable
 
     public void EnterUI()
     {
-        ui.TurnOnUI();
+        UI_BLDWorkshop.i.TurnOnUI(this);
         state = State.Assigning;
         PlayerState.OpenCloseAllocatingBackpack(true);
         CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,15), 100f);
@@ -80,7 +77,7 @@ public class BLDWorkshop : BuildingInteractable
         {
             currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
             
-            ui.TurnOffUIDisplay();
+            UI_BLDWorkshop.i.TurnOffUIDisplay();
             state = State.Idle;
             if (wcc.isCrafting)
             {
@@ -104,7 +101,7 @@ public class BLDWorkshop : BuildingInteractable
     {
         currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
         currentRecipe = null;
-        ui.ClearAllMaterialAndProductIcon();
+        UI_BLDWorkshop.i.ClearAllMaterialAndProductIcon();
     }
 
     public void UpdateMaterialList(ItemScriptableObject iso, int index)
@@ -130,15 +127,15 @@ public class BLDWorkshop : BuildingInteractable
 
     private void UpdateProductAndRecipe(SO_WorkshopRecipe wr = null)
     {
-        ui.UpdateProductIcon(wr?.product);
+        UI_BLDWorkshop.i.UpdateProductIcon(wr?.product);
         if (wr != null)
         {
-            ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, 0);
+            UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, 0);
             wcc.ResetCurrentCraftingAmount();
         }
         else
         {
-            ui.ClearProductAndRecipeAmount();
+            UI_BLDWorkshop.i.ClearProductAndRecipeAmount();
         }
         currentRecipe = wr;
     }
@@ -176,7 +173,7 @@ public class BLDWorkshop : BuildingInteractable
 
     public void AdjustProductAmountUI(int amount)
     {
-        ui.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
+        UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
     }
     
 }
