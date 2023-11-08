@@ -65,7 +65,7 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         }
     }
 
-    public void Clear()
+    private void Clear()
     {
         sr.sprite = null;
         DisplayAmount(false,0);

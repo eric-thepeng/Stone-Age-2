@@ -128,7 +128,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         }
         else
         {
-            productISODisplayBox.Clear();
+            productISODisplayBox.Display(null, false, default, false);
         }
     }
     public void UpdateProductIcon(ItemScriptableObject iso = null)
@@ -145,6 +145,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         }
     }
 
+    /*
     public void UpdateProductAndRecipeAmount(bool material1, bool material2, bool material3, int amount)
     {
         material1ISODisplayBox.DisplayAmount(material1, amount);
@@ -167,5 +168,5 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         material2ISODisplayBox.Clear();
         material3ISODisplayBox.Clear();
         productISODisplayBox.Clear();
-    }
+    }*/
 }

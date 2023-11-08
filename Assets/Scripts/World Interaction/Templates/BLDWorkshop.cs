@@ -70,9 +70,16 @@ public class BLDWorkshop : BuildingInteractable
         public void AssignRecipe(SO_WorkshopRecipe wr)
         {
             currentWorkshopRecipe = wr;
-            productStat.iso = wr.product;
-            currentWorkshopRecipeAmount = 0;
+            if (currentWorkshopRecipe == null)
+            {
+                productStat.iso = null;
+            }
+            else
+            {
+                productStat.iso = wr.product;
+            }
             productStat.amount = 0;
+            currentWorkshopRecipeAmount = 0;
             foreach (var isoAndAmount in materialStat)
             {
                 isoAndAmount.amount = 0;
@@ -214,7 +221,7 @@ public class BLDWorkshop : BuildingInteractable
                 return;
             }
         }
-        //UpdateRecipe(null);
+        workshopData.AssignRecipe(null);
     }
 
     public void StartCrafting()
@@ -317,7 +324,7 @@ public class WorkshopCraftingController
 
     public void HideCraftingUI()
     {
-        productDisplayBox.Clear();
+        productDisplayBox.Display(null, false, default, false);
         ui.SetActive(false);
     }
 
