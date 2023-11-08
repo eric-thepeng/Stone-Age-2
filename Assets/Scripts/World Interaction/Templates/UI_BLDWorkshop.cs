@@ -116,19 +116,19 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         int count = 0;
         foreach (BLDWorkshop.WorkshopData.ISOAndAmount isoAA in workshop.workshopData.materialStat)
         {
-            if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
-            else if(count == 1) material2ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
-            else if(count == 2) material3ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
+            if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
+            else if(count == 1) material2ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
+            else if(count == 2) material3ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
             count++;
         }
 
         if (recipeExists)
         {
-            productISODisplayBox.Display(targetWorkshopData.productStat.iso, false, targetWorkshopData.productStat.amount);
+            productISODisplayBox.Display(targetWorkshopData.productStat.iso, false, targetWorkshopData.productStat.amount, false);
         }
         else
         {
-            productISODisplayBox.Display(null,false);
+            productISODisplayBox.Clear();
         }
     }
     public void UpdateProductIcon(ItemScriptableObject iso = null)

@@ -21,10 +21,15 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon, int amount = -1)
+    public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon, int amount = -1, bool sendNotification = true)
     {
+        //Check for if dropping iso icon is allowed
         if(!receiveDrop && triggerByDroppingISOIcon) return;
+        
+        //Display Amount
         DisplayAmount(amount != -1, amount);
+        
+        //Display Sprite
         if (iso == null)
         {
             Clear();
@@ -32,15 +37,14 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         else
         {
             sr.sprite = iso.iconSprite;
-            if (monoBehaviourWithIISOReceiver != null)
-            {
-                ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
-            }
-            else
-            {
-                //Debug.LogError("ISOIconDisplayBox should receives drop icon but does not have a mono behaviour with IISOReceiver interface assigned.");
-            }
         }
+        
+        //Notify receiver
+        if (monoBehaviourWithIISOReceiver != null && sendNotification)
+        {
+            ((IISOReceiver)monoBehaviourWithIISOReceiver).ReceiveISOWithIndex(iso, index);
+        }
+
     }
 
     public void DisplayAmount(bool display, int amount)
