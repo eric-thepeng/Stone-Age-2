@@ -8,7 +8,15 @@ public class BLDWorkshop : BuildingInteractable
 {
     public class WorkshopData
     {
-        public struct ISOAndAmount
+        /* The set of data provided to UI_BLDWorkshop to display
+         
+         - display combination of materials
+         - if workshop recipe exist: 
+            - display product
+            - display amount
+         
+        */
+        public class ISOAndAmount
         {
             public ItemScriptableObject iso;
             public int amount;
@@ -17,11 +25,99 @@ public class BLDWorkshop : BuildingInteractable
                 this.iso = iso;
                 this.amount = amount;
             }
+
+            public ISOAndAmount()
+            {
+                Reset();
+            }
+
+            public void Reset()
+            {
+                this.iso = null;
+                this.amount = 0;
+            }
         }
 
+        private BLDWorkshop workshop;
         public List<ISOAndAmount> materialStat;
         public ISOAndAmount productStat;
+        public ISOAndAmount finishedProductStat;
+        public SO_WorkshopRecipe currentWorkshopRecipe;
+        public int currentWorkshopRecipeAmount;
 
+        public WorkshopData(BLDWorkshop workshop)
+        {
+            this.workshop = workshop;
+            ResetAll();
+        }
+        
+        public void ResetAll()
+        {
+            materialStat = new List<ISOAndAmount>(){new ISOAndAmount(),new ISOAndAmount(),new ISOAndAmount()};
+            productStat = new ISOAndAmount();
+            finishedProductStat = new ISOAndAmount();
+            currentWorkshopRecipe = null;
+            currentWorkshopRecipeAmount = 0;
+        }
+        
+        public void AssignMaterial(int index, ItemScriptableObject newISO)
+        {
+            materialStat[index - 1].iso = newISO;
+            materialStat[index - 1].amount = 0;
+            workshop.CheckIfRecipeExists();
+        }
+
+        public void AssignRecipe(SO_WorkshopRecipe wr)
+        {
+            currentWorkshopRecipe = wr;
+            productStat.iso = wr.product;
+            currentWorkshopRecipeAmount = 0;
+            productStat.amount = 0;
+            foreach (var isoAndAmount in materialStat)
+            {
+                isoAndAmount.amount = 0;
+            }
+            UI_BLDWorkshop.i.RefreshUI();
+            //some kind of refresh
+        }
+        
+        public void AdjustRecipeAmount(int amount)
+        {
+            if(amount != 1 && amount != -1) Debug.LogError("Illegal input");
+            if (amount == 1)
+            {
+                foreach (var materialISO in currentWorkshopRecipe.materials)
+                {
+                    foreach (var materialISOAA in materialStat)
+                    {
+                        if (materialISOAA.iso == materialISO) materialISOAA.amount += amount;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var materialISO in currentWorkshopRecipe.materials)
+                {
+                    foreach (var materialISOAA in materialStat)
+                    {
+                        if (materialISOAA.iso == materialISO) materialISOAA.amount -= amount;
+                    }
+                }
+            }
+
+            productStat.amount += amount;
+            UI_BLDWorkshop.i.RefreshUI();
+        }
+
+        public ItemScriptableObject[] GetCurrentMaterialArray()
+        {
+            return new ItemScriptableObject[] {materialStat[0].iso,materialStat[1].iso,materialStat[2].iso};
+        }
+
+        public void FinishOneProduction()
+        {
+            
+        }
     }
 
     enum State
@@ -31,19 +127,18 @@ public class BLDWorkshop : BuildingInteractable
     private State state = State.Idle;
 
     private bool isWorking = false;
-
-    private ItemScriptableObject[] currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
-
-    private SO_WorkshopRecipe currentRecipe = null;
-
+    
     [SerializeField] private GameObject workshopCraftingUI = null;
-    private WorkshopCraftingController wcc;
+    private WorkshopCraftingController workshopCraftingController;
 
     public SO_WorkshopRecipe.WorkshopType workshopType;
 
+    public WorkshopData workshopData;
+
     private void Awake()
     {
-        wcc = new WorkshopCraftingController(this, workshopCraftingUI);
+        workshopCraftingController = new WorkshopCraftingController(this, workshopCraftingUI);
+        workshopData = new WorkshopData(this);
     }
 
     private void Start()
@@ -53,7 +148,7 @@ public class BLDWorkshop : BuildingInteractable
 
     private void Update()
     {
-        wcc.UpdateCraftingUI(Time.deltaTime);
+        workshopCraftingController.UpdateCraftingUI(Time.deltaTime);
     }
 
     #region interaction logic
@@ -102,81 +197,64 @@ public class BLDWorkshop : BuildingInteractable
 
     private void ClearAllMaterialAndProduct()
     {
-        currentMaterialsArray = new ItemScriptableObject[3]{null, null, null};
-        currentRecipe = null;
-        UI_BLDWorkshop.i.ClearAllMaterialAndProductIcon();
+        workshopData.ResetAll();
     }
-
-    public void UpdateMaterialList(ItemScriptableObject iso, int index)
-    {
-        currentMaterialsArray[index - 1] = iso;
-        CheckMaterialListMatch();
-    }
-
-    private void CheckMaterialListMatch()
+    
+    //implemented
+    public void CheckIfRecipeExists()
     {
         SO_WorkshopRecipe[] allWorkshopRecipes = Resources.LoadAll<SO_WorkshopRecipe>("World Interaction/Workshop Recipes");
         foreach (SO_WorkshopRecipe wr in allWorkshopRecipes)
         {
+            if(!wr.AvailableInWorkshops[workshopType])continue;
             //Check if there is a match.
-            if (wr.CheckMaterialMatch(currentMaterialsArray))
+            if (wr.CheckMaterialMatch(workshopData.GetCurrentMaterialArray()))
             {
-                UpdateProductAndRecipe(wr);
+                workshopData.AssignRecipe(wr);
                 return;
             }
         }
-        UpdateProductAndRecipe(null);
-    }
-
-    private void UpdateProductAndRecipe(SO_WorkshopRecipe wr = null)
-    {
-        UI_BLDWorkshop.i.UpdateProductIcon(wr?.product);
-        if (wr != null)
-        {
-            UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, 0);
-            wcc.ResetCurrentCraftingAmount();
-        }
-        else
-        {
-            UI_BLDWorkshop.i.ClearProductAndRecipeAmount();
-        }
-        currentRecipe = wr;
+        //UpdateRecipe(null);
     }
 
     public void StartCrafting()
     {
-        wcc.StartAndSetUpCrafting(currentRecipe);
+        workshopCraftingController.StartAndSetUpCrafting();
         ExitUI(); //put this after wwc.StartAndSetUpCrafting to avoid currentRecipe reset
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="amount"> +1 or -1 </param>
     public void AdjustProductAmountClicked(int amount)
     {
-        if (amount > 0) // putting iso into workshop
+        if (amount > 0) // put iso from inventory into workshop, return if not sufficient
         {
-            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            foreach (ItemScriptableObject iso in workshopData.currentWorkshopRecipe.materials)
             {
                 if (Inventory.i.GetISOInstockAmount(iso) <= 0) return;
             }
-            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            foreach (ItemScriptableObject iso in workshopData.currentWorkshopRecipe.materials)
             {
                 Inventory.i.InWorkshopItem(iso, true);
             }
         }
         else // putting iso into inventory
         {
-            if(wcc.GetCurrentCraftingAmount() < amount || wcc.GetCurrentCraftingAmount() <= 0) return;
-            foreach (ItemScriptableObject iso in currentRecipe.materials)
+            if(workshopData.currentWorkshopRecipeAmount <= 0) return;
+            foreach (ItemScriptableObject iso in workshopData.currentWorkshopRecipe.materials)
             {
                 Inventory.i.InWorkshopItem(iso, false);
             }
         }
-        
-        wcc.AdjustCurrentCraftingAmount(amount);
+        workshopData.AdjustRecipeAmount(amount);
+        //workshopCraftingController.AdjustCurrentCraftingAmount(amount);
     }
 
     public void AdjustProductAmountUI(int amount)
     {
-        UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
+        //UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
     }
     
 }
@@ -199,8 +277,9 @@ public class WorkshopCraftingController
         ui = wwcUI;
     }
 
-    public void StartAndSetUpCrafting(SO_WorkshopRecipe recipeToCraft)
+    public void StartAndSetUpCrafting()
     {
+        SO_WorkshopRecipe recipeToCraft = workshop.workshopData.currentWorkshopRecipe;
         craftingWR = recipeToCraft;
         currentCraftingTime = 0;
         ShowCraftingUI();
@@ -260,8 +339,6 @@ public class WorkshopCraftingController
     public int AdjustCurrentCraftingAmount(int delta)
     {
         currentCraftingAmount += delta;
-        //change inventory
-        workshop.AdjustProductAmountUI(currentCraftingAmount);
         return currentCraftingAmount;
     }
     

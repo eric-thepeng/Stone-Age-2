@@ -91,16 +91,46 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
 
     public void ReceiveISOWithIndex(ItemScriptableObject iso, int index)
     {
-        workshop.UpdateMaterialList(iso, index);
+        workshop.workshopData.AssignMaterial(index,iso);
     }
 
     public void CancelISO(int index)
     {
-        workshop.UpdateMaterialList(null, index);
+        workshop.workshopData.AssignMaterial(index,null);
     }
 
     #endregion
-    
+
+    /* The set of data provided to UI_BLDWorkshop to display
+ 
+        - display combination of materials
+        - if workshop recipe exist: 
+            - display product
+            - display amount
+ 
+    */
+    public void RefreshUI()
+    {
+        BLDWorkshop.WorkshopData targetWorkshopData = workshop.workshopData;
+        bool recipeExists = workshop.workshopData.currentWorkshopRecipe != null;
+        int count = 0;
+        foreach (BLDWorkshop.WorkshopData.ISOAndAmount isoAA in workshop.workshopData.materialStat)
+        {
+            if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
+            else if(count == 1) material2ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
+            else if(count == 2) material3ISODisplayBox.Display(isoAA.iso, false, isoAA.amount);
+            count++;
+        }
+
+        if (recipeExists)
+        {
+            productISODisplayBox.Display(targetWorkshopData.productStat.iso, false, targetWorkshopData.productStat.amount);
+        }
+        else
+        {
+            productISODisplayBox.Display(null,false);
+        }
+    }
     public void UpdateProductIcon(ItemScriptableObject iso = null)
     {
         if (iso == null)
