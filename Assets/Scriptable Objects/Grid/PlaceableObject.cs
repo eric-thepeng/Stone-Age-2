@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hypertonic.GridPlacement.CustomSizing;
 using Hypertonic.GridPlacement.Enums;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(GridHeightPositioner))]
@@ -55,5 +56,101 @@ public class PlaceableObject : MonoBehaviour
     {
         return BISO;
     }
+
+
+    private List<GameObject> objectsWithEffects = new List<GameObject>();
+
+    private BuildingManager buildingManager;
+
+    private void Start()
+    {
+        buildingManager = FindObjectOfType<BuildingManager>();
+        CheckEffects(transform);
+    }
+
+    private void Update()
+    {
+        if (buildingManager.SwitchedPlacementMode)
+        {
+            if (buildingManager.CurrentPlacementMode)
+            {
+                DisableEffects();
+            } else
+            {
+                EnableEffects();
+            }
+        }
+    }
+
+    void CheckEffects(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            VisualEffect visualEffect = child.GetComponent<VisualEffect>();
+            ParticleSystem particleSystem = child.GetComponent<ParticleSystem>();
+            if ((visualEffect != null && visualEffect.enabled == true)
+                || particleSystem != null && visualEffect.enabled == true)
+            {
+                objectsWithEffects.Add(child.gameObject);
+            }
+
+
+            if (child.childCount > 0)
+            {
+                CheckEffects(child);
+            }
+        }
+    }
+
+    public void DisableEffects()
+    {
+        if (objectsWithEffects != null)
+        {
+            foreach (GameObject obj in objectsWithEffects)
+            {
+                VisualEffect visualEffect = obj.GetComponent<VisualEffect>();
+                if (visualEffect != null)
+                {
+                    visualEffect.enabled = false;
+                }
+
+                ParticleSystem particleSystem = obj.GetComponent<ParticleSystem>();
+                if (particleSystem != null)
+                {
+                    obj.SetActive(false);
+                    //particleSystem.Play();
+                }
+            }
+
+            //objectsWithEffects.Clear();
+        }
+    }
+
+    public void EnableEffects()
+    {
+        if (objectsWithEffects != null)
+        {
+            foreach (GameObject obj in objectsWithEffects)
+            {
+                VisualEffect visualEffect = obj.GetComponent<VisualEffect>();
+                if (visualEffect != null)
+                {
+                    visualEffect.enabled = true;
+                }
+
+                ParticleSystem particleSystem = obj.GetComponent<ParticleSystem>();
+                if (particleSystem != null)
+                {
+                    obj.SetActive(true);
+                    //particleSystem.Play();
+                }
+            }
+
+        }
+    }
+
+
+
+
 
 }
