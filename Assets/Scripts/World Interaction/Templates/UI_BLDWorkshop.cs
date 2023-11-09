@@ -116,9 +116,9 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         int count = 0;
         foreach (BLDWorkshop.WorkshopData.ISOAndAmount isoAA in workshop.workshopData.materialStat)
         {
-            if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
-            else if(count == 1) material2ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
-            else if(count == 2) material3ISODisplayBox.Display(isoAA.iso, false, isoAA.amount, false);
+            if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false , recipeExists ? isoAA.amount : -1, false);
+            else if(count == 1) material2ISODisplayBox.Display(isoAA.iso,  false , recipeExists ? isoAA.amount : -1, false);
+            else if(count == 2) material3ISODisplayBox.Display(isoAA.iso,  false , recipeExists ? isoAA.amount : -1, false);
             count++;
         }
 
@@ -128,7 +128,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         }
         else
         {
-            productISODisplayBox.Display(null, false, default, false);
+            productISODisplayBox.Display(null, false, -1, false);
         }
     }
     public void UpdateProductIcon(ItemScriptableObject iso = null)

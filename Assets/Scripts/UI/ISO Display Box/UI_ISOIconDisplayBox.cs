@@ -21,7 +21,14 @@ public class UI_ISOIconDisplayBox : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon, int amount = -1, bool sendNotification = true)
+    /// <summary>
+    /// ISOIconDisplayBox is a UI set of icon sprite + amount display. 
+    /// </summary>
+    /// <param name="iso">The ISO's icon to display.</param>
+    /// <param name="triggerByDroppingISOIcon">Leave as (FALSE) if this display is manually triggered by script.</param>
+    /// <param name="amount">The amount to display. Leave as (-1) if you don't want to display amount.</param>
+    /// <param name="sendNotification">Does it send notification to the receiver of the ISOIconDisplayBox.</param>
+    public void Display(ItemScriptableObject iso, bool triggerByDroppingISOIcon = false, int amount = -1, bool sendNotification = true)
     {
         //Check for if dropping iso icon is allowed
         if(!receiveDrop && triggerByDroppingISOIcon) return;
