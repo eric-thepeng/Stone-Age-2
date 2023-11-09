@@ -86,7 +86,10 @@ public class PlaceableObject : MonoBehaviour
     {
         foreach (Transform child in parent)
         {
-            if (child.GetComponent<VisualEffect>() != null || child.GetComponent<ParticleSystem>() != null)
+            VisualEffect visualEffect = child.GetComponent<VisualEffect>();
+            ParticleSystem particleSystem = child.GetComponent<ParticleSystem>();
+            if ((visualEffect != null && visualEffect.enabled == true)
+                || particleSystem != null && visualEffect.enabled == true)
             {
                 objectsWithEffects.Add(child.gameObject);
             }
