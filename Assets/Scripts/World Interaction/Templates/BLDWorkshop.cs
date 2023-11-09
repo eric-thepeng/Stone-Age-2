@@ -125,6 +125,32 @@ public class BLDWorkshop : BuildingInteractable
         {
             
         }
+
+        public string GetStatusInString()
+        {
+            string output = "";
+
+            for (int i = 0; i < 3; i++)
+            {
+                output += "Material " + (i + 1) + " : " + (materialStat[i].iso == null
+                    ? "null" : materialStat[i].iso.tetrisHoverName);
+                if (materialStat[i].iso != null)
+                {
+                    output += " amount: " +materialStat[i].amount;
+                }
+
+                output += "\n";
+            }
+            
+            output += "Product : " + (productStat.iso == null
+                                ? "null" : productStat.iso.tetrisHoverName) + "\n";
+
+            output += "Current Recipe: " + currentWorkshopRecipe + " \n";
+            
+            output += "RecipeAmount: " + currentWorkshopRecipeAmount;
+            
+            return output;
+        } 
     }
 
     enum State
@@ -156,6 +182,10 @@ public class BLDWorkshop : BuildingInteractable
     private void Update()
     {
         workshopCraftingController.UpdateCraftingUI(Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            print(workshopData.GetStatusInString());
+        }
     }
 
     #region interaction logic

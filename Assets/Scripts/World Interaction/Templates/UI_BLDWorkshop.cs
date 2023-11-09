@@ -13,11 +13,12 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     [SerializeField] private UI_ISOIconDisplayBox material2ISODisplayBox = null;
     [SerializeField] private UI_ISOIconDisplayBox material3ISODisplayBox = null;
 
-    [SerializeField] private GameObject startCraftingButton = null;
-    
+    [SerializeField] private GameObject productRelatedButtons;
+
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
     [SerializeField] private Transform workshopRecipeDisplayContainer;
+
     
     private BLDWorkshop workshop;
 
@@ -74,7 +75,6 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     public void Button_ExitButtonClicked()
     {
         workshop.ExitUI();
-        //TurnOffUIDisplay();
     }
 
     public void Button_StartCraftingButtonClicked()
@@ -102,12 +102,10 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     #endregion
 
     /* The set of data provided to UI_BLDWorkshop to display
- 
         - display combination of materials
         - if workshop recipe exist: 
             - display product
             - display amount
- 
     */
     public void RefreshUI()
     {
@@ -130,43 +128,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         {
             productISODisplayBox.Display(null, false, -1, false);
         }
+        
+        productRelatedButtons.SetActive(recipeExists);
     }
-    public void UpdateProductIcon(ItemScriptableObject iso = null)
-    {
-        if (iso == null)
-        {
-            productISODisplayBox.Display(iso,false);
-            startCraftingButton.SetActive(false);
-        }
-        else
-        {
-            productISODisplayBox.Display(iso,false,0);
-            startCraftingButton.SetActive(true);
-        }
-    }
-
-    /*
-    public void UpdateProductAndRecipeAmount(bool material1, bool material2, bool material3, int amount)
-    {
-        material1ISODisplayBox.DisplayAmount(material1, amount);
-        material2ISODisplayBox.DisplayAmount(material2, amount);
-        material3ISODisplayBox.DisplayAmount(material3, amount);
-        productISODisplayBox.DisplayAmount(true, amount);
-    }
-
-    public void ClearProductAndRecipeAmount()
-    {
-        material1ISODisplayBox.DisplayAmount(false, 0);
-        material2ISODisplayBox.DisplayAmount(false, 0);
-        material3ISODisplayBox.DisplayAmount(false, 0);
-        productISODisplayBox.DisplayAmount(false, 0);
-    }
-
-    public void ClearAllMaterialAndProductIcon()
-    {
-        material1ISODisplayBox.Clear();
-        material2ISODisplayBox.Clear();
-        material3ISODisplayBox.Clear();
-        productISODisplayBox.Clear();
-    }*/
 }
