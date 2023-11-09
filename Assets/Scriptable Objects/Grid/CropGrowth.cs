@@ -299,7 +299,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
             return false;
         }
 
-        PlayParticle(GetCurrentUnlockState().finishedWaterParticle);
+        if (GetCurrentState() != allUnlockStates.Count - 1) PlayParticle(GetCurrentUnlockState().finishedWaterParticle);
 
         return true;
     }

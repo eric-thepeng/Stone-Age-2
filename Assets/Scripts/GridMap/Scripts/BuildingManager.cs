@@ -25,6 +25,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+
     UI_InventoryBlock selectedUIIB = null;
     List<HomeGrid> allHomeGrids = new List<HomeGrid>();
 
@@ -250,9 +251,25 @@ public class BuildingManager : MonoBehaviour
 
     public bool mouseInPlacementMode = false;
 
+    private bool switchedPlacementMode = false;
+    private bool currentPlacementMode = false;
+
+    public bool SwitchedPlacementMode { get => switchedPlacementMode; set => switchedPlacementMode = value; }
+    public bool CurrentPlacementMode { get => currentPlacementMode; set => currentPlacementMode = value; }
+
     void Update()
     {
-
+        if (switchedPlacementMode)
+        {
+            switchedPlacementMode = false;
+        } else
+        {
+            if (currentPlacementMode != GridManagerAccessor.GridManager.IsPlacingGridObject)
+            {
+                currentPlacementMode = GridManagerAccessor.GridManager.IsPlacingGridObject;
+                switchedPlacementMode = true;
+            }
+        }
 
         if (!buildingMode) return; //return if not building mode
 
@@ -526,6 +543,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
+
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         //GridUtilities.GetCellIndexesRequiredForObject
 
