@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BLDWorkshop : BuildingInteractable
 {
@@ -75,8 +76,15 @@ public class BLDWorkshop : BuildingInteractable
             
             UI_BLDWorkshop.i.TurnOffUI();
             state = State.Idle;
-            ClearAllMaterialAndProduct();
             PlayerState.OpenCloseAllocatingBackpack(false);
+            if (workshopCraftingController.isCrafting)
+            {
+                
+            }
+            else
+            {
+                ClearAllMaterialAndProduct();
+            }
         }
         else
         {
@@ -154,15 +162,19 @@ public class BLDWorkshop : BuildingInteractable
 
 public class WorkshopCraftingController
 {
+    // dependencies
     private BLDWorkshop workshop;
     private SO_WorkshopRecipe craftingWR;
     public bool isCrafting;
     private GameObject ui;
     private UI_ISOIconDisplayBox productDisplayBox;
-    private CircularUI circularUI;
+    private Slider circularSlider;
 
-    private float currentCraftingTime = 0;
-    private int currentCraftingAmount = 0;
+    // crafting calculations
+    private float currentCraftingTime;
+    
+    private int craftingAmountLeft;
+    private int craftingAmountFinished;
     
     public WorkshopCraftingController(BLDWorkshop workshop, GameObject wwcUI)
     {
@@ -177,9 +189,14 @@ public class WorkshopCraftingController
         currentCraftingTime = 0;
         ShowCraftingUI();
         productDisplayBox = ui.GetComponentInChildren<UI_ISOIconDisplayBox>();
-        circularUI = ui.GetComponentInChildren<CircularUI>();
+        circularSlider = ui.GetComponentInChildren<Slider>();
         isCrafting = true;
-        productDisplayBox.Display(craftingWR.product, false);
+        productDisplayBox.Display(craftingWR.product, false, 0,false);
+
+        craftingAmountLeft = workshop.workshopData.currentWorkshopRecipeAmount;
+        craftingAmountFinished = 0;
+
+        currentCraftingTime = 0;
     }
     
     public void ExitCrafting()
@@ -191,13 +208,12 @@ public class WorkshopCraftingController
     public void UpdateCraftingUI(float deltaTime)
     {
         if(!isCrafting) return;
-        if(currentCraftingAmount == 0) ExitCrafting();
+        if(craftingAmountLeft == 0) ExitCrafting();
         currentCraftingTime += deltaTime;
-        circularUI.SetCircularUIPercentage(currentCraftingTime * 100f/ craftingWR.workTime,false);
+        circularSlider.value = currentCraftingTime / craftingWR.workTime;
         if (currentCraftingTime >= craftingWR.workTime)
         {
             currentCraftingTime = 0;
-            AdjustCurrentCraftingAmount(-1);
             SpawnProduct();
         }
     }
@@ -216,25 +232,12 @@ public class WorkshopCraftingController
 
     public void SpawnProduct()
     {
+        craftingAmountFinished += 1;
+        craftingAmountLeft -= 1;
         Inventory.i.AddInventoryItem(craftingWR.product);
     }
 
-    public int GetCurrentCraftingAmount()
-    {
-        return currentCraftingAmount;
-    }
-    
-    public void ResetCurrentCraftingAmount()
-    {
-        currentCraftingAmount = 0;
-    }
 
-    public int AdjustCurrentCraftingAmount(int delta)
-    {
-        currentCraftingAmount += delta;
-        return currentCraftingAmount;
-    }
-    
 }
 
 public class WorkshopData
