@@ -6,157 +6,16 @@ using UnityEngine;
 
 public class BLDWorkshop : BuildingInteractable
 {
-    public class WorkshopData
-    {
-        /* The set of data provided to UI_BLDWorkshop to display
-         
-         - display combination of materials
-         - if workshop recipe exist: 
-            - display product
-            - display amount
-         
-        */
-        public class ISOAndAmount
-        {
-            public ItemScriptableObject iso;
-            public int amount;
-            public ISOAndAmount(ItemScriptableObject iso, int amount)
-            {
-                this.iso = iso;
-                this.amount = amount;
-            }
-
-            public ISOAndAmount()
-            {
-                Reset();
-            }
-
-            public void Reset()
-            {
-                this.iso = null;
-                this.amount = 0;
-            }
-        }
-
-        private BLDWorkshop workshop;
-        public List<ISOAndAmount> materialStat;
-        public ISOAndAmount productStat;
-        public ISOAndAmount finishedProductStat;
-        public SO_WorkshopRecipe currentWorkshopRecipe;
-        public int currentWorkshopRecipeAmount;
-
-        public WorkshopData(BLDWorkshop workshop)
-        {
-            this.workshop = workshop;
-            ResetAll();
-        }
-        
-        public void ResetAll()
-        {
-            materialStat = new List<ISOAndAmount>(){new ISOAndAmount(),new ISOAndAmount(),new ISOAndAmount()};
-            productStat = new ISOAndAmount();
-            finishedProductStat = new ISOAndAmount();
-            currentWorkshopRecipe = null;
-            currentWorkshopRecipeAmount = 0;
-        }
-        
-        public void AssignMaterial(int index, ItemScriptableObject newISO)
-        {
-            materialStat[index - 1].iso = newISO;
-            materialStat[index - 1].amount = 0;
-            workshop.CheckIfRecipeExists();
-        }
-
-        public void AssignRecipe(SO_WorkshopRecipe wr)
-        {
-            currentWorkshopRecipe = wr;
-            if (currentWorkshopRecipe == null)
-            {
-                productStat.iso = null;
-            }
-            else
-            {
-                productStat.iso = wr.product;
-            }
-            productStat.amount = 0;
-            currentWorkshopRecipeAmount = 0;
-            foreach (var isoAndAmount in materialStat)
-            {
-                isoAndAmount.amount = 0;
-            }
-            UI_BLDWorkshop.i.RefreshUI();
-            //some kind of refresh
-        }
-        
-        public void AdjustRecipeAmount(int amount)
-        {
-            if(amount != 1 && amount != -1) Debug.LogError("Illegal input");
-            //INCREASE RECIPE AMOUNT
-            if (amount == 1) 
-            {
-            }
-            //REDUCE RECIPE AMOUNT
-            else
-            {
-                if(currentWorkshopRecipeAmount == 0) return;
-            }
-            
-            foreach (var materialISOAA in materialStat)
-            {
-                materialISOAA.amount += amount;
-            }
-            currentWorkshopRecipeAmount += amount;
-            productStat.amount += amount;
-
-            UI_BLDWorkshop.i.RefreshUI();
-        }
-
-        public ItemScriptableObject[] GetCurrentMaterialArray()
-        {
-            return new ItemScriptableObject[] {materialStat[0].iso,materialStat[1].iso,materialStat[2].iso};
-        }
-
-        public void FinishOneProduction()
-        {
-            
-        }
-
-        public string GetStatusInString()
-        {
-            string output = "";
-
-            for (int i = 0; i < 3; i++)
-            {
-                output += "Material " + (i + 1) + " : " + (materialStat[i].iso == null
-                    ? "null" : materialStat[i].iso.tetrisHoverName);
-                if (materialStat[i].iso != null)
-                {
-                    output += " amount: " +materialStat[i].amount;
-                }
-
-                output += "\n";
-            }
-            
-            output += "Product : " + (productStat.iso == null
-                                ? "null" : productStat.iso.tetrisHoverName) + "\n";
-
-            output += "Current Recipe: " + currentWorkshopRecipe + " \n";
-            
-            output += "RecipeAmount: " + currentWorkshopRecipeAmount;
-            
-            return output;
-        } 
-    }
-
     enum State
-    {Idle, Assigning
+    {
+        Idle, Assigning
     }
 
     private State state = State.Idle;
 
     private bool isWorking = false;
     
-    [SerializeField] private GameObject workshopCraftingUI = null;
+    [SerializeField] private GameObject workshopCraftingControllerUI = null;
     private WorkshopCraftingController workshopCraftingController;
 
     public SO_WorkshopRecipe.WorkshopType workshopType;
@@ -165,7 +24,7 @@ public class BLDWorkshop : BuildingInteractable
 
     private void Awake()
     {
-        workshopCraftingController = new WorkshopCraftingController(this, workshopCraftingUI);
+        workshopCraftingController = new WorkshopCraftingController(this, workshopCraftingControllerUI);
         workshopData = new WorkshopData(this);
     }
 
@@ -259,7 +118,7 @@ public class BLDWorkshop : BuildingInteractable
     public void StartCrafting()
     {
         workshopCraftingController.StartAndSetUpCrafting();
-        ExitUI(); //put this after wwc.StartAndSetUpCrafting to avoid currentRecipe reset
+        ExitUI(); //put this after workshopCraftingController.StartAndSetUpCrafting to avoid currentRecipe reset
     }
     
     /// <summary>
@@ -377,3 +236,146 @@ public class WorkshopCraftingController
     }
     
 }
+
+public class WorkshopData
+{
+    /* The set of data provided to UI_BLDWorkshop to display
+     
+     - display combination of materials
+     - if workshop recipe exist: 
+        - display product
+        - display amount
+     
+    */
+    public class ISOAndAmount
+    {
+        public ItemScriptableObject iso;
+        public int amount;
+        public ISOAndAmount(ItemScriptableObject iso, int amount)
+        {
+            this.iso = iso;
+            this.amount = amount;
+        }
+
+        public ISOAndAmount()
+        {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            this.iso = null;
+            this.amount = 0;
+        }
+    }
+
+    private BLDWorkshop workshop;
+    public List<ISOAndAmount> materialStat;
+    public ISOAndAmount productStat;
+    public ISOAndAmount finishedProductStat;
+    public SO_WorkshopRecipe currentWorkshopRecipe;
+    public int currentWorkshopRecipeAmount;
+
+    public WorkshopData(BLDWorkshop workshop)
+    {
+        this.workshop = workshop;
+        ResetAll();
+    }
+    
+    public void ResetAll()
+    {
+        materialStat = new List<ISOAndAmount>(){new ISOAndAmount(),new ISOAndAmount(),new ISOAndAmount()};
+        productStat = new ISOAndAmount();
+        finishedProductStat = new ISOAndAmount();
+        currentWorkshopRecipe = null;
+        currentWorkshopRecipeAmount = 0;
+    }
+    
+    public void AssignMaterial(int index, ItemScriptableObject newISO)
+    {
+        materialStat[index - 1].iso = newISO;
+        materialStat[index - 1].amount = 0;
+        workshop.CheckIfRecipeExists();
+    }
+
+    public void AssignRecipe(SO_WorkshopRecipe wr)
+    {
+        currentWorkshopRecipe = wr;
+        if (currentWorkshopRecipe == null)
+        {
+            productStat.iso = null;
+        }
+        else
+        {
+            productStat.iso = wr.product;
+        }
+        productStat.amount = 0;
+        currentWorkshopRecipeAmount = 0;
+        foreach (var isoAndAmount in materialStat)
+        {
+            isoAndAmount.amount = 0;
+        }
+        UI_BLDWorkshop.i.RefreshUI();
+        //some kind of refresh
+    }
+    
+    public void AdjustRecipeAmount(int amount)
+    {
+        if(amount != 1 && amount != -1) Debug.LogError("Illegal input");
+        //INCREASE RECIPE AMOUNT
+        if (amount == 1) 
+        {
+        }
+        //REDUCE RECIPE AMOUNT
+        else
+        {
+            if(currentWorkshopRecipeAmount == 0) return;
+        }
+        
+        foreach (var materialISOAA in materialStat)
+        {
+            materialISOAA.amount += amount;
+        }
+        currentWorkshopRecipeAmount += amount;
+        productStat.amount += amount;
+
+        UI_BLDWorkshop.i.RefreshUI();
+    }
+
+    public ItemScriptableObject[] GetCurrentMaterialArray()
+    {
+        return new ItemScriptableObject[] {materialStat[0].iso,materialStat[1].iso,materialStat[2].iso};
+    }
+
+    public void FinishOneProduction()
+    {
+        
+    }
+
+    public string GetStatusInString()
+    {
+        string output = "";
+
+        for (int i = 0; i < 3; i++)
+        {
+            output += "Material " + (i + 1) + " : " + (materialStat[i].iso == null
+                ? "null" : materialStat[i].iso.tetrisHoverName);
+            if (materialStat[i].iso != null)
+            {
+                output += " amount: " +materialStat[i].amount;
+            }
+
+            output += "\n";
+        }
+        
+        output += "Product : " + (productStat.iso == null
+                            ? "null" : productStat.iso.tetrisHoverName) + "\n";
+
+        output += "Current Recipe: " + currentWorkshopRecipe + " \n";
+        
+        output += "RecipeAmount: " + currentWorkshopRecipeAmount;
+        
+        return output;
+    } 
+}
+

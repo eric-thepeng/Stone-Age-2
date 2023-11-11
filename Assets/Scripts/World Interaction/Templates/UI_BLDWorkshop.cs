@@ -110,10 +110,10 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
     */
     public void RefreshUI()
     {
-        BLDWorkshop.WorkshopData targetWorkshopData = workshop.workshopData;
+        WorkshopData targetWorkshopData = workshop.workshopData;
         bool recipeExists = workshop.workshopData.currentWorkshopRecipe != null;
         int count = 0;
-        foreach (BLDWorkshop.WorkshopData.ISOAndAmount isoAA in workshop.workshopData.materialStat)
+        foreach (WorkshopData.ISOAndAmount isoAA in workshop.workshopData.materialStat)
         {
             if(count == 0) material1ISODisplayBox.Display(isoAA.iso, false , recipeExists ? isoAA.amount : -1, false);
             else if(count == 1) material2ISODisplayBox.Display(isoAA.iso,  false , recipeExists ? isoAA.amount : -1, false);
