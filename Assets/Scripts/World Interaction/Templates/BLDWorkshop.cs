@@ -91,28 +91,23 @@ public class BLDWorkshop : BuildingInteractable
         public void AdjustRecipeAmount(int amount)
         {
             if(amount != 1 && amount != -1) Debug.LogError("Illegal input");
-            if (amount == 1)
+            //INCREASE RECIPE AMOUNT
+            if (amount == 1) 
             {
-                foreach (var materialISO in currentWorkshopRecipe.materials)
-                {
-                    foreach (var materialISOAA in materialStat)
-                    {
-                        if (materialISOAA.iso == materialISO) materialISOAA.amount += amount;
-                    }
-                }
             }
+            //REDUCE RECIPE AMOUNT
             else
             {
-                foreach (var materialISO in currentWorkshopRecipe.materials)
-                {
-                    foreach (var materialISOAA in materialStat)
-                    {
-                        if (materialISOAA.iso == materialISO) materialISOAA.amount -= amount;
-                    }
-                }
+                if(currentWorkshopRecipeAmount == 0) return;
             }
-
+            
+            foreach (var materialISOAA in materialStat)
+            {
+                materialISOAA.amount += amount;
+            }
+            currentWorkshopRecipeAmount += amount;
             productStat.amount += amount;
+
             UI_BLDWorkshop.i.RefreshUI();
         }
 
@@ -234,6 +229,13 @@ public class BLDWorkshop : BuildingInteractable
 
     private void ClearAllMaterialAndProduct()
     {
+        foreach (var isoaa in workshopData.materialStat)
+        {
+            for (int i = 0; i < isoaa.amount; i++)
+            {
+                if(isoaa.iso != null) Inventory.i.InWorkshopItem(isoaa.iso, false);
+            }
+        }
         workshopData.ResetAll();
     }
     
@@ -289,11 +291,6 @@ public class BLDWorkshop : BuildingInteractable
         //workshopCraftingController.AdjustCurrentCraftingAmount(amount);
     }
 
-    public void AdjustProductAmountUI(int amount)
-    {
-        //UI_BLDWorkshop.i.UpdateProductAndRecipeAmount(currentMaterialsArray[0]!=null, currentMaterialsArray[1]!=null, currentMaterialsArray[2]!=null, amount);
-    }
-    
 }
 
 public class WorkshopCraftingController

@@ -40,6 +40,7 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         // Turn On UI
         uiGameObject.SetActive(true);
         workshop = orgWorkshop;
+        RefreshUI();
         
         // Gather Unlocked Workshop Recipes
         SO_WorkshopRecipe[] allWorkshopRecipes = Resources.LoadAll<SO_WorkshopRecipe>("World Interaction/Workshop Recipes");
