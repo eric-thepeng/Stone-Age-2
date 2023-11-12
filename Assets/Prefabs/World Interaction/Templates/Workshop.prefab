@@ -456,14 +456,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentInteraction:
-    typeName: 0
+    typeName: 1
     pressDuration: 0
     triggerEvent:
       m_PersistentCalls:
-        m_Calls: []
-  mouseHovering: 0
+        m_Calls:
+        - m_Target: {fileID: 4271196504776218766}
+          m_TargetAssemblyTypeName: BLDWorkshop, Assembly-CSharp
+          m_MethodName: EnterUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   workshopCraftingControllerUI: {fileID: 6964665790030333503}
   workshopType: 0
+  harvestLongPressTime: 2.5
 --- !u!114 &5488220994056267320
 MonoBehaviour:
   m_ObjectHideFlags: 0

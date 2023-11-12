@@ -7,8 +7,16 @@ using Hypertonic.GridPlacement;
 using Newtonsoft.Json;
 using UnityEngine.Events;
 
+public class MouseState
+{
+    public bool isHovering = false;
+    public bool isPressing = false;
+    public float pressingDuration = 0f;
+}
+
 public class WorldInteractable : MonoBehaviour
 {
+    //Interaction Type Realted
     [Serializable]
     public class InteractionType
     {
@@ -45,14 +53,20 @@ public class WorldInteractable : MonoBehaviour
             progressDuration = 0;
             if(resetUI)UniversalUIManager.i.DisplayComponent(this);
         }
-        public void AdvanceProgress()
+        /// <summary>
+        /// Advance pressing progression by delta. Returns if this advancement completes the interaction.
+        /// </summary>
+        /// <returns></returns>
+        public bool AdvanceProgress()
         {
             progressDuration += Time.deltaTime;
             UniversalUIManager.i.DisplayComponent(this);
             if (progressDuration >= pressDuration)
             {
                 CompleteInteraction();
+                return true;
             }
+            return false;
         }
 
         public void CompleteClick()
@@ -85,8 +99,12 @@ public class WorldInteractable : MonoBehaviour
         }
     }
 
-    private InteractionType currentInteraction = null;
+    [SerializeField]private InteractionType currentInteraction = null;
 
+    //Variables
+    private MouseState mouseState = new MouseState();
+
+    //Functions
     public void SetCurrentInteraction(InteractionType newInteractionType)
     {
         currentInteraction = newInteractionType;
@@ -100,17 +118,22 @@ public class WorldInteractable : MonoBehaviour
 
     protected bool CanInteract()
     {
-        return !isBuildingInteractable || !GridManagerAccessor.GridManager.IsPlacingGridObject;
+        if (GridManagerAccessor.GridManager.IsPlacingGridObject) return false;
+        if (isBuildingInteractable)
+        {
+            return ((BuildingInteractable)this).allowInteraction;
+        }
+        else
+        {
+            return true;
+        }
     }
     
     
     //Action: HOVER//
-    [HideInInspector]
-    public bool mouseHovering = false;
     protected virtual void BeginMouseHover()
     {
         if(!CanInteract()) return;
-        mouseHovering = true;
         TurnOnHighlight();
         currentInteraction?.DisplayUI(true);
     }
@@ -118,51 +141,43 @@ public class WorldInteractable : MonoBehaviour
     protected virtual void EndMouseHover()
     {
         if(!CanInteract()) return;
-        mouseHovering = false;
         TurnOffHighlight();
         currentInteraction?.DisplayUI(false);
     }
 
-    protected bool isMouseHovering()
-    {
-        return mouseHovering;
-    }
-
     //Action: PRESSING//
-    private bool mousePressing = false;
-
     protected virtual void BeginMousePress()
     {
         if(!CanInteract()) return;
-        mousePressing = true;
     }
 
     protected virtual void EndMousePress()
     {
         if(!CanInteract()) return;
-        mousePressing = false;
         currentInteraction?.ResetProgress(true);
     }
 
     protected virtual void WhileMousePress()
     {
         if(!CanInteract()) return;
-        currentInteraction?.AdvanceProgress();
+        if (currentInteraction != null)
+        {
+            if (currentInteraction.AdvanceProgress())
+            {
+                OnMouseUp();
+            }
+        }
         if (currentInteraction != null && currentInteraction.IsCompleted())
         {
             currentInteraction = null;
         }
     }
 
-    protected bool isMousePressing()
-    {
-        return mousePressing;
-    }
-
     //Action: CLICK//
     protected virtual void MouseClick()
     {
         if(!CanInteract()) return;
+        if (!mouseState.isPressing) return; //To prevent the case that a click event is triggered instantly after a pressing event
         currentInteraction?.CompleteClick();
         if (currentInteraction!=null && currentInteraction.IsCompleted())
         {
@@ -190,32 +205,41 @@ public class WorldInteractable : MonoBehaviour
     private void OnMouseEnter()
     {
         BeginMouseHover();
+        mouseState.isHovering = true;
     }
 
     private void OnMouseExit()
     {
         EndMouseHover();
+        mouseState.isHovering = false;
     }
 
     private void OnMouseUpAsButton()
     {
         MouseClick();
+        OnMouseUp();
     }
     
     private void OnMouseDown()
     {
         BeginMousePress();
+        mouseState.isPressing = true;
     }
 
     private void OnMouseDrag()
     {
         WhileMousePress();
+        if (mouseState.isPressing)
+        {
+            mouseState.pressingDuration += Time.deltaTime;
+        }
     }
 
     private void OnMouseUp()
     {
-
         EndMousePress();
+        mouseState.isPressing = false;
+        
     }
 
     #endregion
