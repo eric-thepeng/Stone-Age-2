@@ -196,12 +196,12 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         if (allUnlockStates[num].timeToClear > 0)
         {
-            currentInteraction = new InteractionType(InteractionType.TypeName.LongPress, () => Water());
+            SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, () => Water(),allUnlockStates[num].timeToClear));
         } else
         {
-            currentInteraction = new InteractionType(InteractionType.TypeName.Click, () => Water());
+            SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, () => Water()));
         }
-        currentInteraction.pressDuration = allUnlockStates[num].timeToClear;
+        //currentInteraction.pressDuration = allUnlockStates[num].timeToClear;
 
         //Debug.LogWarning(num);
 

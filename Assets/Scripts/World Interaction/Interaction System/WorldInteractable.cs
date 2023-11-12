@@ -85,7 +85,12 @@ public class WorldInteractable : MonoBehaviour
         }
     }
 
-    public InteractionType currentInteraction = null;
+    private InteractionType currentInteraction = null;
+
+    public void SetCurrentInteraction(InteractionType newInteractionType)
+    {
+        currentInteraction = newInteractionType;
+    } 
 
     //BISO and CanInteract
     protected bool isBuildingInteractable

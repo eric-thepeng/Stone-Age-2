@@ -33,7 +33,7 @@ public class BLDWorkshop : BuildingInteractable
 
     private void Start()
     {
-        currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
+        SetInteractionActionToOpen();
     }
 
     private void Update()
@@ -162,13 +162,12 @@ public class BLDWorkshop : BuildingInteractable
 
     public void SetInteractionActionToOpen()
     {
-        currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
+        SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, ClickEvent));
     }
     
     public void SetInteractionActionToHarvest()
     {
-        currentInteraction = new InteractionType(InteractionType.TypeName.LongPress, workshopCraftingController.HarvestProduct, harvestLongPressTime);
-
+        SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, workshopCraftingController.HarvestProduct, harvestLongPressTime));
     }
 
 }
