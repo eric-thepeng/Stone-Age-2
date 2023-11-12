@@ -23,6 +23,8 @@ public class BLDWorkshop : BuildingInteractable
 
     public WorkshopData workshopData;
 
+    public float harvestLongPressTime = 2.5f;
+
     private void Awake()
     {
         workshopCraftingController = new WorkshopCraftingController(this, workshopCraftingControllerUI);
@@ -36,7 +38,7 @@ public class BLDWorkshop : BuildingInteractable
 
     private void Update()
     {
-        workshopCraftingController.UpdateCraftingUI(Time.deltaTime);
+        workshopCraftingController.UpdateCrafting(Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.L))
         {
             print(workshopData.GetStatusInString());
@@ -72,7 +74,7 @@ public class BLDWorkshop : BuildingInteractable
     {
         if (state == State.Assigning)
         {
-            currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
+            SetInteractionActionToOpen();
             
             UI_BLDWorkshop.i.TurnOffUI();
             state = State.Idle;
@@ -158,6 +160,17 @@ public class BLDWorkshop : BuildingInteractable
         //workshopCraftingController.AdjustCurrentCraftingAmount(amount);
     }
 
+    public void SetInteractionActionToOpen()
+    {
+        currentInteraction = new InteractionType(InteractionType.TypeName.Click, ClickEvent);
+    }
+    
+    public void SetInteractionActionToHarvest()
+    {
+        currentInteraction = new InteractionType(InteractionType.TypeName.LongPress, workshopCraftingController.HarvestProduct, harvestLongPressTime);
+
+    }
+
 }
 
 public class WorkshopCraftingController
@@ -190,22 +203,17 @@ public class WorkshopCraftingController
         productDisplayBox = ui.GetComponentInChildren<UI_ISOIconDisplayBox>();
         circularSlider = ui.GetComponentInChildren<Slider>();
         isCrafting = true;
-        productDisplayBox.Display(craftingWR.product, false, 0,false);
+        productDisplayBox.Display(null, false, -1,false);
 
         craftingAmountFinished = 0;
         currentCraftingTime = 0;
     }
     
-    public void ExitCrafting()
-    {
-        isCrafting = false;
-        HideCraftingUI();
-    }
     
-    public void UpdateCraftingUI(float deltaTime)
+    public void UpdateCrafting(float deltaTime)
     {
         if(!isCrafting) return;
-        if(GetCraftingAmountLeft() == 0) ExitCrafting();
+        if(GetCraftingAmountLeft() == 0) isCrafting = false;
         currentCraftingTime += deltaTime;
         circularSlider.value = currentCraftingTime / craftingWR.workTime;
         if (currentCraftingTime >= craftingWR.workTime)
@@ -235,12 +243,30 @@ public class WorkshopCraftingController
     public void SpawnProduct()
     {
         craftingAmountFinished += 1;
-        workshop.workshopData.FinishOneProduction();
         productDisplayBox.Display(craftingWR.product, false, craftingAmountFinished,false);
-        Inventory.i.AddInventoryItem(craftingWR.product);
+        workshop.workshopData.FinishOneProduction();
+        if(craftingAmountFinished == 1 ){workshop.SetInteractionActionToHarvest(); }
     }
 
+    public void HarvestProduct()
+    {
+        Inventory.i.AddInventoryItem(craftingWR.product,craftingAmountFinished);
+        craftingAmountFinished = 0;
+        if (GetCraftingAmountLeft() == 0)
+        {
+            HideCraftingUI();
+        }
+        else
+        {
+            productDisplayBox.Display(null, false, default, false);
+        }
+        workshop.SetInteractionActionToOpen();
+    }
 
+    public bool HasUnharvestedProduct()
+    {
+        return craftingAmountFinished > 0;
+    }
 }
 
 public class WorkshopData
