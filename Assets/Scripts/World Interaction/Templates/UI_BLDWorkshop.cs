@@ -6,15 +6,21 @@ using UnityEngine;
 
 public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
 {
+    [Header("--- DO NOT EDIT ANYTHING ---")]
+    [Header("UI Panel")]
     [SerializeField] private GameObject uiGameObject = null;
 
+    [Header("ISO Display Boxes")]
     [SerializeField] private UI_ISOIconDisplayBox productISODisplayBox = null;
     [SerializeField] private UI_ISOIconDisplayBox material1ISODisplayBox = null;
     [SerializeField] private UI_ISOIconDisplayBox material2ISODisplayBox = null;
     [SerializeField] private UI_ISOIconDisplayBox material3ISODisplayBox = null;
 
+    [Header("Product Related Buttons")]
     [SerializeField] private GameObject productRelatedButtons;
-
+    [SerializeField] private GameObject startCraftingButton;
+    
+    [Header("Workshop Recipe Display Related")]
     [SerializeField] private float workshopRecipeDisplayDisplacement;
     [SerializeField] private UI_WorkshopRecipeDisplay workshopRecipeDisplayTemplate;
     [SerializeField] private Transform workshopRecipeDisplayContainer;
@@ -131,5 +137,14 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         }
         
         productRelatedButtons.SetActive(recipeExists);
+
+        if (targetWorkshopData.currentWorkshopRecipeAmount == 0)
+        {
+            startCraftingButton.SetActive(false);
+        }
+        else
+        {
+            startCraftingButton.SetActive(true);
+        }
     }
 }
