@@ -170,7 +170,7 @@ public class BLDWorkshop : BuildingInteractable
             }
         }
         workshopData.AdjustRecipeAmount(amount);
-        //workshopCraftingController.AdjustCurrentCraftingAmount(amount);
+        if(workshopData.currentWorkshopRecipeAmount == 0) workshopCraftingController.CancelCrafting();
     }
 
     public void SetInteractionActionToOpen()
@@ -236,6 +236,13 @@ public class WorkshopCraftingController
             currentCraftingTime = 0;
             SpawnProduct();
         }
+    }
+
+    public void CancelCrafting()
+    {
+        isCrafting = false;
+        isCraftingPaused = false;
+        HideCraftingUI();
     }
 
     public void PauseCrafting()
