@@ -21,7 +21,7 @@ public class WorldInteractable : MonoBehaviour
     public class InteractionType
     {
         /// <summary>
-        /// 
+        /// A standard interaction for WorldInteractable. Can be click or long press.
         /// </summary>
         /// <param name="typeName">Click or Long Press</param>
         /// <param name="triggerAction">Assign what action/function to trigger as interaction completes</param>
@@ -56,9 +56,10 @@ public class WorldInteractable : MonoBehaviour
         /// <summary>
         /// Advance pressing progression by delta. Returns if this advancement completes the interaction.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns if this advancement completes the interaction.</returns>
         public bool AdvanceProgress()
         {
+            if (typeName != TypeName.LongPress) return false;
             progressDuration += Time.deltaTime;
             UniversalUIManager.i.DisplayComponent(this);
             if (progressDuration >= pressDuration)
@@ -108,6 +109,10 @@ public class WorldInteractable : MonoBehaviour
     public void SetCurrentInteraction(InteractionType newInteractionType)
     {
         currentInteraction = newInteractionType;
+        if (mouseState.isHovering)
+        {
+            currentInteraction.DisplayUI(true);
+        }
     } 
 
     //BISO and CanInteract
