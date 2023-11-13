@@ -38,23 +38,7 @@ public class DialogueManager : MonoBehaviour
             return instance;
         }
     }
-    
-    
 
-    private void Start()
-    {
-        /*
-        dialogueGO = transform.Find("Dialogue").gameObject;
-        lineDispaly = dialogueGO.transform.Find("Dialogue Text").GetComponent<TextMeshPro>();
-        nextLineIndicationGO = dialogueGO.transform.Find("Next Line Indication").gameObject;*/
-        /*
-        if(!debugMode)QueueNarrativeSequence(GetNarrativeSequenceByID("NS_0001"));
-        else
-        {
-            if(!debugQueNS.Equals("none")) QueueNarrativeSequence(GetNarrativeSequenceByID(debugQueNS));
-        }*/
-    }
-    
     private void OnMouseUpAsButton()
     {
         if (!performing) return;
