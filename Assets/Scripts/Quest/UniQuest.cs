@@ -44,7 +44,7 @@ public class UniQuest : MonoBehaviour
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;
     [SerializeField]public UniActionSequence beginQuestUniActionSequence;
     [SerializeField]public UniActionSequence endQuestUniActionSequence;
-
+    
     private void Start()
     {
         if(triggerQuestCondition.uponGameStart) beginQuestUniActionSequence.PerformAction();

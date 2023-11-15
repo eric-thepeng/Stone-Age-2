@@ -904,7 +904,6 @@ MonoBehaviour:
     triggerEvent:
       m_PersistentCalls:
         m_Calls: []
-  mouseHovering: 0
   allUnlockStates:
   - orgObj: {fileID: 3728001429888695799}
     orgObjAction: 3
@@ -1417,34 +1416,8 @@ MonoBehaviour:
     uponBuildBISOAmount: 0
   beginQuestUniActionSequence:
     allUniActions:
-    - delayTime: 2
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Hi welcome to Uniland
-          - Use WASD to move around
-          - See the trash pile? Click and Long Press to clear out the space.
-          - Clear out 3 piles of trash first!
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
     - delayTime: 0
+      uniActionType: 0
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}
@@ -1455,79 +1428,6 @@ MonoBehaviour:
         actionType: 0
         narrativeSequenceToPlay:
           data: []
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 1
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 3
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 0.5
-      gameObjectAction:
-        actionType: 3
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 0
-        narrativeSequenceToPlay:
-          data: []
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 1
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - See the new button on bottom right?
-          - Click on it and head to the research panel
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 1
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Good Job!
-          - Click on straw wall and unlock all levels.
       uniQuestAction:
         actionType: 0
         targetUniQuest: {fileID: 0}
@@ -1541,7 +1441,31 @@ MonoBehaviour:
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
   endQuestUniActionSequence:
-    allUniActions: []
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      waitForPlayerStatsAchieveAction:
+        actionType: 0
+        targetPlayerStats: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
 --- !u!1 &8952507450529086315
 GameObject:
   m_ObjectHideFlags: 0

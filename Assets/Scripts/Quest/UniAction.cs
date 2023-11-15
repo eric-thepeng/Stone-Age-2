@@ -8,6 +8,18 @@ using UnityEngine.UI;
 [Serializable]public class UniAction : IPerformableAction
 {
     [SerializeField, Header("Delay an amount of time when executing action.")] private float delayTime;
+
+    public enum UniActionType
+    {
+        NoAction,
+        GameObjectAction,
+        NarrativeSequenceAction,
+        UniQuestAction,
+        WaitForPlayerStatsAchieveAction,
+        ButtonAction
+    }
+
+    public UniActionType uniActionType = UniActionType.NoAction;
     
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
