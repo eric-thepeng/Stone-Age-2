@@ -66,6 +66,7 @@ public class PlaceableObject : MonoBehaviour
     {
         buildingManager = FindObjectOfType<BuildingManager>();
         CheckEffects(transform);
+        DisableEffects();
     }
 
     private void Update()
@@ -88,8 +89,8 @@ public class PlaceableObject : MonoBehaviour
         {
             VisualEffect visualEffect = child.GetComponent<VisualEffect>();
             ParticleSystem particleSystem = child.GetComponent<ParticleSystem>();
-            if ((visualEffect != null && visualEffect.enabled == true)
-                || particleSystem != null && visualEffect.enabled == true)
+            if ((child.GetComponent<VisualEffect>() != null && visualEffect.enabled == true)
+                || particleSystem != null && particleSystem.gameObject.activeSelf)
             {
                 objectsWithEffects.Add(child.gameObject);
             }
