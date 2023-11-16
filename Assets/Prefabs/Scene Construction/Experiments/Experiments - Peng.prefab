@@ -1417,7 +1417,7 @@ MonoBehaviour:
   beginQuestUniActionSequence:
     allUniActions:
     - delayTime: 0
-      uniActionType: 0
+      uniActionType: 2
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}
@@ -1425,9 +1425,12 @@ MonoBehaviour:
         targetVector: {x: 0, y: 0, z: 0}
         moveTime: 1
       narrativeSequenceAction:
-        actionType: 0
+        actionType: 1
         narrativeSequenceToPlay:
-          data: []
+          data:
+          - Welcome to Uniland
+          - What's up chink
+          - How you doing
       uniQuestAction:
         actionType: 0
         targetUniQuest: {fileID: 0}
