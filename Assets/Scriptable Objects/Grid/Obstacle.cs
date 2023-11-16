@@ -35,7 +35,8 @@ public class Obstacle : MonoBehaviour
                 rb.isKinematic = true;
 
                 Vector3 colliderSize = boxCollider.bounds.size;
-                Vector2 colliderCenter = boxCollider.bounds.center;
+                Vector3 colliderCenter = boxCollider.bounds.center;
+
 
                 // 创建一个新的GameObject作为Sprite
                 GameObject spriteObj = new GameObject("GridMask - "+transform.name);
@@ -52,39 +53,29 @@ public class Obstacle : MonoBehaviour
                 ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
 
                 float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-                float SpriteSizeXCeiled = (float)Mathf.Ceil(colliderSize.x / cellSize) * cellSize;
-                float SpriteSizeZCeiled = (float)Mathf.Ceil(colliderSize.z / cellSize) * cellSize;
 
-                // 设置Sprite的尺寸
-                spriteObj.transform.localScale = new Vector3(SpriteSizeXCeiled , SpriteSizeZCeiled , 1);
 
-                Camera mainCamera = Camera.main;
-                //Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
-                Vector2Int cellIndex = gridOperationManager.GetCellIndexFromWorldPosition(gameObject.transform.position + boxCollider.center);
+                Bounds colliderBounds = boxCollider.bounds;
+                Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
 
-                //obsMask.cellX = cellIndex.x;
-                //obsMask.cellY = cellIndex.y;
+                Vector2Int topLeftCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(minCorner.x, 0, maxCorner.z));
+                Vector2Int bottomRightCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(maxCorner.x, 0, minCorner.z));
 
-                Vector2 _newPosVector2 = gridOperationManager.GetWorldPositionFromCellIndex(cellIndex);
-                Vector3 newPosition = new Vector3(_newPosVector2.x, gridOperationManager._gridSettings.GridPosition.y, _newPosVector2.y);
+                Vector2 topLeftWorldPosition = gridOperationManager.GetWorldPositionFromCellIndex(topLeftCellIndex);
+                Vector2 bottomRightWorldPosition = gridOperationManager.GetWorldPositionFromCellIndex(bottomRightCellIndex);
 
-                if (SpriteSizeXCeiled/cellSize %2 == 0)
-                {
-                    newPosition.x += cellSize/ 2;
-                }
-                if (SpriteSizeZCeiled / cellSize % 2 == 0)
-                {
-                    newPosition.z -= cellSize / 2;
-                }
+                Vector3 spriteSize = new Vector3(Mathf.Abs(bottomRightWorldPosition.x - topLeftWorldPosition.x) + cellSize, Mathf.Abs(topLeftWorldPosition.y - bottomRightWorldPosition.y) + cellSize, 1);
+                Vector3 spritePosition = new Vector3((topLeftWorldPosition.x + bottomRightWorldPosition.x) / 2, gridOperationManager._gridSettings.GridPosition.y, (topLeftWorldPosition.y + bottomRightWorldPosition.y) / 2);
 
-                obsMask.cellSizeX = SpriteSizeXCeiled;
-                obsMask.cellSizeY = SpriteSizeZCeiled;
+
 
                 // 定位Sprite到Box Collider的底部
                 //spriteObj.transform.SetParent(this.transform);
                 spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-                spriteObj.transform.position = newPosition;
-            
+                spriteObj.transform.position = spritePosition;
+                spriteObj.transform.localScale = spriteSize;
+
             }
 
         }
