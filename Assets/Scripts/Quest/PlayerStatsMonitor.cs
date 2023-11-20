@@ -18,11 +18,12 @@ public class PlayerStats<T>
         broadcastStatsChange.Invoke(statsCategory, statsCategoryAndAmount[statsCategory]);
     }
 
-    /*
-    public int GetCurrentStats(T statsCategroy)
+    
+    public int GetCurrentStats(T targetCategroy)
     {
-        return 
-    }*/
+        if (statsCategoryAndAmount.ContainsKey(targetCategroy)) return statsCategoryAndAmount[targetCategroy];
+        else return 0;
+    }
 }
 
 public static class PlayerStatsMonitor
