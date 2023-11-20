@@ -47,6 +47,7 @@ public class Inventory : MonoBehaviour
     {
         if (amount == 0) return;
         UI_Harvest.i.AddItem(newISO, amount);
+        PlayerStatsMonitor.isoTotalGainPlayerStat.TriggerStatsChange(newISO,amount);
         foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
             if (ii.iso == newISO)
@@ -113,19 +114,21 @@ public class Inventory : MonoBehaviour
     }
     
     /// <summary>
-    /// Exists in form of Building
+    /// Player's inventory count, triggers when an inventory item is built or when a built item returns to inventory.
     /// </summary>
-    /// <param name="biso"></param>
-    /// <param name="use"></param>
+    /// <param name="biso">Target BISO that changes</param>
+    /// <param name="use">True: From inventory being built. False: From built go back to inventory./param>
     public void InBuildItem(BuildingISO biso, bool use)
     {
         if (use)
         {
             GetItemInfo(biso).inBuildAmount += 1;
+            PlayerStatsMonitor.bisoTotalBuildPlayerStat.TriggerStatsChange(biso,1);
         }
         else
         {
             GetItemInfo(biso).inBuildAmount -= 1;
+            PlayerStatsMonitor.bisoTotalBuildPlayerStat.TriggerStatsChange(biso,-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(biso));
     }

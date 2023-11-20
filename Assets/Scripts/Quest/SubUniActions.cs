@@ -134,12 +134,12 @@ using UnityEngine.Events;
             PlayerStatsMonitor.isoTotalGainPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
                 statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainPlayerStat.GetCurrentStats(targetISO);
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
+        }/*else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
         {
             PlayerStatsMonitor.isoTotalSpendPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
                 statsAmountAtActionStats = PlayerStatsMonitor.isoTotalSpendPlayerStat.GetCurrentStats(targetISO);
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
+        }*/else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
         {
             if (!(targetISO is BuildingISO))
             {
@@ -161,10 +161,10 @@ using UnityEngine.Events;
         if(iso!= targetISO) return;
         if (actionType == ActionType.StatsReachAmount)
         {
-            if(amount == targetAmount) onActionCompletes?.Invoke();
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
         }else if (actionType == ActionType.StatsChangeAmount)
         {
-            
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
         }
     }
 
@@ -178,10 +178,10 @@ using UnityEngine.Events;
         if(statType != targetPlayerStats) return;
         if (actionType == ActionType.StatsReachAmount)
         {
-            if(amount == targetAmount) onActionCompletes?.Invoke();
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
         }else if (actionType == ActionType.StatsChangeAmount)
         {
-            
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
         }
     }
 

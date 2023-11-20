@@ -38,7 +38,7 @@ public static class PlayerStatsMonitor
     
     static public PlayerStats<PlayerStatsType> trashTotalClear = new PlayerStats<PlayerStatsType>();
     static public PlayerStats<ItemScriptableObject> isoTotalGainPlayerStat = new PlayerStats<ItemScriptableObject>();
-    static public PlayerStats<ItemScriptableObject> isoTotalSpendPlayerStat = new PlayerStats<ItemScriptableObject>();
+    //static public PlayerStats<ItemScriptableObject> isoTotalSpendPlayerStat = new PlayerStats<ItemScriptableObject>();
     static public PlayerStats<BuildingISO> bisoTotalBuildPlayerStat = new PlayerStats<BuildingISO>();
     
 }
