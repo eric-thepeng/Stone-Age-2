@@ -1370,7 +1370,7 @@ GameObject:
   - component: {fileID: 7815698928772055099}
   - component: {fileID: 4478924418439649825}
   m_Layer: 0
-  m_Name: Test UniQuest
+  m_Name: 'Quest: Sample'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1383,9 +1383,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3902452225682445708}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.754446, y: -58.669434, z: 58.86803}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3728001428836454453}
@@ -1406,145 +1406,10 @@ MonoBehaviour:
   triggerQuestCondition:
     hasBeenTrigged: 0
     uponGameStart: 1
-    duringTutorial: 0
-    uponDiscoverExploreSpot: {fileID: 0}
-    uponUnlockExploreSpot: {fileID: 0}
-    uponStartGatherExploreSpot: {fileID: 0}
-    uponObtainISO: {fileID: 0}
-    uponObtainISOAmount: 0
-    uponBuildBISO: {fileID: 0}
-    uponBuildBISOAmount: 0
-  beginQuestUniActionSequence:
+  uniActionSequence:
     allUniActions:
     - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Welcome to Uniland
-          - Get 8 straws
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 0
-      uniActionType: 4
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 0
-        narrativeSequenceToPlay:
-          data: []
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 1
-        targetPlayerStats: 1
-        targetISO: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
-        targetAmount: 8
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Yurd congrats.
-          - Now build 3 splitting blocks
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 0
-      uniActionType: 4
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 0
-        narrativeSequenceToPlay:
-          data: []
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 1
-        targetPlayerStats: 3
-        targetISO: {fileID: 11400000, guid: ae33bc9a96c593840b1fbff4559edb67, type: 2}
-        targetAmount: 3
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-    - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - God job yurd
-      uniQuestAction:
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      waitForPlayerStatsAchieveAction:
-        actionType: 0
-        targetPlayerStats: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-  endQuestUniActionSequence:
-    allUniActions:
-    - delayTime: 0
-      uniActionType: 5
+      uniActionType: 0
       gameObjectAction:
         actionType: 0
         targetGameObject: {fileID: 0}

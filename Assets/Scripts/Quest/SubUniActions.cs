@@ -73,7 +73,7 @@ using UnityEngine.Events;
 
 [Serializable] public class UniQuestAction : IPerformableAction
 {
-    public enum ActionType{NoAction, TriggerQuest,LoadDescription}
+    public enum ActionType{NoAction, TriggerQuest}
     public ActionType actionType = ActionType.NoAction;
     public UniQuest targetUniQuest = null;
     
@@ -89,10 +89,11 @@ using UnityEngine.Events;
         {
             targetUniQuest.QueQuest();
         }
+        /*
         else if (actionType == ActionType.LoadDescription)
         {
             targetUniQuest.LoadDescription();
-        }
+        }*/
         onActionCompletes?.Invoke();
     }
 

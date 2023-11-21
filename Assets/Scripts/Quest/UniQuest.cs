@@ -15,6 +15,7 @@ public class UniQuest : MonoBehaviour
         public bool hasBeenTrigged = false;
         [Header("Edit Conditions")]
         public bool uponGameStart = false;
+        /*
         public bool duringTutorial = false;
         public BLDExploreSpot uponDiscoverExploreSpot = null;
         public BLDExploreSpot uponUnlockExploreSpot = null;
@@ -23,9 +24,10 @@ public class UniQuest : MonoBehaviour
         public int uponObtainISOAmount = 0;
         public BuildingISO uponBuildBISO = null;
         public int uponBuildBISOAmount = 0;
+        */
 
         private bool triggeredByUniAction = false;
-
+        
         public bool isTriggered()
         {
             if (hasBeenTrigged) return false;
@@ -42,12 +44,11 @@ public class UniQuest : MonoBehaviour
     #endregion
 
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;
-    [SerializeField]public UniActionSequence beginQuestUniActionSequence;
-    [SerializeField]public UniActionSequence endQuestUniActionSequence;
+    [SerializeField]public UniActionSequence uniActionSequence;
     
     private void Start()
     {
-        if(triggerQuestCondition.uponGameStart) beginQuestUniActionSequence.PerformAction();
+        if(triggerQuestCondition.uponGameStart) uniActionSequence.PerformAction();
     }
 
     public void QueQuest(){}
