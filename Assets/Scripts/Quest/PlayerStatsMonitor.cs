@@ -18,11 +18,12 @@ public class PlayerStats<T>
         broadcastStatsChange.Invoke(statsCategory, statsCategoryAndAmount[statsCategory]);
     }
 
-    /*
-    public int GetCurrentStats(T statsCategroy)
+    
+    public int GetCurrentStats(T targetCategroy)
     {
-        return 
-    }*/
+        if (statsCategoryAndAmount.ContainsKey(targetCategroy)) return statsCategoryAndAmount[targetCategroy];
+        else return 0;
+    }
 }
 
 public static class PlayerStatsMonitor
@@ -37,7 +38,7 @@ public static class PlayerStatsMonitor
     
     static public PlayerStats<PlayerStatsType> trashTotalClear = new PlayerStats<PlayerStatsType>();
     static public PlayerStats<ItemScriptableObject> isoTotalGainPlayerStat = new PlayerStats<ItemScriptableObject>();
-    static public PlayerStats<ItemScriptableObject> isoTotalSpendPlayerStat = new PlayerStats<ItemScriptableObject>();
+    //static public PlayerStats<ItemScriptableObject> isoTotalSpendPlayerStat = new PlayerStats<ItemScriptableObject>();
     static public PlayerStats<BuildingISO> bisoTotalBuildPlayerStat = new PlayerStats<BuildingISO>();
     
 }

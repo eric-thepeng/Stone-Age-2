@@ -1,0 +1,59 @@
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(UniAction))]
+public class UniActionEditor : Editor
+{
+    SerializedProperty uniActionTypeProp;
+    
+    SerializedProperty gameObjectActionProp;
+    SerializedProperty narrativeSequenceActionProp;
+    SerializedProperty uniQuestActionProp;
+    SerializedProperty waitForPlayerStatsAchieveActionProp;
+    SerializedProperty buttonActionProp;
+    
+
+    void OnEnable()
+    {
+        // Link the serialized properties
+        uniActionTypeProp = serializedObject.FindProperty("uniActionType");
+        
+        gameObjectActionProp = serializedObject.FindProperty("gameObjectAction");
+        narrativeSequenceActionProp  = serializedObject.FindProperty("narrativeSequenceAction");;
+        uniQuestActionProp = serializedObject.FindProperty("uniQuestAction");;
+        waitForPlayerStatsAchieveActionProp = serializedObject.FindProperty("waitForPlayerStatsAchieveAction");;
+        buttonActionProp = serializedObject.FindProperty("buttonAction");;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        EditorGUILayout.PropertyField(uniActionTypeProp);
+
+        UniAction.UniActionType selectedType = (UniAction.UniActionType)uniActionTypeProp.enumValueIndex;
+
+        switch (selectedType)
+        {
+            case UniAction.UniActionType.NoAction:
+                break;
+            case UniAction.UniActionType.GameObjectAction:
+                EditorGUILayout.PropertyField(gameObjectActionProp);
+                break;
+            case UniAction.UniActionType.NarrativeSequenceAction:
+                EditorGUILayout.PropertyField(narrativeSequenceActionProp);
+                break;
+            case UniAction.UniActionType.UniQuestAction:
+                EditorGUILayout.PropertyField(uniQuestActionProp);
+                break;
+            case UniAction.UniActionType.WaitForPlayerStatsAchieveAction:
+                EditorGUILayout.PropertyField(waitForPlayerStatsAchieveActionProp);
+                break;
+            case UniAction.UniActionType.ButtonAction:
+                EditorGUILayout.PropertyField(buttonActionProp);
+                break;
+        }
+        
+        serializedObject.ApplyModifiedProperties();
+    }
+}

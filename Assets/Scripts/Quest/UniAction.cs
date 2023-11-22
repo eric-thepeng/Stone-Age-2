@@ -8,6 +8,18 @@ using UnityEngine.UI;
 [Serializable]public class UniAction : IPerformableAction
 {
     [SerializeField, Header("Delay an amount of time when executing action.")] private float delayTime;
+
+    public enum UniActionType
+    {
+        NoAction,
+        GameObjectAction,
+        NarrativeSequenceAction,
+        UniQuestAction,
+        WaitForPlayerStatsAchieveAction,
+        ButtonAction
+    }
+
+    public UniActionType uniActionType = UniActionType.NoAction;
     
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
@@ -23,38 +35,39 @@ using UnityEngine.UI;
 
     public void PerformAction()
     {
-        IPerformableAction[] allIUniActions = {gameObjectAction,  narrativeSequenceAction, uniQuestAction, waitForPlayerStatsAchieveAction, buttonAction};
-        int assignCount = 0;
-        foreach (IPerformableAction pAction in allIUniActions)
+        IPerformableAction pAction = null;
+
+        switch (uniActionType)
         {
-            if (pAction.IsAssigned()) assignCount++;
-        }
-        if(assignCount == 0) Debug.LogError("UniAction is not assigned any action");
-        else if (assignCount != 1)
-        {
-            string debugLog = " ";
-            int i = 0;
-            foreach (IPerformableAction pAction in allIUniActions)
-            {
-                if (pAction.IsAssigned())
-                {
-                    assignCount++;
-                    debugLog += i + " ";
-                }
-                i++;
-            }
-            
-            Debug.LogError("UniAction need to be assigned only 1 action, "+debugLog);
-        }
-        foreach (IPerformableAction pAction in allIUniActions)
-        {
-            if (pAction.IsAssigned())
-            {
-                onActionStarts?.Invoke();
-                DialogueManager.i.StartCoroutine(DelayAndPerformAction(pAction));
-                //DelayAndPerformAction(uniAction);
+            case UniActionType.NoAction:
+                Debug.LogError("UniAction type is set to NoAction");
                 return;
-            }
+                break;
+            case UniActionType.GameObjectAction:
+                pAction = gameObjectAction;
+                break;
+            case UniActionType.NarrativeSequenceAction: 
+                pAction = narrativeSequenceAction;
+                break;
+            case UniActionType.UniQuestAction: 
+                pAction = uniQuestAction;
+                break;
+            case UniActionType.WaitForPlayerStatsAchieveAction: 
+                pAction = waitForPlayerStatsAchieveAction;
+                break;
+            case UniActionType.ButtonAction: 
+                pAction = buttonAction;
+                break;
+        }
+        
+        if (pAction.IsAssigned())
+        {
+            onActionStarts?.Invoke();
+            DialogueManager.i.StartCoroutine(DelayAndPerformAction(pAction));
+        }
+        else
+        {
+            Debug.LogError("SubUniAction is not assigned.");
         }
     }
 

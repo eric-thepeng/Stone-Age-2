@@ -8,19 +8,21 @@ using Hypertonic.GridPlacement;
 
 public class BLDTrashToClear : LevelUp
 {
-    [SerializeField] private float timeToClear = 0.5f;
+    [Header("---DO NOT EDIT CurrentInteraction above---")]
+    [Header("Only assign timeToClear, unlockGain, unlockCost")]
+    [SerializeField]private float timeToClear = 3f;
     [SerializeField] private ResourceSet gainResourceSet;
     private float pressedTime = 0f;
     bool logPressing = false;
     UI_BLDTrashToClear ui;
 
     private ResourceSet unlockResourceSet;
-    
 
     private void Start()
     {
         ui = GetComponent<UI_BLDTrashToClear>();
         unlockResourceSet = GetCurrentUnlockState().unlockCost;
+        SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress,TryClearTrash,timeToClear));
     }
 
     protected override void BeginMouseHover()
@@ -33,12 +35,6 @@ public class BLDTrashToClear : LevelUp
     {
         base.EndMouseHover();
         TurnOffUI();
-    }
-
-    protected override void NotEnoughResource()
-    {
-        base.NotEnoughResource();
-        ui.SetProgress(0);
     }
 
     private void TurnOnUI()
@@ -70,9 +66,16 @@ public class BLDTrashToClear : LevelUp
     }
 
 
-    public void TryUnlockToNextState()
+    public void TryClearTrash()
     {
-        base.UnlockToNextState();
+        if (base.UnlockToNextState())
+        {
+            return;
+        }
+        else
+        {
+            SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress,TryClearTrash,timeToClear));
+        }
     }
     
     public override ResourceSet ProvideResourceSet(int index = 0)
