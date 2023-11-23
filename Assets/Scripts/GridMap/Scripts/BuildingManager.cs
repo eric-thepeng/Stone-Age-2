@@ -344,16 +344,19 @@ public class BuildingManager : MonoBehaviour
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
+                    PlaceableObject placeableObject = GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>();
 
                     Quaternion _rotation = GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation;
 
                     bool _confirm = GridManagerAccessor.GridManager.ConfirmPlacement();
                     if (_confirm)
                     {
+                        placeableObject.EnableEffects();
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
+
                         GridManagerAccessor.GridManager.HandleGridObjectRotated();
                     }
                 }
@@ -539,11 +542,13 @@ public class BuildingManager : MonoBehaviour
 
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                if (!GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
+                PlaceableObject placeableObject = GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>();
+                if (!placeableObject.containsTag("EmptyObject"))
                 {
                     if (GridManagerAccessor.GridManager.ConfirmPlacement())
                     {
 
+                        placeableObject.EnableEffects();
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         //GridUtilities.GetCellIndexesRequiredForObject
 
@@ -560,6 +565,7 @@ public class BuildingManager : MonoBehaviour
 
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
+                    hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }
 
                 //CheckHandItemRemoveable();

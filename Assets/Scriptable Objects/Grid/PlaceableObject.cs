@@ -71,16 +71,16 @@ public class PlaceableObject : MonoBehaviour
 
     private void Update()
     {
-        if (buildingManager.SwitchedPlacementMode)
-        {
-            if (buildingManager.CurrentPlacementMode)
-            {
-                DisableEffects();
-            } else
-            {
-                EnableEffects();
-            }
-        }
+        //if (buildingManager.SwitchedPlacementMode)
+        //{
+        //    if (buildingManager.CurrentPlacementMode)
+        //    {
+        //        DisableEffects();
+        //    } else
+        //    {
+        //        EnableEffects();
+        //    }
+        //}
     }
 
     void CheckEffects(Transform parent)
