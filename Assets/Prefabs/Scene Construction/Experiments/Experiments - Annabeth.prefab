@@ -74,6 +74,8 @@ GameObject:
   - component: {fileID: 4511226011950494387}
   - component: {fileID: 7600725829008609162}
   - component: {fileID: 7425817705869848996}
+  - component: {fileID: 6984848429673850816}
+  - component: {fileID: 7310463071690237660}
   m_Layer: 0
   m_Name: ExperimentTotem
   m_TagString: Untagged
@@ -159,6 +161,53 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6984848429673850816
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2690328970463645720}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7310463071690237660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2690328970463645720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c931c7eacedc3243a6b636c0bf6a5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentInteraction:
+    typeName: 1
+    pressDuration: 0
+    triggerEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7310463071690237660}
+          m_TargetAssemblyTypeName: BLDAddSpiritPoint, Assembly-CSharp
+          m_MethodName: AddPoint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  PointToAdd: 1
 --- !u!1 &3207045946447607640
 GameObject:
   m_ObjectHideFlags: 0
