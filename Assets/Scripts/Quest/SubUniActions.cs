@@ -73,7 +73,7 @@ using UnityEngine.Events;
 
 [Serializable] public class UniQuestAction : IPerformableAction
 {
-    public enum ActionType{NoAction, TriggerQuest,LoadDescription}
+    public enum ActionType{NoAction, TriggerQuest}
     public ActionType actionType = ActionType.NoAction;
     public UniQuest targetUniQuest = null;
     
@@ -89,10 +89,11 @@ using UnityEngine.Events;
         {
             targetUniQuest.QueQuest();
         }
+        /*
         else if (actionType == ActionType.LoadDescription)
         {
             targetUniQuest.LoadDescription();
-        }
+        }*/
         onActionCompletes?.Invoke();
     }
 
@@ -106,7 +107,7 @@ using UnityEngine.Events;
 [Serializable]public class WaitForPlayerStatsAchieveAction : IPerformableAction
 {
     public enum ActionType {
-        NoAction, WaitForPlayerStatsAchieve
+        NoAction, StatsChangeAmount, StatsReachAmount
     }
     public ActionType actionType = ActionType.NoAction;
     
@@ -115,10 +116,11 @@ using UnityEngine.Events;
     public UnityEvent onActionStarts { get { return _onActionStarts; } }
     public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
-    
     public PlayerStatsMonitor.PlayerStatsType targetPlayerStats;
     [Header("Leave Blank if not a ISO related stat")]public ItemScriptableObject targetISO;
     public int targetAmount = 0;
+
+    private int statsAmountAtActionStats = 0;
 
     public void PerformAction()
     {
@@ -126,26 +128,62 @@ using UnityEngine.Events;
         if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.TrashTotalClear)
         {
             PlayerStatsMonitor.trashTotalClear.broadcastStatsChange.AddListener(CheckStatsReach);
+            if (actionType == ActionType.StatsChangeAmount)
+                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClear.GetCurrentStats(PlayerStatsMonitor.PlayerStatsType.TrashTotalClear);
         }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalGain)
         {
             PlayerStatsMonitor.isoTotalGainPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
+            if (actionType == ActionType.StatsChangeAmount)
+                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainPlayerStat.GetCurrentStats(targetISO);
+        }/*else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
         {
             PlayerStatsMonitor.isoTotalSpendPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
+            if (actionType == ActionType.StatsChangeAmount)
+                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalSpendPlayerStat.GetCurrentStats(targetISO);
+        }*/else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
         {
+            if (!(targetISO is BuildingISO))
+            {
+                Debug.LogError("The assigned ISO for <Player Stats Reach - BISOBuildAmount> UniAction is not a BISO.");
+            }
             PlayerStatsMonitor.bisoTotalBuildPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
+            if (actionType == ActionType.StatsChangeAmount)
+                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuildPlayerStat.GetCurrentStats((BuildingISO)targetISO);
+        } 
+    }
+
+    /// <summary>
+    /// Being called by PlayerStatsMonitor of each stats when stats change occurs
+    /// </summary>
+    /// <param name="iso">ISO to track</param>
+    /// <param name="amount">The new amount after stats change</param>
+    public void CheckStatsReach(ItemScriptableObject iso, int amount) 
+    {
+        if(iso!= targetISO) return;
+        if (actionType == ActionType.StatsReachAmount)
+        {
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
+        }else if (actionType == ActionType.StatsChangeAmount)
+        {
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
         }
     }
 
-    public void CheckStatsReach(ItemScriptableObject iso, int amount)
-    {
-        if(iso == targetISO && amount == targetAmount)     onActionCompletes?.Invoke();
-    }
-
+    /// <summary>
+    /// Being called by PlayerStatsMonitor of each stats when stats change occurs
+    /// </summary>
+    /// <param name="iso">Non-ISO related PlayerStatsType to track</param>
+    /// <param name="amount">The new amount after stats change</param>
     public void CheckStatsReach(PlayerStatsMonitor.PlayerStatsType statType, int amount)
     {
-        if(amount == targetAmount)     onActionCompletes?.Invoke();
+        if(statType != targetPlayerStats) return;
+        if (actionType == ActionType.StatsReachAmount)
+        {
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
+        }else if (actionType == ActionType.StatsChangeAmount)
+        {
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
+        }
     }
 
     public bool IsAssigned()

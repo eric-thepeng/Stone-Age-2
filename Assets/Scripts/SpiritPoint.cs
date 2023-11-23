@@ -8,7 +8,8 @@ public class SpiritPoint : MonoBehaviour
     static SpiritPoint instance;
     public int startingAmount;
     TextMeshPro displayText;
-    [ReadOnly,SerializeField]int amount;
+    [ReadOnly,SerializeField]private long amount;
+    [ReadOnly, SerializeField] private long historyAmount;
 
     public static SpiritPoint i
     {
@@ -25,6 +26,7 @@ public class SpiritPoint : MonoBehaviour
     private void Start()
     {
         amount = startingAmount;
+        historyAmount = startingAmount;
         displayText = transform.Find("Spirit Point UI").Find("Spirit Point Amount").GetComponent<TextMeshPro>();
         UpdateUI();
     }
@@ -32,6 +34,7 @@ public class SpiritPoint : MonoBehaviour
     public void Add(int addAmount)
     {
         amount += addAmount;
+        historyAmount += addAmount;
         UpdateUI();
     }
 
@@ -46,7 +49,7 @@ public class SpiritPoint : MonoBehaviour
         return true;
     }
 
-    public int GetAmount()
+    public long GetAmount()
     {
         return amount;
     }

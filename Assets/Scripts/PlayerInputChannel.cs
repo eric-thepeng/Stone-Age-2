@@ -30,7 +30,10 @@ public class PlayerInputChannel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) HomeReturnButton();
         if (Input.GetKeyDown(KeyCode.B)) InventoryPanelOpenButton();
         if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
-        if (Input.GetKeyDown(KeyCode.E)) ExploreMapButton();
+        if (Input.GetKeyDown(KeyCode.M)) ExploreMapButton();
+        if (Input.GetKeyDown(KeyCode.Q)) RotateLeftButton();
+        if (Input.GetKeyDown(KeyCode.Q)) RotateRightButton();
+
     }
 
     public static void InventoryPanelOpenButton()
@@ -79,6 +82,16 @@ public class PlayerInputChannel : MonoBehaviour
     {
         if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.ExploreMap);
         PlayerState.ExploreMapButton();
+    }
+
+    public static void RotateLeftButton()
+    {
+        
+    }
+
+    public static void RotateRightButton()
+    {
+        
     }
     
     public Vector2Int GetKeyBoardInputDirection()

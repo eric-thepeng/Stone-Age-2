@@ -311,7 +311,7 @@ public class BuildingManager : MonoBehaviour
             mouseInPlacementMode = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
@@ -320,7 +320,7 @@ public class BuildingManager : MonoBehaviour
                 StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
