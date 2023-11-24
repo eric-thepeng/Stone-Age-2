@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 7600725829008609162}
   - component: {fileID: 7425817705869848996}
   - component: {fileID: 6984848429673850816}
-  - component: {fileID: 7310463071690237660}
+  - component: {fileID: 6903383191015868984}
   m_Layer: 0
   m_Name: ExperimentTotem
   m_TagString: Untagged
@@ -177,7 +177,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7310463071690237660
+--- !u!114 &6903383191015868984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2690328970463645720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c931c7eacedc3243a6b636c0bf6a5c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 015655e2413ddbf479c0a2ef8cda95e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentInteraction:
@@ -195,8 +195,8 @@ MonoBehaviour:
     triggerEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7310463071690237660}
-          m_TargetAssemblyTypeName: BLDAddSpiritPoint, Assembly-CSharp
+        - m_Target: {fileID: 6903383191015868984}
+          m_TargetAssemblyTypeName: WLDTotem, Assembly-CSharp
           m_MethodName: AddPoint
           m_Mode: 1
           m_Arguments:
