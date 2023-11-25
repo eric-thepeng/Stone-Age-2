@@ -61,6 +61,7 @@ public class GridOperationManager : MonoBehaviour
     {
         //Debug.Log("Paint mode entered");
         _gridManager.StartPaintMode(_gridEmptyObjectPrefab);
+        _gridEmptyObjectPrefab.GetComponent<PlaceableObject>().DisableEffects();
     }
 
     public void EndPaintMode()

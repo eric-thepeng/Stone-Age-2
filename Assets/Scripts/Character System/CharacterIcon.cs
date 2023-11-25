@@ -86,6 +86,7 @@ public class CharacterIcon : MonoBehaviour
                 transform.position += (targetPosition - transform.position) * Time.deltaTime * moveSpeed;
             }
         }
+
     }
 
     public void SetGatheringProgress(float gatherPercentage, float energyPercentage, bool isLerp)
@@ -102,7 +103,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()))
+        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().getCurrentHomeState() != CharacterHomeStatus.HomeState.Resting)
         {
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
@@ -163,5 +164,15 @@ public class CharacterIcon : MonoBehaviour
     void ChangeIconColor(Color32 color)
     {
         GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void ChangeIconColorToHome()
+    {
+        ChangeIconColor(homeColor);
+    }
+
+    public void ChangeIconColorToGather()
+    {
+        ChangeIconColor(gatherColor);
     }
 }
