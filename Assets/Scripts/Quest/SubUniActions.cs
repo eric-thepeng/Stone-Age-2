@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -239,5 +240,52 @@ using UnityEngine.Events;
         return actionType != ActionType.NoAction;
     }
 }
+
+[Serializable] public class LevelUpAction : IPerformableAction
+{
+    public enum ActionType{NoAction, WaitUntilUnlockLevel}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+    
+    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public LevelUp targetLevelUp = null;
+    public string targetGameObjectSetUpIdentifierID;
+
+    public int targetUnlockLevel = 0;
+
+    public void PerformAction()
+    {
+        if(actionType == ActionType.NoAction) Debug.LogError("SubUniAction has action type NoAction");
+        
+        if (targetLevelUp == null)
+            targetLevelUp = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID).GetComponent<LevelUp>();
+        
+        if(targetLevelUp == null) Debug.LogError("Cannot find LevelUp");
+        
+        onActionStarts?.Invoke();
+
+        if (actionType == ActionType.WaitUntilUnlockLevel)
+        {
+            ((IUniActionTrigger<int>)targetLevelUp).ActivateIUniActionTrigger(CheckUniActionComplete);
+        }
+    }
+
+    public void CheckUniActionComplete(int unlockLevel)
+    {
+        if (unlockLevel >= targetUnlockLevel)
+        {
+            onActionCompletes.Invoke();
+        }
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
 
 

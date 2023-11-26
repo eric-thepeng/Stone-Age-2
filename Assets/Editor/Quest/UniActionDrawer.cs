@@ -8,7 +8,7 @@ public class UniActionDrawer : PropertyDrawer
     {
         EditorGUI.BeginProperty(position, label, property);
 
-        // Assuming UniActionType is the first field in UniAction
+        // UniActionType is the first field in UniAction
         var uniActionTypeProp = property.FindPropertyRelative("uniActionType");
 
         // First row - UniActionType dropdown
@@ -35,6 +35,9 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.ButtonAction:
                 DrawProperty("buttonAction", property, ref rowRect);
+                break;
+            case UniAction.UniActionType.LevelUpAction:
+                DrawProperty("levelUpAction", property, ref rowRect);
                 break;
         }
 
@@ -64,6 +67,9 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.ButtonAction:
                 height += GetHeightForProperty(property, "buttonAction");
+                break;
+            case UniAction.UniActionType.LevelUpAction:
+                height += GetHeightForProperty(property, "levelUpAction");
                 break;
         }
 

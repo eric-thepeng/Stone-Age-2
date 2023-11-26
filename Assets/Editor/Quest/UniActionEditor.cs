@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEditor;
 
+
+// We are not using this since UniAction is not MonoBehaviour
+
+
 [CustomEditor(typeof(UniAction))]
 public class UniActionEditor : Editor
 {
