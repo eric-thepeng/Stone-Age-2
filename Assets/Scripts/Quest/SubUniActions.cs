@@ -128,31 +128,27 @@ using UnityEngine.Events;
         onActionStarts?.Invoke();
         if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.TrashTotalClear)
         {
-            PlayerStatsMonitor.trashTotalClear.broadcastStatsChange.AddListener(CheckStatsReach);
+            PlayerStatsMonitor.trashTotalClearedPlayerStat.SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClear.GetCurrentStats(PlayerStatsMonitor.PlayerStatsType.TrashTotalClear);
+                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClearedPlayerStat.GetAmount();
         }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalGain)
         {
-            PlayerStatsMonitor.isoTotalGainPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
+            PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainPlayerStat.GetCurrentStats(targetISO);
-        }/*else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
-        {
-            PlayerStatsMonitor.isoTotalSpendPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
-            if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalSpendPlayerStat.GetCurrentStats(targetISO);
-        }*/else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
+                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
+        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
         {
             if (!(targetISO is BuildingISO))
             {
                 Debug.LogError("The assigned ISO for <Player Stats Reach - BISOBuildAmount> UniAction is not a BISO.");
             }
-            PlayerStatsMonitor.bisoTotalBuildPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
+            PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuildPlayerStat.GetCurrentStats((BuildingISO)targetISO);
+                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
         } 
     }
 
+    /*
     /// <summary>
     /// Being called by PlayerStatsMonitor of each stats when stats change occurs
     /// </summary>
@@ -178,6 +174,17 @@ using UnityEngine.Events;
     public void CheckStatsReach(PlayerStatsMonitor.PlayerStatsType statType, int amount)
     {
         if(statType != targetPlayerStats) return;
+        if (actionType == ActionType.StatsReachAmount)
+        {
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
+        }else if (actionType == ActionType.StatsChangeAmount)
+        {
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
+        }
+    }
+    */
+    public void CheckStatsReach(int amount)
+    {
         if (actionType == ActionType.StatsReachAmount)
         {
             if(amount >= targetAmount) onActionCompletes?.Invoke();
