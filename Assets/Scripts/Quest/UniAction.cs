@@ -15,7 +15,7 @@ using UnityEngine.UI;
         GameObjectAction,
         NarrativeSequenceAction,
         UniQuestAction,
-        WaitForPlayerStatsAchieveAction,
+        PlayerStatAction,
         ButtonAction,
         LevelUpAction
     }
@@ -25,7 +25,7 @@ using UnityEngine.UI;
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
     public UniQuestAction uniQuestAction;
-    public WaitForPlayerStatsAchieveAction waitForPlayerStatsAchieveAction;
+    public PlayerStatAction playerStatAction;
     public ButtonAction buttonAction;
     public LevelUpAction levelUpAction;
     
@@ -54,8 +54,8 @@ using UnityEngine.UI;
             case UniActionType.UniQuestAction: 
                 pAction = uniQuestAction;
                 break;
-            case UniActionType.WaitForPlayerStatsAchieveAction: 
-                pAction = waitForPlayerStatsAchieveAction;
+            case UniActionType.PlayerStatAction: 
+                pAction = playerStatAction;
                 break;
             case UniActionType.ButtonAction: 
                 pAction = buttonAction;

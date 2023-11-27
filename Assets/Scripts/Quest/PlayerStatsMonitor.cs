@@ -70,14 +70,32 @@ public class PlayerStatCollection<T>
 
 public static class PlayerStatsMonitor
 {
-    public enum PlayerStatsType
+    public enum PlayerStatType
     {
-        TrashTotalClear,
-        ISOTotalGain,
-        BISOBuild,
-        SpiritPoint
+        TrashTotalCleared,
+        SpiritPointCurrent,
+        //SpiritPointTotalGained,
+        
+        //ISO RELATED
+        ISOTotalGained,
+        BISOTotalBuilt,
     }
     
+    static public PlayerStat GetPlayerStat(PlayerStatType pst, ItemScriptableObject iso = null)
+    {
+        if (pst == PlayerStatType.TrashTotalCleared) return trashTotalClearedPlayerStat;
+        if (pst == PlayerStatType.SpiritPointCurrent) return SpiritPoint.i.GetPlayerStat();
+        if (iso == null)
+        {
+            Debug.LogError("Need to assign ISO parameter for GetPlayerStat");
+            return null;
+        }
+        if (pst == PlayerStatType.ISOTotalGained) return isoTotalGainedPlayerStatCollection.GetPlayerStat(iso);
+        if (pst == PlayerStatType.BISOTotalBuilt) return bisoTotalBuiltPlayerStatCollection.GetPlayerStat(iso);
+        Debug.LogError("Cannot find PlayerStat");
+        return null;
+    }
+
     //New PlayerStatSystem
     static public PlayerStat trashTotalClearedPlayerStat = new PlayerStat();
     

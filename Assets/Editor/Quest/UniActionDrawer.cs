@@ -30,8 +30,8 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.UniQuestAction:
                 DrawProperty("uniQuestAction", property, ref rowRect);
                 break;
-            case UniAction.UniActionType.WaitForPlayerStatsAchieveAction:
-                DrawProperty("waitForPlayerStatsAchieveAction", property, ref rowRect);
+            case UniAction.UniActionType.PlayerStatAction:
+                DrawProperty("playerStatAction", property, ref rowRect);
                 break;
             case UniAction.UniActionType.ButtonAction:
                 DrawProperty("buttonAction", property, ref rowRect);
@@ -62,8 +62,8 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.UniQuestAction:
                 height += GetHeightForProperty(property, "uniQuestAction");
                 break;
-            case UniAction.UniActionType.WaitForPlayerStatsAchieveAction:
-                height += GetHeightForProperty(property, "waitForPlayerStatsAchieveAction");
+            case UniAction.UniActionType.PlayerStatAction:
+                height += GetHeightForProperty(property, "playerStatAction");
                 break;
             case UniAction.UniActionType.ButtonAction:
                 height += GetHeightForProperty(property, "buttonAction");

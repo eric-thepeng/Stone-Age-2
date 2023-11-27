@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,13 @@ public class SpiritPoint : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         spiritPointAmount = new PlayerStat(startingAmount);
+    }
+
+    private void Start()
+    {
         displayText = transform.Find("Spirit Point UI").Find("Spirit Point Amount").GetComponent<TextMeshPro>();
         UpdateUI();
     }
@@ -49,6 +54,11 @@ public class SpiritPoint : MonoBehaviour
     public long GetAmount()
     {
         return spiritPointAmount.GetAmount();
+    }
+
+    public PlayerStat GetPlayerStat()
+    {
+        return spiritPointAmount;
     }
 
     void UpdateUI()

@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 [Serializable]public class GameObjectAction : IPerformableAction
 {
-    public enum ActionType{NoAction, LocalMoveAmount, GlobalMoveAmount, LocalMoveTo, GlobalMoveTo, Enable, Disable}
+    public enum ActionType{NoAction, LocalMoveAmount, GlobalMoveAmount, LocalMoveTo, GlobalMoveTo, SetActive, SetInactive}
     public ActionType actionType = ActionType.NoAction;
     
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
@@ -38,9 +38,8 @@ using UnityEngine.Events;
         else if (actionType == ActionType.LocalMoveTo) targetGameObject.transform.DOLocalMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         else if (actionType == ActionType.GlobalMoveTo) targetGameObject.transform.DOMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         
-        else if (actionType == ActionType.Enable) {targetGameObject.SetActive(true); onActionCompletes.Invoke();}
-        else if (actionType == ActionType.Disable) {targetGameObject.SetActive(false); onActionCompletes.Invoke();}
-
+        else if (actionType == ActionType.SetActive) {targetGameObject.SetActive(true); onActionCompletes.Invoke();}
+        else if (actionType == ActionType.SetInactive) {targetGameObject.SetActive(false); onActionCompletes.Invoke();}
     }
 
     public bool IsAssigned()
@@ -105,7 +104,7 @@ using UnityEngine.Events;
 }
 
 
-[Serializable]public class WaitForPlayerStatsAchieveAction : IPerformableAction
+[Serializable]public class PlayerStatAction : IPerformableAction
 {
     public enum ActionType {
         NoAction, StatsChangeAmount, StatsReachAmount
@@ -117,7 +116,7 @@ using UnityEngine.Events;
     public UnityEvent onActionStarts { get { return _onActionStarts; } }
     public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
-    public PlayerStatsMonitor.PlayerStatsType targetPlayerStats;
+    public PlayerStatsMonitor.PlayerStatType targetPlayerStatType;
     [Header("Leave Blank if not a ISO related stat")]public ItemScriptableObject targetISO;
     public int targetAmount = 0;
 
@@ -126,17 +125,24 @@ using UnityEngine.Events;
     public void PerformAction()
     {
         onActionStarts?.Invoke();
-        if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.TrashTotalClear)
+        PlayerStat targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targetPlayerStatType, targetISO);
+        targetPlayerStat.SubscribeStatChange(CheckStatsReach);
+        if (actionType == ActionType.StatsChangeAmount)
+            statsAmountAtActionStats = targetPlayerStat.GetAmount();
+        /*
+        if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.TrashTotalCleared)
         {
+            targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targ)
+            /*
             PlayerStatsMonitor.trashTotalClearedPlayerStat.SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
                 statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClearedPlayerStat.GetAmount();
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalGain)
+        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.ISOTotalGained)
         {
             PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
                 statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
+        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.BISOTotalBuilt)
         {
             if (!(targetISO is BuildingISO))
             {
@@ -145,7 +151,7 @@ using UnityEngine.Events;
             PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
                 statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
-        } 
+        } */
     }
 
     /*
@@ -220,6 +226,8 @@ using UnityEngine.Events;
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
         WorldSpaceButton wsb = targetGameObject.GetComponent<WorldSpaceButton>();
+        if(wsb == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
+        
         onActionStarts?.Invoke();
 
         if (actionType == ActionType.SetActive)

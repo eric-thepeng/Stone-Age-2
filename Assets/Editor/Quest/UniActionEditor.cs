@@ -13,7 +13,7 @@ public class UniActionEditor : Editor
     SerializedProperty gameObjectActionProp;
     SerializedProperty narrativeSequenceActionProp;
     SerializedProperty uniQuestActionProp;
-    SerializedProperty waitForPlayerStatsAchieveActionProp;
+    SerializedProperty playerStatActionProp;
     SerializedProperty buttonActionProp;
     
 
@@ -25,7 +25,7 @@ public class UniActionEditor : Editor
         gameObjectActionProp = serializedObject.FindProperty("gameObjectAction");
         narrativeSequenceActionProp  = serializedObject.FindProperty("narrativeSequenceAction");;
         uniQuestActionProp = serializedObject.FindProperty("uniQuestAction");;
-        waitForPlayerStatsAchieveActionProp = serializedObject.FindProperty("waitForPlayerStatsAchieveAction");;
+        playerStatActionProp = serializedObject.FindProperty("playerStatAction");;
         buttonActionProp = serializedObject.FindProperty("buttonAction");;
     }
 
@@ -50,8 +50,8 @@ public class UniActionEditor : Editor
             case UniAction.UniActionType.UniQuestAction:
                 EditorGUILayout.PropertyField(uniQuestActionProp);
                 break;
-            case UniAction.UniActionType.WaitForPlayerStatsAchieveAction:
-                EditorGUILayout.PropertyField(waitForPlayerStatsAchieveActionProp);
+            case UniAction.UniActionType.PlayerStatAction:
+                EditorGUILayout.PropertyField(playerStatActionProp);
                 break;
             case UniAction.UniActionType.ButtonAction:
                 EditorGUILayout.PropertyField(buttonActionProp);
