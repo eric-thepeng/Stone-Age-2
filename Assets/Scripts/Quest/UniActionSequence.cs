@@ -16,8 +16,16 @@ public interface IPerformableAction
 [Serializable]public class UniActionSequence : IPerformableAction
 {
     public List<UniAction> allUniActions;
-    public UnityEvent onActionStarts { get; }
-    public UnityEvent onActionCompletes { get; }
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts
+    {
+        get { return _onActionStarts; }
+    }
+    public UnityEvent onActionCompletes
+    {
+        get { return _onActionCompletes; }
+    }
 
     private int currentActionIndex;
     
