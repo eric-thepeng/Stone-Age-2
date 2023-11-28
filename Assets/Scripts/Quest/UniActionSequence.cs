@@ -35,9 +35,11 @@ public interface IPerformableAction
             onActionCompletes?.Invoke();
             return;
         }
-        allUniActions[currentActionIndex].PerformAction();
-        allUniActions[currentActionIndex].onActionCompletes.AddListener(PerformActionOneByOne);
+        Debug.Log("Performing Action Index: " + currentActionIndex);
+        
         currentActionIndex++;
+        allUniActions[currentActionIndex-1].onActionCompletes.AddListener(PerformActionOneByOne);
+        allUniActions[currentActionIndex-1].PerformAction(); //This will trigger onActionCompletes and cause recursion into PerformActionOneByOne
     }
     
 

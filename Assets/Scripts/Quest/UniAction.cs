@@ -44,7 +44,6 @@ using UnityEngine.UI;
             case UniActionType.NoAction:
                 Debug.LogError("UniAction type is set to NoAction");
                 return;
-                break;
             case UniActionType.GameObjectAction:
                 pAction = gameObjectAction;
                 break;

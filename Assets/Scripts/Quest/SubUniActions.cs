@@ -38,8 +38,16 @@ using UnityEngine.Events;
         else if (actionType == ActionType.LocalMoveTo) targetGameObject.transform.DOLocalMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         else if (actionType == ActionType.GlobalMoveTo) targetGameObject.transform.DOMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         
-        else if (actionType == ActionType.SetActive) {targetGameObject.SetActive(true); onActionCompletes.Invoke();}
-        else if (actionType == ActionType.SetInactive) {targetGameObject.SetActive(false); onActionCompletes.Invoke();}
+        else if (actionType == ActionType.SetActive)
+        {
+            targetGameObject.SetActive(true); 
+            onActionCompletes.Invoke();
+        }
+        else if (actionType == ActionType.SetInactive)
+        {
+            targetGameObject.SetActive(false); 
+            onActionCompletes.Invoke();
+        }
     }
 
     public bool IsAssigned()
@@ -71,7 +79,7 @@ using UnityEngine.Events;
     }
 }
 
-[Serializable] public class UniQuestAction : IPerformableAction
+[Serializable]public class UniQuestAction : IPerformableAction
 {
     public enum ActionType{NoAction, TriggerQuest}
     public ActionType actionType = ActionType.NoAction;
