@@ -184,7 +184,7 @@ public class Character : MonoBehaviour
     float restTimeLeft;
     CharacterIcon myCI;
 
-    void Start()
+    void Awake()
     {
         characterStats = new CharacterStats(initialStats);
         homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
