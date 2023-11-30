@@ -47,13 +47,13 @@ public class Inventory : MonoBehaviour
     {
         if (amount == 0) return;
         UI_Harvest.i.AddItem(newISO, amount);
-        PlayerStatsMonitor.isoTotalGainPlayerStat.TriggerStatsChange(newISO,amount);
+        PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(newISO).ChangeAmount(amount);
         foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
             if (ii.iso == newISO)
             {
                 ii.totalAmount += amount;
-                print("added amount: " + newISO.name);
+                print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour
             if (ii.iso == newISO)
             {
                 ii.totalAmount += amount-1;
-                print("added amount: " + newISO.name);
+                print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
@@ -123,12 +123,12 @@ public class Inventory : MonoBehaviour
         if (use)
         {
             GetItemInfo(biso).inBuildAmount += 1;
-            PlayerStatsMonitor.bisoTotalBuildPlayerStat.TriggerStatsChange(biso,1);
+            PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(1);
         }
         else
         {
             GetItemInfo(biso).inBuildAmount -= 1;
-            PlayerStatsMonitor.bisoTotalBuildPlayerStat.TriggerStatsChange(biso,-1);
+            PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(biso));
     }

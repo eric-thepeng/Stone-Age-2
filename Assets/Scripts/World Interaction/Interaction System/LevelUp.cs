@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
-public class LevelUp : WorldInteractable, IResourceSetProvider
+public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigger<int>
 {
     [Serializable]
     protected class UnlockState
@@ -63,6 +64,21 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
 
     [SerializeField] List<UnlockState> allUnlockStates;
     private int currentState = 0;
+    
+    // IUniActionTrigger
+    public UnityEvent<int> uniActionEventToTriggerInstance = new UnityEvent<int>();
+
+    public UnityEvent<int> uniActionEventToTrigger
+    {
+        get
+        {
+            return uniActionEventToTriggerInstance;
+        }
+        set
+        {
+            uniActionEventToTriggerInstance = value;
+        }
+    }
 
     public int GetCurrentState()
     {
@@ -87,6 +103,7 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
             return false;
         }
         currentState++;
+        ((IUniActionTrigger<int>)this).TriggerUniAction(currentState);
         if(currentState == allUnlockStates.Count) ReachFinalState();
         return true;
     }
@@ -131,4 +148,5 @@ public class LevelUp : WorldInteractable, IResourceSetProvider
 
 
     #endregion
+
 }

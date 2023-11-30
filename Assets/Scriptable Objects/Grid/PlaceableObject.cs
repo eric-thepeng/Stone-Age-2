@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.CustomSizing;
 using Hypertonic.GridPlacement.Enums;
 using UnityEngine;
@@ -62,25 +63,60 @@ public class PlaceableObject : MonoBehaviour
 
     private BuildingManager buildingManager;
 
+    private BoxCollider boxCollider;
+    private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
+
+    private GridOperationManager gridOperationManager;
+
+    private GridHeightPositioner gridHeightPositioner;
+
     private void Start()
     {
+        gridHeightPositioner = GetComponent<GridHeightPositioner>();
+        gridOperationManager = FindObjectOfType<GridOperationManager>();
+
         buildingManager = FindObjectOfType<BuildingManager>();
         CheckEffects(transform);
         DisableEffects();
+
+        boxCollider = GetComponent<BoxCollider>();
+        spriteToRender = gridOperationManager.ObstacleSprite;
+
+        if (boxCollider != null)
+        {
+
+            // 创建一个新的GameObject作为Sprite
+            GameObject spriteObj = new GameObject("GridMask - " + transform.name);
+
+            GameObject gridMasks = GameObject.Find("GridMasks");
+            if (gridMasks == null)
+            {
+                gridMasks = new GameObject("GridMasks");
+            }
+            spriteObj.transform.SetParent(transform);
+            //spriteObjs.Add(spriteObj);
+            SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
+            imageMask.sprite = spriteToRender;
+            ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
+
+            float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
+
+            Vector3 spriteSize = boxCollider.size;
+            spriteSize.y = boxCollider.size.z;
+            spriteSize.z = boxCollider.size.y;
+
+            Vector3 spritePosition = boxCollider.center;
+            spritePosition.y = gridHeightPositioner.GridHeight;
+
+            spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+            spriteObj.transform.localPosition = spritePosition;
+            spriteObj.transform.localScale = spriteSize;
+
+        }
     }
 
     private void Update()
     {
-        //if (buildingManager.SwitchedPlacementMode)
-        //{
-        //    if (buildingManager.CurrentPlacementMode)
-        //    {
-        //        DisableEffects();
-        //    } else
-        //    {
-        //        EnableEffects();
-        //    }
-        //}
     }
 
     void CheckEffects(Transform parent)

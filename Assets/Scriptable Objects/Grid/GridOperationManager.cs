@@ -22,6 +22,8 @@ public class GridOperationManager : MonoBehaviour
     public bool enableObstacleMasks;
     public Sprite ObstacleSprite;
 
+    BoxCollider gridCollider;
+
     private void Start()
     {
         if(_gridSettings == null)
@@ -43,8 +45,14 @@ public class GridOperationManager : MonoBehaviour
         AddGridCoordinateManager();
         AddMaskGenerateManager();
 
-    }
+        gridCollider = GetComponent<BoxCollider>();
+        if (gridCollider != null)
+        {
+            transform.position = _gridSettings.GridPosition;
+            gridCollider.size = new Vector3(_gridSettings.AmountOfCellsX * _gridSettings.CellSize, 1, _gridSettings.AmountOfCellsY * _gridSettings.CellSize);
+        }
 
+    }
 
     public void SwitchPaintMode()
     {
