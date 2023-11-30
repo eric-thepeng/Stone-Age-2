@@ -45,7 +45,7 @@ BoxCollider:
   m_GameObject: {fileID: 3441313232836350519}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 34, y: 1, z: 20}
   m_Center: {x: 17, y: -0.5, z: 10}
@@ -712,20 +712,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab68944fcea04267a999e9962be48ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  building: 0
+  buildingMode: 0
   placeholdingBuilding: {fileID: 6024719718320129757, guid: d962df6c572ae4a30a5aaaa00b436521, type: 3}
-  editing: 0
-  deleting: 0
-  HandItemRemoveable: 0
   gridOperationManager: {fileID: 0}
   particlePrefab: {fileID: 0}
   initialTransform: {fileID: 0}
-  editingIndicator: {fileID: 0}
-  deletingIndicator: {fileID: 0}
-  removeHandItemIndicator: {fileID: 0}
-  editingButton: {fileID: 0}
-  deletingButton: {fileID: 0}
-  removeHandItemButton: {fileID: 0}
+  duration: 0.1
+  mouseInPlacementMode: 0
+  previousInventoryPanelOpen: 0
 --- !u!1 &3441313234775156902
 GameObject:
   m_ObjectHideFlags: 0
