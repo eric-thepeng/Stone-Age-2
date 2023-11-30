@@ -128,11 +128,15 @@ public class BLDFarmland : CropGrowth
 
     protected override void BeginMousePress()
     {
-        base.BeginMousePress();
+        if (!isCountingDown)
+        {
+            base.BeginMousePress();
 
-        PlayWaterEffect(GetCurrentUnlockState().overtimeParticle);
+            PlayWaterEffect(GetCurrentUnlockState().overtimeParticle);
 
-        transform.DOShakePosition(0.3f, new Vector3(0.1f, 0, 0), 10, 0);
+            //transform.DOShakePosition(0.3f, new Vector3(0.1f, 0, 0), 10, 0);
+        }
+
     }
 
     //bool logPressing;

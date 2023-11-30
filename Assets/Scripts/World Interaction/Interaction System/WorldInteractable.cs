@@ -23,7 +23,7 @@ public class WorldInteractable : MonoBehaviour
         /// <summary>
         /// A standard interaction for WorldInteractable. Can be click or long press.
         /// </summary>
-        /// <param name="typeName">Click or Long Press</param>
+        /// <param name="typeName">Click, Long Press, NoAction</param>
         /// <param name="triggerAction">Assign what action/function to trigger as interaction completes</param>
         /// <param name="resetAfterTrigger">True: interaction reset and stays after being triggered, can be triggered again instantly. False: Interaction is claered and need to assign a new when it is ready for an interaction.</param>
         /// <param name="pressDuration">Leaves empty if it is a Click Event, otherwise, assign required press duration.</param>
@@ -140,7 +140,15 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         TurnOnHighlight();
-        currentInteraction?.DisplayUI(true);
+        if (currentInteraction == null)
+        {
+            UniversalUIManager.i.CancelDisplayComponent(null);
+        }
+        else
+        {
+            currentInteraction.DisplayUI(true);
+        }
+        
     }
 
     protected virtual void EndMouseHover()

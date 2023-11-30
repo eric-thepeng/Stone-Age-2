@@ -23,27 +23,30 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    // Camera related stats
+    private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
+    private float cameraHeightMin = 60, cameraHeightMax = 180;
+    Vector3 homeCameraPosition = new Vector3(4f,70,-70);
+    Vector3 firstExploreSpotCameraPosition = new Vector3(1f,79f,-55f);
+    
+    // Internal variable
     float momentum = 0f;
     Vector2 direction = new Vector2(0,0);
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
-    private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
-    
-    private float cameraHeightMin = 60, cameraHeightMax = 180;
+    // For camera movement space restriction
+    bool restrainedCamera = true;
+    float cameraXMin = -55, cameraXMax = 55, cameraZMin = -200, cameraZMax = -50;
 
-    float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
-
-    Vector3 homeCameraPosition = new Vector3(4f,70,-70);
-    Vector3 firstExploreSpotCameraPosition = new Vector3(1f,79f,-55f);
-
-    bool restrainedCamera = false;
-
-    [SerializeField]private AnimationCurve moveSpeedAgainstHeight;
+    // Animation Curves
+    [SerializeField] private AnimationCurve moveSpeedAgainstHeight;
     [SerializeField] private AnimationCurve zoomSpeedAgainstHeight;
     [SerializeField] private AnimationCurve stickyHeightAgainstHeight;
 
     [SerializeField] private float urpShadowDistanceMin = 1;
     [SerializeField] private float urpShadowDistanceMax = 10;
+    
+    // URP Related
     private float urpShadowDistance;
     
     private void Update()

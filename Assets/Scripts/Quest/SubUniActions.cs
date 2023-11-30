@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +9,7 @@ using UnityEngine.Events;
 
 [Serializable]public class GameObjectAction : IPerformableAction
 {
-    public enum ActionType{NoAction, LocalMoveAmount, GlobalMoveAmount, LocalMoveTo, GlobalMoveTo, Enable, Disable}
+    public enum ActionType{NoAction, LocalMoveAmount, GlobalMoveAmount, LocalMoveTo, GlobalMoveTo, SetActive, SetInactive}
     public ActionType actionType = ActionType.NoAction;
     
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
@@ -37,9 +38,16 @@ using UnityEngine.Events;
         else if (actionType == ActionType.LocalMoveTo) targetGameObject.transform.DOLocalMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         else if (actionType == ActionType.GlobalMoveTo) targetGameObject.transform.DOMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
         
-        else if (actionType == ActionType.Enable) {targetGameObject.SetActive(true); onActionCompletes.Invoke();}
-        else if (actionType == ActionType.Disable) {targetGameObject.SetActive(false); onActionCompletes.Invoke();}
-
+        else if (actionType == ActionType.SetActive)
+        {
+            targetGameObject.SetActive(true); 
+            onActionCompletes.Invoke();
+        }
+        else if (actionType == ActionType.SetInactive)
+        {
+            targetGameObject.SetActive(false); 
+            onActionCompletes.Invoke();
+        }
     }
 
     public bool IsAssigned()
@@ -71,7 +79,7 @@ using UnityEngine.Events;
     }
 }
 
-[Serializable] public class UniQuestAction : IPerformableAction
+[Serializable]public class UniQuestAction : IPerformableAction
 {
     public enum ActionType{NoAction, TriggerQuest}
     public ActionType actionType = ActionType.NoAction;
@@ -104,7 +112,7 @@ using UnityEngine.Events;
 }
 
 
-[Serializable]public class WaitForPlayerStatsAchieveAction : IPerformableAction
+[Serializable]public class PlayerStatAction : IPerformableAction
 {
     public enum ActionType {
         NoAction, StatsChangeAmount, StatsReachAmount
@@ -116,7 +124,7 @@ using UnityEngine.Events;
     public UnityEvent onActionStarts { get { return _onActionStarts; } }
     public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
-    public PlayerStatsMonitor.PlayerStatsType targetPlayerStats;
+    public PlayerStatsMonitor.PlayerStatType targetPlayerStatType;
     [Header("Leave Blank if not a ISO related stat")]public ItemScriptableObject targetISO;
     public int targetAmount = 0;
 
@@ -125,33 +133,36 @@ using UnityEngine.Events;
     public void PerformAction()
     {
         onActionStarts?.Invoke();
-        if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.TrashTotalClear)
+        PlayerStat targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targetPlayerStatType, targetISO);
+        targetPlayerStat.SubscribeStatChange(CheckStatsReach);
+        if (actionType == ActionType.StatsChangeAmount)
+            statsAmountAtActionStats = targetPlayerStat.GetAmount();
+        /*
+        if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.TrashTotalCleared)
         {
-            PlayerStatsMonitor.trashTotalClear.broadcastStatsChange.AddListener(CheckStatsReach);
+            targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targ)
+            /*
+            PlayerStatsMonitor.trashTotalClearedPlayerStat.SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClear.GetCurrentStats(PlayerStatsMonitor.PlayerStatsType.TrashTotalClear);
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalGain)
+                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClearedPlayerStat.GetAmount();
+        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.ISOTotalGained)
         {
-            PlayerStatsMonitor.isoTotalGainPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
+            PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainPlayerStat.GetCurrentStats(targetISO);
-        }/*else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.ISOTotalSpend)
-        {
-            PlayerStatsMonitor.isoTotalSpendPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
-            if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalSpendPlayerStat.GetCurrentStats(targetISO);
-        }*/else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatsType.BISOBuild)
+                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
+        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.BISOTotalBuilt)
         {
             if (!(targetISO is BuildingISO))
             {
                 Debug.LogError("The assigned ISO for <Player Stats Reach - BISOBuildAmount> UniAction is not a BISO.");
             }
-            PlayerStatsMonitor.bisoTotalBuildPlayerStat.broadcastStatsChange.AddListener(CheckStatsReach);
+            PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
             if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuildPlayerStat.GetCurrentStats((BuildingISO)targetISO);
-        } 
+                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
+        } */
     }
 
+    /*
     /// <summary>
     /// Being called by PlayerStatsMonitor of each stats when stats change occurs
     /// </summary>
@@ -177,6 +188,17 @@ using UnityEngine.Events;
     public void CheckStatsReach(PlayerStatsMonitor.PlayerStatsType statType, int amount)
     {
         if(statType != targetPlayerStats) return;
+        if (actionType == ActionType.StatsReachAmount)
+        {
+            if(amount >= targetAmount) onActionCompletes?.Invoke();
+        }else if (actionType == ActionType.StatsChangeAmount)
+        {
+            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
+        }
+    }
+    */
+    public void CheckStatsReach(int amount)
+    {
         if (actionType == ActionType.StatsReachAmount)
         {
             if(amount >= targetAmount) onActionCompletes?.Invoke();
@@ -212,6 +234,8 @@ using UnityEngine.Events;
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
         WorldSpaceButton wsb = targetGameObject.GetComponent<WorldSpaceButton>();
+        if(wsb == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
+        
         onActionStarts?.Invoke();
 
         if (actionType == ActionType.SetActive)
@@ -239,5 +263,52 @@ using UnityEngine.Events;
         return actionType != ActionType.NoAction;
     }
 }
+
+[Serializable] public class LevelUpAction : IPerformableAction
+{
+    public enum ActionType{NoAction, WaitUntilUnlockLevel}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+    
+    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public LevelUp targetLevelUp = null;
+    public string targetGameObjectSetUpIdentifierID;
+
+    public int targetUnlockLevel = 0;
+
+    public void PerformAction()
+    {
+        if(actionType == ActionType.NoAction) Debug.LogError("SubUniAction has action type NoAction");
+        
+        if (targetLevelUp == null)
+            targetLevelUp = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID).GetComponent<LevelUp>();
+        
+        if(targetLevelUp == null) Debug.LogError("Cannot find LevelUp");
+        
+        onActionStarts?.Invoke();
+
+        if (actionType == ActionType.WaitUntilUnlockLevel)
+        {
+            ((IUniActionTrigger<int>)targetLevelUp).ActivateIUniActionTrigger(CheckUniActionComplete);
+        }
+    }
+
+    public void CheckUniActionComplete(int unlockLevel)
+    {
+        if (unlockLevel >= targetUnlockLevel)
+        {
+            onActionCompletes.Invoke();
+        }
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
 
 

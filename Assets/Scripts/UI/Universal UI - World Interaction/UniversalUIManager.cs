@@ -18,9 +18,7 @@ public class UniversalUIManager : MonoBehaviour
             return instance;
         }
     }
-    
-    
-    
+
     public class UniversalUIComponent
     {
         public WorldInteractable.InteractionType.TypeName identifier;
@@ -127,7 +125,7 @@ public class UniversalUIManager : MonoBehaviour
 
     public void CancelDisplayComponent(WorldInteractable.InteractionType wiit)
     {
-        if(displayingWIIT != wiit) return;
+        if(wiit!=null && displayingWIIT != wiit) return;
         displayingWIIT = null;
         displayingUIComponent = null;
         foreach (var uiComponent in allUIComponent)

@@ -51,7 +51,7 @@ public class BLDTrashToClear : LevelUp
     {
         base.ReachFinalState();
         gainResourceSet.GainResource();
-        PlayerStatsMonitor.trashTotalClear.TriggerStatsChange(PlayerStatsMonitor.PlayerStatsType.TrashTotalClear, 1);
+        PlayerStatsMonitor.trashTotalClearedPlayerStat.ChangeAmount(1);
         Destroy(gameObject);
         
         /*
