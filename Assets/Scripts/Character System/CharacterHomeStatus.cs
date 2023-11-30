@@ -16,6 +16,7 @@ public class CharacterHomeStatus : MonoBehaviour
     void Start()
     {
         character = GetComponent<Character>();
+
         l2dCharacter = GameObject.Find(character.GetCharacterName());
 
         if (character.EnergyLessThanRestingPercentage())
