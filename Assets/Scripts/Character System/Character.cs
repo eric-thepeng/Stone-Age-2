@@ -311,6 +311,11 @@ public class Character : MonoBehaviour
         return initialStats.name;
     }
 
+    public GameObject GetL2dGameObject()
+    {
+        return initialStats.l2dGameObject;
+    }
+
     public CharacterHomeStatus GetHomeStatus()
     {
         return homeStatus;

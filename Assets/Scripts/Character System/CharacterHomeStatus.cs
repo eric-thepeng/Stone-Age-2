@@ -17,7 +17,8 @@ public class CharacterHomeStatus : MonoBehaviour
     {
         character = GetComponent<Character>();
 
-        l2dCharacter = GameObject.Find(character.GetCharacterName());
+        l2dCharacter = character.GetL2dGameObject();
+        if (l2dCharacter == null) Debug.LogWarning("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
 
         if (character.EnergyLessThanRestingPercentage())
         {
