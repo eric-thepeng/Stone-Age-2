@@ -31,8 +31,8 @@ public class WLDTotem : WorldInteractable
             VFXSystem.Play();
         }
 
-        
-        StartCoroutine(waitForDuration(particleSystem.main.duration));
+
+        StartCoroutine(waitForDuration(0.5f));//particleSystem.main.duration));
     }
 
     private IEnumerator waitForDuration(float duration)
