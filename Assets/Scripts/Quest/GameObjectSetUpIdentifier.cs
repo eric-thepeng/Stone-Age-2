@@ -21,7 +21,7 @@ public class GameObjectSetUpIdentifier : MonoBehaviour
 
             foreach (GameObjectSetUpIdentifier gosui in allGOSUI)
             {
-                if (gosui.gameObject.scene == currentScene)
+                if (!gosui.id.Equals("none") && gosui.gameObject.scene == currentScene)
                 {
                     IDDictionary.Add(gosui.id, gosui.gameObject);
                 }
