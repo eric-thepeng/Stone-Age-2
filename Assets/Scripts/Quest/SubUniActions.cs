@@ -137,66 +137,8 @@ using UnityEngine.Events;
         targetPlayerStat.SubscribeStatChange(CheckStatsReach);
         if (actionType == ActionType.StatsChangeAmount)
             statsAmountAtActionStats = targetPlayerStat.GetAmount();
-        /*
-        if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.TrashTotalCleared)
-        {
-            targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targ)
-            /*
-            PlayerStatsMonitor.trashTotalClearedPlayerStat.SubscribeStatChange(CheckStatsReach);
-            if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.trashTotalClearedPlayerStat.GetAmount();
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.ISOTotalGained)
-        {
-            PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
-            if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
-        }else if (targetPlayerStats == PlayerStatsMonitor.PlayerStatType.BISOTotalBuilt)
-        {
-            if (!(targetISO is BuildingISO))
-            {
-                Debug.LogError("The assigned ISO for <Player Stats Reach - BISOBuildAmount> UniAction is not a BISO.");
-            }
-            PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).SubscribeStatChange(CheckStatsReach);
-            if (actionType == ActionType.StatsChangeAmount)
-                statsAmountAtActionStats = PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(targetISO).GetAmount();
-        } */
     }
-
-    /*
-    /// <summary>
-    /// Being called by PlayerStatsMonitor of each stats when stats change occurs
-    /// </summary>
-    /// <param name="iso">ISO to track</param>
-    /// <param name="amount">The new amount after stats change</param>
-    public void CheckStatsReach(ItemScriptableObject iso, int amount) 
-    {
-        if(iso!= targetISO) return;
-        if (actionType == ActionType.StatsReachAmount)
-        {
-            if(amount >= targetAmount) onActionCompletes?.Invoke();
-        }else if (actionType == ActionType.StatsChangeAmount)
-        {
-            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
-        }
-    }
-
-    /// <summary>
-    /// Being called by PlayerStatsMonitor of each stats when stats change occurs
-    /// </summary>
-    /// <param name="iso">Non-ISO related PlayerStatsType to track</param>
-    /// <param name="amount">The new amount after stats change</param>
-    public void CheckStatsReach(PlayerStatsMonitor.PlayerStatsType statType, int amount)
-    {
-        if(statType != targetPlayerStats) return;
-        if (actionType == ActionType.StatsReachAmount)
-        {
-            if(amount >= targetAmount) onActionCompletes?.Invoke();
-        }else if (actionType == ActionType.StatsChangeAmount)
-        {
-            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
-        }
-    }
-    */
+    
     public void CheckStatsReach(int amount)
     {
         if (actionType == ActionType.StatsReachAmount)
@@ -302,6 +244,47 @@ using UnityEngine.Events;
         {
             onActionCompletes.Invoke();
         }
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterGatherAction : IPerformableAction
+{
+    public enum ActionType{NoAction, WaitUntilCharacterGatherLocation}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+    
+    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GatherSpot targetGatherSpot = null;
+    public string targetGameObjectSetUpIdentifierID;
+    
+    public void PerformAction()
+    {
+        if(actionType == ActionType.NoAction) Debug.LogError("SubUniAction has action type NoAction");
+        
+        if (targetGatherSpot == null)
+            targetGatherSpot = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID).GetComponent<GatherSpot>();
+        
+        if(targetGatherSpot == null) Debug.LogError("Cannot find GatherSpot");
+        
+        onActionStarts?.Invoke();
+
+        if (actionType == ActionType.WaitUntilCharacterGatherLocation)
+        {
+            //((IUniActionTrigger<int>)targetLevelUp).ActivateIUniActionTrigger(CheckUniActionComplete);
+        }
+    }
+
+    public void CheckUniActionComplete()
+    {
+        
     }
 
     public bool IsAssigned()

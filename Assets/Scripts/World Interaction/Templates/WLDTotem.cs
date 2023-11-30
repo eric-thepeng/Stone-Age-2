@@ -1,17 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 using UnityEngine;
 
 public class WLDTotem : WorldInteractable
 {
-    [SerializeField]
+    [SerializeField, Header("DO NOT EDIT CurrentInteraction ABOVE")]
     private int PointToAdd = 1;
-    private ParticleSystem bubble;
+    [SerializeField]
+    private VisualEffect VFXSystem;
+    [SerializeField]
+    private ParticleSystem particleSystem;
+
+
+    void Start()
+    {
+        SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, AddPoint));
+    }
+
     public void AddPoint()
     {
         SpiritPoint.i.Add(PointToAdd);
-        bubble.Play();
-        StartCoroutine(waitForDuration(bubble.main.duration));
+
+        if (particleSystem != null)
+        {
+            particleSystem.Play();
+        }
+        if (VFXSystem != null)
+        {
+            VFXSystem.Play();
+        }
+
+
+        StartCoroutine(waitForDuration(0.5f));//particleSystem.main.duration));
     }
 
     private IEnumerator waitForDuration(float duration)
@@ -19,11 +40,4 @@ public class WLDTotem : WorldInteractable
         yield return new WaitForSeconds(duration);
         SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, AddPoint));
     }
-
-    void Start()
-    {
-        SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, AddPoint));
-        bubble = gameObject.GetComponentInChildren<ParticleSystem>();
-    }
-
 }
