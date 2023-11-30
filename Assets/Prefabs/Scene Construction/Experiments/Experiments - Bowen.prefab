@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1849751977356629928}
   - component: {fileID: 6212705635729409631}
   - component: {fileID: 6575296075786377672}
-  m_Layer: 0
+  - component: {fileID: 5707182956598952614}
+  m_Layer: 18
   m_Name: Grid Operation Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105498467185837352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9506402, y: -1.7634602, z: -8.36517}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,6 +51,7 @@ MonoBehaviour:
   _gridManager: {fileID: 0}
   operateStatus: 0
   itemPlaced: {fileID: 0}
+  enableObstacleMasks: 0
   ObstacleSprite: {fileID: 0}
 --- !u!114 &6575296075786377672
 MonoBehaviour:
@@ -70,6 +72,19 @@ MonoBehaviour:
   - {fileID: 932418518791680853, guid: 7767c74043ebf452daf1202e4b0e8eb0, type: 3}
   - {fileID: 932418518791680853, guid: 7767c74043ebf452daf1202e4b0e8eb0, type: 3}
   result: {fileID: 932418518791680853, guid: aac1d1e3dc0ec414caadcd29bcd6f423, type: 3}
+--- !u!65 &5707182956598952614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105498467185837352}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 122.76096, y: 1, z: 123.11235}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9090270145958325828
 GameObject:
   m_ObjectHideFlags: 0
