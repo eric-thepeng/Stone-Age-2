@@ -35,8 +35,8 @@ public class CameraManager : MonoBehaviour
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
     // For camera movement space restriction
-    bool restrainedCamera = true;
-    float cameraXMin = -55, cameraXMax = 55, cameraZMin = -200, cameraZMax = -50;
+    bool restrainedCamera = false;
+    float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
 
     // Animation Curves
     [SerializeField] private AnimationCurve moveSpeedAgainstHeight;
