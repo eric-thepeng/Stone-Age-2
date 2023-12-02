@@ -10,15 +10,15 @@ public class CharacterHomeStatus : MonoBehaviour
     private Character character;
 
     public HomeState currentState;
-    public GameObject l2dCharacter;
-    public CharacterMovement characterMovement;
+    private GameObject l2dCharacter;
+    private CharacterMovement characterMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<Character>();
 
-        l2dCharacter = character.GetL2dGameObject();
+        l2dCharacter = Instantiate(character.GetL2dGameObject());
         if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
 
         characterMovement = l2dCharacter.GetComponent<CharacterMovement>();
