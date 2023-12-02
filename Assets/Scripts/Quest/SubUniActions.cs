@@ -24,6 +24,8 @@ using UnityEngine.Events;
     
     public void PerformAction()
     {
+        if(actionType == ActionType.NoAction) Debug.LogError("GameObjectAction SubUniAction has action type NoAction");
+
         onActionStarts.Invoke();
 
         if (targetGameObject == null)
@@ -69,8 +71,12 @@ using UnityEngine.Events;
 
     public void PerformAction()
     {
-        onActionStarts?.Invoke();
-        DialogueManager.i.QueueNarrativeSequence(this);
+        if(actionType == ActionType.NoAction) Debug.LogError("NarrativeSequenceAction SubUniAction has action type NoAction");
+        else
+        {
+            onActionStarts?.Invoke();
+            DialogueManager.i.QueueNarrativeSequence(this);
+        }
     }
 
     public bool IsAssigned()
@@ -223,7 +229,7 @@ using UnityEngine.Events;
 
     public void PerformAction()
     {
-        if(actionType == ActionType.NoAction) Debug.LogError("SubUniAction has action type NoAction");
+        if(actionType == ActionType.NoAction) Debug.LogError("LevelUp SubUniAction has action type NoAction");
         
         if (targetLevelUp == null)
             targetLevelUp = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID).GetComponent<LevelUp>();
@@ -293,5 +299,32 @@ using UnityEngine.Events;
     }
 }
 
+[Serializable] public class GamePanelAction : IPerformableAction
+{
+    public enum ActionType{NoAction, GoToPanel}
+    public ActionType actionType = ActionType.NoAction;
 
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+
+    public PlayerInputChannel.GamePanel targetPanel = PlayerInputChannel.GamePanel.Home;
+    
+    public void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        if (actionType == ActionType.GoToPanel)
+        {
+            PlayerInputChannel.GoToPanel(targetPanel);
+            onActionCompletes.Invoke();
+        }
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
 
