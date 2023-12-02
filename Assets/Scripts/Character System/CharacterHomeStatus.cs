@@ -11,6 +11,7 @@ public class CharacterHomeStatus : MonoBehaviour
 
     public HomeState currentState;
     public GameObject l2dCharacter;
+    public CharacterMovement characterMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +19,20 @@ public class CharacterHomeStatus : MonoBehaviour
         character = GetComponent<Character>();
 
         l2dCharacter = character.GetL2dGameObject();
-        if (l2dCharacter == null) Debug.LogWarning("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
+        if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
+
+        characterMovement = l2dCharacter.GetComponent<CharacterMovement>();
 
         if (character.EnergyLessThanRestingPercentage())
         {
             currentState = HomeState.Resting;
+            characterMovement.StartSleeping();
         } else
         {
             currentState = HomeState.Gatherable;
+            characterMovement.StopSleeping();
+            characterMovement.StartHangingOut();
+
         }
     }
 
@@ -36,11 +43,17 @@ public class CharacterHomeStatus : MonoBehaviour
             if (state == HomeState.Gatherable)
             {
                 currentState = HomeState.Gatherable;
+                characterMovement.StopSleeping();
+                characterMovement.StartHangingOut();
+
 
             }
             else if (state == HomeState.Gathering)
             {
                 currentState = HomeState.Gathering;
+
+                characterMovement.StopSleeping();
+                //characterMovement.StopHangingOut();
                 setL2dCharacterActive(false);
             }
         }
@@ -49,6 +62,8 @@ public class CharacterHomeStatus : MonoBehaviour
             if (state == HomeState.Gathering)
             {
                 currentState = HomeState.Gathering;
+
+                characterMovement.StopHangingOut();
                 setL2dCharacterActive(false);
 
             }
@@ -68,11 +83,16 @@ public class CharacterHomeStatus : MonoBehaviour
                 currentState = HomeState.Resting;
                 setL2dCharacterActive(true);
 
+                characterMovement.StartSleeping();
+                characterMovement.StopHangingOut();
+
             }
             else if (state == HomeState.Gatherable)
             {
                 currentState = HomeState.Gatherable;
                 setL2dCharacterActive(true);
+
+                characterMovement.StartHangingOut();
             }
         }
 
