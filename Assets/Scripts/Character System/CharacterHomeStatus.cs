@@ -30,11 +30,13 @@ public class CharacterHomeStatus : MonoBehaviour
         if (characterMovement == null)
         {
             characterMovement = l2dCharacter.AddComponent<CharacterMovement>();
+        }
             characterMovement.moveSpeed = moveSpeed;
             characterMovement.hangOutWaitTime = hangOutWaitTime;
-            if (hangOutArea != null) characterMovement.hangOutAreaMax = hangOutArea.bounds.max; else Debug.LogWarning("HangoutArea" + hangOutArea + " is null");
-            characterMovement.hangOutAreaMax = hangOutArea.bounds.min;
-        }
+
+            if (hangOutArea != null) characterMovement.hangOutAreaMin = hangOutArea.bounds.min; else Debug.LogWarning("HangoutArea" + hangOutArea + " is null");
+            characterMovement.hangOutAreaMax = hangOutArea.bounds.max;
+        
 
         hangOutArea.enabled = false;
 
