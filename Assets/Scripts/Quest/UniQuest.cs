@@ -46,11 +46,16 @@ public class UniQuest : MonoBehaviour
     [SerializeField]public TriggerQuestCondition triggerQuestCondition;
     [SerializeField]public UniActionSequence uniActionSequence;
     
+    
     private void Start()
     {
-        if(triggerQuestCondition.uponGameStart) uniActionSequence.PerformAction();
+        
+        if(triggerQuestCondition.uponGameStart) QueQuest(); //uniActionSequence.PerformAction();
     }
 
-    public void QueQuest(){}
+    public void QueQuest()
+    {
+        UniQuestManager.i.QueUniQuest(this);
+    }
     public void LoadDescription(){}
 }

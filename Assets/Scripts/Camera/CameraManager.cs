@@ -26,6 +26,7 @@ public class CameraManager : MonoBehaviour
     // Camera related stats
     private float cameraZoomSpeedOnFloor = 4, cameraMoveSpeedOnFloor = 22;
     private float cameraHeightMin = 60, cameraHeightMax = 180;
+    
     Vector3 homeCameraPosition = new Vector3(4f,70,-70);
     Vector3 firstExploreSpotCameraPosition = new Vector3(1f,79f,-55f);
     
@@ -35,8 +36,8 @@ public class CameraManager : MonoBehaviour
     Vector2Int moveByMouseDirection = new Vector2Int(0,0);
 
     // For camera movement space restriction
-    bool restrainedCamera = false;
-    float cameraXMin=-60, cameraXMax=100, cameraZMin = -100, cameraZMax = 50;
+    bool restrainedCamera = true;
+    float cameraXMinOnFloor = -55, cameraXMaxOnFloor = 55, cameraZMinOnFloor = -200, cameraZMaxOnFloor = -50;
 
     // Animation Curves
     [SerializeField] private AnimationCurve moveSpeedAgainstHeight;
@@ -88,7 +89,15 @@ public class CameraManager : MonoBehaviour
             momentum = 1;
         }
         transform.position += new Vector3(direction.x, 0f, direction.y) * Time.deltaTime * GetWeightedMoveSpeed() * momentum;
-        if(restrainedCamera) transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
+        if (restrainedCamera)
+        {
+            float cameraHeightDelta = transform.position.y - cameraHeightMin;
+            float cameraXMin = cameraXMinOnFloor;
+            float cameraXMax = cameraXMaxOnFloor;
+            float cameraZMin = cameraZMinOnFloor - cameraHeightDelta;
+            float cameraZMax = cameraZMaxOnFloor - cameraHeightDelta;
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
+        }
     }
 
     float GetWeightedMoveSpeed()
@@ -113,6 +122,7 @@ public class CameraManager : MonoBehaviour
         if(moveByMouseDirection == fromWhich) moveByMouseDirection = new Vector2Int(0, 0);
     }
 
+    
     public void MoveBackToHome()
     {
         transform.DOMove(homeCameraPosition, 0.5f);

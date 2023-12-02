@@ -38,7 +38,7 @@ public class BuildingManager : MonoBehaviour
 
     private bool modifying = false;
 
-    public GameObject gridOperationManager;
+    public GridOperationManager gridOperationManager;
     public GameObject particlePrefab;
 
     Vector3 hitPoint;
@@ -246,6 +246,8 @@ public class BuildingManager : MonoBehaviour
     {
         gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
+
+        gridOperationManager = FindObjectOfType<GridOperationManager>(); 
     }
 
 
@@ -411,7 +413,7 @@ public class BuildingManager : MonoBehaviour
                     }
 
                     CloseBuildingMode();
-                    gridOperationManager.GetComponent<GridOperationManager>().EndPaintMode();
+                    gridOperationManager.EndPaintMode();
                 }
 
             }
@@ -503,7 +505,7 @@ public class BuildingManager : MonoBehaviour
         //    ToggleDeleting();
         //}
 
-        gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+        gridOperationManager.StartPaintMode();
     }
 
 
@@ -523,7 +525,7 @@ public class BuildingManager : MonoBehaviour
             CancelSelectedBuidling();
             GridManagerAccessor.GridManager.EndPaintMode(false);
             modifying = true;
-            gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+            gridOperationManager.StartPaintMode();
             //PlayerState.ExitState();
             PlayerState.state = PlayerState.State.Building;
 
@@ -554,7 +556,7 @@ public class BuildingManager : MonoBehaviour
 
                         GridManagerAccessor.GridManager.EndPaintMode(false);
 
-                        gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                        gridOperationManager.StartPaintMode();
                     }
 
                 }
@@ -606,7 +608,7 @@ public class BuildingManager : MonoBehaviour
                 //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                 Inventory.i.AddInventoryItem(handleItem.GetComponent<PlaceableObject>().GetBuildingISO());
 
-                gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                gridOperationManager.StartPaintMode();
                 //CheckHandItemRemoveable();
                 return true;
             }
@@ -642,7 +644,7 @@ public class BuildingManager : MonoBehaviour
                     //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                     Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<PlaceableObject>().GetBuildingISO());
 
-                    gridOperationManager.GetComponent<GridOperationManager>().StartPaintMode();
+                    gridOperationManager.StartPaintMode();
                     return true;
                 }
 

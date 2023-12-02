@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// State 0: Hidden
+/// State 1: Locked
+/// State 2: Unlocked
+/// </summary>
 public class BLDExploreSpot : LevelUp, ISerialEffect
 {
     [Header("---Assign only [Set Up Info] and nothing else---")]

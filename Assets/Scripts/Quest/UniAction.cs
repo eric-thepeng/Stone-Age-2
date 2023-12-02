@@ -15,8 +15,9 @@ using UnityEngine.UI;
         GameObjectAction,
         NarrativeSequenceAction,
         UniQuestAction,
-        WaitForPlayerStatsAchieveAction,
-        ButtonAction
+        PlayerStatAction,
+        ButtonAction,
+        LevelUpAction
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -24,8 +25,9 @@ using UnityEngine.UI;
     public GameObjectAction gameObjectAction;
     public NarrativeSequenceAction narrativeSequenceAction;
     public UniQuestAction uniQuestAction;
-    public WaitForPlayerStatsAchieveAction waitForPlayerStatsAchieveAction;
+    public PlayerStatAction playerStatAction;
     public ButtonAction buttonAction;
+    public LevelUpAction levelUpAction;
     
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -42,7 +44,6 @@ using UnityEngine.UI;
             case UniActionType.NoAction:
                 Debug.LogError("UniAction type is set to NoAction");
                 return;
-                break;
             case UniActionType.GameObjectAction:
                 pAction = gameObjectAction;
                 break;
@@ -52,11 +53,14 @@ using UnityEngine.UI;
             case UniActionType.UniQuestAction: 
                 pAction = uniQuestAction;
                 break;
-            case UniActionType.WaitForPlayerStatsAchieveAction: 
-                pAction = waitForPlayerStatsAchieveAction;
+            case UniActionType.PlayerStatAction: 
+                pAction = playerStatAction;
                 break;
             case UniActionType.ButtonAction: 
                 pAction = buttonAction;
+                break;
+            case UniActionType.LevelUpAction: 
+                pAction = levelUpAction;
                 break;
         }
         

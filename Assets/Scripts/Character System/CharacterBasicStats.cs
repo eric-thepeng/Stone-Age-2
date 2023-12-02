@@ -6,6 +6,9 @@ using UnityEngine;
 public class CharacterBasicStats : ScriptableObject
 {
     public string name;
+
+    public GameObject l2dGameObject;
+
     public int energy;
 
     public float restingEnergyPercentage;
