@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
+    [HideInInspector]
     public float moveSpeed = 1f;
 
+    [HideInInspector]
     public Vector3 hangOutAreaMin; // 挂出区域的最小边界
+
+    [HideInInspector]
     public Vector3 hangOutAreaMax; // 挂出区域的最大边界
+
+    [HideInInspector]
     public float hangOutWaitTime = 2f; // 停顿时间
 
     public GameObject sleepText;
