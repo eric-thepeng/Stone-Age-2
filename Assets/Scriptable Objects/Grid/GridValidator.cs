@@ -10,7 +10,7 @@ using UnityEngine;
 public class GridValidator : MonoBehaviour
 {
     private CustomValidator _customValidator;
-    private bool _collisionStay = false;
+    //private bool _collisionStay = false;
 
     private void Awake()
     {
