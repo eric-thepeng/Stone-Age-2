@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 1943575138486989348}
   - component: {fileID: 1943575138486989347}
   - component: {fileID: 3869796411652007178}
+  - component: {fileID: 8148390542841958558}
   m_Layer: 0
   m_Name: First Character
   m_TagString: Untagged
@@ -490,7 +491,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  l2dCharacter: {fileID: 0}
+  moveSpeed: 1
+  hangOutArea: {fileID: 8148390542841958558}
+  hangOutWaitTime: 2
+--- !u!65 &8148390542841958558
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943575138486989346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 0, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5961380513758959348
 GameObject:
   m_ObjectHideFlags: 0

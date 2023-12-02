@@ -10,18 +10,33 @@ public class CharacterHomeStatus : MonoBehaviour
     private Character character;
 
     public HomeState currentState;
-    public GameObject l2dCharacter;
-    public CharacterMovement characterMovement;
+    private GameObject l2dCharacter;
+    private CharacterMovement characterMovement;
+
+    public float moveSpeed = 1f;
+    public BoxCollider hangOutArea;
+    public float hangOutWaitTime = 2f; // 停顿时间
+
 
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<Character>();
 
-        l2dCharacter = character.GetL2dGameObject();
+        l2dCharacter = Instantiate(character.GetL2dGameObject());
         if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
 
         characterMovement = l2dCharacter.GetComponent<CharacterMovement>();
+        if (characterMovement == null)
+        {
+            characterMovement = l2dCharacter.AddComponent<CharacterMovement>();
+            characterMovement.moveSpeed = moveSpeed;
+            characterMovement.hangOutWaitTime = hangOutWaitTime;
+            if (hangOutArea != null) characterMovement.hangOutAreaMax = hangOutArea.bounds.max; else Debug.LogWarning("HangoutArea" + hangOutArea + " is null");
+            characterMovement.hangOutAreaMax = hangOutArea.bounds.min;
+        }
+
+        hangOutArea.enabled = false;
 
         if (character.EnergyLessThanRestingPercentage())
         {
