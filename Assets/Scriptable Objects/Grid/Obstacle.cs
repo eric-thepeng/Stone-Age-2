@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
     private BoxCollider[] boxColliders; // 拖拽你的Box Collider到这里
     //[SerializeField]
     private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
-    public List<GameObject> spriteObjs = new List<GameObject>();
+    private List<GameObject> spriteObjs = new List<GameObject>();
 
     private GridOperationManager gridOperationManager;
 

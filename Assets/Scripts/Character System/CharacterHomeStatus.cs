@@ -10,22 +10,46 @@ public class CharacterHomeStatus : MonoBehaviour
     private Character character;
 
     public HomeState currentState;
-    public GameObject l2dCharacter;
+    private GameObject l2dCharacter;
+    private CharacterMovement characterMovement;
+
+    public float moveSpeed = 1f;
+    public BoxCollider hangOutArea;
+    public float hangOutWaitTime = 2f; // 停顿时间
+
 
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<Character>();
 
-        l2dCharacter = character.GetL2dGameObject();
-        if (l2dCharacter == null) Debug.LogWarning("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
+        l2dCharacter = Instantiate(character.GetL2dGameObject());
+        if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
+
+        characterMovement = l2dCharacter.GetComponent<CharacterMovement>();
+        if (characterMovement == null)
+        {
+            characterMovement = l2dCharacter.AddComponent<CharacterMovement>();
+        }
+            characterMovement.moveSpeed = moveSpeed;
+            characterMovement.hangOutWaitTime = hangOutWaitTime;
+
+            if (hangOutArea != null) characterMovement.hangOutAreaMin = hangOutArea.bounds.min; else Debug.LogWarning("HangoutArea" + hangOutArea + " is null");
+            characterMovement.hangOutAreaMax = hangOutArea.bounds.max;
+        
+
+        hangOutArea.enabled = false;
 
         if (character.EnergyLessThanRestingPercentage())
         {
             currentState = HomeState.Resting;
+            characterMovement.StartSleeping();
         } else
         {
             currentState = HomeState.Gatherable;
+            characterMovement.StopSleeping();
+            characterMovement.StartHangingOut();
+
         }
     }
 
@@ -36,11 +60,17 @@ public class CharacterHomeStatus : MonoBehaviour
             if (state == HomeState.Gatherable)
             {
                 currentState = HomeState.Gatherable;
+                characterMovement.StopSleeping();
+                characterMovement.StartHangingOut();
+
 
             }
             else if (state == HomeState.Gathering)
             {
                 currentState = HomeState.Gathering;
+
+                characterMovement.StopSleeping();
+                //characterMovement.StopHangingOut();
                 setL2dCharacterActive(false);
             }
         }
@@ -49,6 +79,8 @@ public class CharacterHomeStatus : MonoBehaviour
             if (state == HomeState.Gathering)
             {
                 currentState = HomeState.Gathering;
+
+                characterMovement.StopHangingOut();
                 setL2dCharacterActive(false);
 
             }
@@ -68,11 +100,16 @@ public class CharacterHomeStatus : MonoBehaviour
                 currentState = HomeState.Resting;
                 setL2dCharacterActive(true);
 
+                characterMovement.StartSleeping();
+                characterMovement.StopHangingOut();
+
             }
             else if (state == HomeState.Gatherable)
             {
                 currentState = HomeState.Gatherable;
                 setL2dCharacterActive(true);
+
+                characterMovement.StartHangingOut();
             }
         }
 

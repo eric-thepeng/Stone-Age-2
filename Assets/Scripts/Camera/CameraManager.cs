@@ -37,7 +37,7 @@ public class CameraManager : MonoBehaviour
 
     // For camera movement space restriction
     bool restrainedCamera = true;
-    float cameraXMinOnFloor = -55, cameraXMaxOnFloor = 55, cameraZMinOnFloor = -200, cameraZMaxOnFloor = -50;
+    float cameraXMinOnFloor = -50, cameraXMaxOnFloor = 50, cameraZMinOnFloor = -150, cameraZMaxOnFloor = -10;
 
     // Animation Curves
     [SerializeField] private AnimationCurve moveSpeedAgainstHeight;
