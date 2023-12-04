@@ -64,5 +64,7 @@ public class SpiritPoint : MonoBehaviour
     void UpdateUI()
     {
         displayText.text = "" + spiritPointAmount.GetAmount();
+        FindObjectOfType<SpiritPointWarning>().TextHighlight();
+
     }
 }

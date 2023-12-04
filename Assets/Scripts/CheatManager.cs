@@ -22,7 +22,7 @@ public class CheatManager : MonoBehaviour
 
     void AddMoney()
     {
-        SpiritPoint.i.Add(500);
+        SpiritPoint.i.Add(5);
     }
 
     void AddItem()
