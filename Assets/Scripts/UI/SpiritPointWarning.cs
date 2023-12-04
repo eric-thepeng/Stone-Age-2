@@ -7,8 +7,6 @@ public class SpiritPointWarning : MonoBehaviour
 {
     [Header("Vibration controls")]
     [SerializeField]
-    private float HighlightTime = 2f;
-    [SerializeField]
     private float vibrationSpeed = 2f;
     [SerializeField]
     private float vibrationAmount = 0.5f;
