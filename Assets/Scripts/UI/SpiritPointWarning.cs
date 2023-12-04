@@ -19,7 +19,7 @@ public class SpiritPointWarning : MonoBehaviour
     private Vector3 originalScale;
     
 
-    void Start()
+    void Awake()
     {
         textObject = GameObject.Find("Spirit Point Amount");
         originalScale = textObject.transform.localScale;

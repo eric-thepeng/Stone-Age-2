@@ -22,7 +22,7 @@ public class UI_Harvest : MonoBehaviour
     {
         ItemScriptableObject iso;
         int amount;
-        GameObject displayGO;
+        public GameObject displayGO;
         float disappearTime = 5;
         float disappearTimeLeft = 5f;
 
@@ -69,14 +69,40 @@ public class UI_Harvest : MonoBehaviour
             Destroy(displayGO);
         }
 
-    }
+        //change opacity based on the position in the queue
+        public void ChangeOpacity(float percent)
+        {
+            foreach (Transform child in displayGO.transform)
+            {
+                float opacityPercent = (float)(percent * 0.25);
+                if (child.GetComponent<TextMeshProUGUI>() != null)
+                {
+                    TextMeshProUGUI textMeshPro = child.GetComponent<TextMeshProUGUI>();
+                    Color newColor = textMeshPro.color;
+                    newColor.a = opacityPercent;
+                    textMeshPro.color = newColor;
+                }
+                else
+                {
+                    SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+                    Color newColor = spriteRenderer.color;
+                    newColor.a = opacityPercent;
+                    spriteRenderer.color = newColor;
+                }
 
+            }
+        }
+
+    }
+    //Queue<string> myQueue = new Queue<string>();
     List<HarvestInfo> harvestInfoList = new List<HarvestInfo>();
     [SerializeField] GameObject uiTemplate;
+    [SerializeField] private int harvestSetSize = 3;
+    [SerializeField] private float moveAmount = 1f;
+   
 
     public void AddItem(ItemScriptableObject iso, int amount)
     {
-        //print(harvestInfoList);
         foreach(HarvestInfo hi in harvestInfoList) //add amount
         {
             if (hi.IsISO(iso))
@@ -90,19 +116,43 @@ public class UI_Harvest : MonoBehaviour
         harvestInfoList.Add(new HarvestInfo(iso, amount, newDisplayGO));
         newDisplayGO.SetActive(true);
         newDisplayGO.transform.localPosition += new Vector3(0, 0.5f, 0) * (harvestInfoList.Count-1);
+        if (harvestInfoList.Count >= harvestSetSize)
+        {
+            RemoveFromFront();
+        }
+    }
 
+    private void RemoveFromFront()
+    {
+        harvestInfoList[0].DestroyDisplay();
+        harvestInfoList.RemoveAt(0);
+    }
+
+    private void MoveUpPosition(HarvestInfo go, int positionIndex)
+    {
+        float moveSpeed = 1f;
+        float moveAmount = 20f;
+        Vector3 newPosition = go.displayGO.transform.position;
+        newPosition.y = (harvestInfoList[harvestSetSize - 1].displayGO.transform.position.y + (moveAmount * (harvestSetSize - positionIndex))) ;
+        go.displayGO.transform.position = Vector3.Lerp(transform.position, newPosition, moveSpeed);
     }
 
     private void Update()
     {
-        for(int i = harvestInfoList.Count - 1; i >=0 ; i--)
+        if (harvestInfoList.Count != 0)
         {
-            if(harvestInfoList[i].SpendTime(Time.deltaTime) == false)
+            if (harvestInfoList[0].SpendTime(Time.deltaTime) == false)
             {
-                harvestInfoList[i].DestroyDisplay();
-                harvestInfoList.Remove(harvestInfoList[i]);
+                RemoveFromFront();
+            }
+            for (int i = harvestSetSize - 1; i >= 0; i--)
+            {
+                harvestInfoList[i].ChangeOpacity(i);
+                MoveUpPosition(harvestInfoList[i], i);
             }
         }
+
+
     }
 
 }
