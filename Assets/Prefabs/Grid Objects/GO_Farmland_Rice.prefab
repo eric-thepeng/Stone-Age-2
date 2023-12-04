@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad6ee8fa14e7b647935be13e3657d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridHeight: -0
+  _gridHeight: -0.32
   _drawGridHeightGizmo: 1
   _gridHeightGizmoSize: 0.05
   _gridHeightGizmoColor: {r: 1, g: 0, b: 1, a: 1}
@@ -130,7 +130,7 @@ MonoBehaviour:
     triggerEvent:
       m_PersistentCalls:
         m_Calls: []
-  mouseHovering: 0
+  allowInteraction: 1
   allUnlockStates:
   - InitAction: 2
     FinishAction: 3
@@ -1042,7 +1042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1155,6 +1155,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 7729946830702580178, guid: 03226169c52b696438e365f54f2cfef5, type: 3}
+    - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1ea28ee297a334bd79f38aa29fbcd520, type: 3}
@@ -1224,6 +1228,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 7729946830702580178, guid: 03226169c52b696438e365f54f2cfef5, type: 3}
     - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
       propertyPath: sprite
       value: 
@@ -1295,6 +1303,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 4571547048860346441, guid: befd6b62918263344992b89082033fc7, type: 3}
+    - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6c25c65103e484ff180ac107255ed468, type: 3}
@@ -1342,7 +1354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1447,13 +1459,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
-      propertyPath: sprite
+      propertyPath: prefab
       value: 
-      objectReference: {fileID: 21300000, guid: 6938455421f084cc482ad3506f293b3e, type: 3}
-    - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
-      propertyPath: scaleOffset
-      value: 0.05
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2854901002942190626, guid: f095320f52b2afc499f7dfb264926aad, type: 3}
     - target: {fileID: 6996131654019978824, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
       propertyPath: m_Name
       value: Farmland Plant
@@ -1494,7 +1502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1584,7 +1592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1697,6 +1705,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 2854901002942190626, guid: f095320f52b2afc499f7dfb264926aad, type: 3}
+    - target: {fileID: 6477214991502301327, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6938455421f084cc482ad3506f293b3e, type: 3}
@@ -1744,7 +1756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_LocalPosition.z

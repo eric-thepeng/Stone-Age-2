@@ -116,7 +116,7 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
             return;
         }
 
-        for (int i = currentState; i < targetState; i++)
+        for (int i = currentState; i <= targetState; i++)
         {
             UnlockToNextState();
         }

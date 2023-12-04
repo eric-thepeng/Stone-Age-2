@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6793668104182429061}
   - component: {fileID: 4766622312423877597}
   m_Layer: 0
-  m_Name: Quest 3
+  m_Name: Quest - 3 - Clear First Trash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3568517355196735561}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4766622312423877597
 MonoBehaviour:
@@ -82,6 +82,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -111,6 +114,1052 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - 'Good job! '
+          - Now that you have all these materials, go back to the scroll and unlock
+            the first explore spot!
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_MapOpenButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 5469009975192653893}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+--- !u!1 &3539324483126895050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1965507078552031414}
+  - component: {fileID: 3543061396206165281}
+  m_Layer: 0
+  m_Name: Quest - 6 - Unlock Straw Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1965507078552031414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539324483126895050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3543061396206165281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539324483126895050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerQuestCondition:
+    hasBeenTrigged: 0
+    uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Click on the Straw Wall and use spirit points to unlock every levels
+            of the blueprint!
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: RecipeViewer_UpgradeButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: RecipeViewer_UpgradeButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Congrats! Unlocking the first level tells you how much materials do you
+            need to craft this item.
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 2
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: RecipeViewer_UpgradeButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: RecipeViewer_UpgradeButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Awesome! Unlocking the second level tells you how to pieces these materials
+            together!
+          - Let's head to the Crafting System to make some Straw Walls!
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 7831399547346094005}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+--- !u!1 &4032712043208215045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7663494451425152997}
+  - component: {fileID: 6922122439375938212}
+  m_Layer: 0
+  m_Name: Quest - 5 - Open Research
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7663494451425152997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032712043208215045}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6922122439375938212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4032712043208215045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerQuestCondition:
+    hasBeenTrigged: 0
+    uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Awesome!
+          - While I'm gathering, go back to clean up more trash and gain more resources.
+          - We could use the resources to make other materials and buildings.
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 4
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 2
+        targetPlayerStatType: 2
+        targetISO: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
+        targetAmount: 20
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - 'Let''s use the Research and Crafting system to make some straw walls.  '
+          - Click the research button
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_ResearchOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 3543061396206165281}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+--- !u!1 &5832319981263689473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2499918445506565685}
+  - component: {fileID: 3275184913614044488}
+  m_Layer: 0
+  m_Name: Quest - 2 - Get First Spirit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2499918445506565685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832319981263689473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3275184913614044488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5832319981263689473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerQuestCondition:
+    hasBeenTrigged: 0
+    uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 6
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 1
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: MIS_FirstCharacter_LevelUp
+        targetUnlockLevel: 1
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 7
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 1
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 4766622312423877597}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+--- !u!1 &6669676344636144423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4432573623819459154}
+  - component: {fileID: 5469009975192653893}
+  m_Layer: 0
+  m_Name: Quest - 4 - Unlock First Explore Spot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4432573623819459154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669676344636144423}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5469009975192653893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669676344636144423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerQuestCondition:
+    hasBeenTrigged: 0
+    uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: ExploreSpot_1-1_PointingArrow
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 6
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 1
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: ExploreSpot_1-1_LevelUp
+        targetUnlockLevel: 2
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: ExploreSpot_1-1_PointingArrow
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 6922122439375938212}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
 --- !u!1 &6756724190148151879
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +1205,217 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e99b4428b1e84124a86b43fcaf15b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7294007260163702124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6932152061697265973}
+  - component: {fileID: 7831399547346094005}
+  m_Layer: 0
+  m_Name: Quest - 7 - Craft Straw Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6932152061697265973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294007260163702124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7831399547346094005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7294007260163702124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerQuestCondition:
+    hasBeenTrigged: 0
+    uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_WorldSpaceButton
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - Great Job! Now you can drag and drop the materials from your backpack,
+            and pieces them together!
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
 --- !u!1 &8094075456612145240
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +1445,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7969280026468118188}
+  - {fileID: 2499918445506565685}
   - {fileID: 6793668104182429061}
+  - {fileID: 4432573623819459154}
+  - {fileID: 7663494451425152997}
+  - {fileID: 1965507078552031414}
+  - {fileID: 6932152061697265973}
   m_Father: {fileID: 6756724190148151878}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -200,7 +1465,7 @@ GameObject:
   - component: {fileID: 7969280026468118188}
   - component: {fileID: 4484616788459455167}
   m_Layer: 0
-  m_Name: Quest 1
+  m_Name: Quest - 1 - Open Scroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,6 +1532,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -296,6 +1564,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -325,6 +1596,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -354,6 +1628,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -383,6 +1660,9 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -397,7 +1677,7 @@ MonoBehaviour:
           data: []
       uniQuestAction:
         actionType: 1
-        targetUniQuest: {fileID: 4766622312423877597}
+        targetUniQuest: {fileID: 3275184913614044488}
       playerStatAction:
         actionType: 0
         targetPlayerStatType: 0
@@ -412,3 +1692,6 @@ MonoBehaviour:
         targetLevelUp: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0

@@ -39,6 +39,9 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.LevelUpAction:
                 DrawProperty("levelUpAction", property, ref rowRect);
                 break;
+            case UniAction.UniActionType.GamePanelAction:
+                DrawProperty("gamePanelAction", property, ref rowRect);
+                break;
         }
 
         EditorGUI.EndProperty();
@@ -70,6 +73,9 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.LevelUpAction:
                 height += GetHeightForProperty(property, "levelUpAction");
+                break;
+            case UniAction.UniActionType.GamePanelAction:
+                height += GetHeightForProperty(property, "gamePanelAction");
                 break;
         }
 

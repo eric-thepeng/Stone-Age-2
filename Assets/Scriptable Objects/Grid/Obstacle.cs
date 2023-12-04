@@ -8,9 +8,9 @@ public class Obstacle : MonoBehaviour
 {
     //[SerializeField]
     private BoxCollider[] boxColliders; // 拖拽你的Box Collider到这里
-    [SerializeField]
+    //[SerializeField]
     private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
-    public List<GameObject> spriteObjs = new List<GameObject>();
+    private List<GameObject> spriteObjs = new List<GameObject>();
 
     private GridOperationManager gridOperationManager;
 
@@ -34,9 +34,6 @@ public class Obstacle : MonoBehaviour
                 rb.useGravity = false;
                 rb.isKinematic = true;
 
-                Vector3 colliderSize = boxCollider.bounds.size;
-                Vector3 colliderCenter = boxCollider.bounds.center;
-
 
                 // 创建一个新的GameObject作为Sprite
                 GameObject spriteObj = new GameObject("GridMask - "+transform.name);
@@ -53,7 +50,6 @@ public class Obstacle : MonoBehaviour
                 ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
 
                 float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-
 
                 Bounds colliderBounds = boxCollider.bounds;
                 Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
