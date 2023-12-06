@@ -19,8 +19,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 196
     y: -275
-    width: 1171
-    height: 3881
+    width: 1169
+    height: 3834
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,8 +63,8 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   m_UIInfos: {fileID: 114340500867371532}
   m_ParameterInfo:
-  - name: SDF
-    path: SDF
+  - name: SignedDistanceFields
+    path: SignedDistanceFields
     tooltip: 
     sheetType: m_NamedObject
     realType: Texture3D
@@ -77,8 +77,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: SizeX
-    path: SizeX
+  - name: SDFSizeX
+    path: SDFSizeX
     tooltip: 
     sheetType: m_Float
     realType: Single
@@ -91,8 +91,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: SizeZ
-    path: SizeZ
+  - name: SDFSizeZ
+    path: SDFSizeZ
     tooltip: 
     sheetType: m_Float
     realType: Single
@@ -105,8 +105,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: CenterX
-    path: CenterX
+  - name: SDFCenterX
+    path: SDFCenterX
     tooltip: 
     sheetType: m_Float
     realType: Single
@@ -119,56 +119,14 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: CenterZ
-    path: CenterZ
+  - name: SDFCenterZ
+    path: SDFCenterZ
     tooltip: 
     sheetType: m_Float
     realType: Single
     defaultValue:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: BurstAmount
-    path: BurstAmount
-    tooltip: 
-    sheetType: m_Int
-    realType: Int32
-    defaultValue:
-      m_Type:
-        m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: SpawnRate
-    path: SpawnRate
-    tooltip: 
-    sheetType: m_Int
-    realType: Int32
-    defaultValue:
-      m_Type:
-        m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
-  - name: Capacity
-    path: Capacity
-    tooltip: 
-    sheetType: m_Int
-    realType: Int32
-    defaultValue:
-      m_Type:
-        m_SerializableType: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
     min: -Infinity
@@ -4841,7 +4799,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615124}
-  m_ExposedName: SDF
+  m_ExposedName: SignedDistanceFields
   m_Exposed: 1
   m_Order: 0
   m_Category: 
@@ -4921,7 +4879,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615126}
-  m_ExposedName: SizeX
+  m_ExposedName: SDFSizeX
   m_Exposed: 1
   m_Order: 1
   m_Category: 
@@ -5001,7 +4959,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615128}
-  m_ExposedName: SizeZ
+  m_ExposedName: SDFSizeZ
   m_Exposed: 1
   m_Order: 2
   m_Category: 
@@ -5076,13 +5034,13 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615130}
   m_ExposedName: BurstAmount
-  m_Exposed: 1
+  m_Exposed: 0
   m_Order: 5
   m_Category: 
   m_Min:
@@ -5148,13 +5106,13 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615132}
   m_ExposedName: SpawnRate
-  m_Exposed: 1
+  m_Exposed: 0
   m_Order: 6
   m_Category: 
   m_Min:
@@ -5713,13 +5671,13 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615149}
   m_ExposedName: Capacity
-  m_Exposed: 1
+  m_Exposed: 0
   m_Order: 7
   m_Category: 
   m_Min:
@@ -6402,7 +6360,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615204}
-  m_ExposedName: CenterX
+  m_ExposedName: SDFCenterX
   m_Exposed: 1
   m_Order: 3
   m_Category: 
@@ -6482,7 +6440,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615206}
-  m_ExposedName: CenterZ
+  m_ExposedName: SDFCenterZ
   m_Exposed: 1
   m_Order: 4
   m_Category: 
