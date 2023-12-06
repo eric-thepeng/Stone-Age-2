@@ -51,6 +51,8 @@ public class TetrisBuildingToolEditor : Editor
                 newUnit.transform.parent = unitsContainer.transform;
                 newUnit.GetComponent<SpriteRenderer>().color = builder.tetrisColor;
                 
+                //add image
+                
                 //add edges
                 foreach (Vector2Int dir in directions)
                 {
@@ -58,25 +60,35 @@ public class TetrisBuildingToolEditor : Editor
                     Vector3 edgeDeltaPosition = 0.5f * new Vector3(dir.x * builder.unitLength, -dir.y * builder.unitLength, 0);
                     GameObject newEdge = Instantiate(builder.edgeGameObject,unitPosition + edgeDeltaPosition, quaternion.identity);
                     newEdge.transform.parent = edgesContainer.transform;
+
+                    Edge edgeComponent = newEdge.GetComponent<Edge>();
                     
+                    //assign Edge.MyFacing
+                    if (dir == Vector2Int.left) edgeComponent.myFacing = Edge.facing.Left;
+                    else if (dir == Vector2Int.right) edgeComponent.myFacing = Edge.facing.Right;
+                    else if (dir == Vector2Int.up) edgeComponent.myFacing = Edge.facing.Up;
+                    else if (dir == Vector2Int.down) edgeComponent.myFacing = Edge.facing.Down;
+
+                    //assign Edge.AttachedCoordination
+                    edgeComponent.attachedCoordination = coord;
+
                     //set facing of the edge. since y coord is flipped when spawning tetris units, we flip it back when setting the facing
                     Vector2Int dirToSetEdge = dir * new Vector2Int(1, -1);
                     newEdge.GetComponent<Edge>().SetFacingAccordingToDirection(dirToSetEdge);
                 }
             }
+            
+            //create base image
+            //GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
+            GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
+            newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
+            newImage.gameObject.name = "Icon Sprite";
 
             // add text
             /*
             GameObject newLabel = Instantiate(builder.labelGameObject, newGameObject.transform);
             newLabel.GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
             newLabel.gameObject.name = "Temporary Label";*/
-            
-            // add image
-            //GameObject newImage = new GameObject("ASSIGN IMAGE HERE", typeof(SpriteRenderer));
-            GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
-            newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
-            newImage.gameObject.name = "Icon Sprite";
-
             
             // create outline
             if (builder.outlineWidth != 0)
