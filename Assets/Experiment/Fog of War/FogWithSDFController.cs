@@ -5,15 +5,10 @@ using UnityEngine.VFX;
 
 public class FogWithSDFController : MonoBehaviour
 {
-    VisualEffect fogVFX; // this VFX
+    VisualEffect fogVFX;
 
     void Start()
     {
         fogVFX = GetComponent<VisualEffect>();
-    }
-
-    void Update()
-    {
-        //Debug.Log(fogVFX.aliveParticleCount);
     }
 }
