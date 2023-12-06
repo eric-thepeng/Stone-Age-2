@@ -23,8 +23,8 @@ public class UI_Harvest : MonoBehaviour
         ItemScriptableObject iso;
         int amount;
         public GameObject displayGO;
-        float disappearTime = 5;
-        float disappearTimeLeft = 5f;
+        float disappearTime = 2f;
+        float disappearTimeLeft = 2f;
 
         public HarvestInfo(ItemScriptableObject newIso, int initialAmount, GameObject go)
         {
@@ -92,8 +92,9 @@ public class UI_Harvest : MonoBehaviour
 
             }
         }
-
     }
+
+
     //Queue<string> myQueue = new Queue<string>();
     List<HarvestInfo> harvestInfoList = new List<HarvestInfo>();
     [SerializeField] GameObject uiTemplate;
@@ -145,8 +146,14 @@ public class UI_Harvest : MonoBehaviour
             {
                 RemoveFromFront();
             }
+            while(harvestInfoList.Count > harvestSetSize)
+            {
+                RemoveFromFront();
+            }
+
             for (int i = harvestSetSize - 1; i >= 0; i--)
             {
+                print("number: " + i);
                 harvestInfoList[i].ChangeOpacity(i);
                 MoveUpPosition(harvestInfoList[i], i);
             }
