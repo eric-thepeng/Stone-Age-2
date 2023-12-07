@@ -17,7 +17,8 @@ using UnityEngine.UI;
         UniQuestAction,
         PlayerStatAction,
         ButtonAction,
-        LevelUpAction
+        LevelUpAction,
+        GamePanelAction
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -28,6 +29,7 @@ using UnityEngine.UI;
     public PlayerStatAction playerStatAction;
     public ButtonAction buttonAction;
     public LevelUpAction levelUpAction;
+    public GamePanelAction gamePanelAction;
     
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -61,6 +63,9 @@ using UnityEngine.UI;
                 break;
             case UniActionType.LevelUpAction: 
                 pAction = levelUpAction;
+                break;
+            case UniActionType.GamePanelAction:
+                pAction = gamePanelAction;
                 break;
         }
         

@@ -23,7 +23,14 @@ public class PlayerInputChannel : MonoBehaviour
 
     public delegate void OnPlayerPressWorldButton(WorldButtons wb);
     public static event OnPlayerPressWorldButton onPlayerPressWorldButton;
-
+    public enum GamePanel
+    {
+        Home,
+        Crafting,
+        Research,
+        ExploreMap,
+        Inventory,
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C)) CraftingPanelOpenButton();
@@ -34,6 +41,28 @@ public class PlayerInputChannel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q)) RotateLeftButton();
         if (Input.GetKeyDown(KeyCode.Q)) RotateRightButton();
 
+    }
+
+    public static void GoToPanel(GamePanel targetGamePanel)
+    {
+        switch (targetGamePanel)
+        {
+            case GamePanel.Home:
+                HomeReturnButton();
+                break;
+            case GamePanel.Crafting:
+                CraftingPanelOpenButton();
+                break;
+            case GamePanel.Research:
+                RecipeMapOpenButton();
+                break;
+            case GamePanel.ExploreMap:
+                ExploreMapButton();
+                break;
+            case GamePanel.Inventory:
+                InventoryPanelOpenButton();
+                break;
+        }
     }
 
     public static void InventoryPanelOpenButton()
