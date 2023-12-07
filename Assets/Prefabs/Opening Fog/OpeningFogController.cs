@@ -5,6 +5,8 @@ using UnityEngine.VFX;
 
 public class OpeningFogController : MonoBehaviour
 {
+    [SerializeField]private int index;
+    
     VisualEffect fogVFX;
 
     void Start()
@@ -14,7 +16,7 @@ public class OpeningFogController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if ((Input.GetKeyDown(KeyCode.Alpha1) && index == 1) || (Input.GetKeyDown(KeyCode.Alpha2) && index == 2))
         {
             Debug.Log("Stop Fog");
 
