@@ -192,7 +192,7 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
+        Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
         if (state == CharacterState.Gather)
         {
             if(characterStats.energy.NoEnergy())

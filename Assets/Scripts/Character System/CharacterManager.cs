@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public GameObject characterIconPrefab;
+    public float iconInterval;
 
     [Serializable]
     protected class CharacterConfig
@@ -79,7 +80,7 @@ public class CharacterManager : MonoBehaviour
         //characterIcon.transform.SetParent(GameObject.Find("Character Icon").transform);
 
         Vector3 _pos = characterIcon.transform.localPosition;
-        _pos.y = inGameExistingCharacters.Count * -1f;
+        _pos.y = inGameExistingCharacters.Count * -iconInterval;
         characterIcon.transform.localPosition = _pos;
 
         newCharacterConfig.character.SetUp(newCharacterConfig.characterIcon);
