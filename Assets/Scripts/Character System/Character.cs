@@ -184,7 +184,7 @@ public class Character : MonoBehaviour
     float restTimeLeft;
     CharacterIcon myCI;
 
-    void Awake()
+    void Start()
     {
         characterStats = new CharacterStats(initialStats);
         homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
@@ -242,6 +242,11 @@ public class Character : MonoBehaviour
     public void SetUp(CharacterIcon ci)
     {
         characterIcon = ci;
+    }
+
+    public void Initialize(CharacterBasicStats initialStats)
+    {
+        this.initialStats = initialStats;
     }
 
     public void StartGather(GatherSpot es, CharacterIcon ci)
@@ -315,6 +320,17 @@ public class Character : MonoBehaviour
     {
         return initialStats.l2dGameObject;
     }
+
+    public int GetMoveSpeed()
+    {
+        return initialStats.moveSpeed;
+    }
+
+    public float GetHangOutWaitTime()
+    {
+        return initialStats.hangOutWaitTime;
+    }
+
 
     public CharacterHomeStatus GetHomeStatus()
     {

@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &730146944475212183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4709332211849586489}
+  - component: {fileID: 455994784228474881}
+  m_Layer: 0
+  m_Name: Zone1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4709332211849586489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730146944475212183}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6981101743906240715}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &455994784228474881
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730146944475212183}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 0, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1943575136641928352
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +476,7 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
---- !u!1 &1943575138486989346
+--- !u!1 &2999021540064038805
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -439,25 +484,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1943575138486989348}
-  - component: {fileID: 1943575138486989347}
-  - component: {fileID: 3869796411652007178}
-  - component: {fileID: 8148390542841958558}
+  - component: {fileID: 1650650174820006481}
   m_Layer: 0
-  m_Name: First Character
+  m_Name: Characters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1943575138486989348
+--- !u!4 &1650650174820006481
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943575138486989346}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 2999021540064038805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -465,48 +507,38 @@ Transform:
   m_Father: {fileID: 7484602591539364119}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1943575138486989347
-MonoBehaviour:
+--- !u!1 &5586555782571755841
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943575138486989346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a28600bedc3004c1c91eede250eea5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialStats: {fileID: 11400000, guid: 5f50b093cd4a6444bb7e15953df2959c, type: 2}
---- !u!114 &3869796411652007178
-MonoBehaviour:
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6981101743906240715}
+  m_Layer: 0
+  m_Name: HangOutAreas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6981101743906240715
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943575138486989346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad55352b7eda4a08a01e46ecf45843d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  moveSpeed: 3
-  hangOutArea: {fileID: 8148390542841958558}
-  hangOutWaitTime: 2
---- !u!65 &8148390542841958558
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943575138486989346}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 50, y: 0, z: 50}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 5586555782571755841}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4709332211849586489}
+  m_Father: {fileID: 7484602591539364119}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5961380513758959348
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,8 +548,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7484602591539364119}
+  - component: {fileID: 6119982522377229478}
   m_Layer: 0
-  m_Name: Characters
+  m_Name: Characters Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -535,10 +568,34 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1943575138486989348}
+  - {fileID: 1650650174820006481}
+  - {fileID: 6981101743906240715}
   m_Father: {fileID: 1943575137002679184}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6119982522377229478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961380513758959348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ce26b93130b47219d158af9a534872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterIconPrefab: {fileID: 1085999617603078514, guid: 8f64a3b46b854495f9a01e75badae5db, type: 3}
+  initialCharacters:
+  - characterSettings: {fileID: 11400000, guid: 5f50b093cd4a6444bb7e15953df2959c, type: 2}
+    hangOutArea: {fileID: 455994784228474881}
+    character: {fileID: 0}
+    characterIcon: {fileID: 0}
+  - characterSettings: {fileID: 11400000, guid: 5f50b093cd4a6444bb7e15953df2959c, type: 2}
+    hangOutArea: {fileID: 455994784228474881}
+    character: {fileID: 0}
+    characterIcon: {fileID: 0}
+  inGameExistingCharacters: []
 --- !u!1001 &5133051961896321545
 PrefabInstance:
   m_ObjectHideFlags: 0
