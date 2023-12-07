@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -260,9 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -377,6 +381,8 @@ MonoBehaviour:
           data:
           - Congrats! Unlocking the first level tells you how much materials do you
             need to craft this item.
+          - As for the "Straw Wall", you would need 4 "Straws" to craft a "Straw
+            Wall".
       uniQuestAction:
         actionType: 0
         targetUniQuest: {fileID: 0}
@@ -475,6 +481,8 @@ MonoBehaviour:
           data:
           - Awesome! Unlocking the second level tells you how to pieces these materials
             together!
+          - The shadow indicates the blueprint formation of how to combine the materials
+            together.
           - Let's head to the Crafting System to make some Straw Walls!
       uniQuestAction:
         actionType: 0
@@ -572,9 +580,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -882,9 +892,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -1027,9 +1039,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -1108,6 +1122,40 @@ MonoBehaviour:
         actionType: 0
         narrativeSequenceToPlay:
           data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - You can send me to these explore spots to explore and gather resources.
+          - Drag my icon from top-left to the explore spot to explore that area!
       uniQuestAction:
         actionType: 0
         targetUniQuest: {fileID: 0}
@@ -1249,9 +1297,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 0
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -1394,8 +1444,9 @@ MonoBehaviour:
         actionType: 1
         narrativeSequenceToPlay:
           data:
-          - Great Job! Now you can drag and drop the materials from your backpack,
-            and pieces them together!
+          - Here you can use the materials from your backpack to craft new items.
+          - Simply click and drag 4 straws out of your backpack, and them pieces
+            them together as shown in the blueprint!
       uniQuestAction:
         actionType: 0
         targetUniQuest: {fileID: 0}
@@ -1404,6 +1455,38 @@ MonoBehaviour:
         targetPlayerStatType: 0
         targetISO: {fileID: 0}
         targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+    - delayTime: 0
+      uniActionType: 4
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 2
+        targetPlayerStatType: 2
+        targetISO: {fileID: 11400000, guid: 5ad3f1eb5dfa94fc3a75e559e0927280, type: 2}
+        targetAmount: 1
       buttonAction:
         actionType: 0
         targetGameObject: {fileID: 0}
@@ -1498,9 +1581,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerQuestCondition:
-    hasBeenTrigged: 0
-    uponGameStart: 1
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 1
   uniActionSequence:
     allUniActions:
     - delayTime: 0

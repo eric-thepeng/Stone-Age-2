@@ -83,6 +83,8 @@ public class WorldSpaceButton : MonoBehaviour, IPerformableAction
         targetSR.color = hoverColor;
         AudioChannel.i.PlayButtonSound(buttonClickSoundID);
         // Check button event type and play sound - Will
+        string a = gameObject.name;
+        string b = gameObject.transform.parent.name;
         onActionCompletes.Invoke();
     }
 
