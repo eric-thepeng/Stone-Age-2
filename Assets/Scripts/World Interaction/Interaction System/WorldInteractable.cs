@@ -103,8 +103,8 @@ public class WorldInteractable : MonoBehaviour
     [SerializeField]private InteractionType currentInteraction = null;
 
     //Variables
-    public enum HighlightMode {SHAKE, OUTLINE }
-    [SerializeField] private HighlightMode highlightMode = HighlightMode.SHAKE;
+    public enum HighlightMode {NONE, SHAKE, OUTLINE }
+    [SerializeField] private HighlightMode highlightMode = HighlightMode.NONE;
     private MouseState mouseState = new MouseState();
     private float outlineHighlightWidthRatio = 1.2f;
     private static Shader targetShader = null;
