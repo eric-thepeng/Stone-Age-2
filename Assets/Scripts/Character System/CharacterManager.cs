@@ -5,8 +5,23 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
+
+    static CharacterManager instance;
+    public static CharacterManager i
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<CharacterManager>();
+            }
+            return instance;
+        }
+    }
+    
     public GameObject characterIconPrefab;
     public float iconInterval;
+    public BoxCollider defaultHangoutArea;
 
     [Serializable]
     protected class CharacterConfig
@@ -48,8 +63,9 @@ public class CharacterManager : MonoBehaviour
 
     // hang out area is the area for character to move around
     // character will be spawned in the center of the hangoutarea
-    public void AddCharacter(CharacterBasicStats characterSettings, BoxCollider hangOutArea)
+    public void AddCharacter(CharacterBasicStats characterSettings, BoxCollider hangOutArea = null)
     {
+        if (hangOutArea == null) hangOutArea = defaultHangoutArea;
         inGameExistingCharacters.Add(InstantiateCharacter(new CharacterConfig(characterSettings, hangOutArea)));
     }
 
