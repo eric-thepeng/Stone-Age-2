@@ -63,11 +63,9 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
     }
 
     [SerializeField] List<UnlockState> allUnlockStates;
-    private int currentState = 0;
     
     // IUniActionTrigger
     public UnityEvent<int> uniActionEventToTriggerInstance = new UnityEvent<int>();
-
     public UnityEvent<int> uniActionEventToTrigger
     {
         get
@@ -80,7 +78,14 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
         }
     }
 
+    private PlayerStat currentState = new PlayerStat(0);
+    
     public int GetCurrentState()
+    {
+        return currentState.GetAmount();
+    }
+
+    public PlayerStat GetCurrentStatePlayerStat()
     {
         return currentState;
     }
@@ -92,19 +97,19 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
 
     public bool UnlockToNextState()
     {
-        if (currentState == allUnlockStates.Count)
+        if (currentState.GetAmount() == allUnlockStates.Count)
         {
             Debug.LogWarning("Try to exceed max amount of states with object " + gameObject.name);
             return false;
         }
-        if (allUnlockStates[currentState].Unlock() == false)
+        if (allUnlockStates[currentState.GetAmount()].Unlock() == false)
         {
             NotEnoughResource();
             return false;
         }
-        currentState++;
-        ((IUniActionTrigger<int>)this).TriggerUniAction(currentState);
-        if(currentState == allUnlockStates.Count) ReachFinalState();
+        currentState.ChangeAmount(1);
+        ((IUniActionTrigger<int>)this).TriggerUniAction(currentState.GetAmount());
+        if(currentState.GetAmount() == allUnlockStates.Count) ReachFinalState();
         return true;
     }
 
@@ -116,13 +121,13 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
             return;
         }
 
-        for (int i = currentState; i <= targetState; i++)
+        for (int i = currentState.GetAmount(); i <= targetState; i++)
         {
             UnlockToNextState();
         }
     }
 
-    protected UnlockState GetCurrentUnlockState() { return allUnlockStates[currentState]; }
+    protected UnlockState GetCurrentUnlockState() { return allUnlockStates[currentState.GetAmount()]; }
 
     protected virtual void NotEnoughResource()
     {
