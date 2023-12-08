@@ -136,10 +136,12 @@ using UnityEngine.Events;
 
     private int statsAmountAtActionStats = 0;
 
+    private PlayerStat targetPlayerStat;
+
     public void PerformAction()
     {
         onActionStarts?.Invoke();
-        PlayerStat targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targetPlayerStatType, targetISO);
+        targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targetPlayerStatType, targetISO);
         targetPlayerStat.SubscribeStatChange(CheckStatsReach);
         if (actionType == ActionType.StatsChangeAmount)
             statsAmountAtActionStats = targetPlayerStat.GetAmount();
@@ -149,10 +151,18 @@ using UnityEngine.Events;
     {
         if (actionType == ActionType.StatsReachAmount)
         {
-            if(amount >= targetAmount) onActionCompletes?.Invoke();
+            if (amount >= targetAmount)
+            {
+                onActionCompletes?.Invoke();
+                targetPlayerStat.UnsubscribeStatChange(CheckStatsReach);
+            }
         }else if (actionType == ActionType.StatsChangeAmount)
         {
-            if((amount-statsAmountAtActionStats)>=targetAmount) onActionCompletes?.Invoke();
+            if ((amount - statsAmountAtActionStats) >= targetAmount)
+            {
+                onActionCompletes?.Invoke();
+                targetPlayerStat.UnsubscribeStatChange(CheckStatsReach);
+            }
         }
     }
 

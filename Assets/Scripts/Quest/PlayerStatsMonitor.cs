@@ -27,6 +27,7 @@ public class PlayerStat
         amount += delta;
         if (delta > 0) accumulatedAmount += delta;
         broadcastStatChange.Invoke(amount);
+        
     }
     
     public void AssignAmount(int newAmount)
