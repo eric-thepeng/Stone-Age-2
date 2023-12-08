@@ -99,11 +99,15 @@ public class WorldInteractable : MonoBehaviour
             }
         }
     }
-
+    
     [SerializeField]private InteractionType currentInteraction = null;
 
     //Variables
+    public enum HighlightMode {NONE, SHAKE, OUTLINE }
+    [SerializeField] private HighlightMode highlightMode = HighlightMode.NONE;
     private MouseState mouseState = new MouseState();
+    private float outlineHighlightWidthRatio = 1.2f;
+    private static Shader targetShader = null;
 
     //Functions
     public void SetCurrentInteraction(InteractionType newInteractionType)
@@ -201,11 +205,81 @@ public class WorldInteractable : MonoBehaviour
     //UI Related//
     protected virtual void TurnOnHighlight()
     {
-        transform.DOShakePosition(0.3f, new Vector3(0.1f,0,0),10,0);
+        switch (highlightMode)
+        {
+            case HighlightMode.SHAKE:
+                transform.DOShakePosition(0.3f, new Vector3(0.1f,0,0),10,0);
+                break;
+            case HighlightMode.OUTLINE:
+                OutlineHighlight(true);
+                break;
+        }
     }
     
     protected virtual void TurnOffHighlight()
     {
+        switch (highlightMode)
+        {
+            case HighlightMode.SHAKE:
+                break;
+            case HighlightMode.OUTLINE:
+                OutlineHighlight(false);
+                break;
+        }
+    }
+
+    public void OutlineHighlight(bool turnOn)
+    {
+        if (targetShader == null)
+        {
+            targetShader = Shader.Find("MK/Toon/URP/Standard/Physically Based + Outline");
+        }
+        
+        Color outlineColor = turnOn ? Color.white :Color.black;
+        //float outlineWidth = turnOn ? Color.white :Color.black;
+        List<GameObject> allChildren = GetAllChildren();
+        foreach (GameObject child in allChildren)
+        {
+            
+            if (child.GetComponent<Renderer>() != null)
+            {
+                Material[] currentMats = child.GetComponent<Renderer>().materials;
+                for (int i2 = 0; i2 < currentMats.Length; i2++)
+                {
+                    if (currentMats[i2].shader == targetShader)//HasProperty("_OutlineColor"))
+                    {
+                        currentMats[i2].SetColor("_OutlineColor", outlineColor);
+                        float actualRatio = turnOn ? 1 * outlineHighlightWidthRatio : 1 / outlineHighlightWidthRatio;
+                        currentMats[i2].SetFloat("_OutlineSize", currentMats[i2].GetFloat("_OutlineSize") * actualRatio);
+                    }
+                }
+            }
+        }
+    }
+
+    List<GameObject> GetAllChildren()
+    {
+        List<GameObject> listOfChildren = new List<GameObject>();
+        GetAllChildrenRecursive(gameObject, listOfChildren);
+        return listOfChildren;
+    }
+
+    private List<GameObject> GetAllChildrenRecursive(GameObject obj, List<GameObject> targetList)
+    {
+        if (obj == null)
+        {
+            return targetList;
+        }
+
+        foreach (Transform child in obj.transform)
+        {
+            if (child == null)
+                continue;
+            targetList.Add(child.gameObject);
+            GetAllChildrenRecursive(child.gameObject, targetList);
+        }
+
+        return targetList;
     }
     
     #region Mouse Interaction Configuration
