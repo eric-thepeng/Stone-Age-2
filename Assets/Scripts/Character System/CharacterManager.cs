@@ -50,7 +50,7 @@ public class CharacterManager : MonoBehaviour
     // character will be spawned in the center of the hangoutarea
     public void AddCharacter(CharacterBasicStats characterSettings, BoxCollider hangOutArea)
     {
-        InstantiateCharacter(new CharacterConfig(characterSettings, hangOutArea));
+        inGameExistingCharacters.Add(InstantiateCharacter(new CharacterConfig(characterSettings, hangOutArea)));
     }
 
     private CharacterConfig InstantiateCharacter(CharacterConfig characterConfig)
