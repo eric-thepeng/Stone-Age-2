@@ -45,12 +45,9 @@ public class CharacterManager : MonoBehaviour
         initialCharacters.Clear();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    // hang out area is the area for character to move around
+    // character will be spawned in the center of the hangoutarea
     public void AddCharacter(CharacterBasicStats characterSettings, BoxCollider hangOutArea)
     {
         InstantiateCharacter(new CharacterConfig(characterSettings, hangOutArea));
@@ -66,7 +63,6 @@ public class CharacterManager : MonoBehaviour
         newCharacterConfig.character.Initialize(newCharacterConfig.characterSettings);
         CharacterHomeStatus homeStatus = characterObject.AddComponent<CharacterHomeStatus>();
 
-        //if (newCharacterConfig.hangOutArea.enabled == false) newCharacterConfig.hangOutArea.enabled = true;
         homeStatus.hangOutArea = newCharacterConfig.hangOutArea;
         characterObject.transform.position = homeStatus.hangOutArea.center;
         characterObject.transform.SetParent(transform.GetChild(0));
