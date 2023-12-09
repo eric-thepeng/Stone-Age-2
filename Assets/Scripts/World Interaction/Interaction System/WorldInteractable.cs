@@ -172,6 +172,7 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         currentInteraction?.ResetProgress(true);
+        currentInteraction?.DisplayUI(false); // changed after comments
     }
 
     protected virtual void WhileMousePress()
@@ -187,6 +188,7 @@ public class WorldInteractable : MonoBehaviour
         if (currentInteraction != null && currentInteraction.IsCompleted())
         {
             currentInteraction = null;
+
         }
     }
 
