@@ -8,7 +8,7 @@ public class SpiritPoint : MonoBehaviour
 {
     static SpiritPoint instance;
     public int startingAmount;
-    TextMeshPro displayText;
+    [SerializeField]TextMeshPro displayText;
     private PlayerStat spiritPointAmount;
 
     public static SpiritPoint i
@@ -30,7 +30,6 @@ public class SpiritPoint : MonoBehaviour
 
     private void Start()
     {
-        displayText = transform.Find("Spirit Point UI").Find("Spirit Point Amount").GetComponent<TextMeshPro>();
         UpdateUI();
     }
 
