@@ -338,3 +338,75 @@ using UnityEngine.Events;
     }
 }
 
+[Serializable] public class CameraAction : IPerformableAction
+{
+    public enum ActionType{NoAction, CameraAction}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+
+    public CameraManager.IUAIType targetAction = CameraManager.IUAIType.FreezeCamera;
+    public int i;
+    
+    public void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        if (actionType != ActionType.NoAction)
+        {
+            CameraManager.i.TriggerInteractionByUniAction(targetAction);
+            onActionCompletes.Invoke();
+        }
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class IUniActionInteractionAction : IPerformableAction
+{
+    public enum ActionType{NoAction, GeneralIUniActionInteractionAction}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+    
+    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
+    public string targetGameObjectSetUpIdentifierID;
+
+    public int actionIndex;
+
+
+    public void PerformAction()
+    {
+        if (targetGameObject == null)
+            targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
+        IUniActionInteraction iuai = targetGameObject.GetComponent<IUniActionInteraction>();
+        if(iuai == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
+        
+        onActionStarts?.Invoke();
+
+        if (actionType != ActionType.NoAction)
+        {
+            iuai.TriggerInteractionByUniAction(actionIndex);
+            onActionCompletes.Invoke();
+        }
+    }
+
+    private void FinishClick()
+    {
+        onActionCompletes.Invoke();
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
