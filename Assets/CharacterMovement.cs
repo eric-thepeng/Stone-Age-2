@@ -36,6 +36,8 @@ public class CharacterMovement : MonoBehaviour
         _visual = _model.transform;
         _originalScale = _visual.transform.localScale;
         _leafShadow = _model.Parameters[8];
+
+        hangOutWaitTime = Random.Range(0, hangOutWaitTime);
     }
 
 

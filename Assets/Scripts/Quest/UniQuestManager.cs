@@ -32,9 +32,7 @@ public class UniQuestManager : MonoBehaviour
         uniQuests.Enqueue(newUniQuest);
         if (uniQuests.Count == 1 && currentUniQuest == null)
         {
-            currentUniQuest = uniQuests.Dequeue();
-            currentUniQuest.uniActionSequence.onActionCompletes.AddListener(CurrentUniQuestCompletes);
-            currentUniQuest.uniActionSequence.PerformAction();
+            LoadNewUniQuest();
         }
     }
 
@@ -42,13 +40,26 @@ public class UniQuestManager : MonoBehaviour
     {
         if (uniQuests.Count > 0)
         {
-            currentUniQuest = uniQuests.Dequeue();
-            currentUniQuest.uniActionSequence.onActionCompletes.AddListener(CurrentUniQuestCompletes);
-            currentUniQuest.uniActionSequence.PerformAction();
+            LoadNewUniQuest();
         }
         else
         {
             currentUniQuest = null;
+        }
+    }
+
+    private void LoadNewUniQuest()
+    {
+        if (uniQuests.Count > 0)
+        {
+            currentUniQuest = uniQuests.Dequeue();
+            currentUniQuest.uniActionSequence.onActionCompletes.AddListener(CurrentUniQuestCompletes);
+            currentUniQuest.uniActionSequence.SetUpByUniQuest(currentUniQuest);
+            currentUniQuest.uniActionSequence.PerformAction();
+        }
+        else
+        {
+            Debug.LogWarning("NO UniQuest TO LOAD");
         }
     }
 }

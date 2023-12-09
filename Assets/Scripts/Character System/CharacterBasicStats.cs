@@ -7,7 +7,6 @@ public class CharacterBasicStats : ScriptableObject
 {
     public string name;
 
-    public GameObject l2dGameObject;
 
     public int energy;
 
@@ -17,7 +16,17 @@ public class CharacterBasicStats : ScriptableObject
     public float exploreSpeed;
     public float restingSpeed;
     public int herdSize;
-    
+
+    [Header("Icon")]
+    public Sprite iconSprite;
+
+    [Header("Home Related")]
+    public GameObject l2dGameObject;
+    public int moveSpeed;
+    public float hangOutWaitTime;
+
+
+
     public override string ToString()
     {
         return "Basic Stats of " + name + " is [energy " + energy + " ] [gather speed " + gatherSpeed + " ] [explore speed " + exploreSpeed + "]";

@@ -7,55 +7,27 @@ using UnityEngine;
 
 public class UniQuest : MonoBehaviour
 {
-    #region SubClasses
+    [Header("---DO NOT EDIT---")]
+    public bool hasStarted = false;
+    public bool hasCompleted = false;
+    [Tooltip("Index starts with 1.")]public int currentUniAction = 0;
+    [Tooltip("Index starts with 1.")]public int totalUniActions = 0;
 
-    [Serializable]public class TriggerQuestCondition
-    {
-        [Header("DO NOT EDIT")]
-        public bool hasBeenTrigged = false;
-        [Header("Edit Conditions")]
-        public bool uponGameStart = false;
-        /*
-        public bool duringTutorial = false;
-        public BLDExploreSpot uponDiscoverExploreSpot = null;
-        public BLDExploreSpot uponUnlockExploreSpot = null;
-        public BLDExploreSpot uponStartGatherExploreSpot = null;
-        public ItemScriptableObject uponObtainISO = null;
-        public int uponObtainISOAmount = 0;
-        public BuildingISO uponBuildBISO = null;
-        public int uponBuildBISOAmount = 0;
-        */
+    [Header("---Edit Conditions---")]
+    public bool uponGameStart = false;
 
-        private bool triggeredByUniAction = false;
-        
-        public bool isTriggered()
-        {
-            if (hasBeenTrigged) return false;
-            //determin if is has been triggered, remember to change hasBeenTriggered.
-            return false;
-        }
-
-        public void TriggerByUniAction()
-        {
-            triggeredByUniAction = true;
-        }
-    }
-    
-    #endregion
-
-    [SerializeField]public TriggerQuestCondition triggerQuestCondition;
+    [Header("---Edit UniAction Sequence---")]
     [SerializeField]public UniActionSequence uniActionSequence;
-    
     
     private void Start()
     {
-        
-        if(triggerQuestCondition.uponGameStart) QueQuest(); //uniActionSequence.PerformAction();
+        if(uponGameStart) QueQuest(); //uniActionSequence.PerformAction();
     }
 
     public void QueQuest()
     {
+        totalUniActions = uniActionSequence.allUniActions.Count;
+        hasStarted = true;
         UniQuestManager.i.QueUniQuest(this);
     }
-    public void LoadDescription(){}
 }

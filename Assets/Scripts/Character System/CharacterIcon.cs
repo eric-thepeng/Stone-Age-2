@@ -39,13 +39,14 @@ public class CharacterIcon : MonoBehaviour
     
 
 
-    private void Awake()
-    {
-        character.SetUp(this);
-    }
+    //private void Awake()
+    //{
+    //    character.SetUp(this);
+    //}
 
     private void Start()
     {
+        character.SetUp(this);
         gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
         energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
     }

@@ -13,12 +13,12 @@ namespace Uniland.Characters
 
         private float restingEnergyPercentage;
 
-        public Energy(int maxEnergy)
-        {
-            this.maxEnergy = maxEnergy;
-            currentEnergy = this.maxEnergy;
-            restingEnergyPercentage = 0.4f;
-        }
+        //public Energy(int maxEnergy)
+        //{
+        //    this.maxEnergy = maxEnergy;
+        //    currentEnergy = this.maxEnergy;
+        //    restingEnergyPercentage = 0.4f;
+        //}
 
         public Energy(int maxEnergy, float restingEnergyPercentage)
         {
@@ -184,7 +184,7 @@ public class Character : MonoBehaviour
     float restTimeLeft;
     CharacterIcon myCI;
 
-    void Awake()
+    void Start()
     {
         characterStats = new CharacterStats(initialStats);
         homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
@@ -192,12 +192,13 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        if(state == CharacterState.Gather)
+        Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
+        if (state == CharacterState.Gather)
         {
             if(characterStats.energy.NoEnergy())
             {
                 EndGather();
-                //gatheringSpot.EndGathering();
+                gatheringSpot.EndGathering();
                 //state = CharacterState.Idle;
                 //currentEnergy = maxEnergy;
                 //myCI.ResetHome();   
@@ -220,6 +221,7 @@ public class Character : MonoBehaviour
             if (!EnergyLessThanRestingPercentage())
             {
                 characterIcon.ChangeIconColorToHome();
+
                 homeStatus.EnterState(HomeState.Gatherable);
             } else
             {
@@ -227,8 +229,17 @@ public class Character : MonoBehaviour
                 homeStatus.EnterState(HomeState.Resting);
             }
 
+            if (!characterStats.energy.maximizeEnergy())
+            {
+                characterIcon.SetCircularUIState(CircularUI.CircularUIState.Display);
+            } else
+            {
+                characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
+            }
+
             if (restTimeLeft <= 0)
             {
+                characterIcon.SetGatheringProgress(0, 100 * characterStats.energy.RemainEnergyPercentage(), false);
                 characterStats.energy.AddEnergy();
                 restTimeLeft = characterStats.restingSpeed.GetRestingSpeed();
             }
@@ -242,6 +253,11 @@ public class Character : MonoBehaviour
     public void SetUp(CharacterIcon ci)
     {
         characterIcon = ci;
+    }
+
+    public void Initialize(CharacterBasicStats initialStats)
+    {
+        this.initialStats = initialStats;
     }
 
     public void StartGather(GatherSpot es, CharacterIcon ci)
@@ -315,6 +331,17 @@ public class Character : MonoBehaviour
     {
         return initialStats.l2dGameObject;
     }
+
+    public int GetMoveSpeed()
+    {
+        return initialStats.moveSpeed;
+    }
+
+    public float GetHangOutWaitTime()
+    {
+        return initialStats.hangOutWaitTime;
+    }
+
 
     public CharacterHomeStatus GetHomeStatus()
     {

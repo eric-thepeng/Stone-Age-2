@@ -18,6 +18,12 @@ public interface IPerformableAction
     public List<UniAction> allUniActions;
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
+    private UniQuest myUniQuest = null;
+
+    public void SetUpByUniQuest(UniQuest tarUniQuest)
+    {
+        myUniQuest = tarUniQuest;
+    }
     public UnityEvent onActionStarts
     {
         get { return _onActionStarts; }
@@ -43,9 +49,9 @@ public interface IPerformableAction
             onActionCompletes?.Invoke();
             return;
         }
-        Debug.Log("Performing Action Index: " + currentActionIndex);
         
         currentActionIndex++;
+        myUniQuest.currentUniAction = currentActionIndex;
         allUniActions[currentActionIndex-1].onActionCompletes.AddListener(PerformActionOneByOne);
         allUniActions[currentActionIndex-1].PerformAction(); //This will trigger onActionCompletes and cause recursion into PerformActionOneByOne
     }
