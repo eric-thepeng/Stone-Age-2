@@ -18,7 +18,9 @@ using UnityEngine.UI;
         PlayerStatAction,
         ButtonAction,
         LevelUpAction,
-        GamePanelAction
+        GamePanelAction,
+        CameraAction,
+        IUniActionInteractionAction,
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -30,6 +32,8 @@ using UnityEngine.UI;
     public ButtonAction buttonAction;
     public LevelUpAction levelUpAction;
     public GamePanelAction gamePanelAction;
+    public UniAction cameraAction;
+    public IUniActionInteractionAction iuaiAction;
     
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -66,6 +70,12 @@ using UnityEngine.UI;
                 break;
             case UniActionType.GamePanelAction:
                 pAction = gamePanelAction;
+                break;
+            case UniActionType.CameraAction:
+                pAction = cameraAction;
+                break;
+            case UniActionType.IUniActionInteractionAction:
+                pAction = iuaiAction;
                 break;
         }
         

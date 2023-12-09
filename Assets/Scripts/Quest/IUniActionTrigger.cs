@@ -30,3 +30,8 @@ public interface IUniActionTrigger<T>
         uniActionEventToTrigger.AddListener(eventToTrigger);
     }
 }
+
+public interface IUniActionInteraction
+{
+    public void TriggerInteractionByUniAction(int index);
+}

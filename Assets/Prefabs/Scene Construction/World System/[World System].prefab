@@ -2022,7 +2022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5776892635518360071
 Transform:
   m_ObjectHideFlags: 0
@@ -3258,11 +3258,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7080944377127463608, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
-      value: 6
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
@@ -3281,6 +3285,18 @@ PrefabInstance:
       value: ColorRandom
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
+      value: ParticleColorRandom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Name
+      value: RampTintAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Name
+      value: RampOffset
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
       value: 0
       objectReference: {fileID: 0}
@@ -3295,6 +3311,22 @@ PrefabInstance:
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
       value: 0.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
+      value: 0.176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Value
+      value: 0.046
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Name
+      value: RampColor
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
@@ -3313,19 +3345,51 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 0.6981132
+      value: 0.6698113
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.6101434
+      value: 0.52271146
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.5301709
+      value: 0.38229796
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
+      value: 0.3244037
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
+      value: 0.3244037
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827477107239716250, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
@@ -3343,6 +3407,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3743502446860150513, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
   m_PrefabInstance: {fileID: 3441313233257811924}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6143894571685530190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8827477107239716250, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+  m_PrefabInstance: {fileID: 3441313233257811924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9106175834778423755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143894571685530190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: OpeningFog_Fog1
 --- !u!1001 &3441313234438276013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3400,11 +3482,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7080944377127463608, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
-      value: 6
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
@@ -3423,6 +3509,18 @@ PrefabInstance:
       value: ColorRandom
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Name
+      value: ParticleColorRandom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Name
+      value: RampTintAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Name
+      value: RampOffset
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
       value: 20
       objectReference: {fileID: 0}
@@ -3437,6 +3535,22 @@ PrefabInstance:
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
       value: 0.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Value
+      value: 0.176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Value
+      value: 0.046
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Name
+      value: RampColor
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
@@ -3455,19 +3569,51 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[6].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[7].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[8].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 0.6981132
+      value: 0.6698113
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.6101434
+      value: 0.52271146
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.5301709
+      value: 0.38229796
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x
+      value: 0.509434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
+      value: 0.3244037
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
+      value: 0.3244037
       objectReference: {fileID: 0}
     - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414344610289982842, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827477107239716250, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
@@ -3485,6 +3631,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3743502446860150513, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
   m_PrefabInstance: {fileID: 3441313234438276013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6143894572383716919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8827477107239716250, guid: a40dd81830fc6c94dae7438617a176cc, type: 3}
+  m_PrefabInstance: {fileID: 3441313234438276013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8424120707506136525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143894572383716919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: OpeningFog_Fog2
 --- !u!1001 &6482955102865415859
 PrefabInstance:
   m_ObjectHideFlags: 0
