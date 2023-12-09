@@ -15,7 +15,7 @@ public class SpiritPointWarning : MonoBehaviour
 
     private GameObject textObject;
     private Vector3 originalScale;
-    
+
 
     void Awake()
     {
