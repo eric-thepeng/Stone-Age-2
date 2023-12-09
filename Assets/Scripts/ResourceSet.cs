@@ -27,7 +27,7 @@ using UnityEngine;
         foreach ( ResourceAmount ra in resources)
         {
             Inventory.i.AddInventoryItem(ra.iso, ra.amount);
-            UnityEngine.Debug.Log("gain resource " + ra.iso + "  x  " + ra.amount);
+            //UnityEngine.Debug.Log("gain resource " + ra.iso + "  x  " + ra.amount);
         }
     }
 

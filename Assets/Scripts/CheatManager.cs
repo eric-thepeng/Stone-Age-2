@@ -18,6 +18,11 @@ public class CheatManager : MonoBehaviour
         {
             UnlockCurrentRecipe();
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            AddResourceForTrash();
+        }
     }
 
     void AddMoney()
@@ -31,6 +36,18 @@ public class CheatManager : MonoBehaviour
         {
             Inventory.i.AddInventoryItem(item,5);
         }
+    }
+
+    void AddResourceForTrash()
+    {
+        foreach (ItemScriptableObject item in allISOList.list)
+        {
+            if (item.name == "ISO_Apple")
+            {
+                Inventory.i.AddInventoryItem(item, 4);
+            }
+        }
+    
     }
 
     public void UnlockCurrentRecipe()

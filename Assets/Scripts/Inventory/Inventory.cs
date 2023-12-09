@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
             if (ii.iso == newISO)
             {
                 ii.totalAmount += amount;
-                print("added amount: " + newISO);
+                //print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour
             if (ii.iso == newISO)
             {
                 ii.totalAmount += amount-1;
-                print("added amount: " + newISO);
+                //print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
