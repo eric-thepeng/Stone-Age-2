@@ -65,6 +65,7 @@ public class WorldInteractable : MonoBehaviour
             if (progressDuration >= pressDuration)
             {
                 CompleteInteraction();
+
                 return true;
             }
             return false;
@@ -182,11 +183,13 @@ public class WorldInteractable : MonoBehaviour
             if (currentInteraction.AdvanceProgress())
             {
                 OnMouseUp();
+                currentInteraction?.DisplayUI(false);
             }
         }
         if (currentInteraction != null && currentInteraction.IsCompleted())
         {
             currentInteraction = null;
+
         }
     }
 
