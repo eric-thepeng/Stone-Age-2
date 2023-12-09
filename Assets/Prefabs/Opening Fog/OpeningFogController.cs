@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class OpeningFogController : MonoBehaviour
+public class OpeningFogController : MonoBehaviour, IUniActionInteraction
 {
     [SerializeField]private int index;
     
@@ -46,5 +46,13 @@ public class OpeningFogController : MonoBehaviour
         float currentZ = fogVFX.GetFloat("SDFSizeZ");
         fogVFX.SetFloat("SDFSizeX",currentX * 1.1f);
         fogVFX.SetFloat("SDFSizeZ",currentZ * 1.1f);
+    }
+
+    public void TriggerInteractionByUniAction(int index)
+    {
+        if (index == this.index)
+        {
+            DeleteClouds();
+        }
     }
 }

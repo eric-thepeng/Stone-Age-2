@@ -8,7 +8,7 @@ using Sirenix.Utilities;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : MonoBehaviour, IUniActionInteraction
 {
     static CameraManager instance;
     public static CameraManager i
@@ -38,6 +38,7 @@ public class CameraManager : MonoBehaviour
     // For camera movement space restriction
     bool restrainedCamera = true;
     float cameraXMinOnFloor = -50, cameraXMaxOnFloor = 50, cameraZMinOnFloor = -150, cameraZMaxOnFloor = -10;
+    private bool freezeCamera = false;
 
     // Animation Curves
     [SerializeField] private AnimationCurve moveSpeedAgainstHeight;
@@ -52,6 +53,7 @@ public class CameraManager : MonoBehaviour
     
     private void Update()
     {
+        if(freezeCamera) return;
         if (!(PlayerState.IsBrowsing() || PlayerState.IsBuilding())) return;
         //ZOOMING
         float targetCamHeight = transform.position.y + Input.mouseScrollDelta.y * GetWeightedZoomSpeed();
@@ -154,4 +156,34 @@ public class CameraManager : MonoBehaviour
         transform.DOMove(targetCameraPosition, 0.5f);
     }
 
+    #region IUniActionInteraction
+
+    public enum IUAIType
+    {
+        FreezeCamera,
+        UnfreezeCamera,
+    }
+
+    public void TriggerInteractionByUniAction(IUAIType iuaiType)
+    {
+        int index = 0;
+        if (iuaiType == IUAIType.FreezeCamera) index = 1;
+        else if (iuaiType == IUAIType.UnfreezeCamera) index = 2;
+        else Debug.LogError("There is no such iuaiType to int paring");
+        TriggerInteractionByUniAction(index);
+    }
+
+    public void TriggerInteractionByUniAction(int index)
+    {
+        if (index == 1) //FreezeCamera
+        {
+            freezeCamera = true;
+        }else if (index == 2) //UnfreezeCamera
+        {
+            freezeCamera = false;
+        }
+        else Debug.LogError("There is no such int to action pairing");
+    }
+
+    #endregion
 }
