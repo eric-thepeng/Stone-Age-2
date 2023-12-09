@@ -10,6 +10,7 @@ public class SpiritPoint : MonoBehaviour
     public int startingAmount;
     [SerializeField]TextMeshPro displayText;
     private PlayerStat spiritPointAmount;
+    private SpiritPointWarning spiritPointWarning;
 
     public static SpiritPoint i
     {
@@ -26,6 +27,7 @@ public class SpiritPoint : MonoBehaviour
     private void Awake()
     {
         spiritPointAmount = new PlayerStat(startingAmount);
+        spiritPointWarning = GetComponentInChildren<SpiritPointWarning>();
     }
 
     private void Start()
@@ -63,5 +65,7 @@ public class SpiritPoint : MonoBehaviour
     void UpdateUI()
     {
         displayText.text = "" + spiritPointAmount.GetAmount();
+        spiritPointWarning.TextHighlight();
+
     }
 }
