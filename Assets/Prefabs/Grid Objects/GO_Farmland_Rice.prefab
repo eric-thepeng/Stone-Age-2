@@ -130,6 +130,7 @@ MonoBehaviour:
     triggerEvent:
       m_PersistentCalls:
         m_Calls: []
+  highlightMode: 0
   allowInteraction: 1
   allUnlockStates:
   - InitAction: 2
@@ -157,7 +158,7 @@ MonoBehaviour:
     finishedParticle: {fileID: 6740351624469362035, guid: 5a1c45b86ef1c9042854a88c5970f31f, type: 3}
     overtimeParticle: {fileID: 2616092525087715391, guid: 05dde29f0091f4770a0ef14e120e7480, type: 3}
     finishedWaterParticle: {fileID: 6740351624469362035, guid: 4b5d055e6ecec4482b5e4afbdc6ea889, type: 3}
-    interactableIcon: {fileID: 21300000, guid: edef70065eaee764b93954d440fb23b6, type: 3}
+    interactableIcon: {fileID: 21300000, guid: a6b802caf64dc874dbb18c45d1e5efc6, type: 3}
   - InitAction: 2
     FinishAction: 3
     waterCost:
@@ -224,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3478142711556011591
 Transform:
   m_ObjectHideFlags: 0
@@ -237,7 +238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4263002190646311803}
+  - {fileID: 1354843020601305588}
   - {fileID: 6703126548228200857}
   m_Father: {fileID: 3723192852283108928}
   m_RootOrder: 2
@@ -607,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5780408884980511110
 Transform:
   m_ObjectHideFlags: 0
@@ -1084,6 +1085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FarmLand_Irrigated
       objectReference: {fileID: 0}
+    - target: {fileID: 3888293578324307174, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4515726235590539764, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
       propertyPath: m_Name
       value: Water
@@ -1102,6 +1107,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
   m_PrefabInstance: {fileID: 114736194851757310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &612236963634031064
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3478142711556011591}
+    m_Modifications:
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888293578324307174, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+      propertyPath: m_Name
+      value: FarmLand_Irrigated_Weed
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+--- !u!4 &1354843020601305588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: d96bda5e42ec34445be14fdce02e8f35, type: 3}
+  m_PrefabInstance: {fileID: 612236963634031064}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1730576137619164155
 PrefabInstance:
@@ -1472,96 +1539,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5107462915688184362, guid: 3b653a63ee1e247ec8d14f711ac75a50, type: 3}
   m_PrefabInstance: {fileID: 2281369041850564681}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2421666857752853335
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3478142711556011591}
-    m_Modifications:
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3888293578324307174, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_Name
-      value: FarmLand_Irrigated
-      objectReference: {fileID: 0}
-    - target: {fileID: 4515726235590539764, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_Name
-      value: Water
-      objectReference: {fileID: 0}
-    - target: {fileID: 4515726235590539764, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6358290218953084543, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
---- !u!4 &4263002190646311803 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1923675628546981932, guid: b923cd2f9a67f564da8735d346f128ab, type: 3}
-  m_PrefabInstance: {fileID: 2421666857752853335}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2998948152190026758
 PrefabInstance:
