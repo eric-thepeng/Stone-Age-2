@@ -706,7 +706,7 @@ Transform:
   m_Children:
   - {fileID: 6054158093259115680}
   m_Father: {fileID: 6756724190148151878}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4032712043208215045
 GameObject:
@@ -1060,6 +1060,168 @@ MonoBehaviour:
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         actionIndex: 0
+--- !u!1 &4396491177541519724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8284433329927875257}
+  - component: {fileID: 6679241603741673814}
+  m_Layer: 0
+  m_Name: PlayMode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8284433329927875257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396491177541519724}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1286774172127772581}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6679241603741673814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396491177541519724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 1
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: MenuScreen_Parent
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+      iuaiAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: OpeningFog_Parent
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+      iuaiAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 4022898649357024164}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+      iuaiAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
 --- !u!1 &4592277076924256310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,7 +1270,7 @@ MonoBehaviour:
   hasCompleted: 0
   currentUniAction: 0
   totalUniActions: 0
-  uponGameStart: 1
+  uponGameStart: 0
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -1265,7 +1427,7 @@ MonoBehaviour:
         actionType: 1
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: MenuScreen_Title
-        targetVector: {x: 0, y: -5, z: 0}
+        targetVector: {x: 0, y: 4, z: 0}
         moveTime: 2
       narrativeSequenceAction:
         actionType: 0
@@ -1333,6 +1495,94 @@ MonoBehaviour:
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         actionIndex: 0
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        actionType: 1
+        targetUniQuest: {fileID: 4484616788459455167}
+      playerStatAction:
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        actionType: 0
+        targetPanel: 0
+      iuaiAction:
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+--- !u!1 &4858647202416698151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5358943423043403454}
+  - component: {fileID: 4040749330136386116}
+  m_Layer: 0
+  m_Name: DevMode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5358943423043403454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858647202416698151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1286774172127772581}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4040749330136386116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858647202416698151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -1532,6 +1782,39 @@ MonoBehaviour:
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
         actionIndex: 0
+--- !u!1 &6196689378204579863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286774172127772581}
+  m_Layer: 0
+  m_Name: Mode Selection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1286774172127772581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6196689378204579863}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8284433329927875257}
+  - {fileID: 5358943423043403454}
+  m_Father: {fileID: 6756724190148151878}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6669676344636144423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +2082,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1286774172127772581}
   - {fileID: 2160998579990525399}
   - {fileID: 3568517355196735561}
   m_Father: {fileID: 0}
@@ -2128,7 +2412,7 @@ Transform:
   - {fileID: 1965507078552031414}
   - {fileID: 6932152061697265973}
   m_Father: {fileID: 6756724190148151878}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8965365222085001251
 GameObject:
