@@ -72,7 +72,7 @@ public class Obstacle : MonoBehaviour
                 spriteObj.transform.position = spritePosition;
                 spriteObj.transform.localScale = spriteSize;
 
-                boxCollider.enabled = false;
+                //boxCollider.enabled = false;
 
             }
 
