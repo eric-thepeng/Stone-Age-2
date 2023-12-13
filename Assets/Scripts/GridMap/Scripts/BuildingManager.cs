@@ -462,13 +462,13 @@ public class BuildingManager : MonoBehaviour
             hg.HideGridLines();
         }
 
-        foreach (Obstacle item in FindObjectsOfType<Obstacle>())
-        {
-            foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
-            {
-                collider.enabled = false;
-            }
-        }
+        //foreach (Obstacle item in FindObjectsOfType<Obstacle>())
+        //{
+        //    foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
+        //    {
+        //        collider.enabled = false;
+        //    }
+        //}
 
         CancelSelectedBuidling();
     }

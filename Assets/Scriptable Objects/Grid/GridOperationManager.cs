@@ -72,13 +72,13 @@ public class GridOperationManager : MonoBehaviour
         _gridEmptyObjectPrefab.GetComponent<PlaceableObject>().DisableEffects();
 
 
-        foreach (Obstacle item in FindObjectsOfType<Obstacle>())
-        {
-            foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
-            {
-                collider.enabled = true;
-            }
-        }
+        //foreach (Obstacle item in FindObjectsOfType<Obstacle>())
+        //{
+        //    foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
+        //    {
+        //        collider.enabled = true;
+        //    }
+        //}
     }
 
     public void EndPaintMode()
