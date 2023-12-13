@@ -70,6 +70,15 @@ public class GridOperationManager : MonoBehaviour
         //Debug.Log("Paint mode entered");
         _gridManager.StartPaintMode(_gridEmptyObjectPrefab);
         _gridEmptyObjectPrefab.GetComponent<PlaceableObject>().DisableEffects();
+
+
+        foreach (Obstacle item in FindObjectsOfType<Obstacle>())
+        {
+            foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
+            {
+                collider.enabled = true;
+            }
+        }
     }
 
     public void EndPaintMode()
