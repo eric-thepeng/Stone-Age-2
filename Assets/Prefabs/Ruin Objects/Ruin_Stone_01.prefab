@@ -508,7 +508,15 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: dcb32aa5c20044a5a82e61b92f61a7d5, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].amount
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: gainResourceSet.resources.Array.data[1].amount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: gainResourceSet.resources.Array.data[2].amount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.spiritPoint
@@ -538,6 +546,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7855024002291406674, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
   m_PrefabInstance: {fileID: 6133961795820811675}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &3596998757450498368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044957555968467657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8012676, y: 2, z: 3.6387825}
+  m_Center: {x: -3.3404627, y: 1, z: 1.739275}
 --- !u!114 &26574194177898642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,19 +571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2009d447855804ce9b35097201f939ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &3596998757450498368
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4044957555968467657}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.2623158, y: 2, z: 1.8369064}
-  m_Center: {x: -2.5709867, y: 1, z: -1.7295799}
 --- !u!4 &4044957555968467659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7855024002291406672, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
