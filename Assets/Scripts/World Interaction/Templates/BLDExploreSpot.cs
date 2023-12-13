@@ -32,6 +32,11 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
         }
     }
 
+    public SO_ExploreSpotSetUpInfo GetSetUpInfo()
+    {
+        return setUpInfo;
+    }
+
     private void Start()
     {
         if (setUpInfo.startInLockedState)

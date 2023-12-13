@@ -21,6 +21,7 @@ using UnityEngine.UI;
         GamePanelAction,
         CameraAction,
         IUniActionInteractionAction,
+        CharacterGatherAction,
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -32,8 +33,9 @@ using UnityEngine.UI;
     public ButtonAction buttonAction;
     public LevelUpAction levelUpAction;
     public GamePanelAction gamePanelAction;
-    public UniAction cameraAction;
+    public CameraAction cameraAction;
     public IUniActionInteractionAction iuaiAction;
+    public CharacterGatherAction characterGatherAction;
     
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -76,6 +78,9 @@ using UnityEngine.UI;
                 break;
             case UniActionType.IUniActionInteractionAction:
                 pAction = iuaiAction;
+                break;
+            case UniActionType.CharacterGatherAction:
+                pAction = characterGatherAction;
                 break;
         }
         

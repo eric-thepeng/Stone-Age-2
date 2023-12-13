@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Uniland.Characters;
+using UnityEngine.Events;
 using static CharacterHomeStatus;
 
 namespace Uniland.Characters
@@ -183,9 +184,18 @@ public class Character : MonoBehaviour
     float gatherTimeLeft;
     float restTimeLeft;
     CharacterIcon myCI;
+    
+    // Unity Event
+
+    /// <summary>
+    /// Integer Meaning: 0: Start Gather 1: End Gather
+    /// </summary>
+    public static UnityEvent<SO_ExploreSpotSetUpInfo, CharacterBasicStats, int> CharacterGatherUnityEvent = null;
 
     void Start()
     {
+        if (CharacterGatherUnityEvent == null)
+            CharacterGatherUnityEvent = new UnityEvent<SO_ExploreSpotSetUpInfo, CharacterBasicStats, int>();
         characterStats = new CharacterStats(initialStats);
         homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
     }
@@ -275,6 +285,7 @@ public class Character : MonoBehaviour
             gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
             SetCircularUIState(CircularUI.CircularUIState.Display);
 
+            CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,1);
             homeStatus.EnterState(HomeState.Gathering);
         }
 
@@ -290,6 +301,9 @@ public class Character : MonoBehaviour
         //characterStats.energy.RestoreAllEnergy();
 
         myCI.ResetHome();
+        
+        CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,0);
+
 
         if (characterStats.energy.EnergyLessThanRestingPercentage())
         {
