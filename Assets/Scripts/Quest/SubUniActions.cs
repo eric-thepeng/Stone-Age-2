@@ -268,47 +268,6 @@ using UnityEngine.Events;
     }
 }
 
-[Serializable] public class CharacterGatherAction : IPerformableAction
-{
-    public enum ActionType{NoAction, WaitUntilCharacterGatherLocation}
-    public ActionType actionType = ActionType.NoAction;
-
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
-    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GatherSpot targetGatherSpot = null;
-    public string targetGameObjectSetUpIdentifierID;
-    
-    public void PerformAction()
-    {
-        if(actionType == ActionType.NoAction) Debug.LogError("SubUniAction has action type NoAction");
-        
-        if (targetGatherSpot == null)
-            targetGatherSpot = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID).GetComponent<GatherSpot>();
-        
-        if(targetGatherSpot == null) Debug.LogError("Cannot find GatherSpot");
-        
-        onActionStarts?.Invoke();
-
-        if (actionType == ActionType.WaitUntilCharacterGatherLocation)
-        {
-            //((IUniActionTrigger<int>)targetLevelUp).ActivateIUniActionTrigger(CheckUniActionComplete);
-        }
-    }
-
-    public void CheckUniActionComplete()
-    {
-        
-    }
-
-    public bool IsAssigned()
-    {
-        return actionType != ActionType.NoAction;
-    }
-}
-
 [Serializable] public class GamePanelAction : IPerformableAction
 {
     public enum ActionType{NoAction, GoToPanel}
@@ -403,6 +362,82 @@ using UnityEngine.Events;
     private void FinishClick()
     {
         onActionCompletes.Invoke();
+    }
+
+    public bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterGatherAction : IPerformableAction
+{
+    public enum ActionType{NoAction, UponGatherStarts, UponGatherEnds}
+    public ActionType actionType = ActionType.NoAction;
+
+    private UnityEvent _onActionStarts = new UnityEvent();
+    private UnityEvent _onActionCompletes = new UnityEvent();
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+
+    [Header("Leave as Null to indicate \" any. \"")]
+    public SO_ExploreSpotSetUpInfo targetGatherSpot = null;
+    public CharacterBasicStats targetCharacter = null;
+
+
+    public void PerformAction()
+    {
+       
+        onActionStarts?.Invoke();
+
+        if (actionType == ActionType.UponGatherStarts)
+        {
+            Character.CharacterGatherUnityEvent.AddListener(CheckFinish);
+        }
+        else if (actionType == ActionType.UponGatherEnds)
+        {
+            Character.CharacterGatherUnityEvent.AddListener(CheckFinish);
+        }
+        else
+        {
+            Debug.LogError("Character Gather Action is set as No Action");
+        }
+    }
+
+    private void CheckFinish(SO_ExploreSpotSetUpInfo essui, CharacterBasicStats cbs, int i)
+    {
+        if(i == 0 && actionType == ActionType.UponGatherStarts) return;       
+        if(i == 1 && actionType == ActionType.UponGatherEnds) return;
+
+            
+        bool correctExploreSpot = false;
+        bool correctCharacter = false;
+
+        //Check correct explore spot
+        if (targetGatherSpot == null)
+        {
+            correctExploreSpot = true;
+        }
+        else if(targetGatherSpot == essui)
+        {
+            correctExploreSpot = true;
+        }
+
+        //Check correct character
+        if (targetCharacter == null)
+        {
+            correctCharacter = true;
+        }else if (targetCharacter == cbs)
+        {
+            correctCharacter = true;
+        }
+
+        //Trigger
+        if (correctExploreSpot && correctCharacter)
+        {
+            onActionCompletes.Invoke();
+            Character.CharacterGatherUnityEvent.RemoveListener(CheckFinish);
+        }
     }
 
     public bool IsAssigned()

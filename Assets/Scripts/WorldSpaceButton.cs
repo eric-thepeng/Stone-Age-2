@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.Events;
 public class WorldSpaceButton : MonoBehaviour, IPerformableAction
 {
     [SerializeField] UnityEvent clickEvent;
+
     [SerializeField] protected Color32 normalColor;
     [SerializeField] protected Color32 hoverColor;
     [SerializeField] protected Color32 pressColor;
@@ -16,6 +18,8 @@ public class WorldSpaceButton : MonoBehaviour, IPerformableAction
     [SerializeField] bool buttonActive = true;
     [SerializeField] SpriteRenderer affectSR = null;
     [SerializeField] string customClickSoundID = "Default Sound";
+
+
 
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionComplets = new UnityEvent();
@@ -31,9 +35,8 @@ public class WorldSpaceButton : MonoBehaviour, IPerformableAction
 
     SpriteRenderer targetSR = null;
 
-    private void Start()
+    private void Awake()
     {
-        //print(gameObject.name + "  " + transform.parent.gameObject.name + " " + buttonActive);
         if(affectSR == null)
         {
             targetSR = GetComponent<SpriteRenderer>();
@@ -42,13 +45,19 @@ public class WorldSpaceButton : MonoBehaviour, IPerformableAction
         {
             targetSR = affectSR;
         }
-
+        
         if (autoTint)
         {
             normalColor = targetSR.color;
             hoverColor = new Color(normalColor.r * 0.8f /255, normalColor.g * 0.8f / 255, normalColor.b * 0.8f / 255, normalColor.a);
             pressColor = new Color(normalColor.r * 0.6f /255, normalColor.g * 0.6f / 255, normalColor.b * 0.6f / 255, normalColor.a);
         }
+    }
+
+    private void Start()
+    {
+        //print(gameObject.name + "  " + transform.parent.gameObject.name + " " + buttonActive);
+
     }
 
     protected void OnMouseEnter()
@@ -60,7 +69,16 @@ public class WorldSpaceButton : MonoBehaviour, IPerformableAction
         {
             JSAM.AudioManager.PlaySound(JSAM.SoundsStoneAge2.Button_Hover_01);
         }
-  
+    }
+
+    private void OnDisable()
+    {
+        targetSR.color = normalColor;
+    }
+
+    private void OnEnable()
+    {
+        targetSR.color = normalColor;
     }
 
     private void OnMouseExit()
