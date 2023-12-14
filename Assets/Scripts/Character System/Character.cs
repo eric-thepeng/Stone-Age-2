@@ -238,14 +238,16 @@ public class Character : MonoBehaviour
                 characterIcon.ChangeIconColorToGather();
                 homeStatus.EnterState(HomeState.Resting);
             }
-
+            
+            /* Energy is always displayed
+             
             if (!characterStats.energy.maximizeEnergy())
             {
-                characterIcon.SetCircularUIState(CircularUI.CircularUIState.Display);
+                characterIcon.setga(CircularUI.CircularUIState.Display);
             } else
             {
                 characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
-            }
+            }*/
 
             if (restTimeLeft <= 0)
             {
@@ -319,8 +321,9 @@ public class Character : MonoBehaviour
         gatheringSpot.SetCircularUIState(circularUIState);
         gatheringSpot.SetCircularUIState(circularUIState);
 
+        /*
         characterIcon.SetCircularUIState(circularUIState);
-        characterIcon.SetCircularUIState(circularUIState);
+        characterIcon.SetCircularUIState(circularUIState);*/
     }
 
     public void YieldResource()
