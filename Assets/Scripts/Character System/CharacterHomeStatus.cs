@@ -33,6 +33,8 @@ public class CharacterHomeStatus : MonoBehaviour
         {
             characterMovement = l2dCharacter.AddComponent<CharacterMovement>();
         }
+        //Debug.Log(characterMovement.transform.name);
+
             characterMovement.moveSpeed = moveSpeed;
             characterMovement.hangOutWaitTime = hangOutWaitTime;
 
@@ -63,6 +65,8 @@ public class CharacterHomeStatus : MonoBehaviour
 
     public void EnterState(HomeState state)
     {
+        if (characterMovement == null) return;
+
         if (currentState == HomeState.Resting)
         {
             if (state == HomeState.Gatherable)

@@ -47,7 +47,7 @@ public class SpiritPoint : MonoBehaviour
         {
             return false;
         }
-        spiritPointAmount.ChangeAmount(useAmount);
+        spiritPointAmount.ChangeAmount(-useAmount);
         UpdateUI();
         return true;
     }
