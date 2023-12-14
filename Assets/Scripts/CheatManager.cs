@@ -9,6 +9,7 @@ public class CheatManager : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log(gameObject.name);
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             AddMoney();
@@ -35,6 +36,7 @@ public class CheatManager : MonoBehaviour
         foreach (ItemScriptableObject item in allISOList.list)
         {
             Inventory.i.AddInventoryItem(item,5);
+            //print(item);
         }
     }
 
@@ -57,4 +59,5 @@ public class CheatManager : MonoBehaviour
             RecipeMapManager.i.CheckUnlock(RecipeMapManager.i.DisplayBlock.myISO);
         }  
     }
+
 }

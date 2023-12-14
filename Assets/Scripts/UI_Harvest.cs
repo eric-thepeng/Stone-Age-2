@@ -5,6 +5,13 @@ using TMPro;
 
 public class UI_Harvest : MonoBehaviour
 {
+
+    public enum modeEdit
+    {
+        anim,
+        direct
+    }
+
     static UI_Harvest instance;
     public static UI_Harvest i
     {
@@ -23,8 +30,8 @@ public class UI_Harvest : MonoBehaviour
         ItemScriptableObject iso;
         int amount;
         public GameObject displayGO;
-        float disappearTime = 4f;
-        float disappearTimeLeft = 4f;
+        float disappearTime = 5f;
+        float disappearTimeLeft = 5f;
 
         public HarvestInfo(ItemScriptableObject newIso, int initialAmount, GameObject go)
         {
@@ -47,11 +54,23 @@ public class UI_Harvest : MonoBehaviour
             disappearTimeLeft = disappearTime;
         }
 
-        public bool SpendTime(float delta)
+        public bool TimeFinshed(float delta)
         {
             disappearTimeLeft -= delta;
             if (disappearTimeLeft < 0) return false;
             return true;
+        }
+
+        public float SpendTime(float delta)
+        {
+            disappearTimeLeft -= delta;
+            //if(disappearTimeLeft <= (disappearTime * 2 / 3))
+            //{
+            //    return timer.twoThird;
+            //}else if(disappearTimeLeft <= (disappearTime * 1 / 3)){
+            //    return timer.aThird;
+            //}
+            return disappearTimeLeft/disappearTime;
         }
 
         public bool IsISO(ItemScriptableObject checkIso)
@@ -89,7 +108,29 @@ public class UI_Harvest : MonoBehaviour
                     newColor.a = opacityPercent;
                     spriteRenderer.color = newColor;
                 }
+            }
+        }
 
+        public void ChangeOpacityBaseOnTime(float timePassed)
+        {
+            float percent = Mathf.Clamp01(timePassed);
+            foreach (Transform child in displayGO.transform)
+            {
+                float opacityPercent = (float)(percent);
+                if (child.GetComponent<TextMeshProUGUI>() != null)
+                {
+                    TextMeshProUGUI textMeshPro = child.GetComponent<TextMeshProUGUI>();
+                    Color newColor = textMeshPro.color;
+                    newColor.a = opacityPercent;
+                    textMeshPro.color = newColor;
+                }
+                else if (child.GetComponent<SpriteRenderer>() != null)
+                {
+                    SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+                    Color newColor = spriteRenderer.color;
+                    newColor.a = opacityPercent;
+                    spriteRenderer.color = newColor;
+                }
             }
         }
 
@@ -101,21 +142,21 @@ public class UI_Harvest : MonoBehaviour
     List<HarvestInfo> harvestInfoList = new List<HarvestInfo>();
     [SerializeField] GameObject uiTemplate;
     [SerializeField] private int harvestSetSize = 3;
-    [Header("Mode 0 is w Coroutine(bug), Mode 1 is without")]
-    [SerializeField] private int mode = 1;
+    [Header("Mode 0 is w Coroutine(bug)")]
+    [SerializeField] private modeEdit mode = modeEdit.direct;
     //[SerializeField] private float moveAmount = 1f;
    
 
     public void AddItem(ItemScriptableObject iso, int amount)
     {
-        foreach(HarvestInfo hi in harvestInfoList) //add amount
-        {
-            if (hi.IsISO(iso))
-            {
-                hi.AddAmount(amount);
-                return;
-            }
-        }
+        //foreach (HarvestInfo hi in harvestInfoList) //add amount
+        //{
+        //    if (hi.IsISO(iso))
+        //    {
+        //        hi.AddAmount(amount);
+        //        return;
+        //    }
+        //}
         //create new
         GameObject newDisplayGO = Instantiate(uiTemplate,this.transform);
         harvestInfoList.Add(new HarvestInfo(iso, amount, newDisplayGO));
@@ -127,10 +168,10 @@ public class UI_Harvest : MonoBehaviour
         }
         switch (mode)
         {
-            case 0:
+            case modeEdit.anim:
                 StartCoroutine(UpdatePosition2());
                 break;
-            case 1:
+            case modeEdit.direct:
                 UpdatePosition();
                 break;
         }
@@ -183,24 +224,29 @@ public class UI_Harvest : MonoBehaviour
         //print("number: " + harvestInfoList.Count);
         if (harvestInfoList.Count != 0)
         {
-            if (harvestInfoList[0].SpendTime(Time.deltaTime) == false)
+            for (int i = 0; i < harvestInfoList.Count; i++)
+            {
+                harvestInfoList[i].ChangeOpacityBaseOnTime(harvestInfoList[i].SpendTime(Time.deltaTime));
+            }
+
+            if (harvestInfoList[0].TimeFinshed(Time.deltaTime) == false)
             {
                 RemoveFromFront();
                 if(harvestInfoList.Count != 0)
                 {
                     switch (mode)
                     {
-                        case 0:
+                        case modeEdit.anim:
                             StartCoroutine(UpdatePosition2());
                             break;
-                        case 1:
+                        case modeEdit.direct:
                             UpdatePosition();
                             break;
                     }
-                    for (int i = 0; i < harvestInfoList.Count; i++)
-                    {
-                        harvestInfoList[i].ChangeOpacity(harvestInfoList.Count - 1 - i);
-                    }
+                    //for (int i = 0; i < harvestInfoList.Count; i++)
+                    //{
+                    //    harvestInfoList[i].ChangeOpacity(harvestInfoList.Count - 1 - i);
+                    //}
                 }
             }
 
