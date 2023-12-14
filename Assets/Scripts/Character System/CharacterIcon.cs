@@ -92,12 +92,16 @@ public class CharacterIcon : MonoBehaviour
 
     public void SetGatheringProgress(float gatherPercentage, float energyPercentage, bool isLerp)
     {
+        if (gatherCircularUI == null || energyCircularUI == null) return;
+
         gatherCircularUI.SetCircularUIPercentage(gatherPercentage, false);
         energyCircularUI.SetCircularUIPercentage(energyPercentage, isLerp);
     }
 
     public void SetCircularUIState(CircularUI.CircularUIState circularUIState)
     {
+        if (gatherCircularUI == null || energyCircularUI == null) return;
+
         gatherCircularUI.SetCircularUIState(circularUIState);
         energyCircularUI.SetCircularUIState(circularUIState);
     }

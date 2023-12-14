@@ -127,117 +127,117 @@ public class BuildingManager : MonoBehaviour
 
     GridIndication gridIndication;
 
-    class BuildDragInfo
-    {
-        HomeGrid homeGrid;
-        Vector2Int startCoord;
-        Vector2Int endCoord;
-        List<Vector2Int> keyCoords;
-        List<GameObject> placeholders;
-        BuildingISO biso;
+    //class BuildDragInfo
+    //{
+    //    HomeGrid homeGrid;
+    //    Vector2Int startCoord;
+    //    Vector2Int endCoord;
+    //    List<Vector2Int> keyCoords;
+    //    List<GameObject> placeholders;
+    //    BuildingISO biso;
 
-        public BuildDragInfo(Vector2Int firstSpot, HomeGrid hg, BuildingISO inputBISO)
-        {
-            homeGrid = hg;
-            startCoord = firstSpot;
-            endCoord = startCoord;
-            keyCoords = new List<Vector2Int>();
-            placeholders = new List<GameObject>();
-            biso = inputBISO;
-            CalculateAllCoords();
-        }
+    //    public BuildDragInfo(Vector2Int firstSpot, HomeGrid hg, BuildingISO inputBISO)
+    //    {
+    //        homeGrid = hg;
+    //        startCoord = firstSpot;
+    //        endCoord = startCoord;
+    //        keyCoords = new List<Vector2Int>();
+    //        placeholders = new List<GameObject>();
+    //        biso = inputBISO;
+    //        CalculateAllCoords();
+    //    }
 
-        public void SetEndPosition(Vector2Int newEndCoord)
-        {
-            if (endCoord == newEndCoord) return;
-            endCoord = newEndCoord;
-            CalculateAllCoords();
-        }
+    //    public void SetEndPosition(Vector2Int newEndCoord)
+    //    {
+    //        if (endCoord == newEndCoord) return;
+    //        endCoord = newEndCoord;
+    //        CalculateAllCoords();
+    //    }
 
-        public List<Vector2Int> GetKeyCoords()
-        {
-            return keyCoords;
-        }
+    //    public List<Vector2Int> GetKeyCoords()
+    //    {
+    //        return keyCoords;
+    //    }
 
-        void CalculateAllCoords()
-        {
-            if (biso == null) return;
-            keyCoords.Clear();
+    //    void CalculateAllCoords()
+    //    {
+    //        if (biso == null) return;
+    //        keyCoords.Clear();
 
-            int xDir = biso.GetWidth();
-            int yDir = biso.GetHeight();
+    //        int xDir = biso.GetWidth();
+    //        int yDir = biso.GetHeight();
 
-            Vector2Int counter = new Vector2Int(startCoord.x, startCoord.y);
+    //        Vector2Int counter = new Vector2Int(startCoord.x, startCoord.y);
 
-            if(counter.x <= endCoord.x)
-            {
-                AddCoord(counter);
+    //        if(counter.x <= endCoord.x)
+    //        {
+    //            AddCoord(counter);
 
-                while (counter.x + xDir <= endCoord.x)
-                {
-                    counter += new Vector2Int(xDir, 0);
-                    AddCoord(counter);
-                }
-            }
-            else
-            {
-                AddCoord(counter);
+    //            while (counter.x + xDir <= endCoord.x)
+    //            {
+    //                counter += new Vector2Int(xDir, 0);
+    //                AddCoord(counter);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            AddCoord(counter);
 
-                while (counter.x - xDir >= endCoord.x)
-                {
-                    counter -= new Vector2Int(xDir, 0);
-                    AddCoord(counter);
-                } 
-            }
+    //            while (counter.x - xDir >= endCoord.x)
+    //            {
+    //                counter -= new Vector2Int(xDir, 0);
+    //                AddCoord(counter);
+    //            } 
+    //        }
 
-            if (counter.y <= endCoord.y)
-            {
-                while (counter.y + yDir <= endCoord.y)
-                {
-                    counter += new Vector2Int(0, yDir);
-                    AddCoord(counter);
-                }
-            }
-            else
-            {
-                while (counter.y - yDir >= endCoord.y)
-                {
-                    counter -= new Vector2Int(0, yDir);
-                    AddCoord(counter);
-                }
-            }
-            SpawnPlaceholders();
-        }
+    //        if (counter.y <= endCoord.y)
+    //        {
+    //            while (counter.y + yDir <= endCoord.y)
+    //            {
+    //                counter += new Vector2Int(0, yDir);
+    //                AddCoord(counter);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            while (counter.y - yDir >= endCoord.y)
+    //            {
+    //                counter -= new Vector2Int(0, yDir);
+    //                AddCoord(counter);
+    //            }
+    //        }
+    //        SpawnPlaceholders();
+    //    }
 
-        void AddCoord(Vector2Int coord)
-        {
-            if (!homeGrid.CanBuild(coord, biso.getCoordinates())) return;
-            if (keyCoords.Count == Inventory.i.ItemInStockAmount(biso)) return;
-            keyCoords.Add(coord);
-        }
+    //    void AddCoord(Vector2Int coord)
+    //    {
+    //        if (!homeGrid.CanBuild(coord, biso.getCoordinates())) return;
+    //        if (keyCoords.Count == Inventory.i.ItemInStockAmount(biso)) return;
+    //        keyCoords.Add(coord);
+    //    }
 
-        void SpawnPlaceholders()
-        {
-            DestroyPlaceholders();
-            foreach (Vector2Int coord in keyCoords)
-            {
-                placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.y, true));
-            }
-            UI_BuildingPointer.i.SetPrebuildUseAmount(keyCoords.Count);
-        }
+    //    void SpawnPlaceholders()
+    //    {
+    //        DestroyPlaceholders();
+    //        foreach (Vector2Int coord in keyCoords)
+    //        {
+    //            placeholders.Add(homeGrid.BuildWithCoord(coord.x, coord.y, true));
+    //        }
+    //        UI_BuildingPointer.i.SetPrebuildUseAmount(keyCoords.Count);
+    //    }
 
-        public void DestroyPlaceholders()
-        {
-            for (int i = placeholders.Count - 1; i >= 0; i--)
-            {
-                Destroy(placeholders[i]);
-            }
-            placeholders.Clear();
-        }
+    //    public void DestroyPlaceholders()
+    //    {
+    //        for (int i = placeholders.Count - 1; i >= 0; i--)
+    //        {
+    //            Destroy(placeholders[i]);
+    //        }
+    //        placeholders.Clear();
+    //    }
 
-    }
+    //}
 
-    BuildDragInfo buildDragInfo = null;
+    //BuildDragInfo buildDragInfo = null;
     private Quaternion targetRotation;
 
 
@@ -461,6 +461,15 @@ public class BuildingManager : MonoBehaviour
         {
             hg.HideGridLines();
         }
+
+        //foreach (Obstacle item in FindObjectsOfType<Obstacle>())
+        //{
+        //    foreach (BoxCollider collider in item.GetComponents<BoxCollider>())
+        //    {
+        //        collider.enabled = false;
+        //    }
+        //}
+
         CancelSelectedBuidling();
     }
 
