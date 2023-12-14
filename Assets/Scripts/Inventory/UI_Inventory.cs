@@ -28,7 +28,8 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] private GameObject categoryIndicatorBuildings;
     [SerializeField] private GameObject categoryIndicatorMaterials;
 
-    
+    [SerializeField] private GameObject itemDetailUI;
+    [SerializeField] private GameObject inventoryBlocksParent;
 
     public bool resetBackground = false;
 
@@ -98,7 +99,7 @@ public class UI_Inventory : MonoBehaviour
         {
             for(int i = 0; i < maxColumns; i++)
             {
-                GameObject go = Instantiate(inventoryBlockTemplate, transform.Find("Inventory Blocks"));
+                GameObject go = Instantiate(inventoryBlockTemplate, inventoryBlocksParent.transform);
                 go.transform.localPosition += new Vector3(i * horizontalDisplacement, -j * verticalDisplacement, 0);
                 go.gameObject.name = "IB_" + i + "_" + j;
                 go.SetActive(true);
@@ -111,9 +112,9 @@ public class UI_Inventory : MonoBehaviour
     public void DisplayItemDetail(ItemScriptableObject isoToDisplay)
     {
         //Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
-        transform.Find("Item Detail UI").gameObject.SetActive(true);
-        transform.Find("Item Detail UI").Find("Tetris Pic").gameObject.GetComponent<SpriteRenderer>().sprite = isoToDisplay.tetrisSprite;
-        transform.Find("Item Detail UI").Find("Tetris Name").gameObject.GetComponent<TextMeshPro>().text = isoToDisplay.tetrisHoverName;
+        itemDetailUI.gameObject.SetActive(true);
+        //itemDetailUI.transform.Find("Tetris Pic").gameObject.GetComponent<SpriteRenderer>().sprite = isoToDisplay.tetrisSprite;
+        itemDetailUI.transform.Find("Tetris Name").gameObject.GetComponent<TextMeshPro>().text = isoToDisplay.tetrisHoverName;
         /*
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = uiib.GetISO().tetrisHoverName;
         PanelTransform.Find("NameUI").Find("TetrisUI").Find("TetrisPic").gameObject.GetComponent<SpriteRenderer>().sprite = uiib.GetISO().tetrisSprite;
