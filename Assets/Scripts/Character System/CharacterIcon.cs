@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class CharacterIcon : MonoBehaviour
 {
@@ -23,10 +24,9 @@ public class CharacterIcon : MonoBehaviour
     [SerializeField]
     Color32 homeColor;
 
-    [HideInInspector]
-    public CircularUI gatherCircularUI;
-    [HideInInspector]
-    public CircularUI energyCircularUI;
+    
+    public Slider gatherCircularUI;
+    public Slider energyCircularUI;
 
     public delegate void OnCharacterStartGathering();
     public static event OnCharacterStartGathering onCharacterStartGathering;
@@ -47,8 +47,8 @@ public class CharacterIcon : MonoBehaviour
     private void Start()
     {
         character.SetUp(this);
-        gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
-        energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
+        //gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
+        //energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
     }
 
     private void Update()
@@ -94,16 +94,18 @@ public class CharacterIcon : MonoBehaviour
     {
         if (gatherCircularUI == null || energyCircularUI == null) return;
 
-        gatherCircularUI.SetCircularUIPercentage(gatherPercentage, false);
-        energyCircularUI.SetCircularUIPercentage(energyPercentage, isLerp);
+        gatherCircularUI.value = gatherPercentage/100;
+        energyCircularUI.value = energyPercentage/100;
     }
 
-    public void SetCircularUIState(CircularUI.CircularUIState circularUIState)
+    public void SetEnergyUIVisibility(bool visibility)
     {
-        if (gatherCircularUI == null || energyCircularUI == null) return;
-
-        gatherCircularUI.SetCircularUIState(circularUIState);
-        energyCircularUI.SetCircularUIState(circularUIState);
+        energyCircularUI.gameObject.SetActive(visibility);
+    }
+    
+    public void SetGatherUIVisibility(bool visibility)
+    {
+        gatherCircularUI.gameObject.SetActive(visibility);
     }
 
     private void OnMouseDown() // HOME -> DRAGGING
