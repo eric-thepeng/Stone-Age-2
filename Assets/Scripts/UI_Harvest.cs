@@ -175,10 +175,10 @@ public class UI_Harvest : MonoBehaviour
                 UpdatePosition();
                 break;
         }
-        for (int i = 0; i < harvestInfoList.Count; i++)
-        {
-            harvestInfoList[i].ChangeOpacity(harvestInfoList.Count - 1 - i);
-        }
+        //for (int i = 0; i < harvestInfoList.Count; i++)
+        //{
+        //    harvestInfoList[i].ChangeOpacity(harvestInfoList.Count - 1 - i);
+        //}
     }
 
     private void RemoveFromFront()
