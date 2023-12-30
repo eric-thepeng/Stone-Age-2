@@ -3,8 +3,9 @@ using Hypertonic.GridPlacement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-    [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(Rigidbody))]
+    // [RequireComponent(typeof(BoxCollider))]
+    // [RequireComponent(typeof(Rigidbody))]
+    // [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(ObstacleIndicator))]
 public class Obstacle : MonoBehaviour
 {

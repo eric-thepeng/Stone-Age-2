@@ -46,6 +46,9 @@ namespace Hypertonic.GridPlacement
 
         [Tooltip("Determines if the objects being added to the grid should be parented to the grid transform.")]
         public bool ParentToGrid;
+        
+        [Tooltip("Preset Tilemap to edit region type.")]
+        public GameObject RegionTypePresetTilemap;
 
         [Space(10)]
         [Header("Grid Cell Display")]

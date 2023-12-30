@@ -139,10 +139,12 @@ namespace Hypertonic.GridPlacement
             backgroundImage.layer = LayerMask.NameToLayer("Grid");
 
             Grid grid = backgroundImage.AddComponent<Grid>();
-            GameObject tilemapGameObject = new GameObject("Tilemap");
+            GameObject tilemapGameObject = new GameObject("Tilemap - " + gridSettings.name);
             tilemapGameObject.transform.parent = backgroundImage.transform;
 
             Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();
+            Tilemap RegionPresetTilemap = gridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
+            
             tilemapGameObject.AddComponent<TilemapRenderer>();
 
             tilemapGameObject.transform.localScale = new Vector3(2, 2, 2);
@@ -157,7 +159,7 @@ namespace Hypertonic.GridPlacement
                 for (int y = 0; y < GridSettings.AmountOfCellsY; y++)
                 {
                     Vector3Int position = new Vector3Int(x, y, 0);
-                    tilemap.SetTile(position, gridSettings.CellTile);
+                    tilemap.SetTile(position, RegionPresetTilemap.GetTile(position));
                 }
             }
 
@@ -188,7 +190,36 @@ namespace Hypertonic.GridPlacement
                     }
                 
                 }
+
+                // plan to support in future
+                //
+                // foreach (PolygonCollider2D polygonCollider in obstacle.GetComponents<PolygonCollider2D>())
+                // {
+                //     Bounds bounds = polygonCollider.bounds;
+                //
+                //     // 计算边界的 Tilemap 格子坐标
+                //     Vector2Int minTile = GetCellIndexFromWorldPosition(gridSettings,bounds.min);
+                //     Vector2Int maxTile = GetCellIndexFromWorldPosition(gridSettings,bounds.max);
+                //
+                //     // 遍历所有可能的格子
+                //     for (int x = minTile.x; x <= maxTile.x; x++)
+                //     {
+                //         for (int y = minTile.y; y <= maxTile.y; y++)
+                //         {
+                //             Vector2Int tilePosition = new Vector2Int(x, y);
+                //             Vector2 worldPosition = GetWorldPositionFromCellIndex(gridSettings,tilePosition);
+                //
+                //             // 检查多边形碰撞器是否包含该格子的中心点
+                //             if (polygonCollider.OverlapPoint(worldPosition))
+                //             {
+                //                 // 此处处理格子与多边形碰撞器的交互，例如标记或记录格子
+                //                 Debug.Log("Tile at " + tilePosition + " intersects with the PolygonCollider.");
+                //             }
+                //         }
+                //     }
+                // }
             }
+
             
             //
             // _gridSpriteRenderer = backgroundImage.AddComponent<SpriteRenderer>();
@@ -206,7 +237,7 @@ namespace Hypertonic.GridPlacement
         }
         
         
-        public Vector2Int GetCellIndexFromWorldPosition(GridSettings gridSettings, Vector3 WorldPosition)
+        private Vector2Int GetCellIndexFromWorldPosition(GridSettings gridSettings, Vector3 WorldPosition)
         {
             Vector3 _gridCenterPosition = gridSettings.GridPosition;
 
@@ -214,6 +245,14 @@ namespace Hypertonic.GridPlacement
             int cellIndexZ = Mathf.FloorToInt((WorldPosition.z - (_gridCenterPosition.z - gridSettings.AmountOfCellsY * gridSettings.CellSize / 2)) / gridSettings.CellSize);
 
             return new Vector2Int(cellIndexX, cellIndexZ);
+        }
+        
+        private Vector2 GetWorldPositionFromCellIndex(GridSettings gridSettings, Vector2Int CellIndex)
+        {
+            double posX = (gridSettings.GridPosition.x - gridSettings.AmountOfCellsX * gridSettings.CellSize / 2) + (CellIndex.x + 0.5) * gridSettings.CellSize;
+            double posY = (gridSettings.GridPosition.z - gridSettings.AmountOfCellsY * gridSettings.CellSize / 2) + (CellIndex.y + 0.5) * gridSettings.CellSize;
+
+            return new Vector2((float)posX, (float)posY);
         }
 
         private void SetGridSize(GridSettings gridSettings)

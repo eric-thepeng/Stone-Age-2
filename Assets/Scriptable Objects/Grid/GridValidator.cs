@@ -1,7 +1,10 @@
+using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.GridObjectComponents;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
-    /// <summary>
+/// <summary>
     /// This is an example of a validator you may add to the gameobject you're placing.
     /// This example component is being used to detect if the object is colliding with the wall gameobjects 
     /// in the scene. If it is, it will mark the component as having an invalid placement.
@@ -12,9 +15,17 @@ public class GridValidator : MonoBehaviour
     private CustomValidator _customValidator;
     //private bool _collisionStay = false;
 
+    private BoxCollider boxCollider;
+    private Tilemap tilemap;
+
+    private GridSettings _gridSettings;
+    
     private void Awake()
     {
         _customValidator = GetComponent<CustomValidator>();
+        boxCollider = GetComponent<BoxCollider>();
+        tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
+        _gridSettings = GridManagerAccessor.GridManager.GridSettings;
     }
 
     /// <summary>
@@ -29,9 +40,36 @@ public class GridValidator : MonoBehaviour
 
     private void Update()
     {
-        CheckTerrainCollision();
+        Bounds bounds = boxCollider.bounds;
+        Vector2Int startCell = GetCellIndexFromWorldPosition(_gridSettings,bounds.min);
+        Vector2Int endCell = GetCellIndexFromWorldPosition(_gridSettings,bounds.max);
+
+        for (int x = startCell.x; x <= endCell.x; x++)
+        {
+            for (int y = startCell.y; y <= endCell.y; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                TileBase tile = tilemap.GetTile(position);
+
+                if (tile != null)
+                {
+                    _customValidator.SetValidation(true);
+                }
+            }
+        }
+
+        _customValidator.SetValidation(false);
     }
 
+    public Vector2Int GetCellIndexFromWorldPosition(GridSettings gridSettings, Vector3 WorldPosition)
+    {
+        Vector3 _gridCenterPosition = gridSettings.GridPosition;
+
+        int cellIndexX = Mathf.FloorToInt((WorldPosition.x - (_gridCenterPosition.x - gridSettings.AmountOfCellsX * gridSettings.CellSize / 2)) / gridSettings.CellSize);
+        int cellIndexZ = Mathf.FloorToInt((WorldPosition.z - (_gridCenterPosition.z - gridSettings.AmountOfCellsY * gridSettings.CellSize / 2)) / gridSettings.CellSize);
+
+        return new Vector2Int(cellIndexX, cellIndexZ);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
