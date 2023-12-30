@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Hypertonic.GridPlacement;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-[RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(ObstacleIndicator))]
 public class Obstacle : MonoBehaviour
 {
     //[SerializeField]
@@ -13,6 +15,9 @@ public class Obstacle : MonoBehaviour
     private List<GameObject> spriteObjs = new List<GameObject>();
 
     private GridOperationManager gridOperationManager;
+
+    public Vector2Int topLeftCellIndex;
+    public Vector2Int bottomRightCellIndex;
 
     void Start()
     {
@@ -27,7 +32,10 @@ public class Obstacle : MonoBehaviour
             boxColliders = gameObject.GetComponents<BoxCollider>();
 
             // 获取Box Collider的尺寸和位置
-
+            //
+            // Tilemap _tilemap = GameObject.Find("Placement Grid Canvas " + gridOperationManager._gridSettings.name)
+            //     .transform.GetChild(0).transform.GetChild(0).GetComponent<Tilemap>();
+            //
             foreach (BoxCollider boxCollider in boxColliders)
             {
                 boxCollider.isTrigger = true;
@@ -55,9 +63,18 @@ public class Obstacle : MonoBehaviour
                 Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
                 Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
 
-                Vector2Int topLeftCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(minCorner.x, 0, maxCorner.z));
-                Vector2Int bottomRightCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(maxCorner.x, 0, minCorner.z));
+                topLeftCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(minCorner.x, 0, maxCorner.z));
+                bottomRightCellIndex = gridOperationManager.GetCellIndexFromWorldPosition(new Vector3(maxCorner.x, 0, minCorner.z));
 
+                // for (int x = topLeftCellIndex.x; x < bottomRightCellIndex.x; x++)
+                // {
+                //     for (int y = bottomRightCellIndex.y; y < topLeftCellIndex.y; y++)
+                //     {
+                //         Vector3Int position = new Vector3Int(x, y, 0);
+                //         _tilemap.SetTile(position, null);
+                //         // _tilemap.RefreshTile(position);
+                //     }
+                // }
                 Vector2 topLeftWorldPosition = gridOperationManager.GetWorldPositionFromCellIndex(topLeftCellIndex);
                 Vector2 bottomRightWorldPosition = gridOperationManager.GetWorldPositionFromCellIndex(bottomRightCellIndex);
 
@@ -89,3 +106,4 @@ public class Obstacle : MonoBehaviour
 
 
 }
+

@@ -2,6 +2,7 @@ using Hypertonic.GridPlacement.Enums;
 using Hypertonic.GridPlacement.Models;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Hypertonic.GridPlacement
 {
@@ -51,6 +52,9 @@ namespace Hypertonic.GridPlacement
         
         [Tooltip("This should be a tilable sprite so it can repeat across the background")]
         public Sprite CellImage;
+        
+        [Tooltip("This should be a cell tile so it can repeat across the background")]
+        public Tile CellTile;
 
         [Tooltip("This image is overlayed on the grid cells that are taken up by grid objects")]
         public Sprite OccupiedCellImage;
