@@ -1,3 +1,4 @@
+using System;
 using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.GridObjectComponents;
 using UnityEngine;
@@ -15,17 +16,25 @@ public class GridValidator : MonoBehaviour
     private CustomValidator _customValidator;
     //private bool _collisionStay = false;
 
-    private BoxCollider boxCollider;
-    private Tilemap tilemap;
+    private BoxCollider _boxCollider;
+    Bounds _bounds;
+    public Tilemap tilemap;
 
     private GridSettings _gridSettings;
     
     private void Awake()
     {
         _customValidator = GetComponent<CustomValidator>();
-        boxCollider = GetComponent<BoxCollider>();
-        tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
+        _boxCollider = GetComponent<BoxCollider>();
+        _bounds = _boxCollider.bounds;
         _gridSettings = GridManagerAccessor.GridManager.GridSettings;
+    }
+
+    private void Start()
+    {
+        
+        tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
+        
     }
 
     /// <summary>
@@ -35,30 +44,38 @@ public class GridValidator : MonoBehaviour
     /// <param name="other"></param>
 
 
-    public int collisionCount = 0;
-    private bool wasOnTerrainLastFrame = false; // 用于跟踪上一帧的状态
 
+    private Vector2Int _startCell;
+    private Vector2Int _endCell;
+    private Vector3Int _position;
+    private TileBase _tile;
+    
     private void Update()
     {
-        Bounds bounds = boxCollider.bounds;
-        Vector2Int startCell = GetCellIndexFromWorldPosition(_gridSettings,bounds.min);
-        Vector2Int endCell = GetCellIndexFromWorldPosition(_gridSettings,bounds.max);
-
-        for (int x = startCell.x; x <= endCell.x; x++)
+        if (GridManagerAccessor.GridManager.IsPlacingGridObject)
         {
-            for (int y = startCell.y; y <= endCell.y; y++)
+            _startCell = GetCellIndexFromWorldPosition(_gridSettings,_bounds.min);
+            _endCell = GetCellIndexFromWorldPosition(_gridSettings,_bounds.max);
+    
+            // Debug.Log(startCell + " , " + endCell);
+        
+            _customValidator.SetValidation(true);
+            for (int x = _startCell.x; x < _endCell.x; x++)
             {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                TileBase tile = tilemap.GetTile(position);
-
-                if (tile != null)
+                for (int y = _startCell.y; y < _endCell.y; y++)
                 {
-                    _customValidator.SetValidation(true);
+                    _position = new Vector3Int(x, y, 0);
+                    _tile = tilemap.GetTile(_position);
+                    
+                    if (_tile == null)
+                    {
+                        _customValidator.SetValidation(false);
+                        break;
+                    }
                 }
             }
         }
-
-        _customValidator.SetValidation(false);
+    
     }
 
     public Vector2Int GetCellIndexFromWorldPosition(GridSettings gridSettings, Vector3 WorldPosition)
@@ -71,26 +88,26 @@ public class GridValidator : MonoBehaviour
         return new Vector2Int(cellIndexX, cellIndexZ);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
-        {
-            collisionCount++;
-            HandleEnteredWallArea();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
-        {
-            collisionCount--;
-            if (collisionCount == 0)
-            {
-                HandleExitedWallArea();
-            }
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
+    //     {
+    //         collisionCount++;
+    //         HandleEnteredWallArea();
+    //     }
+    // }
+    //
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.gameObject.GetComponent<Obstacle>() != null || other is TerrainCollider)
+    //     {
+    //         collisionCount--;
+    //         if (collisionCount == 0)
+    //         {
+    //             HandleExitedWallArea();
+    //         }
+    //     }
+    // }
 
 
     public void HandleEnteredWallArea()
@@ -103,24 +120,24 @@ public class GridValidator : MonoBehaviour
         _customValidator.SetValidation(true);
     }
 
-    private void CheckTerrainCollision()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
-        {
-            if (hit.collider is TerrainCollider && !wasOnTerrainLastFrame)
-            {
-                HandleExitedWallArea();
-                wasOnTerrainLastFrame = true;
-                //Debug.Log("Exited the terrin collider");
-            }
-        }
-        else if (wasOnTerrainLastFrame)
-        {
-            HandleEnteredWallArea();
-            wasOnTerrainLastFrame = false;
-            //Debug.Log("Entered the terrin collider");
-        }
-    }
+    // private void CheckTerrainCollision()
+    // {
+    //     RaycastHit hit;
+    //     if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+    //     {
+    //         if (hit.collider is TerrainCollider && !wasOnTerrainLastFrame)
+    //         {
+    //             HandleExitedWallArea();
+    //             wasOnTerrainLastFrame = true;
+    //             //Debug.Log("Exited the terrin collider");
+    //         }
+    //     }
+    //     else if (wasOnTerrainLastFrame)
+    //     {
+    //         HandleEnteredWallArea();
+    //         wasOnTerrainLastFrame = false;
+    //         //Debug.Log("Entered the terrin collider");
+    //     }
+    // }
 
 }
