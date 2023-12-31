@@ -1,3 +1,4 @@
+using Hypertonic.GridPlacement.CustomSizing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -191,35 +192,39 @@ namespace Hypertonic.GridPlacement
                 
                 }
 
-                // plan to support in future
-                //
-                // foreach (PolygonCollider2D polygonCollider in obstacle.GetComponents<PolygonCollider2D>())
-                // {
-                //     Bounds bounds = polygonCollider.bounds;
-                //
-                //     // 计算边界的 Tilemap 格子坐标
-                //     Vector2Int minTile = GetCellIndexFromWorldPosition(gridSettings,bounds.min);
-                //     Vector2Int maxTile = GetCellIndexFromWorldPosition(gridSettings,bounds.max);
-                //
-                //     // 遍历所有可能的格子
-                //     for (int x = minTile.x; x <= maxTile.x; x++)
-                //     {
-                //         for (int y = minTile.y; y <= maxTile.y; y++)
-                //         {
-                //             Vector2Int tilePosition = new Vector2Int(x, y);
-                //             Vector2 worldPosition = GetWorldPositionFromCellIndex(gridSettings,tilePosition);
-                //
-                //             // 检查多边形碰撞器是否包含该格子的中心点
-                //             if (polygonCollider.OverlapPoint(worldPosition))
-                //             {
-                //                 // 此处处理格子与多边形碰撞器的交互，例如标记或记录格子
-                //                 Debug.Log("Tile at " + tilePosition + " intersects with the PolygonCollider.");
-                //             }
-                //         }
-                //     }
-                // }
             }
+            
+            
+            foreach (GridHeightPositioner obstacle in FindObjectsOfType<GridHeightPositioner>())
+            {
+                // BoxCollider boxCollider = obstacle.GetComponent<BoxCollider>();
 
+                foreach (BoxCollider boxCollider in obstacle.GetComponents<BoxCollider>())
+                {
+                    Bounds colliderBounds = boxCollider.bounds;
+                    Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                    Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
+
+
+                    // 转换到 Tilemap 的格子坐标
+                    Vector2Int tilemapBottomLeft = GetCellIndexFromWorldPosition(GridSettings,minCorner);
+                    Vector2Int tilemapTopRight = GetCellIndexFromWorldPosition(GridSettings,maxCorner);
+                    
+                    // Debug.Log("tilemap - " + boxCollider.transform.name + tilemapBottomLeft + ", " + tilemapTopRight);
+                    for (int x = tilemapBottomLeft.x; x < tilemapTopRight.x; x++)
+                    {
+                        for (int y = tilemapBottomLeft.y; y < tilemapTopRight.y; y++)
+                        {
+                            Vector3Int position = new Vector3Int(x, y, 0);
+                            tilemap.SetTile(position, null);
+                            tilemap.RefreshTile(position);
+                        }
+                    }
+                
+                }
+
+            }
+            
             
             //
             // _gridSpriteRenderer = backgroundImage.AddComponent<SpriteRenderer>();

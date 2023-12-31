@@ -1,6 +1,7 @@
 using System;
 using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.GridObjectComponents;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -18,7 +19,7 @@ public class GridValidator : MonoBehaviour
 
     private BoxCollider _boxCollider;
     Bounds _bounds;
-    public Tilemap tilemap;
+    private Tilemap tilemap;
 
     private GridSettings _gridSettings;
     
@@ -26,7 +27,6 @@ public class GridValidator : MonoBehaviour
     {
         _customValidator = GetComponent<CustomValidator>();
         _boxCollider = GetComponent<BoxCollider>();
-        _bounds = _boxCollider.bounds;
         _gridSettings = GridManagerAccessor.GridManager.GridSettings;
     }
 
@@ -49,32 +49,43 @@ public class GridValidator : MonoBehaviour
     private Vector2Int _endCell;
     private Vector3Int _position;
     private TileBase _tile;
+
+    private bool _validation = false;
+    private bool _lastFrameValidation = false;
     
     private void Update()
     {
-        if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+        if (_validation != _lastFrameValidation)
         {
-            _startCell = GetCellIndexFromWorldPosition(_gridSettings,_bounds.min);
-            _endCell = GetCellIndexFromWorldPosition(_gridSettings,_bounds.max);
-    
-            // Debug.Log(startCell + " , " + endCell);
+            _customValidator.SetValidation(_validation);
+            _lastFrameValidation = _validation;
+        }
+
+        // _bounds = _boxCollider.bounds;
+        // if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+        // {
+        _startCell = GetCellIndexFromWorldPosition(_gridSettings,_boxCollider.bounds.min);
+        _endCell = GetCellIndexFromWorldPosition(_gridSettings,_boxCollider.bounds.max);
         
-            _customValidator.SetValidation(true);
-            for (int x = _startCell.x; x < _endCell.x; x++)
+        // Debug.Log(startCell + " , " + endCell);
+        
+        for (int x = _startCell.x; x < _endCell.x; x++)
+        {
+            for (int y = _startCell.y; y < _endCell.y; y++)
             {
-                for (int y = _startCell.y; y < _endCell.y; y++)
+                _position = new Vector3Int(x, y, 0);
+                _tile = tilemap.GetTile(_position);
+                
+                if (_tile == null)
                 {
-                    _position = new Vector3Int(x, y, 0);
-                    _tile = tilemap.GetTile(_position);
-                    
-                    if (_tile == null)
-                    {
-                        _customValidator.SetValidation(false);
-                        break;
-                    }
+                    _validation = false;
+                    return;
                 }
             }
         }
+        _validation = true;
+
+        // }
     
     }
 

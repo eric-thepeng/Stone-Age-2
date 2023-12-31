@@ -355,6 +355,8 @@ public class BuildingManager : MonoBehaviour
                     {
                         placeableObject.EnableEffects();
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
+                        
+                        placeableObject.GetComponent<GridValidator>().enabled = false;
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
@@ -560,9 +562,11 @@ public class BuildingManager : MonoBehaviour
                     {
 
                         placeableObject.EnableEffects();
+                        
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         //GridUtilities.GetCellIndexesRequiredForObject
 
+                        placeableObject.GetComponent<GridValidator>().enabled = false;
                         GridManagerAccessor.GridManager.EndPaintMode(false);
 
                         gridOperationManager.StartPaintMode();
@@ -576,6 +580,7 @@ public class BuildingManager : MonoBehaviour
 
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
+                    hitInfo.collider.gameObject.GetComponent<GridValidator>().enabled = true;
                     hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }
 
