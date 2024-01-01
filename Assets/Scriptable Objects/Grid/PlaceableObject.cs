@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Hypertonic.GridPlacement;
@@ -12,6 +13,36 @@ using UnityEngine.VFX;
 
 public class PlaceableObject : MonoBehaviour
 {
+    [Flags] // 标记这个枚举可以作为位掩码使用
+    public enum BiomeType
+    {
+        None = 0,
+        DefaultTile = 1 << 0, // 1
+        WaterTile = 1 << 1, // 2
+        HillTile = 1 << 2 // 4
+        //Option4 = 1 << 3  // 8
+        // 可以继续添加更多选项
+    }
+
+    public static BiomeType GetBiomeTypeByName(string name)
+    {
+        if (name.Contains("DefaultTile"))
+        {
+            return BiomeType.DefaultTile;
+        } else if (name.Contains("WaterTile"))
+        {
+            return BiomeType.WaterTile;
+        } else if (name.Contains("HillTile"))
+        {
+            return BiomeType.HillTile;
+        }
+        else
+        {
+            return BiomeType.None;
+        }
+    }
+    
+    public BiomeType biomeType;
     public string GridKey { get; private set; }
 
     [Header("Runtime Info")]

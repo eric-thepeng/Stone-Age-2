@@ -22,12 +22,14 @@ public class GridValidator : MonoBehaviour
     private Tilemap tilemap;
 
     private GridSettings _gridSettings;
+    private PlaceableObject _placeableObject;
     
     private void Awake()
     {
         _customValidator = GetComponent<CustomValidator>();
         _boxCollider = GetComponent<BoxCollider>();
         _gridSettings = GridManagerAccessor.GridManager.GridSettings;
+        _placeableObject = GetComponent<PlaceableObject>();
     }
 
     private void Start()
@@ -80,12 +82,18 @@ public class GridValidator : MonoBehaviour
             {
                 _position = new Vector3Int(x, y, 0);
                 _tile = tilemap.GetTile(_position);
-                
-                if (_tile == null)
+
+                if (_tile == null || (_placeableObject.biomeType & PlaceableObject.GetBiomeTypeByName(_tile.name)) == 0)
                 {
                     _validation = false;
                     return;
                 }
+                //
+                // if (_tile == null)
+                // {
+                //     _validation = false;
+                //     return;
+                // }
             }
         }
         _validation = true;
