@@ -55,15 +55,15 @@ namespace Hypertonic.GridPlacement
         
         [Tooltip("This should be a tilable sprite so it can repeat across the background")]
         public Sprite CellImage;
-        
-        [Tooltip("This should be a cell tile so it can repeat across the background")]
-        public Tile CellTile;
+        //
+        // [Tooltip("This should be a cell tile so it can repeat across the background")]
+        // public Tile CellTile;
 
         [Tooltip("This image is overlayed on the grid cells that are taken up by grid objects")]
         public Sprite OccupiedCellImage;
 
-        [Tooltip("This colour of the occupied cell image sprite when default visualized")]
-        public Color CellColourDefault = new Color(1,1,1);
+        // [Tooltip("This colour of the occupied cell image sprite when default visualized")]
+        // public Color CellColourDefault = new Color(1,1,1);
 
         [Tooltip("This colour of the occupied cell image sprite when the placement of the grid object is valid")]
         public Color CellColourAvailable = new Color(0.6383647f, 1, 0.6383647f);

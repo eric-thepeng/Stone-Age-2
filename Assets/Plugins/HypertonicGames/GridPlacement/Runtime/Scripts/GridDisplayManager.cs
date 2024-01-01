@@ -91,19 +91,22 @@ namespace Hypertonic.GridPlacement
             GameObject canvasGameObject = new GameObject("Placement Grid Canvas " + gridSettings.Key);
 
             canvasGameObject.layer = LayerMask.NameToLayer("Grid");
-
-            _gridCanvas = canvasGameObject.AddComponent<Canvas>();
+            
+            GameObject indicatorCanvasGameObject = new GameObject("Indicator Canvas");
+            indicatorCanvasGameObject.transform.parent = canvasGameObject.transform;
+            
+            _gridCanvas = indicatorCanvasGameObject.AddComponent<Canvas>();
 
             Camera camera = GridUtilities.GetCameraForGrid(gridSettings);
             _gridCanvas.worldCamera = camera;
 
-            _gridCanvasRectTransform = canvasGameObject.GetComponent<RectTransform>();
-            // _gridCanvasRectTransform.sizeDelta = new Vector2((float)gridSettings.Width * gridSettings.CellSize, (float)gridSettings.Height * gridSettings.CellSize);
-            // _gridCanvasRectTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            // _gridCanvasRectTransform.rotation = Quaternion.Euler(90, _runtimeRotation, 0);
+            _gridCanvasRectTransform = indicatorCanvasGameObject.GetComponent<RectTransform>();
+            _gridCanvasRectTransform.sizeDelta = new Vector2((float)gridSettings.Width * gridSettings.CellSize, (float)gridSettings.Height * gridSettings.CellSize);
+            _gridCanvasRectTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            _gridCanvasRectTransform.rotation = Quaternion.Euler(90, _runtimeRotation, 0);
             _gridCanvasRectTransform.localPosition = _runtimePosition;
 
-            AddCanvasScaler(canvasGameObject);
+            AddCanvasScaler(indicatorCanvasGameObject);
 
             return canvasGameObject;
         }
@@ -162,6 +165,7 @@ namespace Hypertonic.GridPlacement
                 {
                     Vector3Int position = new Vector3Int(x, y, 0);
                     tilemap.SetTile(position, RegionPresetTilemap.GetTile(position));
+                    // tilemap.SetColor(position, gridSettings.CellColourDefault);
                 }
             }
 
