@@ -80,39 +80,39 @@ public class PlaceableObject : MonoBehaviour
         DisableEffects();
 
         boxCollider = GetComponent<BoxCollider>();
-        spriteToRender = gridOperationManager.ObstacleSprite;
-
-        if (boxCollider != null)
-        {
-
-            // 创建一个新的GameObject作为Sprite
-            GameObject spriteObj = new GameObject("GridMask - " + transform.name);
-
-            GameObject gridMasks = GameObject.Find("GridMasks");
-            if (gridMasks == null)
-            {
-                gridMasks = new GameObject("GridMasks");
-            }
-            spriteObj.transform.SetParent(transform);
-            //spriteObjs.Add(spriteObj);
-            SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
-            imageMask.sprite = spriteToRender;
-            ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
-
-            float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-
-            Vector3 spriteSize = boxCollider.size;
-            spriteSize.y = boxCollider.size.z;
-            spriteSize.z = boxCollider.size.y;
-
-            Vector3 spritePosition = boxCollider.center;
-            spritePosition.y = gridHeightPositioner.GridHeight;
-
-            spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-            spriteObj.transform.localPosition = spritePosition;
-            spriteObj.transform.localScale = spriteSize;
-
-        }
+        // spriteToRender = gridOperationManager.ObstacleSprite;
+        //
+        // if (boxCollider != null)
+        // {
+        //
+        //     // 创建一个新的GameObject作为Sprite
+        //     GameObject spriteObj = new GameObject("GridMask - " + transform.name);
+        //
+        //     GameObject gridMasks = GameObject.Find("GridMasks");
+        //     if (gridMasks == null)
+        //     {
+        //         gridMasks = new GameObject("GridMasks");
+        //     }
+        //     spriteObj.transform.SetParent(transform);
+        //     //spriteObjs.Add(spriteObj);
+        //     SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
+        //     imageMask.sprite = spriteToRender;
+        //     ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
+        //
+        //     float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
+        //
+        //     Vector3 spriteSize = boxCollider.size;
+        //     spriteSize.y = boxCollider.size.z;
+        //     spriteSize.z = boxCollider.size.y;
+        //
+        //     Vector3 spritePosition = boxCollider.center;
+        //     spritePosition.y = gridHeightPositioner.GridHeight;
+        //
+        //     spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+        //     spriteObj.transform.localPosition = spritePosition;
+        //     spriteObj.transform.localScale = spriteSize;
+        //
+        // }
     }
 
     private void Update()

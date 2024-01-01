@@ -580,7 +580,9 @@ public class BuildingManager : MonoBehaviour
 
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
-                    hitInfo.collider.gameObject.GetComponent<GridValidator>().enabled = true;
+                    GridValidator placingObject = hitInfo.collider.gameObject.GetComponent<GridValidator>();
+                    placingObject.enabled = true;
+                    placingObject.FindTilemap();
                     hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }
 

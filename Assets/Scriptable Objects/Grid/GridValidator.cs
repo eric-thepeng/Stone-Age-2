@@ -33,7 +33,7 @@ public class GridValidator : MonoBehaviour
     private void Start()
     {
         
-        tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
+        FindTilemap();
         
     }
 
@@ -52,6 +52,11 @@ public class GridValidator : MonoBehaviour
 
     private bool _validation = false;
     private bool _lastFrameValidation = false;
+
+    public void FindTilemap()
+    {
+        tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
+    }
     
     private void Update()
     {
