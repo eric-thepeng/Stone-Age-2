@@ -20,7 +20,7 @@ public interface IPerformableAction
     private UnityEvent _onActionCompletes = new UnityEvent();
     private UniQuest myUniQuest = null;
 
-    public void SetUpByUniQuest(UniQuest tarUniQuest)
+    public void SetSelfUniQuest(UniQuest tarUniQuest)
     {
         myUniQuest = tarUniQuest;
     }

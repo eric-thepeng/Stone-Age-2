@@ -30,4 +30,9 @@ public class UniQuest : MonoBehaviour
         hasStarted = true;
         UniQuestManager.i.QueUniQuest(this);
     }
+
+    public void CompleteQuest()
+    {
+        
+    }
 }
