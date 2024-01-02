@@ -26,10 +26,12 @@ public class UniQuestManager : MonoBehaviour
         currentUniQuests = new List<UniQuest>();
     }
     
-    public void QueUniQuest(UniQuest newUniQuest)
+    public void QueUniQuest(UniQuest uniQuest)
     {
-        currentUniQuests.Add(newUniQuest);
-        LoadUniQuest(newUniQuest);
+        currentUniQuests.Add(uniQuest);
+        uniQuest.uniActionSequence.SetUp(uniQuest);
+        uniQuest.uniActionSequence.PerformAction();
+        //uniQuest.uniActionSequence.onActionCompletes.AddListener();
     }
 
     public void CompleteUniQuest(UniQuest uniQuest)
@@ -43,12 +45,5 @@ public class UniQuestManager : MonoBehaviour
             Debug.LogWarning("A complete uniQuest not in uniQuestManager, game object: " + uniQuest.gameObject.name);
         }
     }
-
-    private void LoadUniQuest(UniQuest uniQuest)
-    {
-        currentUniQuests.Add(uniQuest);
-        uniQuest.uniActionSequence.SetSelfUniQuest(uniQuest);
-        uniQuest.uniActionSequence.PerformAction();
-        //uniQuest.uniActionSequence.onActionCompletes.AddListener();
-    }
+    
 }

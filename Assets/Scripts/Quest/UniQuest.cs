@@ -33,6 +33,6 @@ public class UniQuest : MonoBehaviour
 
     public void CompleteQuest()
     {
-        
+        UniQuestManager.i.CompleteUniQuest(this);
     }
 }

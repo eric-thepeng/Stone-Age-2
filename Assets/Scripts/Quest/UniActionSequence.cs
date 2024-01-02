@@ -19,11 +19,7 @@ public interface IPerformableAction
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
     private UniQuest myUniQuest = null;
-
-    public void SetSelfUniQuest(UniQuest tarUniQuest)
-    {
-        myUniQuest = tarUniQuest;
-    }
+    
     public UnityEvent onActionStarts
     {
         get { return _onActionStarts; }
@@ -31,6 +27,11 @@ public interface IPerformableAction
     public UnityEvent onActionCompletes
     {
         get { return _onActionCompletes; }
+    }
+    
+    public void SetUp(UniQuest tarUniQuest)
+    {
+        myUniQuest = tarUniQuest;
     }
 
     private int currentActionIndex;
@@ -44,9 +45,10 @@ public interface IPerformableAction
 
     public void PerformActionOneByOne()
     {
-        if (currentActionIndex >= allUniActions.Count)
+        if (currentActionIndex >= allUniActions.Count) //When Entire UniActionSequence Complete
         {
             onActionCompletes?.Invoke();
+            myUniQuest.CompleteQuest();
             return;
         }
         
