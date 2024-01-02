@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UniQuestManager : MonoBehaviour
 {
+
     static UniQuestManager instance=null;
     public static UniQuestManager i
     {
@@ -18,48 +19,31 @@ public class UniQuestManager : MonoBehaviour
         }
     }
 
-    private Queue<UniQuest> uniQuests;
-    private UniQuest currentUniQuest;
+    public List<UniQuest> currentUniQuests;
 
     private void Awake()
     {
-        uniQuests = new Queue<UniQuest>();
-        currentUniQuest = null;
+        currentUniQuests = new List<UniQuest>();
     }
     
-    public void QueUniQuest(UniQuest newUniQuest)
+    public void QueUniQuest(UniQuest uniQuest)
     {
-        uniQuests.Enqueue(newUniQuest);
-        if (uniQuests.Count == 1 && currentUniQuest == null)
-        {
-            LoadNewUniQuest();
-        }
+        currentUniQuests.Add(uniQuest);
+        uniQuest.uniActionSequence.SetUp(uniQuest);
+        uniQuest.uniActionSequence.PerformAction();
+        //uniQuest.uniActionSequence.onActionCompletes.AddListener();
     }
 
-    public void CurrentUniQuestCompletes()
+    public void CompleteUniQuest(UniQuest uniQuest)
     {
-        if (uniQuests.Count > 0)
+        if (currentUniQuests.Contains(uniQuest))
         {
-            LoadNewUniQuest();
+            currentUniQuests.Remove(uniQuest);
         }
         else
         {
-            currentUniQuest = null;
+            Debug.LogWarning("A complete uniQuest not in uniQuestManager, game object: " + uniQuest.gameObject.name);
         }
     }
-
-    private void LoadNewUniQuest()
-    {
-        if (uniQuests.Count > 0)
-        {
-            currentUniQuest = uniQuests.Dequeue();
-            currentUniQuest.uniActionSequence.onActionCompletes.AddListener(CurrentUniQuestCompletes);
-            currentUniQuest.uniActionSequence.SetUpByUniQuest(currentUniQuest);
-            currentUniQuest.uniActionSequence.PerformAction();
-        }
-        else
-        {
-            Debug.LogWarning("NO UniQuest TO LOAD");
-        }
-    }
+    
 }

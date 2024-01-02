@@ -6,8 +6,33 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Need to override PerformAction() and IsAssigned() from IPerformableAction
+/// </summary>
+[Serializable]
+public class SubUniAction : IPerformableAction
+{
+    protected UnityEvent _onActionStarts = new UnityEvent();
+    protected UnityEvent _onActionCompletes = new UnityEvent();
+    public virtual void PerformAction()
+    {
+        throw new NotImplementedException();
+    }
 
-[Serializable]public class GameObjectAction : IPerformableAction
+    public virtual bool IsAssigned()
+    {
+        throw new NotImplementedException();
+    }
+
+    public UnityEvent onActionStarts { get { return _onActionStarts; } }
+    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
+    
+    public string note = "leave a note for editor";
+    public bool triggerAndQueNext = false;
+}
+
+
+[Serializable]public class GameObjectAction : SubUniAction
 {
     public enum ActionType{NoAction, LocalMoveAmount, GlobalMoveAmount, LocalMoveTo, GlobalMoveTo, SetActive, SetInactive}
     public ActionType actionType = ActionType.NoAction;
@@ -16,13 +41,8 @@ using UnityEngine.Events;
     public string targetGameObjectSetUpIdentifierID;
     public Vector3 targetVector;
     public float moveTime = 1;
-    
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
-    public void PerformAction()
+
+    public override void PerformAction()
     {
         if(actionType == ActionType.NoAction) Debug.LogError("GameObjectAction SubUniAction has action type NoAction");
 
@@ -52,24 +72,20 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable]public class NarrativeSequenceAction : IPerformableAction
+[Serializable]public class NarrativeSequenceAction : SubUniAction
 {
     public enum ActionType{NoAction, PlayNarrativeSequence}
     public ActionType actionType = ActionType.NoAction;
     
     public NarrativeSequence narrativeSequenceToPlay;
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
-    public void PerformAction()
+    public override void PerformAction()
     {
         if(actionType == ActionType.NoAction) Debug.LogError("NarrativeSequenceAction SubUniAction has action type NoAction");
         else
@@ -79,24 +95,19 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable]public class UniQuestAction : IPerformableAction
+[Serializable]public class UniQuestAction : SubUniAction
 {
     public enum ActionType{NoAction, TriggerQuest}
     public ActionType actionType = ActionType.NoAction;
     public UniQuest targetUniQuest = null;
-    
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
-    public void PerformAction()
+
+    public override void PerformAction()
     {
         onActionStarts?.Invoke();
         if (actionType == ActionType.TriggerQuest)
@@ -111,24 +122,19 @@ using UnityEngine.Events;
         onActionCompletes?.Invoke();
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
 
-[Serializable]public class PlayerStatAction : IPerformableAction
+[Serializable]public class PlayerStatAction : SubUniAction
 {
     public enum ActionType {
         NoAction, StatsChangeAmount, StatsReachAmount
     }
     public ActionType actionType = ActionType.NoAction;
-    
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
     public PlayerStatsMonitor.PlayerStatType targetPlayerStatType;
     [Header("Leave Blank if not a ISO related stat")]public ItemScriptableObject targetISO;
@@ -138,7 +144,7 @@ using UnityEngine.Events;
 
     private PlayerStat targetPlayerStat;
 
-    public void PerformAction()
+    public override void PerformAction()
     {
         onActionStarts?.Invoke();
         targetPlayerStat = PlayerStatsMonitor.GetPlayerStat(targetPlayerStatType, targetISO);
@@ -166,28 +172,23 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
 
-[Serializable] public class ButtonAction : IPerformableAction
+[Serializable] public class ButtonAction : SubUniAction
 {
     public enum ActionType{NoAction,WaitForClickButton, SetActive, SetInactive}
     public ActionType actionType = ActionType.NoAction;
 
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
     public string targetGameObjectSetUpIdentifierID;
 
 
-    public void PerformAction()
+    public override void PerformAction()
     {
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
@@ -216,28 +217,23 @@ using UnityEngine.Events;
         onActionCompletes.Invoke();
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable] public class LevelUpAction : IPerformableAction
+[Serializable] public class LevelUpAction : SubUniAction
 {
     public enum ActionType{NoAction, WaitUntilUnlockLevel}
     public ActionType actionType = ActionType.NoAction;
 
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public LevelUp targetLevelUp = null;
     public string targetGameObjectSetUpIdentifierID;
 
     public int targetUnlockLevel = 0;
 
-    public void PerformAction()
+    public override void PerformAction()
     {
         if(actionType == ActionType.NoAction) Debug.LogError("LevelUp SubUniAction has action type NoAction");
         
@@ -262,25 +258,20 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable] public class GamePanelAction : IPerformableAction
+[Serializable] public class GamePanelAction : SubUniAction
 {
     public enum ActionType{NoAction, GoToPanel}
     public ActionType actionType = ActionType.NoAction;
 
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-
     public PlayerInputChannel.GamePanel targetPanel = PlayerInputChannel.GamePanel.Home;
     
-    public void PerformAction()
+    public override void PerformAction()
     {
         onActionStarts.Invoke();
 
@@ -291,26 +282,21 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable] public class CameraAction : IPerformableAction
+[Serializable] public class CameraAction : SubUniAction
 {
     public enum ActionType{NoAction, CameraAction}
     public ActionType actionType = ActionType.NoAction;
 
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-
     public CameraManager.IUAIType targetAction = CameraManager.IUAIType.FreezeCamera;
     public int i;
     
-    public void PerformAction()
+    public override void PerformAction()
     {
         onActionStarts.Invoke();
 
@@ -321,29 +307,24 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable] public class IUniActionInteractionAction : IPerformableAction
+[Serializable] public class IUniActionInteractionAction : SubUniAction
 {
     public enum ActionType{NoAction, GeneralIUniActionInteractionAction}
     public ActionType actionType = ActionType.NoAction;
 
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
-    
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
     public string targetGameObjectSetUpIdentifierID;
 
     public int actionIndex;
 
 
-    public void PerformAction()
+    public override void PerformAction()
     {
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
@@ -364,28 +345,23 @@ using UnityEngine.Events;
         onActionCompletes.Invoke();
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
 }
 
-[Serializable] public class CharacterGatherAction : IPerformableAction
+[Serializable] public class CharacterGatherAction : SubUniAction
 {
     public enum ActionType{NoAction, UponGatherStarts, UponGatherEnds}
     public ActionType actionType = ActionType.NoAction;
-
-    private UnityEvent _onActionStarts = new UnityEvent();
-    private UnityEvent _onActionCompletes = new UnityEvent();
-    public UnityEvent onActionStarts { get { return _onActionStarts; } }
-    public UnityEvent onActionCompletes { get { return _onActionCompletes; } }
 
     [Header("Leave as Null to indicate \" any. \"")]
     public SO_ExploreSpotSetUpInfo targetGatherSpot = null;
     public CharacterBasicStats targetCharacter = null;
 
 
-    public void PerformAction()
+    public override void PerformAction()
     {
        
         onActionStarts?.Invoke();
@@ -440,7 +416,7 @@ using UnityEngine.Events;
         }
     }
 
-    public bool IsAssigned()
+    public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
     }
