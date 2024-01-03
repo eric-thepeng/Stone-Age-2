@@ -84,6 +84,13 @@ namespace Hypertonic.GridPlacement
         [Tooltip("The name of the gameobject that the camera is attached to. The camera will be set to fire raycasts at the grid. If null it'll default to the main camera")]
         public string GridCanvasEventCameraName;
 
+        [Space(10)] [Header("Icon Indicator")]
+        // [Tooltip("Determines if the occipied cells should be displayed.")]
+        public Sprite OutOfBorderIndicatorIcon;
+            
+        // [Tooltip("Determines if the occipied cells should be displayed.")]
+        public Sprite BiomeNotPlaceableIcon;
+        
         [Header("Grid Object Placement Materials")]
 
         [Tooltip("Determines if the object's materials should change to the placeable material when in a placeable state.")]

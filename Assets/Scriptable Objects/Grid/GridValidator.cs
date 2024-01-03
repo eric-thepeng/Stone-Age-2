@@ -55,6 +55,8 @@ public class GridValidator : MonoBehaviour
     private bool _validation = false;
     private bool _lastFrameValidation = false;
 
+    public SpriteRenderer spriteRenderer; 
+
     public void FindTilemap()
     {
         tilemap = GameObject.Find("Tilemap - " + _gridSettings.name).GetComponent<Tilemap>();
@@ -66,6 +68,22 @@ public class GridValidator : MonoBehaviour
         {
             _customValidator.SetValidation(_validation);
             _lastFrameValidation = _validation;
+
+            if (spriteRenderer != null)
+            {
+                if (_validation)
+                {
+                    spriteRenderer.sprite = null;
+                }
+                else if (_tile == null)
+                {
+                    spriteRenderer.sprite = _gridSettings.OutOfBorderIndicatorIcon;
+                }
+                else
+                {
+                    spriteRenderer.sprite = _gridSettings.BiomeNotPlaceableIcon;
+                }
+            }
         }
 
         // _bounds = _boxCollider.bounds;
