@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Hypertonic.GridPlacement;
@@ -12,6 +13,36 @@ using UnityEngine.VFX;
 
 public class PlaceableObject : MonoBehaviour
 {
+    [Flags] // 标记这个枚举可以作为位掩码使用
+    public enum BiomeType
+    {
+        None = 0,
+        DefaultTile = 1 << 0, // 1
+        WaterTile = 1 << 1, // 2
+        HillTile = 1 << 2 // 4
+        //Option4 = 1 << 3  // 8
+        // 可以继续添加更多选项
+    }
+
+    public static BiomeType GetBiomeTypeByName(string name)
+    {
+        if (name.Contains("DefaultTile"))
+        {
+            return BiomeType.DefaultTile;
+        } else if (name.Contains("WaterTile"))
+        {
+            return BiomeType.WaterTile;
+        } else if (name.Contains("HillTile"))
+        {
+            return BiomeType.HillTile;
+        }
+        else
+        {
+            return BiomeType.None;
+        }
+    }
+    
+    public BiomeType biomeType;
     public string GridKey { get; private set; }
 
     [Header("Runtime Info")]
@@ -80,39 +111,39 @@ public class PlaceableObject : MonoBehaviour
         DisableEffects();
 
         boxCollider = GetComponent<BoxCollider>();
-        spriteToRender = gridOperationManager.ObstacleSprite;
-
-        if (boxCollider != null)
-        {
-
-            // 创建一个新的GameObject作为Sprite
-            GameObject spriteObj = new GameObject("GridMask - " + transform.name);
-
-            GameObject gridMasks = GameObject.Find("GridMasks");
-            if (gridMasks == null)
-            {
-                gridMasks = new GameObject("GridMasks");
-            }
-            spriteObj.transform.SetParent(transform);
-            //spriteObjs.Add(spriteObj);
-            SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
-            imageMask.sprite = spriteToRender;
-            ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
-
-            float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-
-            Vector3 spriteSize = boxCollider.size;
-            spriteSize.y = boxCollider.size.z;
-            spriteSize.z = boxCollider.size.y;
-
-            Vector3 spritePosition = boxCollider.center;
-            spritePosition.y = gridHeightPositioner.GridHeight;
-
-            spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-            spriteObj.transform.localPosition = spritePosition;
-            spriteObj.transform.localScale = spriteSize;
-
-        }
+        // spriteToRender = gridOperationManager.ObstacleSprite;
+        //
+        // if (boxCollider != null)
+        // {
+        //
+        //     // 创建一个新的GameObject作为Sprite
+        //     GameObject spriteObj = new GameObject("GridMask - " + transform.name);
+        //
+        //     GameObject gridMasks = GameObject.Find("GridMasks");
+        //     if (gridMasks == null)
+        //     {
+        //         gridMasks = new GameObject("GridMasks");
+        //     }
+        //     spriteObj.transform.SetParent(transform);
+        //     //spriteObjs.Add(spriteObj);
+        //     SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
+        //     imageMask.sprite = spriteToRender;
+        //     ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
+        //
+        //     float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
+        //
+        //     Vector3 spriteSize = boxCollider.size;
+        //     spriteSize.y = boxCollider.size.z;
+        //     spriteSize.z = boxCollider.size.y;
+        //
+        //     Vector3 spritePosition = boxCollider.center;
+        //     spritePosition.y = gridHeightPositioner.GridHeight;
+        //
+        //     spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
+        //     spriteObj.transform.localPosition = spritePosition;
+        //     spriteObj.transform.localScale = spriteSize;
+        //
+        // }
     }
 
     private void Update()
@@ -185,6 +216,7 @@ public class PlaceableObject : MonoBehaviour
 
         }
     }
+
 
 
 

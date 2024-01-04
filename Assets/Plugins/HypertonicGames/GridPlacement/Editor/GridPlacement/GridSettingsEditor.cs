@@ -91,6 +91,33 @@ namespace Hypertonic.GridPlacement.Editor
 
         public override void OnInspectorGUI()
         {
+            GUILayout.Space(10);
+            if (GUILayout.Button("Preview Grid"))
+            {
+                _gridSettings.DisplayInEditor = true;
+                UpdateGridSize();
+                DisplayGrid();
+            }
+
+            if (GUILayout.Button("Visualise Region Preset"))
+            {
+                DisplayPresetGrid();
+            }
+            
+            GUILayout.Space(10);
+
+            if (GUILayout.Button("Hide Grid"))
+            {
+                _gridSettings.DisplayInEditor = false;
+                HideGrid();
+                HidePresetGrid();
+            }
+            // if (GUILayout.Button("Hide Region Preset"))
+            // {
+            // }
+            //
+            GUILayout.Space(20);
+            
             base.DrawDefaultInspector();
 
             if (Application.isPlaying) return;
@@ -174,20 +201,7 @@ namespace Hypertonic.GridPlacement.Editor
                 EditorGUILayout.HelpBox("Invalid Grid Cell Count. Please adjust the cell count or the width to height ratio", MessageType.Error);
             }
 
-            GUILayout.Space(50);
 
-            if (GUILayout.Button("Visualise Grid"))
-            {
-                _gridSettings.DisplayInEditor = true;
-                UpdateGridSize();
-                DisplayGrid();
-            }
-
-            if (GUILayout.Button("Hide Grid"))
-            {
-                _gridSettings.DisplayInEditor = false;
-                HideGrid();
-            }
         }
 
         private void DisplayGrid()
@@ -195,6 +209,7 @@ namespace Hypertonic.GridPlacement.Editor
             if (!_gridSettings.DisplayInEditor) return;
 
             HideGrid();
+            HidePresetGrid();
 
             _gridDisplayManagerObject = new GameObject("Grid Display Manager - " + _gridSettings.Key);
             _gridDisplayManager = _gridDisplayManagerObject.AddComponent<GridDisplayManager>();
@@ -214,6 +229,38 @@ namespace Hypertonic.GridPlacement.Editor
             }
 
             gridManagerObject.GetComponent<GridDisplayManager>().Hide();
+
+            DestroyImmediate(gridManagerObject);
+            
+        }
+
+        private void DisplayPresetGrid()
+        {
+            HideGrid();
+            HidePresetGrid();
+
+            GameObject gridObject = new GameObject("Grid Preset Manager - " + _gridSettings.Key);
+            gridObject.AddComponent<Grid>();
+            
+            _gridDisplayManagerObject = Instantiate(_gridSettings.RegionTypePresetTilemap,gridObject.transform);
+            
+            _gridDisplayManagerObject.transform.localScale = new Vector3(2, 2, 2);
+            _gridDisplayManagerObject.transform.rotation = Quaternion.Euler(90,0,0);
+            
+            _gridDisplayManagerObject.transform.position = _gridSettings.GridPosition -
+                                                           new Vector3(_gridSettings.CellSize * 0.5f * _gridSettings.AmountOfCellsX, 0,
+                                                               _gridSettings.CellSize * 0.5f *  _gridSettings.AmountOfCellsY);
+
+        }
+
+        private void HidePresetGrid()
+        {
+            var gridManagerObject = GameObject.Find("Grid Preset Manager - " + _gridSettings.Key);
+
+            if (gridManagerObject == null)
+            {
+                return;
+            }
 
             DestroyImmediate(gridManagerObject);
         }

@@ -13,14 +13,14 @@ public class GridOperationManager : MonoBehaviour
     private GameObject _gridEmptyObjectPrefab;
 
     public GridManager _gridManager;
-
-    [Header("Nearby Objects Related")]
-    public bool operateStatus;
-    public GameObject itemPlaced;
-
-    [Header("Obstacle Masks")]
-    public bool enableObstacleMasks;
-    public Sprite ObstacleSprite;
+    //
+    // [Header("Nearby Objects Related")]
+    // public bool operateStatus;
+    // public GameObject itemPlaced;
+    //
+    // [Header("Obstacle Masks")]
+    // public bool enableObstacleMasks;
+    // public Sprite ObstacleSprite;
 
     BoxCollider gridCollider;
 
@@ -43,7 +43,7 @@ public class GridOperationManager : MonoBehaviour
 
         //StartCoroutine(CheckForInput());
         AddGridCoordinateManager();
-        AddMaskGenerateManager();
+        // AddMaskGenerateManager();
 
         gridCollider = GetComponent<BoxCollider>();
         if (gridCollider != null)
@@ -94,16 +94,16 @@ public class GridOperationManager : MonoBehaviour
 
         }
     }
-
-    private void AddMaskGenerateManager()
-    {
-        if (GetComponent<MaskGenerateManager>() == null)
-        {
-            gameObject.AddComponent<MaskGenerateManager>().defaultSizePrefab = _gridEmptyObjectPrefab;
-
-
-        }
-    }
+    //
+    // private void AddMaskGenerateManager()
+    // {
+    //     if (GetComponent<MaskGenerateManager>() == null)
+    //     {
+    //         gameObject.AddComponent<MaskGenerateManager>().defaultSizePrefab = _gridEmptyObjectPrefab;
+    //
+    //
+    //     }
+    // }
 
     public Vector2Int GetCellIndexFromWorldPosition(Vector3 WorldPosition)
     {

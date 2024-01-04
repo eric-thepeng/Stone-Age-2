@@ -1,4 +1,6 @@
+using Hypertonic.GridPlacement.CustomSizing;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 namespace Hypertonic.GridPlacement
@@ -89,19 +91,22 @@ namespace Hypertonic.GridPlacement
             GameObject canvasGameObject = new GameObject("Placement Grid Canvas " + gridSettings.Key);
 
             canvasGameObject.layer = LayerMask.NameToLayer("Grid");
-
-            _gridCanvas = canvasGameObject.AddComponent<Canvas>();
+            
+            GameObject indicatorCanvasGameObject = new GameObject("Indicator Canvas");
+            indicatorCanvasGameObject.transform.parent = canvasGameObject.transform;
+            
+            _gridCanvas = indicatorCanvasGameObject.AddComponent<Canvas>();
 
             Camera camera = GridUtilities.GetCameraForGrid(gridSettings);
             _gridCanvas.worldCamera = camera;
 
-            _gridCanvasRectTransform = canvasGameObject.GetComponent<RectTransform>();
+            _gridCanvasRectTransform = indicatorCanvasGameObject.GetComponent<RectTransform>();
             _gridCanvasRectTransform.sizeDelta = new Vector2((float)gridSettings.Width * gridSettings.CellSize, (float)gridSettings.Height * gridSettings.CellSize);
             _gridCanvasRectTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             _gridCanvasRectTransform.rotation = Quaternion.Euler(90, _runtimeRotation, 0);
             _gridCanvasRectTransform.localPosition = _runtimePosition;
 
-            AddCanvasScaler(canvasGameObject);
+            AddCanvasScaler(indicatorCanvasGameObject);
 
             return canvasGameObject;
         }
@@ -133,37 +138,131 @@ namespace Hypertonic.GridPlacement
         {
             GameObject backgroundImage = new GameObject("Background Image");
             backgroundImage.transform.SetParent(gridTransform, false);
+            
 
             backgroundImage.layer = LayerMask.NameToLayer("Grid");
 
-            _gridSpriteRenderer = backgroundImage.AddComponent<SpriteRenderer>();
-            _gridSpriteRenderer.sprite = GridSettings.CellImage;
-            _gridSpriteRenderer.drawMode = SpriteDrawMode.Tiled;
+            Grid grid = backgroundImage.AddComponent<Grid>();
+            GameObject tilemapGameObject = new GameObject("Tilemap - " + gridSettings.name);
+            tilemapGameObject.transform.parent = backgroundImage.transform;
 
-            //Vector3 _pos = _gridSpriteRenderer.gameObject.transform.position;
-            //_pos.y -= 0.5f;
-            //_gridSpriteRenderer.gameObject.transform.position = _pos;
+            Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();
+            Tilemap RegionPresetTilemap = gridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
+            
+            TilemapRenderer tilemapRenderer = tilemapGameObject.AddComponent<TilemapRenderer>();
+            tilemapRenderer.sortingOrder = -10;
 
-            _gridSpriteRenderer.size = new Vector2(GridSettings.AmountOfCellsX, GridSettings.AmountOfCellsY);
-            _gridSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+            tilemapGameObject.transform.localScale = new Vector3(2, 2, 2);
+            tilemapGameObject.transform.rotation = Quaternion.Euler(90,0,0);
+            
+            tilemapGameObject.transform.position = gridSettings.GridPosition -
+                                                   new Vector3(gridSettings.CellSize * 0.5f * GridSettings.AmountOfCellsX, 0,
+                                                       gridSettings.CellSize * 0.5f *  GridSettings.AmountOfCellsY);
 
-            _gridSpriteRenderer.color = GridSettings.CellColourDefault;
+            for (int x = 0; x < GridSettings.AmountOfCellsX; x++)
+            {
+                for (int y = 0; y < GridSettings.AmountOfCellsY; y++)
+                {
+                    Vector3Int position = new Vector3Int(x, y, 0);
+                    tilemap.SetTile(position, RegionPresetTilemap.GetTile(position));
+                    // tilemap.SetColor(position, gridSettings.CellColourDefault);
+                }
+            }
 
-            //RectTransform backGroundImageRectTransform = backgroundImage.AddComponent<RectTransform>();
-            //backGroundImageRectTransform.anchorMin = Vector2.zero;
-            //backGroundImageRectTransform.anchorMax = Vector2.one;
-            //backGroundImageRectTransform.localPosition = Vector3.zero;
-            //backGroundImageRectTransform.localScale = Vector3.one;
-            //backGroundImageRectTransform.localRotation = Quaternion.Euler(0, 0, 0);
-            //backGroundImageRectTransform.sizeDelta = Vector2.zero;
+            foreach (ObstacleIndicator obstacle in FindObjectsOfType<ObstacleIndicator>())
+            {
+                // BoxCollider boxCollider = obstacle.GetComponent<BoxCollider>();
 
-            //_gridImage = backgroundImage.AddComponent<Image>();
-            //_gridImage.sprite = GridSettings.CellImage;
-            //_gridImage.type = Image.Type.Tiled;
-            _gridSpriteRenderer.gameObject.transform.localScale = new Vector3(gridSettings.CellSize*10, gridSettings.CellSize * 10, gridSettings.CellSize * 10);
+                foreach (BoxCollider boxCollider in obstacle.GetComponents<BoxCollider>())
+                {
+                    Bounds colliderBounds = boxCollider.bounds;
+                    Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                    Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
 
-            //SetGridSize(gridSettings);
 
+                    // 转换到 Tilemap 的格子坐标
+                    Vector2Int tilemapBottomLeft = GetCellIndexFromWorldPosition(GridSettings,minCorner);
+                    Vector2Int tilemapTopRight = GetCellIndexFromWorldPosition(GridSettings,maxCorner);
+                    
+                    // Debug.Log("tilemap - " + boxCollider.transform.name + tilemapBottomLeft + ", " + tilemapTopRight);
+                    for (int x = tilemapBottomLeft.x; x <= tilemapTopRight.x; x++)
+                    {
+                        for (int y = tilemapBottomLeft.y; y <= tilemapTopRight.y; y++)
+                        {
+                            Vector3Int position = new Vector3Int(x, y, 0);
+                            tilemap.SetTile(position, null);
+                            tilemap.RefreshTile(position);
+                        }
+                    }
+                
+                }
+
+            }
+            
+            
+            foreach (GridHeightPositioner obstacle in FindObjectsOfType<GridHeightPositioner>())
+            {
+                // BoxCollider boxCollider = obstacle.GetComponent<BoxCollider>();
+
+                foreach (BoxCollider boxCollider in obstacle.GetComponents<BoxCollider>())
+                {
+                    Bounds colliderBounds = boxCollider.bounds;
+                    Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                    Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
+
+
+                    // 转换到 Tilemap 的格子坐标
+                    Vector2Int tilemapBottomLeft = GetCellIndexFromWorldPosition(GridSettings,minCorner);
+                    Vector2Int tilemapTopRight = GetCellIndexFromWorldPosition(GridSettings,maxCorner);
+                    
+                    // Debug.Log("tilemap - " + boxCollider.transform.name + tilemapBottomLeft + ", " + tilemapTopRight);
+                    for (int x = tilemapBottomLeft.x; x < tilemapTopRight.x; x++)
+                    {
+                        for (int y = tilemapBottomLeft.y; y < tilemapTopRight.y; y++)
+                        {
+                            Vector3Int position = new Vector3Int(x, y, 0);
+                            tilemap.SetTile(position, null);
+                            tilemap.RefreshTile(position);
+                        }
+                    }
+                
+                }
+
+            }
+            
+            
+            //
+            // _gridSpriteRenderer = backgroundImage.AddComponent<SpriteRenderer>();
+            // _gridSpriteRenderer.sprite = GridSettings.CellImage;
+            // _gridSpriteRenderer.drawMode = SpriteDrawMode.Tiled;
+            //
+            // _gridSpriteRenderer.size = new Vector2(GridSettings.AmountOfCellsX, GridSettings.AmountOfCellsY);
+            // _gridSpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+            //
+            // _gridSpriteRenderer.color = GridSettings.CellColourDefault;
+            //
+            // _gridSpriteRenderer.gameObject.transform.localScale = new Vector3(gridSettings.CellSize*10, gridSettings.CellSize * 10, gridSettings.CellSize * 10);
+
+
+        }
+        
+        
+        private Vector2Int GetCellIndexFromWorldPosition(GridSettings gridSettings, Vector3 WorldPosition)
+        {
+            Vector3 _gridCenterPosition = gridSettings.GridPosition;
+
+            int cellIndexX = Mathf.FloorToInt((WorldPosition.x - (_gridCenterPosition.x - gridSettings.AmountOfCellsX * gridSettings.CellSize / 2)) / gridSettings.CellSize);
+            int cellIndexZ = Mathf.FloorToInt((WorldPosition.z - (_gridCenterPosition.z - gridSettings.AmountOfCellsY * gridSettings.CellSize / 2)) / gridSettings.CellSize);
+
+            return new Vector2Int(cellIndexX, cellIndexZ);
+        }
+        
+        private Vector2 GetWorldPositionFromCellIndex(GridSettings gridSettings, Vector2Int CellIndex)
+        {
+            double posX = (gridSettings.GridPosition.x - gridSettings.AmountOfCellsX * gridSettings.CellSize / 2) + (CellIndex.x + 0.5) * gridSettings.CellSize;
+            double posY = (gridSettings.GridPosition.z - gridSettings.AmountOfCellsY * gridSettings.CellSize / 2) + (CellIndex.y + 0.5) * gridSettings.CellSize;
+
+            return new Vector2((float)posX, (float)posY);
         }
 
         private void SetGridSize(GridSettings gridSettings)

@@ -2,6 +2,7 @@ using Hypertonic.GridPlacement.Enums;
 using Hypertonic.GridPlacement.Models;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Hypertonic.GridPlacement
 {
@@ -45,18 +46,24 @@ namespace Hypertonic.GridPlacement
 
         [Tooltip("Determines if the objects being added to the grid should be parented to the grid transform.")]
         public bool ParentToGrid;
+        
+        [Tooltip("Preset Tilemap to edit region type.")]
+        public GameObject RegionTypePresetTilemap;
 
         [Space(10)]
         [Header("Grid Cell Display")]
         
         [Tooltip("This should be a tilable sprite so it can repeat across the background")]
         public Sprite CellImage;
+        //
+        // [Tooltip("This should be a cell tile so it can repeat across the background")]
+        // public Tile CellTile;
 
         [Tooltip("This image is overlayed on the grid cells that are taken up by grid objects")]
         public Sprite OccupiedCellImage;
 
-        [Tooltip("This colour of the occupied cell image sprite when default visualized")]
-        public Color CellColourDefault = new Color(1,1,1);
+        // [Tooltip("This colour of the occupied cell image sprite when default visualized")]
+        // public Color CellColourDefault = new Color(1,1,1);
 
         [Tooltip("This colour of the occupied cell image sprite when the placement of the grid object is valid")]
         public Color CellColourAvailable = new Color(0.6383647f, 1, 0.6383647f);
