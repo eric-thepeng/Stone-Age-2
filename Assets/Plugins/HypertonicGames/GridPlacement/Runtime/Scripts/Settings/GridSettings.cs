@@ -117,6 +117,15 @@ namespace Hypertonic.GridPlacement
         [Tooltip("This sets the default grid cell all new objects will be placed at when EnterPlacementMode is called. This is overwritten by the optional placement settings.")]
         public Vector2Int InitialPlacementCellIndex = Vector2Int.zero;
 
+        [Space(10)] [Header("Animations")]
+        
+        [Tooltip("Animation curve for placing and rotation")]
+        public AnimationCurve animationCurve;
+
+        [Tooltip("Animation duration")] 
+        public float animationDuration;
+
+        
         [Space(10)]
         [Header("Grid Input")]
         [Tooltip("Define the grid input definition for each runtime platform")]

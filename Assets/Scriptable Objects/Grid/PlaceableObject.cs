@@ -111,6 +111,7 @@ public class PlaceableObject : MonoBehaviour
         buildingManager = FindObjectOfType<BuildingManager>();
         CheckEffects(transform);
         DisableEffects();
+        GetComponent<NavMeshObstacle>().enabled = false;
 
         boxCollider = GetComponent<BoxCollider>();
         // spriteToRender = gridOperationManager.ObstacleSprite;
