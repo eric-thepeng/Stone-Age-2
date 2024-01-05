@@ -10,13 +10,13 @@ public class UI_ExploreSpotsConnectionEditor : Editor
         // Draw the default inspector.
         DrawDefaultInspector();
         
-        // Reference to your script.
+        // Reference to script.
         UI_ExploreSpotsConnection myScript = (UI_ExploreSpotsConnection)target;
         
         // Add a button to the inspector.
         if(GUILayout.Button("Calculate Lines"))
         {
-            // Perform your function when the button is clicked.
+            // Calculate connection lines.
             foreach (var line in myScript.allConnectionLines)
             {
                 Vector3 pos1 = line.exploreSpot1.gameObject.transform.localPosition;
@@ -29,7 +29,7 @@ public class UI_ExploreSpotsConnectionEditor : Editor
                 float angleRadians = Mathf.Atan2(direction.y, direction.x);
                 float angleDegrees = angleRadians * Mathf.Rad2Deg;
 
-                line.lineGameObject.transform.eulerAngles = new Vector3(45, 0, angleDegrees);
+                line.lineGameObject.transform.eulerAngles = new Vector3(65, 0, angleDegrees);
                 line.lineGameObject.transform.localPosition = center;
                 line.lineGameObject.transform.localScale = new Vector3(length, 0.4f, 1f);
 
