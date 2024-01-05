@@ -5,9 +5,11 @@ using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.CustomSizing;
 using Hypertonic.GridPlacement.Enums;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(NavMeshObstacle))]
 [RequireComponent(typeof(GridHeightPositioner))]
 [RequireComponent(typeof(GridValidator))]
 
