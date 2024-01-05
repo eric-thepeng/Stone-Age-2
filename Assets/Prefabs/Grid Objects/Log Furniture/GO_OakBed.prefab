@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1044563642751082968}
   - component: {fileID: 6319732883396528879}
   - component: {fileID: 4035312466939258344}
+  - component: {fileID: 2633849786131432161}
   m_Layer: 0
   m_Name: GO_OakBed
   m_TagString: Untagged
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaea92c0aa594d5cb18c5758012ac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &4035312466939258344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +111,22 @@ MonoBehaviour:
   gridCellIndex: {x: 0, y: 0}
   BISO: {fileID: 11400000, guid: 7f72d1479f7fee145a98215bc38c2be9, type: 2}
   _gridObjectTags: []
+--- !u!208 &2633849786131432161
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932418518791680853}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5245277701691095226
 GameObject:
   m_ObjectHideFlags: 0
