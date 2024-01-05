@@ -7,21 +7,22 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Test_Terrain 1
-  m_Shader: {fileID: 4800000, guid: df695d70c539c3d4c87b79de307ab7bb, type: 3}
+  m_Name: M_Test_Grass
+  m_Shader: {fileID: 4800000, guid: 7633a2fd8a3bed44791c9e952ff86e5d, type: 3}
   m_ValidKeywords:
   - _MK_ALBEDO_MAP
   - _MK_ARTISTIC_ANIMATION_STUTTER
   - _MK_ARTISTIC_DRAWN
+  - _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
   - _MK_DETAIL_BLEND_MIX
   - _MK_ENVIRONMENT_REFLECTIONS_ADVANCED
   - _MK_LIGHT_CEL
+  - _MK_OUTLINE_HULL_CLIP
+  - _MK_OUTLINE_NOISE
   - _MK_RECEIVE_SHADOWS
   - _MK_SPECULAR_ISOTROPIC
   - _MK_WRAPPED_DIFFUSE
   m_InvalidKeywords:
-  - _MK_OUTLINE_HULL_CLIP
-  - _MK_OUTLINE_NOISE
   - _RECEIVESHADOWS_ON
   - _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 4
@@ -192,7 +193,7 @@ Material:
     - _Anisotropy: 0
     - _Artistic: 1
     - _ArtisticFrequency: 1
-    - _ArtisticProjection: 0
+    - _ArtisticProjection: 1
     - _Blend: 0
     - _BlendDst: 0
     - _BlendDstAlpha: 0
@@ -215,8 +216,8 @@ Material:
     - _DissolveBorderSize: 0.25
     - _DissolveMapScale: 1
     - _DrawnClampMax: 1
-    - _DrawnClampMin: 0.133
-    - _DrawnMapScale: 25
+    - _DrawnClampMin: 0.15
+    - _DrawnMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 2
     - _FresnelHighlights: 0
