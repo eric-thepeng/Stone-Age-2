@@ -28,6 +28,14 @@ public class ExploreMapBillboard : MonoBehaviour
         revealed = true;
         spriteGO.SetActive(true);
         spriteGO.transform.localEulerAngles = new Vector3(0, 0, 0);
-        spriteGO.transform.DOLocalRotate(new Vector3(-40,0,0),2f);
+        SpriteRenderer sr = spriteGO.GetComponent<SpriteRenderer>();
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+        sr.DOFade(1, .9f);
+        spriteGO.transform.DOLocalRotate(new Vector3(-55,0,0),1f).onComplete = BillboardGoToPosition;
+    }
+
+    private void BillboardGoToPosition()
+    {
+        spriteGO.transform.DOLocalRotate(new Vector3(-40, 0, 0), .5f);
     }
 }
