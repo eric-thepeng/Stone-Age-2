@@ -23,7 +23,8 @@ public class GridValidator : MonoBehaviour
 
     private GridSettings _gridSettings;
     private PlaceableObject _placeableObject;
-    
+
+    public bool useStatusIndicator = true;
     public SpriteRenderer spriteRenderer; 
     
     private void Awake()
@@ -77,7 +78,7 @@ public class GridValidator : MonoBehaviour
             // _customValidator.SetValidation(_validation);
             _lastFrameValidation = _validation;
 
-            if (spriteRenderer != null)
+            if (useStatusIndicator && spriteRenderer != null)
             {
                 if (_validation == 1)
                 {
