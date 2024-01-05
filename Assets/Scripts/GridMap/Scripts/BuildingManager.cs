@@ -333,7 +333,7 @@ public class BuildingManager : MonoBehaviour
 
                 rotationAngle -= 90;
                 // 使用DOVirtual.Float根据动画曲线缩放物体
-                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration, (float value) =>
+                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration * 0.5f, (float value) =>
                 {
                     // float scaleValue = GridManagerAccessor.GridManager.GridSettings.animationCurve.Evaluate(value);
                     // Vector3 newScale = _selectedGridObject.transform.localScale;
@@ -370,7 +370,7 @@ public class BuildingManager : MonoBehaviour
 
                 rotationAngle += 90;
                 // 使用DOVirtual.Float根据动画曲线缩放物体
-                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration, (float value) =>
+                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration * 0.5f, (float value) =>
                 {
                     // float scaleValue = GridManagerAccessor.GridManager.GridSettings.animationCurve.Evaluate(value);
                     // Vector3 newScale = _selectedGridObject.transform.localScale;
