@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Hypertonic.GridPlacement;
+using UnityEngine.AI;
 
 public class UI_InventoryBlock : MonoBehaviour
 {
@@ -125,7 +126,8 @@ public class UI_InventoryBlock : MonoBehaviour
 
                 //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
                 GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
-
+                GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<NavMeshObstacle>().enabled = false;
+                
                 SetSelectedBackground(true);
 
                 //PlayerState.OpenCloseBuildingPanel();

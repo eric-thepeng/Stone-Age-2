@@ -85,10 +85,13 @@ namespace Hypertonic.GridPlacement
         public string GridCanvasEventCameraName;
 
         [Space(10)] [Header("Icon Indicator")]
-        // [Tooltip("Determines if the occipied cells should be displayed.")]
+        // [Tooltip("Status Indicator.")]
+        public GameObject statusIndicatorPrefab;
+        
+        // [Tooltip("Out of Border Indicator Icon.")]
         public Sprite OutOfBorderIndicatorIcon;
             
-        // [Tooltip("Determines if the occipied cells should be displayed.")]
+        // [Tooltip("Biome Not Placeable Icon.")]
         public Sprite BiomeNotPlaceableIcon;
         
         [Header("Grid Object Placement Materials")]

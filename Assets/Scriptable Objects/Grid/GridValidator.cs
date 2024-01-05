@@ -24,12 +24,16 @@ public class GridValidator : MonoBehaviour
     private GridSettings _gridSettings;
     private PlaceableObject _placeableObject;
     
+    public SpriteRenderer spriteRenderer; 
+    
     private void Awake()
     {
         _customValidator = GetComponent<CustomValidator>();
         _boxCollider = GetComponent<BoxCollider>();
         _gridSettings = GridManagerAccessor.GridManager.GridSettings;
         _placeableObject = GetComponent<PlaceableObject>();
+
+        spriteRenderer = Instantiate(_gridSettings.statusIndicatorPrefab, transform).GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -52,10 +56,9 @@ public class GridValidator : MonoBehaviour
     private Vector3Int _position;
     private TileBase _tile;
 
-    private bool _validation = false;
-    private bool _lastFrameValidation = false;
+    private int _validation = 0; // 0: out of border, 1: true, 2: type mismatch
+    private int _lastFrameValidation = 0;
 
-    public SpriteRenderer spriteRenderer; 
 
     public void FindTilemap()
     {
@@ -66,16 +69,21 @@ public class GridValidator : MonoBehaviour
     {
         if (_validation != _lastFrameValidation)
         {
-            _customValidator.SetValidation(_validation);
+            if (_validation == 1)
+                _customValidator.SetValidation(true);
+            else
+                _customValidator.SetValidation(false);
+            
+            // _customValidator.SetValidation(_validation);
             _lastFrameValidation = _validation;
 
             if (spriteRenderer != null)
             {
-                if (_validation)
+                if (_validation == 1)
                 {
                     spriteRenderer.sprite = null;
                 }
-                else if (_tile == null)
+                else if (_validation == 0)
                 {
                     spriteRenderer.sprite = _gridSettings.OutOfBorderIndicatorIcon;
                 }
@@ -101,20 +109,19 @@ public class GridValidator : MonoBehaviour
                 _position = new Vector3Int(x, y, 0);
                 _tile = tilemap.GetTile(_position);
 
-                if (_tile == null || (_placeableObject.biomeType & PlaceableObject.GetBiomeTypeByName(_tile.name)) == 0)
+                if (_tile == null)
                 {
-                    _validation = false;
+                    _validation = 0;
                     return;
                 }
-                //
-                // if (_tile == null)
-                // {
-                //     _validation = false;
-                //     return;
-                // }
+                if ((_placeableObject.biomeType & PlaceableObject.GetBiomeTypeByName(_tile.name)) == 0)
+                {
+                    _validation = 2;
+                    return;
+                }
             }
         }
-        _validation = true;
+        _validation = 1;
 
         // }
     

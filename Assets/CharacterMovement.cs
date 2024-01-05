@@ -140,15 +140,15 @@ public class CharacterMovement : MonoBehaviour
 
         _animator.SetBool("isWalking", true);
 
-        Vector3 movementDirection = (_targetPosition - transform.position).normalized;
+        // Vector3 movementDirection = (_targetPosition - transform.position).normalized;
         // transform.position = Vector3.MoveTowards(transform.position, _targetPosition, moveSpeed * Time.deltaTime);
 
-        if (movementDirection.x < 0)
+        if (_navMeshAgent.velocity.x < 0)
         {
             _leafShadow.Value = 1;
             _visual.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
         }
-        else if (movementDirection.x > 0)
+        else if (_navMeshAgent.velocity.x > 0)
         {
             _leafShadow.Value = 0;
             _visual.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);

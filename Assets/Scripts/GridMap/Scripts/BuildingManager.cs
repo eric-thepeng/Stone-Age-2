@@ -6,6 +6,7 @@ using Hypertonic.GridPlacement.Example.AddProgramatically.Models;
 using Hypertonic.GridPlacement.Models;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static Cinemachine.CinemachineTransposer;
 using static Inventory;
@@ -357,6 +358,7 @@ public class BuildingManager : MonoBehaviour
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         
                         placeableObject.GetComponent<GridValidator>().enabled = false;
+                        placeableObject.GetComponent<NavMeshObstacle>().enabled = true;
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
@@ -406,7 +408,7 @@ public class BuildingManager : MonoBehaviour
                 }
                 else
                 {
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
                     buildingMode = false;
                     if (GetSelectedBuildingISO() != null)
                     {
@@ -508,7 +510,7 @@ public class BuildingManager : MonoBehaviour
     {
 
         CancelSelectedBuidling();
-        GridManagerAccessor.GridManager.EndPaintMode(false);
+        GridManagerAccessor.GridManager.EndPaintMode(true);
         editing = true;
         //editingIndicator.gameObject.SetActive(true);
         //if (deleting)
@@ -534,7 +536,7 @@ public class BuildingManager : MonoBehaviour
             buildingMode = true;
 
             CancelSelectedBuidling();
-            GridManagerAccessor.GridManager.EndPaintMode(false);
+            GridManagerAccessor.GridManager.EndPaintMode(true);
             modifying = true;
             gridOperationManager.StartPaintMode();
             //PlayerState.ExitState();
@@ -567,7 +569,8 @@ public class BuildingManager : MonoBehaviour
                         //GridUtilities.GetCellIndexesRequiredForObject
 
                         placeableObject.GetComponent<GridValidator>().enabled = false;
-                        GridManagerAccessor.GridManager.EndPaintMode(false);
+                        placeableObject.GetComponent<NavMeshObstacle>().enabled = true;
+                        GridManagerAccessor.GridManager.EndPaintMode(true);
 
                         gridOperationManager.StartPaintMode();
                     }
@@ -576,13 +579,14 @@ public class BuildingManager : MonoBehaviour
                 else
                 {
                     //GridManagerAccessor.GridManager.CancelPlacement(false);
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
 
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                     GridValidator placingObject = hitInfo.collider.gameObject.GetComponent<GridValidator>();
                     placingObject.enabled = true;
                     placingObject.FindTilemap();
+                    placeableObject.GetComponent<NavMeshObstacle>().enabled = false;
                     hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }
 
@@ -619,7 +623,7 @@ public class BuildingManager : MonoBehaviour
             {
                 Instantiate(particlePrefab, hitPoint, new Quaternion());
                 GridManagerAccessor.GridManager.DeleteObject(handleItem);
-                GridManagerAccessor.GridManager.EndPaintMode(false);
+                GridManagerAccessor.GridManager.EndPaintMode(true);
 
                 //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                 Inventory.i.AddInventoryItem(handleItem.GetComponent<PlaceableObject>().GetBuildingISO());
@@ -655,7 +659,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.DeleteObject(hitInfo.collider.gameObject);
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
 
                     //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                     Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<PlaceableObject>().GetBuildingISO());
