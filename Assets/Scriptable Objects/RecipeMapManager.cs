@@ -101,8 +101,8 @@ public class RecipeMapManager : SerializedMonoBehaviour
         ClosePanelTransform = transform.Find("Close Panel Transform");
         MiddlePanelTransform = transform.Find("Middle Panel Transform");
 
-        RecipeViewer = transform.parent.gameObject.transform.Find("=Recipe Viewer=").transform.Find("Recipe Viewer Panel").gameObject;
-        RecipeUpgradeSet = RecipeViewer.transform.Find("Upgrade Set").gameObject;
+        //RecipeViewer = transform.parent.gameObject.transform.Find("=Recipe Viewer=").transform.Find("Recipe Viewer Panel").gameObject;
+//        RecipeUpgradeSet = RecipeViewer.transform.Find("Upgrade Set").gameObject;
 
         RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject; //name
         RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject; //material
