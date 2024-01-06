@@ -16,7 +16,7 @@ public class CraftingManager : SerializedMonoBehaviour
     public List<GameObject> allTetris = new List<GameObject>();
     float unitLength = 0.15f;
 
-    public Transform PanelTransform, OpenPanelTransform, ClosePanelTransform;
+    [SerializeField] private Transform PanelTransform, OpenPanelTransform, ClosePanelTransform, ResearchPanel;
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
 
@@ -37,9 +37,6 @@ public class CraftingManager : SerializedMonoBehaviour
 
     private void Start()
     {
-        PanelTransform = transform.Find("Crafting Panel");
-        OpenPanelTransform = transform.Find("Open Panel Transform");
-        ClosePanelTransform = transform.Find("Close Panel Transform");
         foreach(ItemScriptableObject iso in startingTetris)
         {
             CreateTetris(iso, PanelTransform.position,CreateFrom.DEBUG);
@@ -106,7 +103,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public GameObject CreateTetris(ItemScriptableObject iso, Vector3 addPosition, CreateFrom createFrom)
     {
-        GameObject newTetris = Instantiate(iso.myPrefab, transform.Find("Crafting Panel"));
+        GameObject newTetris = Instantiate(iso.myPrefab, ResearchPanel);
         newTetris.transform.position = addPosition;
         newTetris.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
         newTetris.name = newTetris.name + " " + Random.Range(1000, 9999);
@@ -222,21 +219,22 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public void mouseEnterTetris(ItemScriptableObject iso)
     {
+        /*
         Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
         PanelTransform.Find("NameUI").transform.position = toSet + new Vector3(0,0.1f,0.1f);
         PanelTransform.Find("NameUI").gameObject.SetActive(true);
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().text = iso.tetrisHoverName;
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingLayerID = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingLayerID;
         PanelTransform.Find("NameUI").gameObject.GetComponentInChildren<TextMeshPro>().sortingOrder = PanelTransform.Find("NameUI").GetComponentInChildren<SpriteRenderer>().sortingOrder+1;
-
+        */
     }
     public void mouseClickTetris()
     {
-        PanelTransform.Find("NameUI").gameObject.SetActive(false);
+        //PanelTransform.Find("NameUI").gameObject.SetActive(false);
     }
     public void mouseExitTetris()
     {
-        PanelTransform.Find("NameUI").gameObject.SetActive(false);
+        //PanelTransform.Find("NameUI").gameObject.SetActive(false);
     }
 
     public void mouseEnterInventoryBlock(UI_InventoryBlock uiib)
@@ -256,7 +254,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public GameObject CreateMergeWindow(RecipeCombinator rc)
     {
-        Transform tf = transform.Find("Crafting Panel").Find("Merge Windows");
+        Transform tf = ResearchPanel.Find("Merge Windows");
 
         GameObject newWindow = Instantiate(tf.Find("Merge Window Template").gameObject, tf);
         newWindow.SetActive(true);
