@@ -75,7 +75,7 @@ public class WindEffectSpawner : MonoBehaviour
             SpawnWind();
         }
 
-        if ((PlayerState.state == PlayerState.State.Crafting || PlayerState.state == PlayerState.State.Recipe) && isWindOn)
+        if ((PlayerState.state == PlayerState.State.BlueprintAndResearch) && isWindOn)
         {
             HideWind();
         }

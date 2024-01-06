@@ -93,7 +93,7 @@ public class UI_InventoryBlock : MonoBehaviour
         if (itemInfo == null) return;
         
         // create tetris
-        if (PlayerState.IsCrafting())
+        if (PlayerState.IsResearch())
         {
             //InventoryHoverInfo.i.Disappear();
             CreateTetrisDrag();

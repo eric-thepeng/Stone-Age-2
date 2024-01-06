@@ -13,8 +13,7 @@ PlayerState 这个class用于统一管理玩家正在交互的state。Specifical
 
 State Explanation：
 Browsing - 玩家在家园界面的默认状态
-Crafting - 玩家在Crafting Panel使用Tetris制作物品
-Recipe - 玩家在Research Tree研究解锁新的Blueprint
+BlueprintAndResearch - 玩家在Research Panel使用Tetris研究物品 OR - 玩家在Blueprint界面看Blueprint/制作东西
 Building - 玩家在家园界面的建筑状态
 AllocatingBackpack - 玩家在家园界面，但是在一种特殊的交互当中。在这个状态下玩家要使用背包里的东西并且assign他们。例如在crafting station制作的时候或者是未来给小动物味东西的时候。
 ExploreMap - 玩家在Explore Map界面
@@ -23,7 +22,7 @@ ExploreMap - 玩家在Explore Map界面
 
 public static class PlayerState
 {
-    public enum State { Browsing, Crafting, Recipe, Building, AllocatingBackpack, ExploreMap }
+    public enum State { Browsing, BlueprintAndResearch, Building, AllocatingBackpack, ExploreMap }
     static public State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
@@ -36,13 +35,10 @@ public static class PlayerState
         {
             
         }
-        else if (state == State.Crafting)
+        else if (state == State.BlueprintAndResearch)
         {
             CraftingManager.i.ClosePanel();
-        }
-        else if (state == State.Recipe)
-        {
-            RecipeMapManager.i.ClosePanel();
+            BlueprintAndResearchManager.i.ClosePanel();
         }
         else if (state == State.Building)
         {
@@ -67,22 +63,18 @@ public static class PlayerState
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
             PanelButtonIndicator.i.Exit();
         }
-        else if (enterState == State.Crafting)
+        else if (enterState == State.BlueprintAndResearch)
         {
-            if(state == State.Browsing)
-            {
-                ChangeRecipeViewerPanel(RecipeViewerState.Hide);
-            }
             ChangeInventoryPanel(true);
             CraftingManager.i.OpenPanel();
+            BlueprintAndResearchManager.i.OpenPanel();
             PanelButtonIndicator.i.EnterCrafting();
-        }
-        else if (enterState == State.Recipe)
-        {
+            
+            /*Old Tech Tree Code
             ChangeInventoryPanel(false);
             RecipeMapManager.i.OpenPanel();
             ChangeRecipeViewerPanel(RecipeViewerState.Open);
-            PanelButtonIndicator.i.EnterResearch();
+            PanelButtonIndicator.i.EnterResearch();*/
         }
         else if (enterState == State.Building)
         {
@@ -168,6 +160,7 @@ public static class PlayerState
         ChangeInventoryPanel(!inventoryPanelOpen);
     }
 
+    /*
     public static void OpenCloseChangeRecipeViewerPanel()
     {
         if (IsCrafting() || IsRecipe())
@@ -181,11 +174,11 @@ public static class PlayerState
                 ChangeRecipeViewerPanel(RecipeViewerState.Open);
             }
         }
-    }
+    }*/
 
     public static void OpenCloseCraftingPanel()
     {
-        if(state == State.Crafting) //close
+        if(state == State.BlueprintAndResearch) //close
         {
             ExitState();
             EnterState(State.Browsing);
@@ -193,10 +186,11 @@ public static class PlayerState
         else //open
         {
             ExitState();
-            EnterState(State.Crafting);
+            EnterState(State.BlueprintAndResearch);
         }
     }
 
+    /*
     public static void OpenCloseRecipePanel()
     {
         if (state == State.Recipe)
@@ -209,7 +203,7 @@ public static class PlayerState
             ExitState();
             EnterState(State.Recipe);
         }
-    }
+    }*/
 
     public static void OpenCloseBuildingPanel()
     {
@@ -255,16 +249,21 @@ public static class PlayerState
         return state == State.Browsing;
     }
 
-    public static bool IsCrafting()
+    public static bool IsBlueprintAndResearch()
     {
-        return state == State.Crafting;
+        return state == State.BlueprintAndResearch;
     }
 
-    public static bool IsRecipe()
+    public static bool IsBlueprint()
     {
-        return state == State.Recipe;
+        return BlueprintAndResearchManager.i.IsBlueprintPanelOpen();
     }
 
+    public static bool IsResearch()
+    {
+        return BlueprintAndResearchManager.i.IsResearchPanelOpen();
+    }
+    
     public static bool IsBuilding()
     {
         return state == State.Building;
