@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.Events;
 using DG.Tweening;
+using Sirenix.Utilities;
 
 public class CraftingManager : SerializedMonoBehaviour
 {
@@ -19,6 +20,8 @@ public class CraftingManager : SerializedMonoBehaviour
     [SerializeField] private Transform PanelTransform, OpenPanelTransform, ClosePanelTransform, ResearchPanel;
     bool panelOpen = false;
     public AnimationCurve panelDisplayAC;
+
+    [SerializeField] private Transform TopLeft, BotRight;
 
     public enum CreateFrom {DEBUG, INVENTORY, MERGE, VISUAL_ONLY}
 
@@ -126,6 +129,13 @@ public class CraftingManager : SerializedMonoBehaviour
         }
         allTetris.Add(newTetris);
         return newTetris;
+    }
+
+    public bool IsTetrisInCraftingArea(Vector3 tetrisLocalPosition)
+    {
+        if ((tetrisLocalPosition.x > TopLeft.localPosition.x && tetrisLocalPosition.x < BotRight.localPosition.x)
+            && (tetrisLocalPosition.y > BotRight.localPosition.y && tetrisLocalPosition.y < TopLeft.localPosition.y)) return true;
+        return false;
     }
 
     /*

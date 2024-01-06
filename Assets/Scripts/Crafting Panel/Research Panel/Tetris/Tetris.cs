@@ -13,8 +13,6 @@ public class Tetris : DragInventoryItem
     /// Merge: Tetris is Merging.
     /// </summary>
     enum state {Wait, Drag, Animation, Merge, CraftPreview}
-    enum Zone {Craft, Back}
-    Zone zoneNow = Zone.Craft;
     state stateNow = state.Wait;
 
     //Delta between 
@@ -54,18 +52,19 @@ public class Tetris : DragInventoryItem
 
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
-            //PlaceDrag();
-            if(zoneNow == Zone.Back) //PUT BACK TO INVENTORY
-            {
-                CraftingManager.i.PutBackTetrisToInventory(this.gameObject, true);
-            }
-            else //zoneNow == Zone.Craft //DETECT CRAFTING
+            // Place Tetris
+            if(CraftingManager.i.IsTetrisInCraftingArea(transform.localPosition))
             {
                 SetState(state.Wait);
                 RefreshEdges();
                 myRC = new RecipeCombinator(this);
                 Search(myRC, this, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
                 CheckSnap(myRC);
+            }
+            // Put Tetirs Back to Backpack
+            else
+            {
+                CraftingManager.i.PutBackTetrisToInventory(this.gameObject, true);
             }
             
         }
@@ -247,20 +246,12 @@ public class Tetris : DragInventoryItem
         myRC.CheckMerging();
     }
 
-
-    //set zone
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name != "Tetris Return Zone") return;
-        CraftingManager.i.mouseExitTetris();
-        zoneNow = Zone.Back;
-    }
-
+    /*
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.name != "Tetris Return Zone") return;
         zoneNow = Zone.Craft;
-    }
+    }*/
 
     /* 3D
     private void OnTriggerEnter(Collider other)
