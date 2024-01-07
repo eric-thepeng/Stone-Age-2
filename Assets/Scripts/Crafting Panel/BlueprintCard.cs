@@ -8,6 +8,7 @@ public class BlueprintCard : MonoBehaviour
     [SerializeField] private SpriteRenderer productSpriteRenderer;
     [SerializeField] private TextMeshPro productNameTMP;
     [SerializeField] private Transform materialDisplayTemplate;
+    [SerializeField] private GameObject researchFinishedIcon;
     [SerializeField] private float materialYDelta;
     
     
@@ -35,6 +36,17 @@ public class BlueprintCard : MonoBehaviour
                 "" + VARIABLE.Value;
 
             count++;
+        }
+        
+        CraftingManager.i.NewItemCrafted.AddListener(FinishResearch);
+    }
+
+    public void FinishResearch(ItemScriptableObject iso)
+    {
+        if (iso == myICSO.ItemCrafted)
+        {
+            researchFinishedIcon.SetActive(true);
+            CraftingManager.i.NewItemCrafted.RemoveListener(FinishResearch);
         }
     }
 }
