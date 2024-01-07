@@ -36,45 +36,10 @@ public class RecipeMapManager : SerializedMonoBehaviour
     public Color32 unlockedBackgroundColor;
     public Color32 lockedBackgroundColor;
 
-    class ShadowBoxManager
-    {
-        private Transform parentGO;
-        private Transform boxTemplate;
-        private List<Transform> allBoxes;
-        private float distance = 0.21f;
-        public ShadowBoxManager(Transform parent)
-        {
-            parentGO = parent;
-            boxTemplate = parent.transform.GetChild(0);
-            allBoxes = new List<Transform>();
-        }
-        public void GenerateBoxes(List<Vector2> coords)
-        {
-            HideBoxes();
-            boxTemplate.gameObject.SetActive(true);
-            foreach (Vector2 c in coords)
-            {
-                GameObject newGO = Instantiate(boxTemplate.gameObject, parentGO);
-                newGO.transform.localPosition += new Vector3(c.x * distance, -c.y * distance, 0f);
-                allBoxes.Add(newGO.transform);
-            }
-            boxTemplate.gameObject.SetActive(false);
-        }
-
-        public void HideBoxes()
-        {
-            for (int i = allBoxes.Count - 1; i >= 0; i--)
-            {
-                Destroy(allBoxes[i].gameObject);
-            }
-            allBoxes.Clear();
-        }
-        
-    }
+  
     
     // All Blocks
     public List<RecipeMapBlock> allBlocks = new List<RecipeMapBlock>();
-    private ShadowBoxManager shadowBoxManager;
     
     
     // Singleton
@@ -172,7 +137,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
             
             RecipeViewerLevels[2].GetComponent<TextMeshPro>().text = "Shape:";
             RecipeUpgradeSet.SetActive(false);
-            shadowBoxManager.GenerateBoxes(RMB.myICSO.GetDefaultRecipeCoords());
+            //shadowBoxManager.GenerateBoxes(RMB.myICSO.GetDefaultRecipeCoords());
             
             //RecipeUpgradeSet.transform.position = RecipeViewerLevels[3].transform.position;
         }
@@ -187,7 +152,7 @@ public class RecipeMapManager : SerializedMonoBehaviour
             
         }
         else {
-            shadowBoxManager.HideBoxes();
+            //shadowBoxManager.HideBoxes();
             RecipeUpgradeSet.transform.Find("Spirit Point Amount").GetComponent<TextMeshPro>().text =
                 RMB.CurrentCost().ToString();
             RecipeUpgradeSet.SetActive(true);

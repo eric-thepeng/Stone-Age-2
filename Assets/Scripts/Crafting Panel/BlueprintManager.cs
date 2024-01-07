@@ -8,9 +8,24 @@ using UnityEngine.Serialization;
 
 public class BlueprintManager : MonoBehaviour
 {
+    // Singleton
+    static BlueprintManager instance;
+    public static BlueprintManager i
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<BlueprintManager>();
+            }
+            return instance;
+        }
+    }
+    
     [SerializeField] private RecipeListScriptableObject allBlueprints = null;
     [SerializeField] private List<ItemCraftScriptableObject> obtainedBlueprints = null;
     [SerializeField] private Transform blueprintPanel;
+    [SerializeField] private CraftingInformationPanel craftingInformationPanel;
     [Header("Blueprint Card Set Up"),SerializeField] private BlueprintCard blueprintCardTemplate;
     [SerializeField] private Vector2 blueprintCardDelta = new Vector2(0.1f, -0.2f);
     [SerializeField] private Vector2Int blueprintCardGridMax = new Vector2Int(10, 3);
@@ -53,6 +68,11 @@ public class BlueprintManager : MonoBehaviour
         
         // Adjust Visual of New Card
         newCard.GetComponent<BlueprintCard>().SetUpCardInfo(icso);
+    }
+
+    public void BlueprintCardClicked(BlueprintCard blueprintCard)
+    {
+        craftingInformationPanel.DisplayBlueprintCard(blueprintCard);
     }
 
     /// <summary>

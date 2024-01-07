@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector.Editor.Examples;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +15,11 @@ public class BlueprintCard : MonoBehaviour
     
     
     private ItemCraftScriptableObject myICSO;
+
+    public ItemCraftScriptableObject GetICSO()
+    {
+        return myICSO;
+    }
 
     public void SetUpCardInfo(ItemCraftScriptableObject icso)
     {
@@ -48,5 +55,10 @@ public class BlueprintCard : MonoBehaviour
             researchFinishedIcon.SetActive(true);
             CraftingManager.i.NewItemCrafted.RemoveListener(FinishResearch);
         }
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        BlueprintManager.i.BlueprintCardClicked(this);
     }
 }
