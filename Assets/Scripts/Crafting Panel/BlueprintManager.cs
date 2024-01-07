@@ -11,7 +11,7 @@ public class BlueprintManager : MonoBehaviour
     [SerializeField] private RecipeListScriptableObject allBlueprints = null;
     [SerializeField] private List<ItemCraftScriptableObject> obtainedBlueprints = null;
     [SerializeField] private Transform blueprintPanel;
-    [Header("Blueprint Card Set Up"),SerializeField] private Transform blueprintCardTemplate;
+    [Header("Blueprint Card Set Up"),SerializeField] private BlueprintCard blueprintCardTemplate;
     [SerializeField] private Vector2 blueprintCardDelta = new Vector2(0.1f, -0.2f);
     [SerializeField] private Vector2Int blueprintCardGridMax = new Vector2Int(10, 3);
     [Header("Press N to test obtain these blueprints ----------"),SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain = null;
@@ -52,9 +52,7 @@ public class BlueprintManager : MonoBehaviour
         newCard.gameObject.name = "" + icso.ItemCrafted + " " + coord.x + "," + coord.y + " -" + (index);
         
         // Adjust Visual of New Card
-        newCard.transform.Find("Product Sprite").GetComponent<SpriteRenderer>().sprite =
-            icso.ItemCrafted.iconSprite;
-        newCard.transform.Find("Product Name").GetComponent<TextMeshPro>().text = icso.ItemCrafted.tetrisHoverName;
+        newCard.GetComponent<BlueprintCard>().SetUpCardInfo(icso);
     }
 
     /// <summary>

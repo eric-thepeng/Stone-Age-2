@@ -104,15 +104,15 @@ public class RecipeMapManager : SerializedMonoBehaviour
         //RecipeViewer = transform.parent.gameObject.transform.Find("=Recipe Viewer=").transform.Find("Recipe Viewer Panel").gameObject;
 //        RecipeUpgradeSet = RecipeViewer.transform.Find("Upgrade Set").gameObject;
 
-        RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject; //name
-        RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject; //material
-        RecipeViewerLevels[2] = RecipeViewer.transform.Find("Graph").gameObject; //graph
+        //RecipeViewerLevels[0] = RecipeViewer.transform.Find("Name").gameObject; //name
+        //RecipeViewerLevels[1] = RecipeViewer.transform.Find("Materials").gameObject; //material
+        //RecipeViewerLevels[2] = RecipeViewer.transform.Find("Graph").gameObject; //graph
         //RecipeViewerLevels[3] = null; //detailed graph
 
-        LockIcons[0] = RecipeViewer.transform.Find("Lock 1").gameObject;
+        //LockIcons[0] = RecipeViewer.transform.Find("Lock 1").gameObject;
         //LockIcons[1] = RecipeViewer.transform.Find("Lock 2").gameObject;
         
-        shadowBoxManager = new ShadowBoxManager(RecipeViewer.transform.Find("Shadow Box Manager"));
+        //shadowBoxManager = new ShadowBoxManager(RecipeViewer.transform.Find("Shadow Box Manager"));
     }
 
 
