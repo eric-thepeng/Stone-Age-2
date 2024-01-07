@@ -47,5 +47,10 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
         Recipe defaultRecipe = allRecipes[0];
         return defaultRecipe.getCoord(true);
     }
+
+    public Dictionary<ItemScriptableObject, int> GetRecipeComposition()
+    {
+        return allRecipes[0].GetRecipeComposition();
+    }
     
 }
