@@ -31,6 +31,14 @@ public class BlueprintManager : MonoBehaviour
     [SerializeField] private Vector2Int blueprintCardGridMax = new Vector2Int(10, 3);
     [Header("Press N to test obtain these blueprints ----------"),SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain = null;
 
+    private void Awake()
+    {
+        foreach (var VARIABLE in allBlueprints.list)
+        {
+            VARIABLE.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Not_Obtained);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
@@ -49,7 +57,7 @@ public class BlueprintManager : MonoBehaviour
     {
         foreach (var blueprint in blueprintsToObtain)
         {
-            if(obtainedBlueprints.Contains(blueprint)) continue;
+            if(blueprint.IsObtained()) continue;
             obtainedBlueprints.Add(blueprint);
             blueprint.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Obtained_Not_Researched);
             AddNewBlueprintCard(blueprint, obtainedBlueprints.Count-1);
