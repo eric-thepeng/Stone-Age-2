@@ -2024,14 +2024,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 01010c00000061006c006c005400750074006f007200690061006c0073002f00000000015c000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b00500072006f006700720065007300730043006f006e00740072006f006c002b005400750074006f007200690061006c0049006e0066006f002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c006900620000000000060400000000000000022f01000000012d000000500072006f006700720065007300730043006f006e00740072006f006c002b005400750074006f007200690061006c0049006e0066006f002c00200041007300730065006d0062006c0079002d0043005300680061007200700001000000270104000000740065007800740001650000004400720061006700200079006f007500720020007300700069007200690074002d0061006e0069006d0061006c00200066007200690065006e00640020006f006e0074006f002000610020006500780070006c006f0072006100740069006f006e002000730070006f007400200074006f00200073007400610072007400200067006100740068006500720069006e00670020007200650073006f007500720063006500200061006e0064002000730070006900720069007400200070006f0069006e007400730021002d010500000069006d00610067006500050230010000000200000027010400000074006500780074000170000000280043006c00690063006b002000740068006500200062007500740074006f006e0020006f007200200070007200650073007300200022005200220029003c00620072003e0047006f00200074006f0020007400680065002000720065007300650061007200630068002000700061006e0065006c00200074006f00200072006500730065006100720063006800200061006e006400200075006e006c006f0063006b00200062006c00750065007000720069006e0074007300200066006f00720020006300720061006600740069006e006700200074006900700073002e002d010500000069006d0061006700650005023001000000030000002701040000007400650078007400014c000000280043006c00690063006b002000740068006500200062007500740074006f006e0020006f007200200070007200650073007300200022004300220029003c00620072003e0043007200610066007400200075006e00690071007500650020006900740065006d007300200069006e00200074006800650020006300720061006600740069006e0067002000700061006e0065006c002e002d010500000069006d0061006700650005023001000000040000002701040000007400650078007400014a000000280043006c00690063006b002000740068006500200062007500740074006f006e0020006f0072002000700072006500730073002000220053005000410043004500220029003c00620072003e00520065007400750072006e00200074006f00200079006f0075007200200068006f006d0065002000730063007200650065006e00200061006e007900740069006d00650021002d010500000069006d00610067006500050705
+    SerializedFormat: 2
+    SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: allTutorials
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[ProgressControl+TutorialInfo, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 1|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: Drag your spirit-animal friend onto a exploration spot to start gathering
+        resource and spirit points!
+    - Name: image
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: (Click the button or press "R")<br>Go to the research panel to research
+        and unlock blueprints for crafting tips.
+    - Name: image
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: (Click the button or press "C")<br>Craft unique items in the crafting
+        panel.
+    - Name: image
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|ProgressControl+TutorialInfo, Assembly-CSharp
+    - Name: text
+      Entry: 1
+      Data: (Click the button or press "SPACE")<br>Return to your home screen anytime!
+    - Name: image
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!210 &3941866036473239161
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -2540,10 +2604,10 @@ PrefabInstance:
     - target: {fileID: 2382703675997596454, guid: 78e3eb2ecf7d9634a87665cc4a34154f, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2382703675997596454, guid: 78e3eb2ecf7d9634a87665cc4a34154f, type: 3}
     - target: {fileID: 2382703675997596454, guid: 78e3eb2ecf7d9634a87665cc4a34154f, type: 3}
       propertyPath: serializationData.SerializedFormat
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78e3eb2ecf7d9634a87665cc4a34154f, type: 3}
@@ -2757,35 +2821,11 @@ PrefabInstance:
     - target: {fileID: 693656014415236005, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 693656014415236005, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
     - target: {fileID: 693656014415236005, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
       propertyPath: serializationData.SerializedFormat
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: eb178da21df6f584ab4e33d835e521a8, type: 2}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 157b379d46c54b8478e9a4eaba47e246, type: 2}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4f3f64dba8dab4fdf9f8b6869e6c52ae, type: 2}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: f5bc6705ad43949e79e314bddb8ef78d, type: 2}
-    - target: {fileID: 8352110638509401533, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
-      propertyPath: blueprintsToObtain.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: dfa94aae93e9044b78ad4871fe10ff19, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3837d612fc9fb83489f6a61d1a7f8938, type: 3}
 --- !u!4 &3941866035950600225 stripped

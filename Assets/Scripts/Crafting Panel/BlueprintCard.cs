@@ -27,6 +27,8 @@ public class BlueprintCard : MonoBehaviour
         productSpriteRenderer.sprite = myICSO.ItemCrafted.iconSprite;
         productNameTMP.text = myICSO.ItemCrafted.tetrisHoverName;
 
+        // Disable Display Material Composition for now
+        /*
         int count = 0;
         foreach (var VARIABLE in icso.GetRecipeComposition())
         {
@@ -43,7 +45,7 @@ public class BlueprintCard : MonoBehaviour
                 "" + VARIABLE.Value;
 
             count++;
-        }
+        }*/
         
         CraftingManager.i.NewItemCrafted.AddListener(FinishResearch);
     }
