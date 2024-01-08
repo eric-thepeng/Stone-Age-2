@@ -54,6 +54,7 @@ public class BlueprintCard : MonoBehaviour
     {
         if (iso == myICSO.ItemCrafted)
         {
+            myICSO.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Obtained_Researched); 
             researchFinishedIcon.SetActive(true);
             CraftingManager.i.NewItemCrafted.RemoveListener(FinishResearch);
         }

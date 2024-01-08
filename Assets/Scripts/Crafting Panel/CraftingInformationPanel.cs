@@ -46,6 +46,7 @@ public class CraftingInformationPanel : MonoBehaviour
     [SerializeField] private GameObject shadowBoxManagerGameObject;
     [SerializeField] private TextMeshPro isoNameTMP;
     [SerializeField] private Transform materialDisplayContainer, materialDisplayTemplate;
+    [SerializeField] private Transform researchedDisplay, notResearchedDisplay;
     [SerializeField] private float materialYDelta;
     private List<GameObject> currentDisplayingMaterial = new List<GameObject>();
     
@@ -56,6 +57,18 @@ public class CraftingInformationPanel : MonoBehaviour
 
     public void DisplayBlueprintCard(BlueprintCard blueprintCard)
     {
+        // Display according to researched
+        if (blueprintCard.GetICSO().IsResearched())
+        {
+            researchedDisplay.localPosition = new Vector3(0, 0, 0);
+            notResearchedDisplay.localPosition = new Vector3(-4, 0, 0);
+        }
+        else
+        {
+            researchedDisplay.localPosition = new Vector3(-4, 0, 0);
+            notResearchedDisplay.localPosition = new Vector3(0, 0, 0);
+        }
+        
         // Update ISO Name
         isoNameTMP.text = blueprintCard.GetICSO().ItemCrafted.tetrisHoverName;
         

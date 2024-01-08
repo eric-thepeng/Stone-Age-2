@@ -51,6 +51,7 @@ public class BlueprintManager : MonoBehaviour
         {
             if(obtainedBlueprints.Contains(blueprint)) continue;
             obtainedBlueprints.Add(blueprint);
+            blueprint.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Obtained_Not_Researched);
             AddNewBlueprintCard(blueprint, obtainedBlueprints.Count-1);
         }
     }
