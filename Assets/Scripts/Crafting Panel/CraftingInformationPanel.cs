@@ -45,6 +45,9 @@ public class CraftingInformationPanel : MonoBehaviour
     private ShadowBoxManager shadowBoxManager;
     [SerializeField] private GameObject shadowBoxManagerGameObject;
     [SerializeField] private TextMeshPro isoNameTMP;
+    [SerializeField] private Transform materialDisplayContainer, materialDisplayTemplate;
+    [SerializeField] private float materialYDelta;
+    private List<GameObject> currentDisplayingMaterial = new List<GameObject>();
     
     private void Start()
     {
@@ -53,10 +56,39 @@ public class CraftingInformationPanel : MonoBehaviour
 
     public void DisplayBlueprintCard(BlueprintCard blueprintCard)
     {
+        // Update ISO Name
+        isoNameTMP.text = blueprintCard.GetICSO().ItemCrafted.tetrisHoverName;
+        
+        // Display shadow box for recipe
         shadowBoxManager.HideBoxes();
         shadowBoxManager.GenerateBoxes(blueprintCard.GetICSO().GetDefaultRecipeCoords());
+        
+        // Display material list
+        for (int i = currentDisplayingMaterial.Count-1; i >= 0 ; i--)
+        {
+            Destroy(currentDisplayingMaterial[i]);
+        }
+        currentDisplayingMaterial = new List<GameObject>();
+        
+        int count = 0;
+        foreach (var VARIABLE in blueprintCard.GetICSO().GetRecipeComposition())
+        {
+            //Create new material display game object
+            GameObject materialDisplay = Instantiate(materialDisplayTemplate.gameObject, materialDisplayContainer);
+            currentDisplayingMaterial.Add(materialDisplay);
+            materialDisplay.SetActive(true);
+            materialDisplay.transform.localPosition = materialDisplayTemplate.transform.localPosition +
+                                                      count * new Vector3(0, materialYDelta, 0);
+            
+            //Set up visual
+            materialDisplay.transform.Find("Material Sprite").GetComponent<SpriteRenderer>().sprite =
+                VARIABLE.Key.iconSprite;
+            materialDisplay.transform.Find("Material Amount").GetComponent<TextMeshPro>().text =
+                "" + VARIABLE.Value;
 
-        isoNameTMP.text = blueprintCard.GetICSO().ItemCrafted.tetrisHoverName;
+            count++;
+        }
+        
     }
 }
 
