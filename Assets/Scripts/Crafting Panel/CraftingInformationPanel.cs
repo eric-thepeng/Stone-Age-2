@@ -42,14 +42,23 @@ public class CraftingInformationPanel : MonoBehaviour
         
     }
     
-    private ShadowBoxManager shadowBoxManager;
-    [SerializeField] private GameObject shadowBoxManagerGameObject;
+    // Serialized Private Variables
+    [Header("Dependencies"),SerializeField] private GameObject shadowBoxManagerGameObject;
     [SerializeField] private TextMeshPro isoNameTMP;
-    [SerializeField] private Transform materialDisplayContainer, materialDisplayTemplate;
-    [SerializeField] private Transform researchedDisplay, notResearchedDisplay;
+    [SerializeField] private Transform researchedTetrisParent;
+
+    [Header("Material Display"), SerializeField] private Transform materialDisplayContainer;
+    [SerializeField] private Transform materialDisplayTemplate;
     [SerializeField] private float materialYDelta;
-    private List<GameObject> currentDisplayingMaterial = new List<GameObject>();
+
+    [Header("Researched / Not"), SerializeField] private Transform researchedDisplay;
+    [SerializeField]private Transform notResearchedDisplay;
     
+    // Private Variables
+    private ShadowBoxManager shadowBoxManager;
+    private List<GameObject> currentDisplayingMaterial = new List<GameObject>();
+    private GameObject researchedTetrisGO;
+
     private void Start()
     {
         shadowBoxManager = new ShadowBoxManager(shadowBoxManagerGameObject.transform);
@@ -71,6 +80,14 @@ public class CraftingInformationPanel : MonoBehaviour
         
         // Update ISO Name
         isoNameTMP.text = blueprintCard.GetICSO().ItemCrafted.tetrisHoverName;
+        
+        // Display researched tetris
+        Destroy(researchedTetrisGO);
+        researchedTetrisGO = CraftingManager.i.CreateTetris(blueprintCard.GetICSO().ItemCrafted, new Vector3(0, 0, 0),
+            CraftingManager.CreateFrom.VISUAL_ONLY);
+        researchedTetrisGO.transform.SetParent(researchedTetrisParent);
+        researchedTetrisGO.transform.localPosition = new Vector3(0, 0, 0);
+        researchedTetrisGO.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
         
         // Display shadow box for recipe
         shadowBoxManager.HideBoxes();

@@ -128,6 +128,7 @@ public class CraftingManager : SerializedMonoBehaviour
         }
         else //createFrom == CreateFrom.VISUAL_ONLY
         {
+            newTetris.GetComponent<Tetris>().enabled = false;
             return newTetris;
         }
         allTetris.Add(newTetris);
