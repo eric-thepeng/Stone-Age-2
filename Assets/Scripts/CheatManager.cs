@@ -15,11 +15,6 @@ public class CheatManager : MonoBehaviour
             AddMoney();
             AddItem();
         }
-        if (Input.GetKeyDown(KeyCode.RightBracket))
-        {
-            UnlockCurrentRecipe();
-        }
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             AddResourceForTrash();
@@ -50,14 +45,6 @@ public class CheatManager : MonoBehaviour
             }
         }
     
-    }
-
-    public void UnlockCurrentRecipe()
-    {
-        if (RecipeMapManager.i.DisplayBlock != null)
-        {
-            RecipeMapManager.i.CheckUnlock(RecipeMapManager.i.DisplayBlock.myISO);
-        }  
     }
 
 }
