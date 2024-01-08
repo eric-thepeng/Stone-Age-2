@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CraftingInformationPanel : MonoBehaviour
 {
@@ -43,7 +44,8 @@ public class CraftingInformationPanel : MonoBehaviour
     
     private ShadowBoxManager shadowBoxManager;
     [SerializeField] private GameObject shadowBoxManagerGameObject;
-
+    [SerializeField] private TextMeshPro isoNameTMP;
+    
     private void Start()
     {
         shadowBoxManager = new ShadowBoxManager(shadowBoxManagerGameObject.transform);
@@ -53,6 +55,8 @@ public class CraftingInformationPanel : MonoBehaviour
     {
         shadowBoxManager.HideBoxes();
         shadowBoxManager.GenerateBoxes(blueprintCard.GetICSO().GetDefaultRecipeCoords());
+
+        isoNameTMP.text = blueprintCard.GetICSO().ItemCrafted.tetrisHoverName;
     }
 }
 
