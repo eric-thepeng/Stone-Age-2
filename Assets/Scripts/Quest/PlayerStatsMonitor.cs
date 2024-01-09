@@ -108,6 +108,7 @@ public static class PlayerStatsMonitor
         //ISO RELATED
         ISOTotalGained,
         BISOTotalBuilt,
+        ISOInStockAmount
     }
     
     static public PlayerStat GetPlayerStat(PlayerStatType pst, ItemScriptableObject iso = null)
@@ -121,6 +122,7 @@ public static class PlayerStatsMonitor
         }
         if (pst == PlayerStatType.ISOTotalGained) return isoTotalGainedPlayerStatCollection.GetPlayerStat(iso);
         if (pst == PlayerStatType.BISOTotalBuilt) return bisoTotalBuiltPlayerStatCollection.GetPlayerStat(iso);
+        if (pst == PlayerStatType.ISOInStockAmount) return Inventory.i.GetISOInstockPlayerStat(iso);
         Debug.LogError("Cannot find PlayerStat");
         return null;
     }

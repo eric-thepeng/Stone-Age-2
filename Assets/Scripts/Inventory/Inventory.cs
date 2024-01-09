@@ -30,15 +30,20 @@ public class Inventory : MonoBehaviour
             get { return iso.category;}
         }
 
-        public ItemInfo(ItemScriptableObject newISO)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newISO"></param>
+        /// <param name="initialInstockAmount">only put 1 or 0</param>
+        public ItemInfo(ItemScriptableObject newISO, int initialInstockAmount)
         {
             iso = newISO;
-            totalAmount = new PlayerStat(1);
+            totalAmount = new PlayerStat(initialInstockAmount);
             inUseAmount = new PlayerStat(0);
             inWorkshopAmount = new PlayerStat(0);
             inBuildAmount = new PlayerStat(0);
             
-            inStockAmount = new PlayerStat(1); //default to 1, same as totalAmount
+            inStockAmount = new PlayerStat(initialInstockAmount); //default to 1, same as totalAmount
             
             totalAmount.SubscribeStatDelta(PositiveChangeInStockAmount);
             inUseAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
@@ -68,6 +73,7 @@ public class Inventory : MonoBehaviour
         PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(newISO).ChangeAmount(amount);
         foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
+            // Find existing II
             if (ii.iso == newISO)
             {
                 ii.totalAmount.ChangeAmount(amount);
@@ -76,19 +82,23 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
-        ItemInfo newII = new ItemInfo(newISO);
-        CategoryToList(newISO.category).Add(newII);
+        
+        // No existing II
+        ItemInfo newII = CreateNewItemInfo(newISO,1);
         if (amount == 1) return;
-        foreach (ItemInfo ii in CategoryToList(newISO.category))
-        {
-            if (ii.iso == newISO)
-            {
-                ii.totalAmount.ChangeAmount(amount-1);
-                //print("added amount: " + newISO);
-                UI_Inventory.i.UpdateItemDisplay(ii);
-                return;
-            }
-        }
+        newII.totalAmount.ChangeAmount(amount-1);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newISO"></param>
+    /// <param name="initialInStockAmount">only put 0 or 1</param>
+    private ItemInfo CreateNewItemInfo(ItemScriptableObject newISO, int initialInStockAmount)
+    {
+        ItemInfo newII = new ItemInfo(newISO, initialInStockAmount);
+        CategoryToList(newISO.category).Add(newII);
+        return newII;
     }
 
     public int ItemInStockAmount(ItemScriptableObject newISO)
@@ -185,8 +195,17 @@ public class Inventory : MonoBehaviour
 
     public int GetISOInstockAmount(ItemScriptableObject iso)
     {
+        return GetISOInstockPlayerStat(iso).GetAmount();
+    }
+
+    public PlayerStat GetISOInstockPlayerStat(ItemScriptableObject iso)
+    {
         ItemInfo ii = GetItemInfo(iso);
-        return ii==null? 0 : ii.inStockAmount.GetAmount();
+        if (ii == null)
+        {
+            ii = CreateNewItemInfo(iso, 0);
+        }
+        return ii.inStockAmount;
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)

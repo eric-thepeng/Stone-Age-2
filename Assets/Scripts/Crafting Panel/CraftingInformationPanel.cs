@@ -46,11 +46,10 @@ public class CraftingInformationPanel : MonoBehaviour
     [Header("Dependencies"),SerializeField] private GameObject shadowBoxManagerGameObject;
     [SerializeField] private TextMeshPro isoNameTMP;
     [SerializeField] private Transform researchedTetrisParent;
-
-    [Header("Material Display"), SerializeField] private Transform materialDisplayContainer;
-    [SerializeField] private Transform materialDisplayTemplate;
-    [SerializeField] private float materialYDelta;
-    [SerializeField] private ResourceSetDisplayer materialResourceSetDisplayer;
+    
+    [Header("Material Display"),SerializeField] private float materialYDelta;
+    [SerializeField] private ResourceSetDisplayer researchedMaterialResourceSetDisplayer;
+    [SerializeField] private ResourceSetDisplayer unresearchedMaterialResourceSetDisplayer;
 
     [Header("Researched / Not"), SerializeField] private Transform researchedDisplay;
     [SerializeField]private Transform notResearchedDisplay;
@@ -95,8 +94,9 @@ public class CraftingInformationPanel : MonoBehaviour
         shadowBoxManager.GenerateBoxes(blueprintCard.GetICSO().GetDefaultRecipeCoords());
         
         // Display material list
-        materialResourceSetDisplayer.Display(blueprintCard.GetICSO().GetResourceSet());
-        
+        unresearchedMaterialResourceSetDisplayer.Display(blueprintCard.GetICSO().GetResourceSet());
+        researchedMaterialResourceSetDisplayer.Display(blueprintCard.GetICSO().GetResourceSet());
+            
         /* Old Material Display
             for (int i = currentDisplayingMaterial.Count-1; i >= 0 ; i--)
             {

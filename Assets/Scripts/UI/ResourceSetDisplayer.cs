@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using Sirenix.Serialization;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 /// <summary>
 /// Create and display ResourceSet in worldspace
@@ -40,10 +41,11 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     [SerializeField] private Transform shadowsContainer;
     
-    //local vairables:
+    //private vairables:
     private ResourceSet displayingResourceSet;
-    Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
-    
+    private Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
+    private Dictionary<ResourceSet.ResourceAmount, TextMeshPro> ResourceAmountAndAmountTMP;
+
     private void OnEnable()
     {
         Generate();
@@ -51,6 +53,7 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     public void Generate()
     {
+        ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
         if (displayFromResourceSetProvider)
         {
             if (resourceSetProvider is IResourceSetProvider)
@@ -121,14 +124,18 @@ public class ResourceSetDisplayer : MonoBehaviour
             sr.sprite = ra.iso.iconSprite;
             if (displayAmountOverStock)
             {
-                
+                ResourceAmountAndAmountTMP.Add(ra,amount);
+                PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
+                    ra.iso).SubscribeStatChange(GenerateTrackedAmount);
             }
             else
             {
                 amount.text = "" + ra.amount;
             }
+
             sign.text = displaySign;
             name.text = ra.iso.tetrisHoverName;
+            
             
             
             //generate shadow
@@ -167,6 +174,20 @@ public class ResourceSetDisplayer : MonoBehaviour
                     go.transform.localPosition += positivity * displacement * (0.5f + (i / 2));
                 }
             }
+        }
+
+        if (displayAmountOverStock)
+        {
+            GenerateTrackedAmount();
+        }
+    }
+
+    private void GenerateTrackedAmount(int amount=0)
+    {
+        foreach (var VARIABLE in ResourceAmountAndAmountTMP)
+        {
+            VARIABLE.Value.text = "" + VARIABLE.Key.amount + "/" + PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
+                                                                    VARIABLE.Key.iso).GetAmount();
         }
     }
 
