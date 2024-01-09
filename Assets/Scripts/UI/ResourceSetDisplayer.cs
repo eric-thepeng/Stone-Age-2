@@ -43,6 +43,7 @@ public class ResourceSetDisplayer : MonoBehaviour
     
     //private vairables:
     private ResourceSet displayingResourceSet;
+    private int displayMultiplier;
     private Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
     private Dictionary<ResourceSet.ResourceAmount, TextMeshPro> ResourceAmountAndAmountTMP;
 
@@ -69,8 +70,10 @@ public class ResourceSetDisplayer : MonoBehaviour
         Display(resourceSetToDisplay);;
     }
 
-    public void Display(ResourceSet rs)
+    public void Display(ResourceSet rs, int multiplier = 1)
     {
+        displayMultiplier = multiplier;
+        
         if (rs == null)
         {
             Debug.LogError("No resource set to be displayed.");
@@ -130,7 +133,7 @@ public class ResourceSetDisplayer : MonoBehaviour
             }
             else
             {
-                amount.text = "" + ra.amount;
+                amount.text = "" + ra.amount * displayMultiplier;
             }
 
             sign.text = displaySign;
@@ -186,7 +189,7 @@ public class ResourceSetDisplayer : MonoBehaviour
     {
         foreach (var VARIABLE in ResourceAmountAndAmountTMP)
         {
-            VARIABLE.Value.text = "" + VARIABLE.Key.amount + "/" + PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
+            VARIABLE.Value.text = "" + VARIABLE.Key.amount * displayMultiplier + "/" + PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
                                                                     VARIABLE.Key.iso).GetAmount();
         }
     }
@@ -196,7 +199,7 @@ public class ResourceSetDisplayer : MonoBehaviour
         if(!displaySpiritPoints)return;
         SpriteRenderer sr = spiritPointDisplay.transform.Find("Sprite").GetComponentInChildren<SpriteRenderer>();
         TextMeshPro tmp = spiritPointDisplay.transform.Find("Amount").GetComponentInChildren<TextMeshPro>();
-        tmp.text = ""+displayingResourceSet.spiritPoint;
+        tmp.text = ""+displayingResourceSet.spiritPoint * displayMultiplier;
         TextMeshPro sign = spiritPointDisplay.transform.Find("Sign").GetComponentInChildren<TextMeshPro>();
         sign.text = displaySign;
             

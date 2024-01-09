@@ -14,19 +14,28 @@ public class CraftingInformationPanelProduction : MonoBehaviour
     {
         displayingBlueprintCard = blueprintCard;
         currentAmount = 1;
-        UpdateButtonText();
+        UpdateDisplay();
     }
     
     public void ChangeAmount(int delta)
     {
         currentAmount += delta;
-        if (currentAmount < 0) currentAmount = 0;
-        UpdateButtonText();
+        if (currentAmount < 1) currentAmount = 1;
+        UpdateDisplay();
     }
 
-    private void UpdateButtonText()
+    public void CraftButton()
     {
+        
+    }
+
+    private void UpdateDisplay()
+    {
+        // Update Button Text
         buttonTMP.text = "Craft ( " + currentAmount + " )";
+        
+        // Update Resource Set Display
+        resourceSetDisplayer.Display(displayingBlueprintCard.GetICSO().GetResourceSet(),currentAmount);
     }
     
 }
