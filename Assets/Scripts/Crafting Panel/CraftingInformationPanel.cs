@@ -50,6 +50,7 @@ public class CraftingInformationPanel : MonoBehaviour
     [Header("Material Display"), SerializeField] private Transform materialDisplayContainer;
     [SerializeField] private Transform materialDisplayTemplate;
     [SerializeField] private float materialYDelta;
+    [SerializeField] private ResourceSetDisplayer materialResourceSetDisplayer;
 
     [Header("Researched / Not"), SerializeField] private Transform researchedDisplay;
     [SerializeField]private Transform notResearchedDisplay;
@@ -94,31 +95,33 @@ public class CraftingInformationPanel : MonoBehaviour
         shadowBoxManager.GenerateBoxes(blueprintCard.GetICSO().GetDefaultRecipeCoords());
         
         // Display material list
-        for (int i = currentDisplayingMaterial.Count-1; i >= 0 ; i--)
-        {
-            Destroy(currentDisplayingMaterial[i]);
-        }
-        currentDisplayingMaterial = new List<GameObject>();
+        materialResourceSetDisplayer.Display(blueprintCard.GetICSO().GetResourceSet());
         
-        int count = 0;
-        foreach (var VARIABLE in blueprintCard.GetICSO().GetRecipeComposition())
-        {
-            //Create new material display game object
-            GameObject materialDisplay = Instantiate(materialDisplayTemplate.gameObject, materialDisplayContainer);
-            currentDisplayingMaterial.Add(materialDisplay);
-            materialDisplay.SetActive(true);
-            materialDisplay.transform.localPosition = materialDisplayTemplate.transform.localPosition +
-                                                      count * new Vector3(0, materialYDelta, 0);
-            
-            //Set up visual
-            materialDisplay.transform.Find("Material Sprite").GetComponent<SpriteRenderer>().sprite =
-                VARIABLE.Key.iconSprite;
-            materialDisplay.transform.Find("Material Amount").GetComponent<TextMeshPro>().text =
-                "" + VARIABLE.Value;
+        /* Old Material Display
+            for (int i = currentDisplayingMaterial.Count-1; i >= 0 ; i--)
+            {
+                Destroy(currentDisplayingMaterial[i]);
+            }
+            currentDisplayingMaterial = new List<GameObject>();
 
-            count++;
-        }
-        
+            int count = 0;
+            foreach (var VARIABLE in blueprintCard.GetICSO().GetRecipeComposition())
+            {
+                //Create new material display game object
+                GameObject materialDisplay = Instantiate(materialDisplayTemplate.gameObject, materialDisplayContainer);
+                currentDisplayingMaterial.Add(materialDisplay);
+                materialDisplay.SetActive(true);
+                materialDisplay.transform.localPosition = materialDisplayTemplate.transform.localPosition +
+                                                          count * new Vector3(0, materialYDelta, 0);
+            
+                //Set up visual
+                materialDisplay.transform.Find("Material Sprite").GetComponent<SpriteRenderer>().sprite =
+                    VARIABLE.Key.iconSprite;
+                materialDisplay.transform.Find("Material Amount").GetComponent<TextMeshPro>().text =
+                    "" + VARIABLE.Value;
+
+                count++;
+            }*/
     }
 }
 

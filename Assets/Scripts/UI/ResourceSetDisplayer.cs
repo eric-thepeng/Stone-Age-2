@@ -28,8 +28,8 @@ public class ResourceSetDisplayer : MonoBehaviour
     [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
     [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
     
-    enum Alighment {Left, Center, Right }
-    [SerializeField] Alighment alighment = Alighment.Left;
+    enum Alighment {Front,Back, Center}
+    [SerializeField] Alighment alighment = Alighment.Front;
 
     [Header("------DO NOT EDIT BELOW------")]
     [SerializeField,  Tooltip("Do not change. Indicate the GameObejct template that displays the set of sprite+text for each resource.")] GameObject spriteAmountSetTemplate;
@@ -135,13 +135,13 @@ public class ResourceSetDisplayer : MonoBehaviour
             }*/
             
             //set position according to alignment
-            if (alighment == Alighment.Left)
+            if (alighment == Alighment.Front)
             {
-                go.transform.position += displacement * i;
+                go.transform.localPosition += displacement * i;
             }
-            else if (alighment == Alighment.Right)
+            else if (alighment == Alighment.Back)
             {
-                go.transform.position -= displacement * i;
+                go.transform.localPosition -= displacement * i;
             }
             else if (alighment == Alighment.Center)
             {
@@ -153,7 +153,7 @@ public class ResourceSetDisplayer : MonoBehaviour
                 else //amount display is even
                 {
                     int positivity = (int)Mathf.Pow(-1, i % 2);
-                    go.transform.position += positivity * displacement * (0.5f + (i / 2));
+                    go.transform.localPosition += positivity * displacement * (0.5f + (i / 2));
                 }
             }
         }

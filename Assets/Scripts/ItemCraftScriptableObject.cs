@@ -72,9 +72,26 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
         return defaultRecipe.getCoord(true);
     }
 
+    public ResourceSet GetResourceSet()
+    {
+        return allRecipes[0].GetRecipeResourceSet();
+    }
+
+    /*
     public Dictionary<ItemScriptableObject, int> GetRecipeComposition()
     {
         return allRecipes[0].GetRecipeComposition();
     }
+
+    public ResourceSet GetRecipeResourceSet()
+    {
+        List<ResourceSet.ResourceAmount> reourceAmountsList = new List<ResourceSet.ResourceAmount>();
+        foreach (var VARIABLE in GetRecipeComposition())
+        {
+            reourceAmountsList.Add(new ResourceSet.ResourceAmount( VARIABLE.Key,VARIABLE.Value));
+        }
+        ResourceSet export = new ResourceSet(0, reourceAmountsList);
+        return export;
+    }*/
     
 }

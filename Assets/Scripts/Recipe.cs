@@ -30,8 +30,9 @@ public class Recipe
     /// Get what makes up this recipe, aka a list of how many what ISO.
     /// </summary>
     /// <returns></returns>
-    public Dictionary<ItemScriptableObject,int> GetRecipeComposition()
+    public ResourceSet GetRecipeResourceSet()
     {
+        // Make into a Dictionary
         Dictionary<ItemScriptableObject,int> holder = new Dictionary<ItemScriptableObject,int>();
         for (int x = 0; x < recipe.GetLength(0); x++)
         {
@@ -49,14 +50,21 @@ public class Recipe
             }
         }
 
-        Dictionary<ItemScriptableObject,int> export = new Dictionary<ItemScriptableObject,int>();
+        Dictionary<ItemScriptableObject,int> dic = new Dictionary<ItemScriptableObject,int>();
 
         foreach (var VARIABLE in holder.Keys)
         {
-            export.Add(VARIABLE, holder[VARIABLE] / VARIABLE.TetrisUnitAmount);
+            dic.Add(VARIABLE, holder[VARIABLE] / VARIABLE.TetrisUnitAmount);
         }
         
-        return export;
+        //Make into Resource Set
+        List<ResourceSet.ResourceAmount> reourceAmountsList = new List<ResourceSet.ResourceAmount>();
+        foreach (var VARIABLE in dic)
+        {
+            reourceAmountsList.Add(new ResourceSet.ResourceAmount( VARIABLE.Key,VARIABLE.Value));
+        }
+        ResourceSet export2 = new ResourceSet(0, reourceAmountsList);
+        return export2;
     }
 
     public List<Vector2> getCoord(bool relativeToCenter = false)

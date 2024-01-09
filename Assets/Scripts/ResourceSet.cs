@@ -9,9 +9,27 @@ using UnityEngine;
     [Serializable]
     public class ResourceAmount
     {
+        public ResourceAmount(ItemScriptableObject iso, int amount)
+        {
+            this.iso = iso;
+            this.amount = amount;
+        }
         public ItemScriptableObject iso;
         public int amount;
     }
+
+    public ResourceSet(int spiritPointAmount, List<ResourceAmount> resourceAndAmountList)
+    {
+        spiritPoint = spiritPointAmount;
+        resources = resourceAndAmountList;
+    }
+
+    public ResourceSet()
+    {
+        spiritPoint = 0;
+        resources = new List<ResourceAmount>();
+    }
+    
     public int spiritPoint;
     public List<ResourceAmount> resources = null;
 
