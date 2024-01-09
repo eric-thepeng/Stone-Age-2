@@ -58,6 +58,12 @@ public class CraftingInformationPanel : MonoBehaviour
     private ShadowBoxManager shadowBoxManager;
     private List<GameObject> currentDisplayingMaterial = new List<GameObject>();
     private GameObject researchedTetrisGO;
+    private CraftingInformationPanelProduction cipProduction;
+
+    private void Awake()
+    {
+        cipProduction = GetComponent<CraftingInformationPanelProduction>();
+    }
 
     private void Start()
     {
@@ -71,6 +77,9 @@ public class CraftingInformationPanel : MonoBehaviour
         {
             researchedDisplay.localPosition = new Vector3(0, 0, 0);
             notResearchedDisplay.localPosition = new Vector3(-4, 0, 0);
+            
+            //Set Up cipProduction
+            cipProduction.SetUpToActive(blueprintCard);
         }
         else
         {
