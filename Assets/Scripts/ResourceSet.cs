@@ -18,15 +18,33 @@ using UnityEngine;
         public int amount;
     }
 
+    /// <summary>
+    /// Fully create ResourceSet with "spirit point amount" and "resource and amount list"
+    /// </summary>
+    /// <param name="spiritPointAmount"></param>
+    /// <param name="resourceAndAmountList"></param>
     public ResourceSet(int spiritPointAmount, List<ResourceAmount> resourceAndAmountList)
     {
         spiritPoint = spiritPointAmount;
         resources = resourceAndAmountList;
     }
 
+    /// <summary>
+    /// Create an empty ResourceSet
+    /// </summary>
     public ResourceSet()
     {
         spiritPoint = 0;
+        resources = new List<ResourceAmount>();
+    }
+    
+    /// <summary>
+    /// Create a ResourceSet with only SpiritPointAmount
+    /// </summary>
+    /// <param name="spiritPointAmount"></param>
+    public ResourceSet(int spiritPointAmount)
+    {
+        spiritPoint = spiritPointAmount;
         resources = new List<ResourceAmount>();
     }
 
@@ -38,12 +56,7 @@ using UnityEngine;
         resources.Add(new ResourceAmount(iso,amount));
     }
     
-    
-    
-    
-    
-    
-    
+    //------------------------------------------------------------
 
     public bool SpendResource()
     {
