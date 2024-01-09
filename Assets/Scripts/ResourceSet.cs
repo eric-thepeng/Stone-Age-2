@@ -29,9 +29,21 @@ using UnityEngine;
         spiritPoint = 0;
         resources = new List<ResourceAmount>();
     }
-    
+
     public int spiritPoint;
     public List<ResourceAmount> resources = null;
+
+    public void AddResource(ItemScriptableObject iso, int amount)
+    {
+        resources.Add(new ResourceAmount(iso,amount));
+    }
+    
+    
+    
+    
+    
+    
+    
 
     public bool SpendResource()
     {

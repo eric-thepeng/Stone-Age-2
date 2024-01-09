@@ -58,12 +58,11 @@ public class Recipe
         }
         
         //Make into Resource Set
-        List<ResourceSet.ResourceAmount> reourceAmountsList = new List<ResourceSet.ResourceAmount>();
+        ResourceSet export2 = new ResourceSet();
         foreach (var VARIABLE in dic)
         {
-            reourceAmountsList.Add(new ResourceSet.ResourceAmount( VARIABLE.Key,VARIABLE.Value));
+            export2.AddResource(VARIABLE.Key,VARIABLE.Value);
         }
-        ResourceSet export2 = new ResourceSet(0, reourceAmountsList);
         return export2;
     }
 
