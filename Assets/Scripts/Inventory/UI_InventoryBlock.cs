@@ -35,7 +35,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
     public int GetDisplayAmount()
     {
-        return itemInfo.inStockAmount;
+        return itemInfo.inStockAmount.GetAmount();
     }
 
     public void Initialize(int row, int col)
@@ -47,7 +47,7 @@ public class UI_InventoryBlock : MonoBehaviour
     public void SetUpDisplay(Inventory.ItemInfo ii)
     {
         itemInfo = ii;
-        displayAmount = ii.inStockAmount;
+        displayAmount = ii.inStockAmount.GetAmount();
 
         //display shit
         itemSprite.gameObject.SetActive(true);

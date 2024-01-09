@@ -25,6 +25,7 @@ public class ResourceSetDisplayer : MonoBehaviour
     [SerializeField, Tooltip("Does it display the spirit points and amount section?")] private bool displaySpiritPoints = true;
     [SerializeField, Tooltip("Does it display the resource and amount section?")] private bool displayResource = true;
     [SerializeField, Tooltip("Does it display the resource name?")] private bool displayResourceName = false;
+    [SerializeField, Tooltip("Does it also display how many of the resource player has in stock?")] private bool displayAmountOverStock = false;
     [SerializeField] private string displaySign = "+";
     [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
     [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
@@ -114,11 +115,18 @@ public class ResourceSetDisplayer : MonoBehaviour
             GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
             SpriteRenderer sr = go.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            TextMeshPro tmp = go.transform.Find("Amount").GetComponent<TextMeshPro>();
+            TextMeshPro amount = go.transform.Find("Amount").GetComponent<TextMeshPro>();
             TextMeshPro sign = go.transform.Find("Sign").GetComponent<TextMeshPro>();
             TextMeshPro name = go.transform.Find("Name").GetComponent<TextMeshPro>();
             sr.sprite = ra.iso.iconSprite;
-            tmp.text = "" + ra.amount;
+            if (displayAmountOverStock)
+            {
+                
+            }
+            else
+            {
+                amount.text = "" + ra.amount;
+            }
             sign.text = displaySign;
             name.text = ra.iso.tetrisHoverName;
             

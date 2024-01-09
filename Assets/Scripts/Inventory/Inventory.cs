@@ -19,12 +19,12 @@ public class Inventory : MonoBehaviour
 
     public class ItemInfo {
         public ItemScriptableObject iso;
-        public int totalAmount;
-        public int inUseAmount;
-        public int inWorkshopAmount;
-        public int inBuildAmount;
+        public PlayerStat totalAmount;
+        public PlayerStat inUseAmount;
+        public PlayerStat inWorkshopAmount;
+        public PlayerStat inBuildAmount;
 
-        public int inStockAmount { get { return totalAmount - inUseAmount - inWorkshopAmount - inBuildAmount; } }
+        public PlayerStat inStockAmount; //{ get { return totalAmount - inUseAmount - inWorkshopAmount - inBuildAmount; } }
         public ItemScriptableObject.Category category
         {
             get { return iso.category;}
@@ -33,11 +33,29 @@ public class Inventory : MonoBehaviour
         public ItemInfo(ItemScriptableObject newISO)
         {
             iso = newISO;
-            totalAmount = 1;
-            inUseAmount = 0;
-            inWorkshopAmount = 0;
-            inBuildAmount = 0;
+            totalAmount = new PlayerStat(1);
+            inUseAmount = new PlayerStat(0);
+            inWorkshopAmount = new PlayerStat(0);
+            inBuildAmount = new PlayerStat(0);
+            
+            inStockAmount = new PlayerStat(1); //default to 1, same as totalAmount
+            
+            totalAmount.SubscribeStatDelta(PositiveChangeInStockAmount);
+            inUseAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
+            inWorkshopAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
+            inBuildAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
         }
+
+        public void PositiveChangeInStockAmount(int delta)
+        {
+            inStockAmount.ChangeAmount(delta);
+        }
+
+        public void NegativeChangeInStockAmount(int delta)
+        {
+            inStockAmount.ChangeAmount(-delta);
+        }
+        
     }
 
     private List<ItemInfo> CatListBuilding = new List<ItemInfo>();
@@ -52,7 +70,7 @@ public class Inventory : MonoBehaviour
         {
             if (ii.iso == newISO)
             {
-                ii.totalAmount += amount;
+                ii.totalAmount.ChangeAmount(amount);
                 //print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
@@ -65,7 +83,7 @@ public class Inventory : MonoBehaviour
         {
             if (ii.iso == newISO)
             {
-                ii.totalAmount += amount-1;
+                ii.totalAmount.ChangeAmount(amount-1);
                 //print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
@@ -76,7 +94,7 @@ public class Inventory : MonoBehaviour
     public int ItemInStockAmount(ItemScriptableObject newISO)
     {
         if (GetItemInfo(newISO) == null) return 0;
-        return GetItemInfo(newISO).inStockAmount;
+        return GetItemInfo(newISO).inStockAmount.GetAmount();
     }
     
     /// <summary>
@@ -88,11 +106,11 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(iso).inUseAmount += 1;
+            GetItemInfo(iso).inUseAmount.ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(iso).inUseAmount -= 1;
+            GetItemInfo(iso).inUseAmount.ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
@@ -104,11 +122,11 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(iso).inWorkshopAmount += 1;
+            GetItemInfo(iso).inWorkshopAmount.ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(iso).inWorkshopAmount -= 1;
+            GetItemInfo(iso).inWorkshopAmount.ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
@@ -122,12 +140,12 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(biso).inBuildAmount += 1;
+            GetItemInfo(biso).inBuildAmount.ChangeAmount(1);
             PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(biso).inBuildAmount -= 1;
+            GetItemInfo(biso).inBuildAmount.ChangeAmount(-1);
             PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(biso));
@@ -141,7 +159,7 @@ public class Inventory : MonoBehaviour
 
     public void UseItemFromStock(ItemScriptableObject iso, int amount = 1)
     {
-        GetItemInfo(iso).totalAmount -= amount;
+        GetItemInfo(iso).totalAmount.ChangeAmount(-amount);
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
 
@@ -168,7 +186,7 @@ public class Inventory : MonoBehaviour
     public int GetISOInstockAmount(ItemScriptableObject iso)
     {
         ItemInfo ii = GetItemInfo(iso);
-        return ii==null? 0 : ii.inStockAmount;
+        return ii==null? 0 : ii.inStockAmount.GetAmount();
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)
