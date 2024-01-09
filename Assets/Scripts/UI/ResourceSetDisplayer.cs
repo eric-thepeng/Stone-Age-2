@@ -45,7 +45,8 @@ public class ResourceSetDisplayer : MonoBehaviour
     private ResourceSet displayingResourceSet;
     private int displayMultiplier;
     private Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
-    private Dictionary<ResourceSet.ResourceAmount, TextMeshPro> ResourceAmountAndAmountTMP;
+    private Dictionary<ResourceSet.ResourceAmount, TextMeshPro> ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
+
 
     private void OnEnable()
     {
@@ -54,7 +55,6 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     public void Generate()
     {
-        ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
         if (displayFromResourceSetProvider)
         {
             if (resourceSetProvider is IResourceSetProvider)
@@ -100,9 +100,17 @@ public class ResourceSetDisplayer : MonoBehaviour
         
         if (displayingResourceSet == rs)
         {
-            //print("no need to recalculate");
-            //return;
-        } 
+            
+        }
+        else
+        {
+            foreach (var VARIABLE in ResourceAmountAndAmountTMP)
+            {
+                Inventory.i.GetISOInstockPlayerStat(VARIABLE.Key.iso).UnsubscribeStatChange(GenerateTrackedAmount);
+            }
+            ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
+        }
+        
         ClearDisplay();
         displayingResourceSet = rs;
         spriteAmountSetTemplate.SetActive(true);

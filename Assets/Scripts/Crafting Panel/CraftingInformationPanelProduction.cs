@@ -15,6 +15,13 @@ public class CraftingInformationPanelProduction : MonoBehaviour
         displayingBlueprintCard = blueprintCard;
         currentAmount = 1;
         UpdateDisplay();
+        
+        //subscribe
+    }
+
+    public void CancelCurrentSetUp()
+    {
+        
     }
     
     public void ChangeAmount(int delta)
@@ -24,9 +31,36 @@ public class CraftingInformationPanelProduction : MonoBehaviour
         UpdateDisplay();
     }
 
+    private void CheckEnoughMaterialStatus(int placeholder = 0)
+    {
+        if (HasEnoughMaterialToCraft())
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+    private bool HasEnoughMaterialToCraft()
+    {
+        foreach (var VARIABLE in displayingBlueprintCard.GetICSO().GetResourceSet().resources)
+        {
+            if (Inventory.i.GetISOInstockAmount(VARIABLE.iso) < VARIABLE.amount * currentAmount) return false;
+        }
+        return true;
+    }
+
     public void CraftButton()
     {
-        
+        if(!HasEnoughMaterialToCraft()) return;
+        foreach (var VARIABLE in displayingBlueprintCard.GetICSO().GetResourceSet().resources)
+        {
+            Inventory.i.UseItemFromStock(VARIABLE.iso, VARIABLE.amount * currentAmount);
+        }
+        Inventory.i.AddInventoryItem(displayingBlueprintCard.GetICSO().ItemCrafted,currentAmount);
+        ChangeAmount(1-currentAmount);
     }
 
     private void UpdateDisplay()
