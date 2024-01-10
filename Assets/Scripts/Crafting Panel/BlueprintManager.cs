@@ -8,13 +8,36 @@ using UnityEngine.Serialization;
 
 public class BlueprintManager : MonoBehaviour
 {
+    // Singleton
+    static BlueprintManager instance;
+    public static BlueprintManager i
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<BlueprintManager>();
+            }
+            return instance;
+        }
+    }
+    
     [SerializeField] private RecipeListScriptableObject allBlueprints = null;
     [SerializeField] private List<ItemCraftScriptableObject> obtainedBlueprints = null;
     [SerializeField] private Transform blueprintPanel;
-    [Header("Blueprint Card Set Up"),SerializeField] private Transform blueprintCardTemplate;
+    [SerializeField] private CraftingInformationPanel craftingInformationPanel;
+    [Header("Blueprint Card Set Up"),SerializeField] private BlueprintCard blueprintCardTemplate;
     [SerializeField] private Vector2 blueprintCardDelta = new Vector2(0.1f, -0.2f);
     [SerializeField] private Vector2Int blueprintCardGridMax = new Vector2Int(10, 3);
     [Header("Press N to test obtain these blueprints ----------"),SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain = null;
+
+    private void Awake()
+    {
+        foreach (var VARIABLE in allBlueprints.list)
+        {
+            VARIABLE.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Not_Obtained);
+        }
+    }
 
     private void Update()
     {
@@ -34,8 +57,9 @@ public class BlueprintManager : MonoBehaviour
     {
         foreach (var blueprint in blueprintsToObtain)
         {
-            if(obtainedBlueprints.Contains(blueprint)) continue;
+            if(blueprint.IsObtained()) continue;
             obtainedBlueprints.Add(blueprint);
+            blueprint.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Obtained_Not_Researched);
             AddNewBlueprintCard(blueprint, obtainedBlueprints.Count-1);
         }
     }
@@ -52,9 +76,12 @@ public class BlueprintManager : MonoBehaviour
         newCard.gameObject.name = "" + icso.ItemCrafted + " " + coord.x + "," + coord.y + " -" + (index);
         
         // Adjust Visual of New Card
-        newCard.transform.Find("Product Sprite").GetComponent<SpriteRenderer>().sprite =
-            icso.ItemCrafted.iconSprite;
-        newCard.transform.Find("Product Name").GetComponent<TextMeshPro>().text = icso.ItemCrafted.tetrisHoverName;
+        newCard.GetComponent<BlueprintCard>().SetUpCardInfo(icso);
+    }
+
+    public void BlueprintCardClicked(BlueprintCard blueprintCard)
+    {
+        craftingInformationPanel.DisplayBlueprintCard(blueprintCard);
     }
 
     /// <summary>

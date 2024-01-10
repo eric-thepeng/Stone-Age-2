@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using Sirenix.Serialization;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 /// <summary>
 /// Create and display ResourceSet in worldspace
@@ -24,12 +25,14 @@ public class ResourceSetDisplayer : MonoBehaviour
     [Header("------EDIT VARIABLES------")]
     [SerializeField, Tooltip("Does it display the spirit points and amount section?")] private bool displaySpiritPoints = true;
     [SerializeField, Tooltip("Does it display the resource and amount section?")] private bool displayResource = true;
+    [SerializeField, Tooltip("Does it display the resource name?")] private bool displayResourceName = false;
+    [SerializeField, Tooltip("Does it also display how many of the resource player has in stock?")] private bool displayAmountOverStock = false;
     [SerializeField] private string displaySign = "+";
     [SerializeField, Tooltip("Does it display shadow under sprites and texts for better readability")] private bool displayShadow = true;
     [SerializeField,  Tooltip("Displacement between each set of resource+text")] Vector3 displacement = new Vector3(2,0,0);
     
-    enum Alighment {Left, Center, Right }
-    [SerializeField] Alighment alighment = Alighment.Left;
+    enum Alighment {Front,Back, Center}
+    [SerializeField] Alighment alighment = Alighment.Front;
 
     [Header("------DO NOT EDIT BELOW------")]
     [SerializeField,  Tooltip("Do not change. Indicate the GameObejct template that displays the set of sprite+text for each resource.")] GameObject spriteAmountSetTemplate;
@@ -38,10 +41,13 @@ public class ResourceSetDisplayer : MonoBehaviour
 
     [SerializeField] private Transform shadowsContainer;
     
-    //local vairables:
+    //private vairables:
     private ResourceSet displayingResourceSet;
-    Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
-    
+    private int displayMultiplier;
+    private Vector3 shadowDisplacement = new Vector3(0.04f, -0.04f, -0.04f);
+    private Dictionary<ResourceSet.ResourceAmount, TextMeshPro> ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
+
+
     private void OnEnable()
     {
         Generate();
@@ -64,8 +70,10 @@ public class ResourceSetDisplayer : MonoBehaviour
         Display(resourceSetToDisplay);;
     }
 
-    public void Display(ResourceSet rs)
+    public void Display(ResourceSet rs, int multiplier = 1)
     {
+        displayMultiplier = multiplier;
+        
         if (rs == null)
         {
             Debug.LogError("No resource set to be displayed.");
@@ -92,9 +100,17 @@ public class ResourceSetDisplayer : MonoBehaviour
         
         if (displayingResourceSet == rs)
         {
-            //print("no need to recalculate");
-            //return;
-        } 
+            
+        }
+        else
+        {
+            foreach (var VARIABLE in ResourceAmountAndAmountTMP)
+            {
+                Inventory.i.GetISOInstockPlayerStat(VARIABLE.Key.iso).UnsubscribeStatChange(GenerateTrackedAmount);
+            }
+            ResourceAmountAndAmountTMP = new Dictionary<ResourceSet.ResourceAmount, TextMeshPro>();
+        }
+        
         ClearDisplay();
         displayingResourceSet = rs;
         spriteAmountSetTemplate.SetActive(true);
@@ -113,11 +129,24 @@ public class ResourceSetDisplayer : MonoBehaviour
             GameObject go = Instantiate(spriteAmountSetTemplate, container);
             go.SetActive(true);
             SpriteRenderer sr = go.transform.Find("Sprite").GetComponent<SpriteRenderer>();
-            TextMeshPro tmp = go.transform.Find("Amount").GetComponent<TextMeshPro>();
+            TextMeshPro amount = go.transform.Find("Amount").GetComponent<TextMeshPro>();
             TextMeshPro sign = go.transform.Find("Sign").GetComponent<TextMeshPro>();
+            TextMeshPro name = go.transform.Find("Name").GetComponent<TextMeshPro>();
             sr.sprite = ra.iso.iconSprite;
-            tmp.text = "" + ra.amount;
+            if (displayAmountOverStock)
+            {
+                ResourceAmountAndAmountTMP.Add(ra,amount);
+                PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
+                    ra.iso).SubscribeStatChange(GenerateTrackedAmount);
+            }
+            else
+            {
+                amount.text = "" + ra.amount * displayMultiplier;
+            }
+
             sign.text = displaySign;
+            name.text = ra.iso.tetrisHoverName;
+            
             
             
             //generate shadow
@@ -135,13 +164,13 @@ public class ResourceSetDisplayer : MonoBehaviour
             }*/
             
             //set position according to alignment
-            if (alighment == Alighment.Left)
+            if (alighment == Alighment.Front)
             {
-                go.transform.position += displacement * i;
+                go.transform.localPosition += displacement * i;
             }
-            else if (alighment == Alighment.Right)
+            else if (alighment == Alighment.Back)
             {
-                go.transform.position -= displacement * i;
+                go.transform.localPosition -= displacement * i;
             }
             else if (alighment == Alighment.Center)
             {
@@ -153,9 +182,23 @@ public class ResourceSetDisplayer : MonoBehaviour
                 else //amount display is even
                 {
                     int positivity = (int)Mathf.Pow(-1, i % 2);
-                    go.transform.position += positivity * displacement * (0.5f + (i / 2));
+                    go.transform.localPosition += positivity * displacement * (0.5f + (i / 2));
                 }
             }
+        }
+
+        if (displayAmountOverStock)
+        {
+            GenerateTrackedAmount();
+        }
+    }
+
+    private void GenerateTrackedAmount(int amount=0)
+    {
+        foreach (var VARIABLE in ResourceAmountAndAmountTMP)
+        {
+            VARIABLE.Value.text = "" + VARIABLE.Key.amount * displayMultiplier + "/" + PlayerStatsMonitor.GetPlayerStat(PlayerStatsMonitor.PlayerStatType.ISOInStockAmount,
+                                                                    VARIABLE.Key.iso).GetAmount();
         }
     }
 
@@ -164,7 +207,7 @@ public class ResourceSetDisplayer : MonoBehaviour
         if(!displaySpiritPoints)return;
         SpriteRenderer sr = spiritPointDisplay.transform.Find("Sprite").GetComponentInChildren<SpriteRenderer>();
         TextMeshPro tmp = spiritPointDisplay.transform.Find("Amount").GetComponentInChildren<TextMeshPro>();
-        tmp.text = ""+displayingResourceSet.spiritPoint;
+        tmp.text = ""+displayingResourceSet.spiritPoint * displayMultiplier;
         TextMeshPro sign = spiritPointDisplay.transform.Find("Sign").GetComponentInChildren<TextMeshPro>();
         sign.text = displaySign;
             

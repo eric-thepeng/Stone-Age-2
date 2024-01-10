@@ -9,11 +9,54 @@ using UnityEngine;
     [Serializable]
     public class ResourceAmount
     {
+        public ResourceAmount(ItemScriptableObject iso, int amount)
+        {
+            this.iso = iso;
+            this.amount = amount;
+        }
         public ItemScriptableObject iso;
         public int amount;
     }
+
+    /// <summary>
+    /// Fully create ResourceSet with "spirit point amount" and "resource and amount list"
+    /// </summary>
+    /// <param name="spiritPointAmount"></param>
+    /// <param name="resourceAndAmountList"></param>
+    public ResourceSet(int spiritPointAmount, List<ResourceAmount> resourceAndAmountList)
+    {
+        spiritPoint = spiritPointAmount;
+        resources = resourceAndAmountList;
+    }
+
+    /// <summary>
+    /// Create an empty ResourceSet
+    /// </summary>
+    public ResourceSet()
+    {
+        spiritPoint = 0;
+        resources = new List<ResourceAmount>();
+    }
+    
+    /// <summary>
+    /// Create a ResourceSet with only SpiritPointAmount
+    /// </summary>
+    /// <param name="spiritPointAmount"></param>
+    public ResourceSet(int spiritPointAmount)
+    {
+        spiritPoint = spiritPointAmount;
+        resources = new List<ResourceAmount>();
+    }
+
     public int spiritPoint;
     public List<ResourceAmount> resources = null;
+
+    public void AddResource(ItemScriptableObject iso, int amount)
+    {
+        resources.Add(new ResourceAmount(iso,amount));
+    }
+    
+    //------------------------------------------------------------
 
     public bool SpendResource()
     {

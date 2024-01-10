@@ -225,7 +225,6 @@ public class RecipeCombinator
     {
         origionTetris.StartCoroutine(MergeProcess());
         DestroyCraftPreview();
-        RecipeMapManager.i.CheckUnlock(GetMergeISO());
         if (onNewItemCrafted != null) onNewItemCrafted(GetMergeISO());
     }
 
@@ -256,10 +255,6 @@ public class RecipeCombinator
         }
 
         CraftingManager.i.TetrisFlyToInventoryEffect(GetMergeISO(), CentralPosition(), 0.4f, true);
-
-        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
-        RecipeMapManager.i.CheckUnlock(GetMergeISO());
-
     }
 
     IEnumerator MergeProcess()
@@ -286,10 +281,7 @@ public class RecipeCombinator
         }
 
         GameObject newTetrisGO = CraftingManager.i.CreateTetris(GetMergeISO(), CentralPosition(), CraftingManager.CreateFrom.MERGE);
-
-        //2023 02 27 Recipe System to check if there is a unlock // Added by Will
-        RecipeMapManager.i.CheckUnlock(GetMergeISO());
-
+        
         foreach (Tetris t in GetPastTetris())
         {
             t.DestroySelf();

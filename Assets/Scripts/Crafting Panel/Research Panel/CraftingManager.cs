@@ -23,6 +23,8 @@ public class CraftingManager : SerializedMonoBehaviour
 
     [SerializeField] private Transform TopLeft, BotRight;
 
+    public UnityEvent<ItemScriptableObject> NewItemCrafted = new UnityEvent<ItemScriptableObject>();
+
     public enum CreateFrom {DEBUG, INVENTORY, MERGE, VISUAL_ONLY}
 
     static CraftingManager instance;
@@ -122,9 +124,11 @@ public class CraftingManager : SerializedMonoBehaviour
         {
             AudioChannel.i.PlayCraftSound(iso.tetrisHoverName);
             Inventory.i.MergeCreateItem(iso);
+            NewItemCrafted.Invoke(iso);
         }
         else //createFrom == CreateFrom.VISUAL_ONLY
         {
+            newTetris.GetComponent<Tetris>().enabled = false;
             return newTetris;
         }
         allTetris.Add(newTetris);

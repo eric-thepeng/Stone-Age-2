@@ -19,25 +19,48 @@ public class Inventory : MonoBehaviour
 
     public class ItemInfo {
         public ItemScriptableObject iso;
-        public int totalAmount;
-        public int inUseAmount;
-        public int inWorkshopAmount;
-        public int inBuildAmount;
+        public PlayerStat totalAmount;
+        public PlayerStat inUseAmount;
+        public PlayerStat inWorkshopAmount;
+        public PlayerStat inBuildAmount;
 
-        public int inStockAmount { get { return totalAmount - inUseAmount - inWorkshopAmount - inBuildAmount; } }
+        public PlayerStat inStockAmount; //{ get { return totalAmount - inUseAmount - inWorkshopAmount - inBuildAmount; } }
         public ItemScriptableObject.Category category
         {
             get { return iso.category;}
         }
 
-        public ItemInfo(ItemScriptableObject newISO)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newISO"></param>
+        /// <param name="initialInstockAmount">only put 1 or 0</param>
+        public ItemInfo(ItemScriptableObject newISO, int initialInstockAmount)
         {
             iso = newISO;
-            totalAmount = 1;
-            inUseAmount = 0;
-            inWorkshopAmount = 0;
-            inBuildAmount = 0;
+            totalAmount = new PlayerStat(initialInstockAmount);
+            inUseAmount = new PlayerStat(0);
+            inWorkshopAmount = new PlayerStat(0);
+            inBuildAmount = new PlayerStat(0);
+            
+            inStockAmount = new PlayerStat(initialInstockAmount); //default to 1, same as totalAmount
+            
+            totalAmount.SubscribeStatDelta(PositiveChangeInStockAmount);
+            inUseAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
+            inWorkshopAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
+            inBuildAmount.SubscribeStatDelta(NegativeChangeInStockAmount);
         }
+
+        public void PositiveChangeInStockAmount(int delta)
+        {
+            inStockAmount.ChangeAmount(delta);
+        }
+
+        public void NegativeChangeInStockAmount(int delta)
+        {
+            inStockAmount.ChangeAmount(-delta);
+        }
+        
     }
 
     private List<ItemInfo> CatListBuilding = new List<ItemInfo>();
@@ -50,33 +73,38 @@ public class Inventory : MonoBehaviour
         PlayerStatsMonitor.isoTotalGainedPlayerStatCollection.GetPlayerStat(newISO).ChangeAmount(amount);
         foreach (ItemInfo ii in CategoryToList(newISO.category))
         {
+            // Find existing II
             if (ii.iso == newISO)
             {
-                ii.totalAmount += amount;
+                ii.totalAmount.ChangeAmount(amount);
                 //print("added amount: " + newISO);
                 UI_Inventory.i.UpdateItemDisplay(ii);
                 return;
             }
         }
-        ItemInfo newII = new ItemInfo(newISO);
-        CategoryToList(newISO.category).Add(newII);
+        
+        // No existing II
+        ItemInfo newII = CreateNewItemInfo(newISO,1);
         if (amount == 1) return;
-        foreach (ItemInfo ii in CategoryToList(newISO.category))
-        {
-            if (ii.iso == newISO)
-            {
-                ii.totalAmount += amount-1;
-                //print("added amount: " + newISO);
-                UI_Inventory.i.UpdateItemDisplay(ii);
-                return;
-            }
-        }
+        newII.totalAmount.ChangeAmount(amount-1);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newISO"></param>
+    /// <param name="initialInStockAmount">only put 0 or 1</param>
+    private ItemInfo CreateNewItemInfo(ItemScriptableObject newISO, int initialInStockAmount)
+    {
+        ItemInfo newII = new ItemInfo(newISO, initialInStockAmount);
+        CategoryToList(newISO.category).Add(newII);
+        return newII;
     }
 
     public int ItemInStockAmount(ItemScriptableObject newISO)
     {
         if (GetItemInfo(newISO) == null) return 0;
-        return GetItemInfo(newISO).inStockAmount;
+        return GetItemInfo(newISO).inStockAmount.GetAmount();
     }
     
     /// <summary>
@@ -88,11 +116,11 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(iso).inUseAmount += 1;
+            GetItemInfo(iso).inUseAmount.ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(iso).inUseAmount -= 1;
+            GetItemInfo(iso).inUseAmount.ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
@@ -104,11 +132,11 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(iso).inWorkshopAmount += 1;
+            GetItemInfo(iso).inWorkshopAmount.ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(iso).inWorkshopAmount -= 1;
+            GetItemInfo(iso).inWorkshopAmount.ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
@@ -122,12 +150,12 @@ public class Inventory : MonoBehaviour
     {
         if (use)
         {
-            GetItemInfo(biso).inBuildAmount += 1;
+            GetItemInfo(biso).inBuildAmount.ChangeAmount(1);
             PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(1);
         }
         else
         {
-            GetItemInfo(biso).inBuildAmount -= 1;
+            GetItemInfo(biso).inBuildAmount.ChangeAmount(-1);
             PlayerStatsMonitor.bisoTotalBuiltPlayerStatCollection.GetPlayerStat(biso).ChangeAmount(-1);
         }
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(biso));
@@ -141,7 +169,7 @@ public class Inventory : MonoBehaviour
 
     public void UseItemFromStock(ItemScriptableObject iso, int amount = 1)
     {
-        GetItemInfo(iso).totalAmount -= amount;
+        GetItemInfo(iso).totalAmount.ChangeAmount(-amount);
         UI_Inventory.i.UpdateItemDisplay(GetItemInfo(iso));
     }
 
@@ -167,8 +195,17 @@ public class Inventory : MonoBehaviour
 
     public int GetISOInstockAmount(ItemScriptableObject iso)
     {
+        return GetISOInstockPlayerStat(iso).GetAmount();
+    }
+
+    public PlayerStat GetISOInstockPlayerStat(ItemScriptableObject iso)
+    {
         ItemInfo ii = GetItemInfo(iso);
-        return ii==null? 0 : ii.inStockAmount;
+        if (ii == null)
+        {
+            ii = CreateNewItemInfo(iso, 0);
+        }
+        return ii.inStockAmount;
     }
 
     ItemInfo GetItemInfo(ItemScriptableObject iso)
