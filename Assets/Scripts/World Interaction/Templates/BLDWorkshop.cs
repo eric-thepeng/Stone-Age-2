@@ -64,6 +64,7 @@ public class BLDWorkshop : BuildingInteractable
 
     public void EnterUI()
     {
+        ChangeGlobalAllowInteraction(false);
         UI_BLDWorkshop.i.TurnOnUI(this);
         state = State.Assigning;
         PlayerState.OpenCloseAllocatingBackpack(true);
@@ -76,6 +77,8 @@ public class BLDWorkshop : BuildingInteractable
     {
         if (state == State.Assigning)
         {
+            ChangeGlobalAllowInteraction(true);
+
             SetInteractionActionToOpen();
             
             UI_BLDWorkshop.i.TurnOffUI();
