@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DG.Tweening;
 using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.Example.AddProgramatically.Models;
 using Hypertonic.GridPlacement.Models;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static Cinemachine.CinemachineTransposer;
 using static Inventory;
@@ -238,16 +240,18 @@ public class BuildingManager : MonoBehaviour
     //}
 
     //BuildDragInfo buildDragInfo = null;
-    private Quaternion targetRotation;
-
-
-
+    // private Quaternion targetRotation;
+    
+    // Vector3 originalScale;
+    Quaternion orginalQuaternion;
+    private int rotationAngle;
     private void Start()
     {
         gridCellSize = (transform.Find("Bottom Left Corner").position - transform.Find("Second Bottom Left Corner").position).magnitude; //(secondBottomLeftCorner.position - bottomLeftCorner.position).magnitude;
         gridIndication = new GridIndication(transform.Find("Grid Indication"), new Vector3(gridCellSize, 0.05f, gridCellSize));
 
         gridOperationManager = FindObjectOfType<GridOperationManager>(); 
+        
     }
 
 
@@ -313,22 +317,80 @@ public class BuildingManager : MonoBehaviour
             mouseInPlacementMode = true;
         }
 
+        GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
+        // originalScale = _selectedGridObject.transform.localScale;
+        // orginalQuaternion = _selectedGridObject.transform.rotation;
+        
         if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (GridManagerAccessor.GridManager.IsPlacingGridObject)
+        {if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, -90, 0);
-                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
+                // targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, 90, 0);
+                if (rotationAngle == 0)
+                {
+                    // originalScale = _selectedGridObject.transform.localScale;
+                    orginalQuaternion = _selectedGridObject.transform.rotation;
+                }
+
+                rotationAngle -= 90;
+                // 使用DOVirtual.Float根据动画曲线缩放物体
+                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration * 0.5f, (float value) =>
+                {
+                    // float scaleValue = GridManagerAccessor.GridManager.GridSettings.animationCurve.Evaluate(value);
+                    // Vector3 newScale = _selectedGridObject.transform.localScale;
+                    // newScale.x = originalScale.x * scaleValue;
+                    // newScale.y = originalScale.y * scaleValue;
+                    // newScale.z = originalScale.z * scaleValue;
+                    _selectedGridObject.transform.rotation =  Quaternion.Euler(0, orginalQuaternion.eulerAngles.y + value * rotationAngle, 0);
+                    // _selectedGridObject.transform.localScale = newScale;
+                }).OnComplete(() =>
+                {
+                    // 动画完成后恢复原始尺寸
+                    // _selectedGridObject.transform.localScale = originalScale;
+                    _selectedGridObject.transform.rotation = Quaternion.Euler(0, orginalQuaternion.eulerAngles.y + rotationAngle, 0);
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                    rotationAngle = 0;
+                    // originalScale = _selectedGridObject.transform.localScale;
+                    orginalQuaternion = _selectedGridObject.transform.rotation;
+                });
+                
+                // StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (GridManagerAccessor.GridManager.IsPlacingGridObject)
             {
-                GameObject _selectedGridObject = GridManagerAccessor.GridManager.ObjectToPlace;
-                targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, 90, 0);
-                StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
+                // targetRotation = _selectedGridObject.transform.rotation * Quaternion.Euler(0, 90, 0);
+                if (rotationAngle == 0)
+                {
+                    // originalScale = _selectedGridObject.transform.localScale;
+                    orginalQuaternion = _selectedGridObject.transform.rotation;
+                }
+
+                rotationAngle += 90;
+                // 使用DOVirtual.Float根据动画曲线缩放物体
+                DOVirtual.Float(0f, 1f, GridManagerAccessor.GridManager.GridSettings.animationDuration * 0.5f, (float value) =>
+                {
+                    // float scaleValue = GridManagerAccessor.GridManager.GridSettings.animationCurve.Evaluate(value);
+                    // Vector3 newScale = _selectedGridObject.transform.localScale;
+                    // newScale.x = originalScale.x * scaleValue;
+                    // newScale.y = originalScale.y * scaleValue;
+                    // newScale.z = originalScale.z * scaleValue;
+                    _selectedGridObject.transform.rotation =  Quaternion.Euler(0, orginalQuaternion.eulerAngles.y + value * rotationAngle, 0);
+                    // _selectedGridObject.transform.localScale = newScale;
+                }).OnComplete(() =>
+                {
+                    // 动画完成后恢复原始尺寸
+                    // _selectedGridObject.transform.localScale = originalScale;
+                    _selectedGridObject.transform.rotation = Quaternion.Euler(0, orginalQuaternion.eulerAngles.y + rotationAngle, 0);
+                    GridManagerAccessor.GridManager.HandleGridObjectRotated();
+                    rotationAngle = 0;
+                    // originalScale = _selectedGridObject.transform.localScale;
+                    orginalQuaternion = _selectedGridObject.transform.rotation;
+                });
+                
+                // StartCoroutine(SmoothRotateObject(_selectedGridObject, targetRotation));
             }
         }
 
@@ -354,9 +416,12 @@ public class BuildingManager : MonoBehaviour
                     if (_confirm)
                     {
                         placeableObject.EnableEffects();
+                        ObjectMorphing(placeableObject.transform, GridManagerAccessor.GridManager.GridSettings.animationCurve,
+                            GridManagerAccessor.GridManager.GridSettings.animationDuration);
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         
                         placeableObject.GetComponent<GridValidator>().enabled = false;
+                        placeableObject.GetComponent<NavMeshObstacle>().enabled = true;
 
                         Inventory.i.InBuildItem(selectedISO, true);
                         GridManagerAccessor.GridManager.ObjectToPlace.transform.rotation = _rotation;
@@ -406,7 +471,7 @@ public class BuildingManager : MonoBehaviour
                 }
                 else
                 {
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
                     buildingMode = false;
                     if (GetSelectedBuildingISO() != null)
                     {
@@ -439,6 +504,24 @@ public class BuildingManager : MonoBehaviour
         GridManagerAccessor.GridManager.HandleGridObjectRotated();
     }
 
+    public void ObjectMorphing(Transform objectTransform, AnimationCurve animationCurve, float animationDuration)
+    {
+        Vector3 originalScale = objectTransform.localScale;
+        // 使用DOVirtual.Float根据动画曲线缩放物体
+        DOVirtual.Float(0f, 1f, animationDuration, (float value) =>
+        {
+            float scaleValue = animationCurve.Evaluate(value);
+            Vector3 newScale = objectTransform.localScale;
+            newScale.x = originalScale.x * scaleValue;
+            newScale.y = originalScale.y * scaleValue;
+            newScale.z = originalScale.z * scaleValue;
+            objectTransform.localScale = newScale;
+        }).OnComplete(() =>
+        {
+            // 动画完成后恢复原始尺寸
+            objectTransform.localScale = originalScale;
+        });
+    }
 
     public void OpenBuildingMode()
     {
@@ -508,7 +591,7 @@ public class BuildingManager : MonoBehaviour
     {
 
         CancelSelectedBuidling();
-        GridManagerAccessor.GridManager.EndPaintMode(false);
+        GridManagerAccessor.GridManager.EndPaintMode(true);
         editing = true;
         //editingIndicator.gameObject.SetActive(true);
         //if (deleting)
@@ -534,7 +617,7 @@ public class BuildingManager : MonoBehaviour
             buildingMode = true;
 
             CancelSelectedBuidling();
-            GridManagerAccessor.GridManager.EndPaintMode(false);
+            GridManagerAccessor.GridManager.EndPaintMode(true);
             modifying = true;
             gridOperationManager.StartPaintMode();
             //PlayerState.ExitState();
@@ -562,12 +645,15 @@ public class BuildingManager : MonoBehaviour
                     {
 
                         placeableObject.EnableEffects();
+                        ObjectMorphing(placeableObject.transform, GridManagerAccessor.GridManager.GridSettings.animationCurve,
+                            GridManagerAccessor.GridManager.GridSettings.animationDuration);
                         
                         Instantiate(particlePrefab, hitPoint, new Quaternion());
                         //GridUtilities.GetCellIndexesRequiredForObject
 
                         placeableObject.GetComponent<GridValidator>().enabled = false;
-                        GridManagerAccessor.GridManager.EndPaintMode(false);
+                        placeableObject.GetComponent<NavMeshObstacle>().enabled = true;
+                        GridManagerAccessor.GridManager.EndPaintMode(true);
 
                         gridOperationManager.StartPaintMode();
                     }
@@ -576,13 +662,14 @@ public class BuildingManager : MonoBehaviour
                 else
                 {
                     //GridManagerAccessor.GridManager.CancelPlacement(false);
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
 
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                     GridValidator placingObject = hitInfo.collider.gameObject.GetComponent<GridValidator>();
                     placingObject.enabled = true;
                     placingObject.FindTilemap();
+                    placeableObject.GetComponent<NavMeshObstacle>().enabled = false;
                     hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }
 
@@ -619,7 +706,7 @@ public class BuildingManager : MonoBehaviour
             {
                 Instantiate(particlePrefab, hitPoint, new Quaternion());
                 GridManagerAccessor.GridManager.DeleteObject(handleItem);
-                GridManagerAccessor.GridManager.EndPaintMode(false);
+                GridManagerAccessor.GridManager.EndPaintMode(true);
 
                 //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                 Inventory.i.AddInventoryItem(handleItem.GetComponent<PlaceableObject>().GetBuildingISO());
@@ -655,7 +742,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     Instantiate(particlePrefab, hitPoint, new Quaternion());
                     GridManagerAccessor.GridManager.DeleteObject(hitInfo.collider.gameObject);
-                    GridManagerAccessor.GridManager.EndPaintMode(false);
+                    GridManagerAccessor.GridManager.EndPaintMode(true);
 
                     //GridManagerAccessor.GridManager.ModifyPlacementOfGridObject(hitInfo.collider.gameObject);
                     Inventory.i.AddInventoryItem(hitInfo.collider.gameObject.GetComponent<PlaceableObject>().GetBuildingISO());

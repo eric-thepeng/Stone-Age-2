@@ -31,6 +31,9 @@ MonoBehaviour:
   HidePlacementCellsIfOutsideOfGrid: 1
   ShowOccupiedCells: 1
   GridCanvasEventCameraName: 
+  statusIndicatorPrefab: {fileID: 765258227849582288, guid: 388a89f74fe304b9885036d6a23739d6, type: 3}
+  OutOfBorderIndicatorIcon: {fileID: -1745010924, guid: e46cd02ad63464711b8f3565e3c04308, type: 3}
+  BiomeNotPlaceableIcon: {fileID: -318085235, guid: e46cd02ad63464711b8f3565e3c04308, type: 3}
   UsePlaceableMaterial: 1
   UseUnplaceableMaterial: 1
   ObjectPlaceableMaterial: {fileID: 2100000, guid: c90ef55a1a2be6c4d8f39a16cbc1264e, type: 2}
@@ -38,6 +41,40 @@ MonoBehaviour:
   CalculateChildColliders: 0
   DefaultAlignment: 0
   InitialPlacementCellIndex: {x: 30, y: 20}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.022112163
+      outSlope: -0.022112163
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50148183
+      value: 0.98891115
+      inSlope: -3.4255724
+      outSlope: -3.4255724
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06942458
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.022243619
+      outSlope: 0.022243619
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationDuration: 0.4
   PlatformGridInputsDefinitionMappings:
   - Name: Android
     RuntimePlatform: 11

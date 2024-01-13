@@ -84,6 +84,16 @@ namespace Hypertonic.GridPlacement
         [Tooltip("The name of the gameobject that the camera is attached to. The camera will be set to fire raycasts at the grid. If null it'll default to the main camera")]
         public string GridCanvasEventCameraName;
 
+        [Space(10)] [Header("Icon Indicator")]
+        // [Tooltip("Status Indicator.")]
+        public GameObject statusIndicatorPrefab;
+        
+        // [Tooltip("Out of Border Indicator Icon.")]
+        public Sprite OutOfBorderIndicatorIcon;
+            
+        // [Tooltip("Biome Not Placeable Icon.")]
+        public Sprite BiomeNotPlaceableIcon;
+        
         [Header("Grid Object Placement Materials")]
 
         [Tooltip("Determines if the object's materials should change to the placeable material when in a placeable state.")]
@@ -107,6 +117,15 @@ namespace Hypertonic.GridPlacement
         [Tooltip("This sets the default grid cell all new objects will be placed at when EnterPlacementMode is called. This is overwritten by the optional placement settings.")]
         public Vector2Int InitialPlacementCellIndex = Vector2Int.zero;
 
+        [Space(10)] [Header("Animations")]
+        
+        [Tooltip("Animation curve for placing and rotation")]
+        public AnimationCurve animationCurve;
+
+        [Tooltip("Animation duration")] 
+        public float animationDuration;
+
+        
         [Space(10)]
         [Header("Grid Input")]
         [Tooltip("Define the grid input definition for each runtime platform")]

@@ -19,7 +19,7 @@ public class PlayerInputChannel : MonoBehaviour
             return instance;
         }
     }
-    public enum WorldButtons { Crafting, HomeReturn, Research, Building, Inventory, RecipeViewer, CameraBackHome, ExploreMap }
+    public enum WorldButtons { Crafting,HomeReturn, Building, Inventory, RecipeViewer, CameraBackHome, ExploreMap }
 
     public delegate void OnPlayerPressWorldButton(WorldButtons wb);
     public static event OnPlayerPressWorldButton onPlayerPressWorldButton;
@@ -36,7 +36,7 @@ public class PlayerInputChannel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C)) CraftingPanelOpenButton();
         if (Input.GetKeyDown(KeyCode.Space)) HomeReturnButton();
         if (Input.GetKeyDown(KeyCode.B)) InventoryPanelOpenButton();
-        if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
+        //if (Input.GetKeyDown(KeyCode.R)) RecipeMapOpenButton();
         if (Input.GetKeyDown(KeyCode.M)) ExploreMapButton();
         if (Input.GetKeyDown(KeyCode.Q)) RotateLeftButton();
         if (Input.GetKeyDown(KeyCode.Q)) RotateRightButton();
@@ -52,9 +52,6 @@ public class PlayerInputChannel : MonoBehaviour
                 break;
             case GamePanel.Crafting:
                 CraftingPanelOpenButton();
-                break;
-            case GamePanel.Research:
-                RecipeMapOpenButton();
                 break;
             case GamePanel.ExploreMap:
                 ExploreMapButton();
@@ -77,11 +74,12 @@ public class PlayerInputChannel : MonoBehaviour
         PlayerState.OpenCloseCraftingPanel();
     }
 
+    /*
     public static void RecipeMapOpenButton()
     {
         if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.Research);
         PlayerState.OpenCloseRecipePanel();
-    }
+    }*/
 
     public static void BuildingSystemOpenButton()
     {
@@ -89,11 +87,12 @@ public class PlayerInputChannel : MonoBehaviour
         PlayerState.OpenCloseBuildingPanel();
     }
 
+    /*
     public static void RecipeViewerPanelOpenButton()
     {
         if (onPlayerPressWorldButton != null) onPlayerPressWorldButton(WorldButtons.RecipeViewer);
         PlayerState.OpenCloseChangeRecipeViewerPanel();
-    }
+    }*/
 
     public static void HomeReturnButton()
     {

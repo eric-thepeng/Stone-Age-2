@@ -13,9 +13,33 @@ using UnityEngine;
 public class ItemCraftScriptableObject : SerializedScriptableObject
 {
     public ItemScriptableObject ItemCrafted;
-    //public ItemScriptableObject CraftingStationRequired; //TODO: delete this
     public List<Recipe> allRecipes = new List<Recipe>();
     public Dictionary<ItemScriptableObject, int> craftingStationRequired = null; // new Dictionary<CraftingStationScriptableObject, int> ();
+
+    public enum BlueprintState
+    {
+        Not_Obtained,
+        Obtained_Not_Researched,
+        Obtained_Researched
+    }
+
+    public BlueprintState blueprintState = BlueprintState.Not_Obtained;
+
+    public void ChangeBlueprintState(BlueprintState changeTo)
+    {
+        blueprintState = changeTo;
+    }
+    
+    public bool IsObtained()
+    {
+        return blueprintState == BlueprintState.Obtained_Researched ||
+               blueprintState == BlueprintState.Obtained_Not_Researched;
+    }
+
+    public bool IsResearched()
+    {
+        return blueprintState == BlueprintState.Obtained_Researched;
+    }
 
     //Iterate all recipes, return true if one of them matches.
     public bool CheckMatch(List<KeyValuePair<Vector2, ItemScriptableObject>> currentRecipeCord, ObjectStackList<ItemScriptableObject> currentCraftingStations)
@@ -47,5 +71,27 @@ public class ItemCraftScriptableObject : SerializedScriptableObject
         Recipe defaultRecipe = allRecipes[0];
         return defaultRecipe.getCoord(true);
     }
+
+    public ResourceSet GetResourceSet()
+    {
+        return allRecipes[0].GetRecipeResourceSet();
+    }
+
+    /*
+    public Dictionary<ItemScriptableObject, int> GetRecipeComposition()
+    {
+        return allRecipes[0].GetRecipeComposition();
+    }
+
+    public ResourceSet GetRecipeResourceSet()
+    {
+        List<ResourceSet.ResourceAmount> reourceAmountsList = new List<ResourceSet.ResourceAmount>();
+        foreach (var VARIABLE in GetRecipeComposition())
+        {
+            reourceAmountsList.Add(new ResourceSet.ResourceAmount( VARIABLE.Key,VARIABLE.Value));
+        }
+        ResourceSet export = new ResourceSet(0, reourceAmountsList);
+        return export;
+    }*/
     
 }

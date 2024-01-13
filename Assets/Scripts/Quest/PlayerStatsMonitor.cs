@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class PlayerStat
 {
     private UnityEvent<int> broadcastStatChange;
+    private UnityEvent<int> broadcastStatDelta;
+
     private int amount;
     private int accumulatedAmount;
     public PlayerStat(int amount = 0)
@@ -15,6 +17,7 @@ public class PlayerStat
         this.amount = amount;
         accumulatedAmount = amount;
         broadcastStatChange = new UnityEvent<int>();
+        broadcastStatDelta = new UnityEvent<int>();
     }
 
     public int GetAmount()
@@ -22,20 +25,30 @@ public class PlayerStat
         return amount;
     }
 
+    /// <summary>
+    /// Change delta amount of the stat
+    /// </summary>
+    /// <param name="delta"></param>
     public void ChangeAmount(int delta)
     {
         amount += delta;
         if (delta > 0) accumulatedAmount += delta;
         broadcastStatChange.Invoke(amount);
-        
+        broadcastStatDelta.Invoke(delta);
     }
     
     public void AssignAmount(int newAmount)
     {
+        int delta = newAmount - amount;
         amount = newAmount;
         broadcastStatChange.Invoke(amount);
+        broadcastStatDelta.Invoke(amount);
     }
 
+    /// <summary>
+    /// broadcasted int is exact amount after each change
+    /// </summary>
+    /// <param name="newUnityAction"></param>
     public void SubscribeStatChange(UnityAction<int> newUnityAction)
     {
         broadcastStatChange.AddListener(newUnityAction);
@@ -45,6 +58,21 @@ public class PlayerStat
     {
         broadcastStatChange.RemoveListener(newUnityAction);
     }
+    
+    /// <summary>
+    /// broadcasted int is delta amount changed during each change
+    /// </summary>
+    /// <param name="newUnityAction"></param>
+    public void SubscribeStatDelta(UnityAction<int> newUnityAction)
+    {
+        broadcastStatDelta.AddListener(newUnityAction);
+    }
+    
+    public void UnsubscribeStatDelta(UnityAction<int> newUnityAction)
+    {
+        broadcastStatDelta.RemoveListener(newUnityAction);
+    }
+    
 
 }
 
@@ -80,6 +108,7 @@ public static class PlayerStatsMonitor
         //ISO RELATED
         ISOTotalGained,
         BISOTotalBuilt,
+        ISOInStockAmount
     }
     
     static public PlayerStat GetPlayerStat(PlayerStatType pst, ItemScriptableObject iso = null)
@@ -93,6 +122,7 @@ public static class PlayerStatsMonitor
         }
         if (pst == PlayerStatType.ISOTotalGained) return isoTotalGainedPlayerStatCollection.GetPlayerStat(iso);
         if (pst == PlayerStatType.BISOTotalBuilt) return bisoTotalBuiltPlayerStatCollection.GetPlayerStat(iso);
+        if (pst == PlayerStatType.ISOInStockAmount) return Inventory.i.GetISOInstockPlayerStat(iso);
         Debug.LogError("Cannot find PlayerStat");
         return null;
     }

@@ -5,9 +5,11 @@ using Hypertonic.GridPlacement;
 using Hypertonic.GridPlacement.CustomSizing;
 using Hypertonic.GridPlacement.Enums;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.VFX;
 
 [RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(NavMeshObstacle))]
 [RequireComponent(typeof(GridHeightPositioner))]
 [RequireComponent(typeof(GridValidator))]
 
@@ -109,6 +111,7 @@ public class PlaceableObject : MonoBehaviour
         buildingManager = FindObjectOfType<BuildingManager>();
         CheckEffects(transform);
         DisableEffects();
+        GetComponent<NavMeshObstacle>().enabled = false;
 
         boxCollider = GetComponent<BoxCollider>();
         // spriteToRender = gridOperationManager.ObstacleSprite;
