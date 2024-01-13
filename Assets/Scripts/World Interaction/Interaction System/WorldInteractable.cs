@@ -17,8 +17,7 @@ public class MouseState
 public class WorldInteractable : MonoBehaviour
 {
     //Interaction Type Realted
-    [Serializable]
-    public class InteractionType
+    [Serializable] public class InteractionType
     {
         /// <summary>
         /// A standard interaction for WorldInteractable. Can be click or long press.
@@ -100,7 +99,6 @@ public class WorldInteractable : MonoBehaviour
             }
         }
     }
-    
     [SerializeField]private InteractionType currentInteraction = null;
 
     //Variables
@@ -108,7 +106,10 @@ public class WorldInteractable : MonoBehaviour
     [SerializeField] private HighlightMode highlightMode = HighlightMode.NONE;
     private MouseState mouseState = new MouseState();
     private float outlineHighlightWidthRatio = 1.2f;
+    
+    //Static Variables
     private static Shader targetShader = null;
+    protected static bool allowInteraction = true;
 
     //Functions
     public void SetCurrentInteraction(InteractionType newInteractionType)
@@ -129,14 +130,12 @@ public class WorldInteractable : MonoBehaviour
     protected bool CanInteract()
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject) return false;
-        if (isBuildingInteractable)
-        {
-            return ((BuildingInteractable)this).allowInteraction;
-        }
-        else
-        {
-            return true;
-        }
+        return allowInteraction;
+    }
+
+    protected void ChangeGlobalAllowInteraction(bool changeTo)
+    {
+        allowInteraction = changeTo;
     }
     
     
@@ -294,30 +293,35 @@ public class WorldInteractable : MonoBehaviour
      */
     private void OnMouseEnter()
     {
+        if(!allowInteraction) return;
         BeginMouseHover();
         mouseState.isHovering = true;
     }
 
     private void OnMouseExit()
     {
+        if(!allowInteraction) return;
         EndMouseHover();
         mouseState.isHovering = false;
     }
 
     private void OnMouseUpAsButton()
     {
+        if(!allowInteraction) return;
         MouseClick();
         OnMouseUp();
     }
     
     private void OnMouseDown()
     {
+        if(!allowInteraction) return;
         BeginMousePress();
         mouseState.isPressing = true;
     }
 
     private void OnMouseDrag()
     {
+        if(!allowInteraction) return;
         WhileMousePress();
         if (mouseState.isPressing)
         {
@@ -327,9 +331,9 @@ public class WorldInteractable : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if(!allowInteraction) return;
         EndMousePress();
         mouseState.isPressing = false;
-        
     }
 
     #endregion
