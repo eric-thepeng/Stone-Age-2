@@ -119,10 +119,10 @@ public class UI_Inventory : MonoBehaviour
         GameObject[] allInventoryBlock = GameObject.FindGameObjectsWithTag("InventoryBlock");
         foreach (GameObject block in allInventoryBlock)
         {
-            if (block.transform.Find("itemSprite").iso.name == isoToDisplay.tetrisHoverName)
-            {
+            //if (block.transform.Find("itemSprite").iso.name == isoToDisplay.tetrisHoverName)
+            //{
 
-            }
+            //}
 
         }
         //itemDetailUI.transform.localPosition = ;
