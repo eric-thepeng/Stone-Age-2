@@ -68,7 +68,7 @@ public class BLDWorkshop : BuildingInteractable
         UI_BLDWorkshop.i.TurnOnUI(this);
         state = State.Assigning;
         PlayerState.OpenCloseAllocatingBackpack(true);
-        CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,5), 80f);
+        CameraManager.i.MoveToDisplayLocation(transform.position + new Vector3(0,0,5), 65f);
         allowInteraction = false;
         workshopCraftingController.PauseCrafting();
     }
