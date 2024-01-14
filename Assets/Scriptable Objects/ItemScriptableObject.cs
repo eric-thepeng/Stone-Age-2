@@ -15,6 +15,7 @@ public class ItemScriptableObject : SerializedScriptableObject
     [SerializeField] private bool[,] recipeInBool = new bool[8,8];
     public Sprite tetrisSprite;
     public Sprite iconSprite;
+    public string tetrisDescription = "not set";
     [Header("--- DO NOT EDIT BELOW ---")]public GameObject myPrefab = null; 
     public bool isCraftingStation = false;
     public enum Category { Material, Building }

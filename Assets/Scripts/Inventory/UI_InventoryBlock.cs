@@ -75,7 +75,8 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseEnter()
     {
         if (itemInfo == null) return;
-        CraftingManager.i.mouseEnterInventoryBlock(this);
+        //CraftingManager.i.mouseEnterInventoryBlock(this);
+        TooltipManager.i.ShowTip(this.GetISO());
         //InventoryHoverInfo.i.Display(transform.position);
         mouseOver = true;
     }
@@ -83,7 +84,8 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseExit()
     {
         if (itemInfo == null) return;
-        CraftingManager.i.mouseExitInventoryBlock();
+        //CraftingManager.i.mouseExitInventoryBlock();
+        TooltipManager.i.DestroyTip();
         //InventoryHoverInfo.i.Disappear();
         mouseOver = false;
     }

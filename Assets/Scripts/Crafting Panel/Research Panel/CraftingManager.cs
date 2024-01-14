@@ -25,6 +25,8 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public UnityEvent<ItemScriptableObject> NewItemCrafted = new UnityEvent<ItemScriptableObject>();
 
+    public Camera cam;
+
     public enum CreateFrom {DEBUG, INVENTORY, MERGE, VISUAL_ONLY}
 
     static CraftingManager instance;

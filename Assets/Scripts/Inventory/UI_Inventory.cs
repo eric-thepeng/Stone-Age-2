@@ -102,6 +102,7 @@ public class UI_Inventory : MonoBehaviour
                 GameObject go = Instantiate(inventoryBlockTemplate, inventoryBlocksParent.transform);
                 go.transform.localPosition += new Vector3(i * horizontalDisplacement, -j * verticalDisplacement, 0);
                 go.gameObject.name = "IB_" + i + "_" + j;
+                go.tag = "InventoryBlock";
                 go.SetActive(true);
                 go.GetComponent<UI_InventoryBlock>().Initialize(i,j);
                 allInventoryBlocks.Add(go.GetComponent<UI_InventoryBlock>());
@@ -111,8 +112,23 @@ public class UI_Inventory : MonoBehaviour
 
     public void DisplayItemDetail(ItemScriptableObject isoToDisplay)
     {
+
         //Vector3 toSet = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true); //new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, PanelTransform.Find("NameUI").transform.position.z);
         itemDetailUI.gameObject.SetActive(true);
+
+        GameObject[] allInventoryBlock = GameObject.FindGameObjectsWithTag("InventoryBlock");
+        foreach (GameObject block in allInventoryBlock)
+        {
+            //if (block.transform.Find("itemSprite").iso.name == isoToDisplay.tetrisHoverName)
+            //{
+
+            //}
+
+        }
+        //itemDetailUI.transform.localPosition = ;
+
+
+
         //itemDetailUI.transform.Find("Tetris Pic").gameObject.GetComponent<SpriteRenderer>().sprite = isoToDisplay.tetrisSprite;
         itemDetailUI.transform.Find("Tetris Name").gameObject.GetComponent<TextMeshPro>().text = isoToDisplay.tetrisHoverName;
         /*
