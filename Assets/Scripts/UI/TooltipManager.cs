@@ -43,8 +43,6 @@ public class TooltipManager : MonoBehaviour
             Vector3 targetScale = tip.transform.Find("Background").transform.localScale;
             targetScale.y = (textHeight / tipHeight) * targetScale.y;
             tip.transform.Find("Background").transform.localScale = targetScale;
-
-            print("tip" + tipHeight + "    TEXT" + textHeight);
         }
         public void changePosition(Vector3 mousePosition)
         {
