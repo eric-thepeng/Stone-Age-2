@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Hypertonic.GridPlacement;
+using UnityEngine.AI;
 
 public class UI_InventoryBlock : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
     public int GetDisplayAmount()
     {
-        return itemInfo.inStockAmount;
+        return itemInfo.inStockAmount.GetAmount();
     }
 
     public void Initialize(int row, int col)
@@ -46,7 +47,7 @@ public class UI_InventoryBlock : MonoBehaviour
     public void SetUpDisplay(Inventory.ItemInfo ii)
     {
         itemInfo = ii;
-        displayAmount = ii.inStockAmount;
+        displayAmount = ii.inStockAmount.GetAmount();
 
         //display shit
         itemSprite.gameObject.SetActive(true);
@@ -92,7 +93,7 @@ public class UI_InventoryBlock : MonoBehaviour
         if (itemInfo == null) return;
         
         // create tetris
-        if (PlayerState.IsCrafting())
+        if (PlayerState.IsResearch())
         {
             //InventoryHoverInfo.i.Disappear();
             CreateTetrisDrag();
@@ -125,7 +126,8 @@ public class UI_InventoryBlock : MonoBehaviour
 
                 //GridManagerAccessor.GridManager.EnterPlacementMode(objectToPlace);
                 GridManagerAccessor.GridManager.StartPaintMode(((BuildingISO)itemInfo.iso).GetBuildingPrefab());
-
+                GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<NavMeshObstacle>().enabled = false;
+                
                 SetSelectedBackground(true);
 
                 //PlayerState.OpenCloseBuildingPanel();

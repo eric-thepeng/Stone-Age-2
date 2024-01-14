@@ -26,6 +26,46 @@ public class Recipe
         return export;
     }
 
+    /// <summary>
+    /// Get what makes up this recipe, aka a list of how many what ISO.
+    /// </summary>
+    /// <returns></returns>
+    public ResourceSet GetRecipeResourceSet()
+    {
+        // Make into a Dictionary
+        Dictionary<ItemScriptableObject,int> holder = new Dictionary<ItemScriptableObject,int>();
+        for (int x = 0; x < recipe.GetLength(0); x++)
+        {
+            for (int y = 0; y < recipe.GetLength(1); y++)
+            {
+                if (recipe[x, y] == null) continue;
+                if (holder.ContainsKey(recipe[x, y]))
+                {
+                    holder[recipe[x, y]] += 1;
+                }
+                else
+                {
+                    holder.Add(recipe[x,y],1);
+                }
+            }
+        }
+
+        Dictionary<ItemScriptableObject,int> dic = new Dictionary<ItemScriptableObject,int>();
+
+        foreach (var VARIABLE in holder.Keys)
+        {
+            dic.Add(VARIABLE, holder[VARIABLE] / VARIABLE.TetrisUnitAmount);
+        }
+        
+        //Make into Resource Set
+        ResourceSet export2 = new ResourceSet();
+        foreach (var VARIABLE in dic)
+        {
+            export2.AddResource(VARIABLE.Key,VARIABLE.Value);
+        }
+        return export2;
+    }
+
     public List<Vector2> getCoord(bool relativeToCenter = false)
     {
         List<Vector2> export = new List<Vector2>();

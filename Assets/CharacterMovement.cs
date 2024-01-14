@@ -1,8 +1,11 @@
+using System;
 using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -28,6 +31,13 @@ public class CharacterMovement : MonoBehaviour
 
     // ensure prewalk doesn't trigger when changing direction
     Vector3 _previousMovement;
+    private NavMeshAgent _navMeshAgent;
+
+    private void Awake()
+    {
+        _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+        _navMeshAgent.speed = moveSpeed;
+    }
 
     void Start()
     {
@@ -41,18 +51,18 @@ public class CharacterMovement : MonoBehaviour
     }
 
 
-    private Vector3 _targetPosition;
-    private bool _isMovingToTarget = false;
+    public Vector3 _targetPosition;
+    public bool _isMovingToTarget = false;
 
 
-    private bool _isHangingOut = false;
-    private float _hangOutTimer = 0f;
+    public bool _isHangingOut = false;
+    public float _hangOutTimer = 0f;
 
     void Update()
     {
         if (_isHangingOut)
         {
-            if (_isMovingToTarget)
+            if (!ReachedTarget())
             {
                 MoveTowardsTarget();
             }
@@ -97,6 +107,7 @@ public class CharacterMovement : MonoBehaviour
         float randomX = Random.Range(hangOutAreaMin.x, hangOutAreaMax.x);
         float randomZ = Random.Range(hangOutAreaMin.z, hangOutAreaMax.z);
         _targetPosition = new Vector3(randomX, transform.position.y, randomZ);
+        _navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
         _isMovingToTarget = true;
     }
 
@@ -106,6 +117,18 @@ public class CharacterMovement : MonoBehaviour
         _isMovingToTarget = true;
     }
 
+    private bool ReachedTarget()
+    {
+        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f || _navMeshAgent.velocity == new Vector3(0,0,0))
+        {
+            _animator.SetBool("isWalking", false);
+            _isMovingToTarget = false;
+            return true;
+        }
+
+        return false;
+    }
+    
     private void MoveTowardsTarget()
     {
         if (Vector3.Distance(transform.position, _targetPosition) < 0.1f)
@@ -117,15 +140,15 @@ public class CharacterMovement : MonoBehaviour
 
         _animator.SetBool("isWalking", true);
 
-        Vector3 movementDirection = (_targetPosition - transform.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, moveSpeed * Time.deltaTime);
+        // Vector3 movementDirection = (_targetPosition - transform.position).normalized;
+        // transform.position = Vector3.MoveTowards(transform.position, _targetPosition, moveSpeed * Time.deltaTime);
 
-        if (movementDirection.x < 0)
+        if (_navMeshAgent.velocity.x < 0)
         {
             _leafShadow.Value = 1;
             _visual.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
         }
-        else if (movementDirection.x > 0)
+        else if (_navMeshAgent.velocity.x > 0)
         {
             _leafShadow.Value = 0;
             _visual.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);

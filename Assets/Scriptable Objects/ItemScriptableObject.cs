@@ -67,9 +67,30 @@ public class ItemScriptableObject : SerializedScriptableObject
             return export;
         }
     }
-    
-    
 
+    public int TetrisUnitAmount
+    {
+        get
+        {
+            int export = 0;
+
+            for (int x = 0; x < recipeInBool.GetLength(0); x++)
+            {
+                for (int y = 0; y < recipeInBool.GetLength(1); y++)
+                {
+                    // Check if the value at the current coordinate is true
+                    if (recipeInBool[x, y])
+                    {
+                        // Add the coordinate to the list
+                        export++;
+                    }
+                }
+            }
+            
+            return export;
+        }
+    }
+    
     /// <summary>
     /// </summary>
     /// <returns>The difference between the Tetris' bottom-right boundary and its center.</returns>

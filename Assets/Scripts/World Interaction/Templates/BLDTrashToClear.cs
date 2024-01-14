@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Serialization;
 using Hypertonic.GridPlacement;
+using UnityEngine.AI;
 
 public class BLDTrashToClear : LevelUp
 {
@@ -53,7 +54,10 @@ public class BLDTrashToClear : LevelUp
         gainResourceSet.GainResource();
         PlayerStatsMonitor.trashTotalClearedPlayerStat.ChangeAmount(1);
         Destroy(gameObject);
-        
+
+        NavMeshSurface _navMeshSurface = FindObjectOfType<NavMeshSurface>();
+        _navMeshSurface.UpdateNavMesh(_navMeshSurface.navMeshData);
+        // _navMeshSurface.BuildNavMesh();
         /*
         // temp
         GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().collisionCount--;
@@ -61,7 +65,7 @@ public class BLDTrashToClear : LevelUp
         {
             GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<GridValidator>().HandleExitedWallArea();
         }*/
-        
+
 
     }
 

@@ -63,12 +63,14 @@ public class UI_BLDWorkshop : MonoBehaviour, IISOReceiver
         
         // Display All Workshop Recipes
         workshopRecipeDisplayTemplate.gameObject.SetActive(true);
+        int displayCount = 0;
         for (int i = 0; i < allWorkshopRecipes.Length; i++)
         {
             if(!allWorkshopRecipes[i].AvailableInWorkshops[orgWorkshop.workshopType]) continue;
             UI_WorkshopRecipeDisplay wrd = Instantiate(workshopRecipeDisplayTemplate.gameObject, workshopRecipeDisplayContainer).GetComponent<UI_WorkshopRecipeDisplay>();
             wrd.Display(allWorkshopRecipes[i]);
-            wrd.gameObject.transform.localPosition += new Vector3(0,i * workshopRecipeDisplayDisplacement,0);
+            wrd.gameObject.transform.localPosition += new Vector3(0,displayCount * workshopRecipeDisplayDisplacement,0);
+            displayCount++;
         }
         workshopRecipeDisplayTemplate.gameObject.SetActive(false);
     }
