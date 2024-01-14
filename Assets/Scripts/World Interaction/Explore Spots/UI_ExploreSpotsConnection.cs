@@ -19,7 +19,7 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
             return instance;
         }
     }
-    
+
     [Serializable]public class ConnectionLine
     {
         public GameObject lineGameObject;
@@ -47,7 +47,7 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
     [Header("Hidden Color setup does not work rn")]
     public Color32 hiddenColor;
     public Color32 discoveredColor;
-
+    public GameObject lineTemplate;
     public List<ConnectionLine> allConnectionLines = new List<ConnectionLine>();
 
     public void UnlockLine(SO_SerialEffectIdentifier origionSEI, SO_SerialEffectIdentifier targetSEI)
