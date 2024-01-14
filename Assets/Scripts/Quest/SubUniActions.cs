@@ -421,3 +421,25 @@ public class SubUniAction : IPerformableAction
         return actionType != ActionType.NoAction;
     }
 }
+
+[Serializable] public class BlueprintAction : SubUniAction
+{
+    public enum ActionType{NoAction, ObtainBlueprints}
+    public ActionType actionType = ActionType.NoAction;
+
+    public List<ItemCraftScriptableObject> blueprints = null;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+        
+        BlueprintManager.i.ObtainBlueprints(blueprints);
+        
+        onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && blueprints != null;
+    }
+}

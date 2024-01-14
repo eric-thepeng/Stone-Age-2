@@ -22,6 +22,7 @@ using UnityEngine.UI;
         CameraAction,
         IUniActionInteractionAction,
         CharacterGatherAction,
+        BlueprintAction,
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -36,7 +37,8 @@ using UnityEngine.UI;
     public CameraAction cameraAction;
     public IUniActionInteractionAction iuaiAction;
     public CharacterGatherAction characterGatherAction;
-    
+    public BlueprintAction blueprintAction;
+
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
     public UnityEvent onActionStarts { get { return _onActionStarts; } }
@@ -81,6 +83,9 @@ using UnityEngine.UI;
                 break;
             case UniActionType.CharacterGatherAction:
                 pAction = characterGatherAction;
+                break;
+            case UniActionType.BlueprintAction:
+                pAction = blueprintAction;
                 break;
         }
         

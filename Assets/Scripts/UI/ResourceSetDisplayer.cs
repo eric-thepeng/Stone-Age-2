@@ -145,7 +145,14 @@ public class ResourceSetDisplayer : MonoBehaviour
             }
 
             sign.text = displaySign;
-            name.text = ra.iso.tetrisHoverName;
+            if (displayResourceName)
+            {
+                name.text = ra.iso.tetrisHoverName;
+            }
+            else
+            {
+                name.text = "";
+            }
             
             
             

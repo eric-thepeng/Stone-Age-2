@@ -22,19 +22,23 @@ public class DiscoveryGatherSpot : GatherSpot, IResourceSetProvider
 
     }
 
-    public bool Discover(float discoverAmount)
+    /// <summary>
+    /// called by character after each gather
+    /// </summary>
+    /// <param name="discoverAmount">discover level to increase</param>
+    /// <returns></returns>
+    public void Discover(float discoverAmount)
     {
-        if(Discovered()) return true;
+        if(Discovered()) return;
 
         discoveryCurrent += discoverAmount;
 
         if (Discovered())
         {
             DiscoverySuccess();
-            return true;
+            return;
         }
 
-        return false;
     }
 
     public float GetDiscoveryPercentage()
