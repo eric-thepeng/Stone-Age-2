@@ -24,6 +24,7 @@ public class UI_ExploreSpotsConnectionEditor : Editor
                 GameObject newLineGameObject = Instantiate(myScript.lineTemplate, myScript.transform);
                 Undo.RegisterCreatedObjectUndo(newLineGameObject, "Create Line"); // Register Undo for each new line
 
+                line.lineGameObject = newLineGameObject;
                 newLineGameObject.name = line.exploreSpot1.name + " to " + line.exploreSpot2.name;
 
                 Vector3 pos1 = line.exploreSpot1.gameObject.transform.localPosition;
