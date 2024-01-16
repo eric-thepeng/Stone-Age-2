@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1974787049
   m_SortingLayer: 1
-  m_SortingOrder: 21
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: caa16eda9f6ff634b937bc872de25894, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1381,6 +1381,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: MIS_FirstCharacter_LevelUp
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!114 &6283289190263630169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,6 +1776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3037251277075382305}
+  - component: {fileID: 8205673816711698798}
   m_Layer: 20
   m_Name: Always
   m_TagString: Untagged
@@ -1799,6 +1802,17 @@ Transform:
   m_Father: {fileID: 4980925710495194557}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &8205673816711698798
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8154951299772069796}
+  m_Enabled: 1
+  m_SortingLayerID: 1974787049
+  m_SortingLayer: 1
+  m_SortingOrder: 1
 --- !u!1 &8199797324475407898
 GameObject:
   m_ObjectHideFlags: 0
