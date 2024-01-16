@@ -22,6 +22,9 @@ public class BLDFarmland : CropGrowth
     [Header("UI Objects - Icon")]
     public GameObject Icon;
 
+    private SpriteRenderer iconRenderer;
+    
+
     [Header("UI Objects - Progress Bar")]
     public bool Visibility;
     public GameObject Bar;
@@ -33,6 +36,12 @@ public class BLDFarmland : CropGrowth
 
     Sprite goalSprite;
 
+    protected override void Start()
+    {
+        base.Start();
+        iconRenderer = Icon.GetComponent<SpriteRenderer>();
+    }
+    
     private void Update()
     {
         isPlaced = !GridManagerAccessor.GridManager.IsPlacingGridObject;
@@ -47,7 +56,8 @@ public class BLDFarmland : CropGrowth
 
         if (isPlaced)
         {
-            Icon.GetComponent<SpriteRenderer>().sprite = goalSprite;
+            Icon.SetActive(true);
+            iconRenderer.sprite = goalSprite;
         }
         else
         {
@@ -100,6 +110,7 @@ public class BLDFarmland : CropGrowth
         base.onStateChange();
         //Debug.LogWarning("State Change --!");
         //PlayParticle();
+        Icon.SetActive(true);
         goalSprite = GetCurrentUnlockState().interactableIcon;
 
     }
@@ -110,6 +121,7 @@ public class BLDFarmland : CropGrowth
         //Debug.LogWarning("Matured!");
         //PlayParticle();
         //goalSprite = matureIcon;
+        Icon.SetActive(true);
         goalSprite = GetCurrentUnlockState().interactableIcon;
     }
 

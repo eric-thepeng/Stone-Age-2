@@ -18,8 +18,7 @@ public class CharacterInteraction : WorldInteractable
     [SerializeField]
     private float clickInterval = 0.1f;
 
-    [Header("Animation")]
-
+    // [Header("Animation")]
     [SerializeField]
     private AnimationCurve animationCurve;
     [SerializeField]
@@ -30,14 +29,13 @@ public class CharacterInteraction : WorldInteractable
     [Header("Click Cycle")]
     [SerializeField]
     private int maxClicks = 5;
-    [SerializeField]
     private int currentClicks = 0;
 
     [SerializeField]
     private float countdownTime = 10f;
-    [SerializeField]
     private float currentTime;
 
+    [Header("Icon Related")]
     [SerializeField] private SpriteRenderer iconRenderer;
     [SerializeField] private Sprite clickableIcon;
     [SerializeField] private Sprite unclickableIcon;
