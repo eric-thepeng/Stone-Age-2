@@ -1,5 +1,479 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &267588956600846146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92618680975620368}
+  - component: {fileID: 8181752442593790967}
+  m_Layer: 0
+  m_Name: Quest - 6N - Go To Research
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92618680975620368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267588956600846146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3568517355196735561}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8181752442593790967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267588956600846146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 3
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        narrativeSequenceToPlay:
+          data:
+          - The panel on the left displays the materials you need to build your blueprint.
+          - You need 4 Straws to craft a Straw Wall.
+          - Now click on the Research Button to start researching.
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 2
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_WorldSpaceButton
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_ResearchTab_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
 --- !u!1 &1423410237339181801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,7 +2928,7 @@ GameObject:
   - component: {fileID: 6971370134866619903}
   - component: {fileID: 3541680716802271964}
   m_Layer: 0
-  m_Name: Quest - 5N - Obtain Blueprint
+  m_Name: Quest - 5N - Open Blueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2870,6 +3344,76 @@ MonoBehaviour:
         triggerAndQueNext: 0
         actionType: 0
         targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        narrativeSequenceToPlay:
+          data: []
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetUniQuest: {fileID: 8181752442593790967}
       playerStatAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -6156,6 +6700,7 @@ Transform:
   - {fileID: 6932152061697265973}
   - {fileID: 1324713776713423610}
   - {fileID: 6971370134866619903}
+  - {fileID: 92618680975620368}
   m_Father: {fileID: 6756724190148151878}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
