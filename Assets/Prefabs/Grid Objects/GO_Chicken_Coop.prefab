@@ -148,6 +148,19 @@ MonoBehaviour:
     overtimeParticle: {fileID: 2616092525087715391, guid: 05dde29f0091f4770a0ef14e120e7480, type: 3}
     finishedWaterParticle: {fileID: 6740351624469362035, guid: 4b5d055e6ecec4482b5e4afbdc6ea889, type: 3}
     interactableIcon: {fileID: 21300000, guid: 21d95ededad459e4f9b93e9c5d080a19, type: 3}
+  - InitAction: 2
+    FinishAction: 3
+    waterCost:
+      spiritPoint: 0
+      resources: []
+    dryObj: {fileID: 4178412235384188211}
+    wetObj: {fileID: 0}
+    GrowthTime: 0
+    timeToClear: 0
+    finishedParticle: {fileID: 6740351624469362035, guid: 5a1c45b86ef1c9042854a88c5970f31f, type: 3}
+    overtimeParticle: {fileID: 2616092525087715391, guid: 05dde29f0091f4770a0ef14e120e7480, type: 3}
+    finishedWaterParticle: {fileID: 6740351624469362035, guid: 4b5d055e6ecec4482b5e4afbdc6ea889, type: 3}
+    interactableIcon: {fileID: 21300000, guid: 21d95ededad459e4f9b93e9c5d080a19, type: 3}
   matureRewardEvent:
     m_PersistentCalls:
       m_Calls:
@@ -178,15 +191,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  finishedAction: 0
+  finishedAction: 1
   autoGrowth: 1
   rewardObjects: {fileID: 11400000, guid: 97b97bb1994c362499b531cc265ba2d5, type: 2}
   rewardAmount: 1
   Icon: {fileID: 5794558405493886292}
-  Visibility: 0
+  enableProgressBar: 0
   Bar: {fileID: 3308394934014969829}
   progress: {fileID: 2784201919706273980}
   background: {fileID: 2576802523156868052}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationDuration: 0
 --- !u!208 &2633849786131432161
 NavMeshObstacle:
   m_ObjectHideFlags: 0
