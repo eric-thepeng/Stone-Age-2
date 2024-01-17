@@ -78,7 +78,7 @@ public class UI_InventoryBlock : MonoBehaviour
         //CraftingManager.i.mouseEnterInventoryBlock(this);
         if (BlueprintAndResearchManager.i.isBnROpen())
         {
-            TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRESEARCH);
+            TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
         }
         else
         {

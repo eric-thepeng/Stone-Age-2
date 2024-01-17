@@ -22,6 +22,7 @@ public class TooltipManager : MonoBehaviour
     public class Tooltip
     {
         ItemScriptableObject iso;
+        SO_ExploreSpotSetUpInfo es;
         public GameObject displayTip;
         public float tipWidth;
         public float tipHeight;
@@ -37,7 +38,7 @@ public class TooltipManager : MonoBehaviour
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
                     textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height * 1.3f;
                     break;
-                case ToolMode.INVENTORYRESEARCH:
+                case ToolMode.INVENTORYRECRAFT:
                     tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
                     GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
                     Tetris.transform.SetParent(tip.transform);
@@ -46,21 +47,29 @@ public class TooltipManager : MonoBehaviour
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
                     textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
                     break;
-                case ToolMode.INVENTORYCONSTRUCT:
-                    break;
-                case ToolMode.MAPEXPLORESPOT:
-                    break;
             }
 
-            //tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
-            //tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = iso.tetrisDescription;
 
-            //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
-            //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-            //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
+            //keep
+            tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
+            tipHeight = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.y;
 
 
+            Vector3 targetScale = tip.transform.Find("Background").transform.localScale;
+            targetScale.y = (textHeight / tipHeight) * targetScale.y;
+            tip.transform.Find("Background").transform.localScale = targetScale;
+        }
 
+        public Tooltip(SO_ExploreSpotSetUpInfo newES, GameObject tip)
+        {
+            es = newES;
+            displayTip = tip;
+
+            tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = es.spotHoverName;
+            tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = es.spotHoverDescription;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
+            LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
+            textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
 
             //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
@@ -86,8 +95,7 @@ public class TooltipManager : MonoBehaviour
     }
 
     [SerializeField] GameObject inventoryHomeTemplate;
-    [SerializeField] GameObject inventoryResearchTemplate;
-    [SerializeField] GameObject inventoryConstructTemplate;
+    [SerializeField] GameObject inventoryCraftTemplate;
     [SerializeField] GameObject mapExploreSpotTemplate;
     GameObject currentTemplate;
 
@@ -101,8 +109,7 @@ public class TooltipManager : MonoBehaviour
     public enum ToolMode
     {
         INVENTORYHOME,
-        INVENTORYRESEARCH,
-        INVENTORYCONSTRUCT,
+        INVENTORYRECRAFT,
         MAPEXPLORESPOT
     }
     public enum MouseArea
@@ -120,14 +127,9 @@ public class TooltipManager : MonoBehaviour
             case ToolMode.INVENTORYHOME:
                 currentTemplate = inventoryHomeTemplate;
                 break;
-            case ToolMode.INVENTORYRESEARCH:
-                currentTemplate = inventoryResearchTemplate;
+            case ToolMode.INVENTORYRECRAFT:
+                currentTemplate = inventoryCraftTemplate;
                 break;
-            case ToolMode.INVENTORYCONSTRUCT:
-                break;
-            case ToolMode.MAPEXPLORESPOT:
-                break;
-
         }
         newDisplayTip = Instantiate(currentTemplate, this.transform);
         newDisplayTip.SetActive(true);
@@ -135,7 +137,13 @@ public class TooltipManager : MonoBehaviour
 
 
     }
-
+    public void ShowMapTip(SO_ExploreSpotSetUpInfo es, ToolMode mode)
+    {
+        currentTemplate = mapExploreSpotTemplate;
+        newDisplayTip = Instantiate(currentTemplate, this.transform);
+        newDisplayTip.SetActive(true);
+        tip = new Tooltip(es, newDisplayTip);
+    }
 
     public void UpdateTipPosition(Vector3 mousePos, MouseArea mouseArea)
     {
@@ -193,7 +201,7 @@ public class TooltipManager : MonoBehaviour
         //change of mousse position
         if (_mousePosition != lastMousePosition)
         {
-            if (_mousePosition.y > screenHeight / 2)
+            if (_mousePosition.y < screenHeight / 3)
             {
                 if (_mousePosition.x < screenWidth / 2)
                 {
