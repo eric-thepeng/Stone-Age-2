@@ -53,6 +53,15 @@ public class BlueprintAndResearchManager : MonoBehaviour
     {
         TabSwitchToBlueprint();
     }
+
+    public bool isBnROpen()
+    {
+        if(isResearchPanelOpen || isBlueprintPanelOpen)
+        {
+            return true;
+        }
+        return false;
+    }
     
     public void ClosePanel()
     {

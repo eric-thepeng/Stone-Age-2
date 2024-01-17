@@ -19,23 +19,50 @@ public class TooltipManager : MonoBehaviour
         }
     }
 
-    class Tooltip
+    public class Tooltip
     {
         ItemScriptableObject iso;
         public GameObject displayTip;
         public float tipWidth;
         public float tipHeight;
         private float textHeight;
-        public Tooltip(ItemScriptableObject newIso, GameObject tip)
+        public Tooltip(ItemScriptableObject newIso, GameObject tip, ToolMode mode)
         {
             iso = newIso;
             displayTip = tip;
-            tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
-            tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = iso.tetrisDescription;
-            LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
-            LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-            textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
+            switch (mode)
+            {
+                case ToolMode.INVENTORYHOME:
+                    tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
+                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height * 1.3f;
+                    break;
+                case ToolMode.INVENTORYRESEARCH:
+                    tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+                    GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
+                    Tetris.transform.SetParent(tip.transform);
+                  
+                    //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Tetris").GetComponent<SpriteRenderer>());
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
+                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
+                    break;
+                case ToolMode.INVENTORYCONSTRUCT:
+                    break;
+                case ToolMode.MAPEXPLORESPOT:
+                    break;
+            }
 
+            //tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+            //tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = iso.tetrisDescription;
+
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
+            //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
+            //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
+
+
+
+
+            //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
             tipHeight = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.y;
 
@@ -52,14 +79,18 @@ public class TooltipManager : MonoBehaviour
             }
 
         }
-
         public void DestroyDisplay()
         {
             Destroy(displayTip);
         }
     }
 
-    [SerializeField] GameObject tipTemplate;
+    [SerializeField] GameObject inventoryHomeTemplate;
+    [SerializeField] GameObject inventoryResearchTemplate;
+    [SerializeField] GameObject inventoryConstructTemplate;
+    [SerializeField] GameObject mapExploreSpotTemplate;
+    GameObject currentTemplate;
+
     [SerializeField] float offset;
     private Vector3 mousePos;
     Tooltip tip;
@@ -67,6 +98,13 @@ public class TooltipManager : MonoBehaviour
     private GameObject newDisplayTip;
     //public ItemScriptableObject ISO;
 
+    public enum ToolMode
+    {
+        INVENTORYHOME,
+        INVENTORYRESEARCH,
+        INVENTORYCONSTRUCT,
+        MAPEXPLORESPOT
+    }
     public enum MouseArea
     {
         TOPLEFT,
@@ -75,11 +113,27 @@ public class TooltipManager : MonoBehaviour
         BOTTOMRIGHT
     }
     
-    public void ShowTip(ItemScriptableObject iso)
+    public void ShowTip(ItemScriptableObject iso, ToolMode mode)
     {
-        newDisplayTip = Instantiate(tipTemplate, this.transform);
+        switch (mode)
+        {
+            case ToolMode.INVENTORYHOME:
+                currentTemplate = inventoryHomeTemplate;
+                break;
+            case ToolMode.INVENTORYRESEARCH:
+                currentTemplate = inventoryResearchTemplate;
+                break;
+            case ToolMode.INVENTORYCONSTRUCT:
+                break;
+            case ToolMode.MAPEXPLORESPOT:
+                break;
+
+        }
+        newDisplayTip = Instantiate(currentTemplate, this.transform);
         newDisplayTip.SetActive(true);
-        tip = new Tooltip(iso, newDisplayTip);
+        tip = new Tooltip(iso, newDisplayTip, mode);
+
+
     }
 
 
