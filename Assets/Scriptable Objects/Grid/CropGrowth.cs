@@ -158,7 +158,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
     [SerializeField] 
     private FinishedAction finishedAction = FinishedAction.RESET;
     [SerializeField] 
-    private bool autoGrowth;
+    public bool autoGrowth;
 
     [Header("Rewards")]
     public ItemScriptableObject rewardObjects;
@@ -191,11 +191,6 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
         }
         InitializeCrop(0);
         //allUnlockStates[0].Initialize();
-        if (autoGrowth)
-        {
-            Water();
-            SetCurrentInteraction(null);
-        }
     }
 
     private void InitializeCrop(int num)
@@ -263,6 +258,14 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
                 currentState = 0;
                 InitializeCrop(0);
+                
+                if (allUnlockStates[0].timeToClear > 0)
+                {
+                    SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, () => Water(),allUnlockStates[0].timeToClear));
+                } else
+                {
+                    SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, () => Water()));
+                }
                 //allUnlockStates[0].Initialize();
             }
             else if (finishedAction == FinishedAction.RESET_WATER)
