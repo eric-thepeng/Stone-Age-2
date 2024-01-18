@@ -21,8 +21,9 @@ public class PlaceableObject : MonoBehaviour
         None = 0,
         DefaultTile = 1 << 0, // 1
         WaterTile = 1 << 1, // 2
-        HillTile = 1 << 2 // 4
-        //Option4 = 1 << 3  // 8
+        HillTile = 1 << 2, // 4
+        LavaTile = 1 << 3 // 8
+        //Option6 = 1 << 3  // 16
         // 可以继续添加更多选项
     }
 
@@ -37,6 +38,9 @@ public class PlaceableObject : MonoBehaviour
         } else if (name.Contains("HillTile"))
         {
             return BiomeType.HillTile;
+        } else if (name.Contains("LavaTile"))
+        {
+            return BiomeType.LavaTile;
         }
         else
         {
