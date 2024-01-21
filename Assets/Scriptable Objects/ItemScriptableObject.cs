@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 /*
@@ -20,7 +21,6 @@ public class ItemScriptableObject : SerializedScriptableObject
     public bool isCraftingStation = false;
     public enum Category { Material, Building }
     public Category category = Category.Material;
-
 
     public List<KeyValuePair<Vector2, ItemScriptableObject>> FormationRecipeCoord
     {
