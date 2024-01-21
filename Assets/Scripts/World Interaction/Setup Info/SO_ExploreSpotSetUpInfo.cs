@@ -10,4 +10,7 @@ public class SO_ExploreSpotSetUpInfo : ScriptableObject
     public int gatherTime = 5;
     public ResourceSet gatherResource;
     public bool startInLockedState = false;
+
+    public string spotHoverName = "not set";
+    public string spotHoverDescription = "not set";
 }
