@@ -23,7 +23,7 @@ public class Farmland_Plant_Replacer : MonoBehaviour
             float scale = Random.Range(plant.transform.localScale.x - scaleOffset, plant.transform.localScale.x + scaleOffset);
 
             //plant.transform.localScale = new Vector3(scale, scale, scale);
-            plant.transform.localRotation = Quaternion.Euler(new Vector3(0, Random.Range(0f, 360f), 0));
+            plant.transform.localRotation = Quaternion.Euler(new Vector3(-90, Random.Range(0f, 360f), 0));
         }   
     }
 }

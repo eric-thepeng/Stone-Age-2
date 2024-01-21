@@ -10,6 +10,37 @@ public class GameObjectSetUpIdentifier : MonoBehaviour
     private static Dictionary<string, GameObject> IDDictionary;
     public string id;
 
+    public enum GameObjectType
+    {
+        // Basic Relationships
+        Self,
+        Parent,
+        ZeroLocation,
+        
+        // Components
+        WorldSpaceButton,
+        LevelUp,
+        ExploreSpot,
+        GatherSpot,
+        TextMeshPro,
+        SpriteRenderer,
+        
+        // Highlight
+        Highlight_Arrow,
+        Highlight_Circle,
+        Highlight_Other,
+        
+        // Other
+        Background,
+        Other_1,
+        Other_2,
+        Other_3
+    }
+    
+    public GameObjectSetUpIdentifierScriptableObject gosuiScriptableObject;
+    public GameObjectType gameObjectType;
+
+
     // This only covers game object that is part of the scene when the scene is loaded.
     public static GameObject GetGameObjectByID(string idToFind)
     {

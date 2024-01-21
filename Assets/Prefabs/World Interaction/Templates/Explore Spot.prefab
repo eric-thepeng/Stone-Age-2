@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1282537454773236016}
+  - component: {fileID: 6784795197151613461}
   m_Layer: 0
   m_Name: 'State 1: Locked'
   m_TagString: Untagged
@@ -34,6 +35,17 @@ Transform:
   m_Father: {fileID: 3786530245558580096}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &6784795197151613461
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282537454773236017}
+  m_Enabled: 1
+  m_SortingLayerID: 1974787049
+  m_SortingLayer: 1
+  m_SortingOrder: 10
 --- !u!1 &1829633825905824640
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,9 +116,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1974787049
-  m_SortingLayer: 1
-  m_SortingOrder: 20
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 502513679, guid: 7d31cfdb0eb96134c911dd08258c7487, type: 3}
   m_Color: {r: 0.26170745, g: 0.33962262, b: 0.16820931, a: 1}
   m_FlipX: 0
@@ -127,6 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2207606056483777225}
+  - component: {fileID: 4306158964480212401}
   m_Layer: 20
   m_Name: 'State 0: Hidden'
   m_TagString: Untagged
@@ -150,6 +163,17 @@ Transform:
   m_Father: {fileID: 3786530245558580096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &4306158964480212401
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317195422738473589}
+  m_Enabled: 1
+  m_SortingLayerID: 1974787049
+  m_SortingLayer: 1
+  m_SortingOrder: 0
 --- !u!1 &3024378574974127859
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +184,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3024378574974127868}
   - component: {fileID: 2356306931932646352}
-  - component: {fileID: 4283813735119705946}
   - component: {fileID: 3498146103396741774}
   m_Layer: 20
   m_Name: Explore Spot
@@ -227,17 +250,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   setUpInfo: {fileID: 0}
---- !u!210 &4283813735119705946
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3024378574974127859}
-  m_Enabled: 1
-  m_SortingLayerID: 1974787049
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!114 &3498146103396741774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: none
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &4782913346612699702
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,8 +580,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281479913
+  m_fontColor: {r: 0.9150943, g: 0.19568045, b: 0.19568045, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -732,6 +746,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: none
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1001 &3842294077911113549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,6 +922,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!210 &5929974923446348729
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4531575421955322336}
+  m_Enabled: 1
+  m_SortingLayerID: 1974787049
+  m_SortingLayer: 1
+  m_SortingOrder: 10
 --- !u!114 &5809287910761234437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,6 +1040,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1282537454773236016}
     m_Modifications:
+    - target: {fileID: 1499817173925592729, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2425260993369701799, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
