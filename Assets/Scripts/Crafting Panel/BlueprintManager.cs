@@ -76,7 +76,9 @@ public class BlueprintManager : MonoBehaviour
         newCard.gameObject.name = "" + icso.ItemCrafted + " " + coord.x + "," + coord.y + " -" + (index);
         
         // Adjust Visual of New Card
-        newCard.GetComponent<BlueprintCard>().SetUpCardInfo(icso);
+        BlueprintCard newBPCard = newCard.GetComponent<BlueprintCard>();
+        newBPCard.SetUpCardInfo(icso);
+        BlueprintCardClicked(newBPCard);
     }
 
     public void BlueprintCardClicked(BlueprintCard blueprintCard)
