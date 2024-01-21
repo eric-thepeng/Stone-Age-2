@@ -121,7 +121,7 @@ public static class PlayerStatsMonitor
             return null;
         }
         if (pst == PlayerStatType.ISOTotalGained) return isoTotalGainedPlayerStatCollection.GetPlayerStat(iso);
-        if (pst == PlayerStatType.BISOTotalBuilt) return bisoTotalBuiltPlayerStatCollection.GetPlayerStat(iso);
+        if (pst == PlayerStatType.BISOTotalBuilt) return Inventory.i.GetInBuildPlayerStat(iso);
         if (pst == PlayerStatType.ISOInStockAmount) return Inventory.i.GetISOInstockPlayerStat(iso);
         Debug.LogError("Cannot find PlayerStat");
         return null;
