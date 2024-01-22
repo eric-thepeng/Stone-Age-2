@@ -23,6 +23,7 @@ public class ExploreMap : MonoBehaviour
             {
                 direction = -PlayerInputChannel.i.GetKeyBoardInputDirection();
             }
+            direction.y = 0;
             direction = direction.normalized;
             momentum = 1;
         }

@@ -25,6 +25,7 @@ public static class PlayerState
     public enum State { Browsing, BlueprintAndResearch, Building, AllocatingBackpack, ExploreMap }
     static public State state = State.Browsing;
     static private bool inventoryPanelOpen = false;
+    static private bool craftingTableOpen = false;
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
     static private RecipeViewerState recipeViewerPanelState = RecipeViewerState.Close;
 

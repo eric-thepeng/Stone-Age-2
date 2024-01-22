@@ -18,6 +18,7 @@ public class BlueprintAndResearchManager : MonoBehaviour
     }
     
     [SerializeField] private GameObject researchPanelGO, blueprintPanelGO;
+    [SerializeField] private GameObject researchSwitchButton, blueprintSwitchButton;
     [SerializeField] private Vector3 activePanelLocalPosition;
 
     private bool isResearchPanelOpen = false;
@@ -39,6 +40,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         isBlueprintPanelOpen = false;
         researchPanelGO.transform.localPosition = activePanelLocalPosition;
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
+        researchSwitchButton.SetActive(false);
+        blueprintSwitchButton.SetActive(true);
     }
 
     public void TabSwitchToBlueprint()
@@ -47,11 +50,24 @@ public class BlueprintAndResearchManager : MonoBehaviour
         isBlueprintPanelOpen = true;
         researchPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
+        researchSwitchButton.SetActive(true);
+        blueprintSwitchButton.SetActive(false);
+        
+        
     }
 
     public void OpenPanel()
     {
         TabSwitchToBlueprint();
+    }
+
+    public bool isBnROpen()
+    {
+        if(isResearchPanelOpen || isBlueprintPanelOpen)
+        {
+            return true;
+        }
+        return false;
     }
     
     public void ClosePanel()

@@ -51,6 +51,9 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.CharacterGatherAction:
                 DrawProperty("characterGatherAction", property, ref rowRect);
                 break;
+            case UniAction.UniActionType.BlueprintAction:
+                DrawProperty("blueprintAction", property, ref rowRect);
+                break;
         }
 
         EditorGUI.EndProperty();
@@ -94,6 +97,9 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.CharacterGatherAction:
                 height += GetHeightForProperty(property, "characterGatherAction");
+                break;
+            case UniAction.UniActionType.BlueprintAction:
+                height += GetHeightForProperty(property, "blueprintAction");
                 break;
         }
 
