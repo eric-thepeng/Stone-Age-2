@@ -110,7 +110,7 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public GameObject CreateTetris(ItemScriptableObject iso, Vector3 addPosition, CreateFrom createFrom)
     {
-        GameObject newTetris = Instantiate(iso.myPrefab, ResearchPanel);
+        GameObject newTetris = Instantiate(iso.myPrefab, ResearchPanel.parent);
         newTetris.transform.position = addPosition;
         newTetris.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
         newTetris.name = newTetris.name + " " + Random.Range(1000, 9999);
