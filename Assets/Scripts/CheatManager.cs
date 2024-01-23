@@ -31,7 +31,7 @@ public class CheatManager : MonoBehaviour
         foreach (ItemScriptableObject item in allISOList.list)
         {
             Inventory.i.AddInventoryItem(item,5);
-            //print(item);
+            //print(item + " " + item.Dimension + " " + item.GetBottomRightDelta());
         }
     }
 
