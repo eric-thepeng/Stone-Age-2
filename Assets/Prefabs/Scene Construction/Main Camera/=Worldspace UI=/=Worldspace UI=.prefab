@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_ResearchOpenButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &1282519387569126145
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[M] Scroll'
+  m_text: Scroll
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -277,6 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_MapOpenButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &2126351445167143255
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +360,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_HomeAndBuildButtons
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &3573122162440111465
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,6 +492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_CraftOpenButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &4388241982634140232
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: SpiritPointUI_Location
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &5350986722756699009
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'alpha 0.10
+  m_text: 'alpha 0.22
 
 '
   m_isRightToLeft: 0
@@ -1040,6 +1050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_MapOpenButton_WorldSpaceButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &7775758695627554087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,8 +1077,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758695627554087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.374, y: 3.5030003, z: 0}
-  m_LocalScale: {x: 0.02, y: 1.35, z: 1}
+  m_LocalPosition: {x: 4.41, y: 3.544, z: 0}
+  m_LocalScale: {x: 0.02, y: 1.228689, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7775758696574505747}
@@ -2300,7 +2312,7 @@ GameObject:
   - component: {fileID: 7775758695856058352}
   - component: {fileID: 7775758695856058353}
   m_Layer: 0
-  m_Name: Quest Name
+  m_Name: Quest Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2388,7 +2400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Look around!
+  m_text: Build some Straw Walls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -3519,6 +3531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_ResearchOpenButton_WorldSpaceButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &7775758696036946183
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7775758696087482764
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3704,8 +3718,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press WASD to move around, mouse scroll to zoom in and out. Press WASD
-    to move around, mouse scroll to zoom in and out.
+  m_text: Build 20 straw walls as the base of your valley. In the meantime, research
+    more blueprints and keep exploring the Scroll map!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -3768,7 +3782,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.06461716, y: 0.33824039, z: 16.502579, w: 3.8574867}
+  m_margin: {x: -0.06461716, y: 0.021918774, z: 17.285751, w: 4.0252624}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -3892,8 +3906,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758696109555122}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4300003, y: 3.5060005, z: 0}
-  m_LocalScale: {x: 3.9, y: 1.2, z: 1}
+  m_LocalPosition: {x: 2.9498, y: 3.5485, z: 0}
+  m_LocalScale: {x: 2.9394302, y: 1.1150401, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7775758696574505747}
@@ -4229,8 +4243,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758696358223605}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.478, y: 3.5030003, z: 0}
-  m_LocalScale: {x: 0.02, y: 1.35, z: 1}
+  m_LocalPosition: {x: 1.4597, y: 3.5440006, z: 0.0000000018626451}
+  m_LocalScale: {x: 0.014986, y: 1.228689, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7775758696574505747}
@@ -4827,7 +4841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7775758696574505747
 Transform:
   m_ObjectHideFlags: 0
@@ -5116,8 +5130,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758696741703595}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4300003, y: 2.9, z: -0}
-  m_LocalScale: {x: 4.05, y: 0.02, z: 1}
+  m_LocalPosition: {x: 2.9223, y: 2.995, z: -0}
+  m_LocalScale: {x: 3.034665, y: 0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7775758696574505747}
@@ -6465,6 +6479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_CraftOpenButton_WorldSpaceButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &7775758697197283184
 GameObject:
   m_ObjectHideFlags: 0
@@ -6650,7 +6666,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[C] Craft'
+  m_text: Craft
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -7124,8 +7140,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758697315614625}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4300003, y: 4.11, z: 0}
-  m_LocalScale: {x: 4.05, y: 0.02, z: 1}
+  m_LocalPosition: {x: 2.9283, y: 4.11, z: 0}
+  m_LocalScale: {x: 3.04641, y: 0.02, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7775758696574505747}
@@ -8473,13 +8489,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7775758697528844512}
+  - component: {fileID: 8322422115613446124}
   m_Layer: 0
   m_Name: -Quest UI-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7775758697528844512
 Transform:
   m_ObjectHideFlags: 0
@@ -8488,7 +8505,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7775758697528844513}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalPosition: {x: -6.73, y: -0.06, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8499,6 +8516,21 @@ Transform:
   m_Father: {fileID: 7775758697475519846}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8322422115613446124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775758697528844513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Quest_UI
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &7775758697534503349
 GameObject:
   m_ObjectHideFlags: 0
@@ -9581,6 +9613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_MapOpenButton_Highlighter
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!4 &4589327200714876887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6152943207130619687, guid: 24ac23fc7c6880b449f65fee8dc01fcf, type: 3}
@@ -10072,6 +10106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_ResearchOpenButton_Highlighter
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1001 &7775758697719258458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10164,3 +10200,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: WorldUI_CraftOpenButton_Highlighter
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0

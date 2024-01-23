@@ -198,6 +198,16 @@ public class Inventory : MonoBehaviour
         return GetISOInstockPlayerStat(iso).GetAmount();
     }
 
+    public PlayerStat GetInBuildPlayerStat(ItemScriptableObject iso)
+    {
+        ItemInfo ii = GetItemInfo(iso);
+        if (ii == null)
+        {
+            ii = CreateNewItemInfo(iso, 0);
+        }
+        return ii.inBuildAmount;
+    }
+
     public PlayerStat GetISOInstockPlayerStat(ItemScriptableObject iso)
     {
         ItemInfo ii = GetItemInfo(iso);

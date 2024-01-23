@@ -22,7 +22,7 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] List<UI_InventoryBlock> allInventoryBlocks = new List<UI_InventoryBlock>();
     ItemScriptableObject.Category displayingCategory;
     int maxColumns = 4;
-    int maxRows = 10;
+    int maxRows = 6;
     [SerializeField] float horizontalDisplacement;
     [SerializeField] float verticalDisplacement;
     [SerializeField] private GameObject categoryIndicatorBuildings;

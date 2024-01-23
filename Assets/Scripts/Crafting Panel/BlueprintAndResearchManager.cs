@@ -52,6 +52,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
         researchSwitchButton.SetActive(true);
         blueprintSwitchButton.SetActive(false);
+        
+        
     }
 
     public void OpenPanel()
