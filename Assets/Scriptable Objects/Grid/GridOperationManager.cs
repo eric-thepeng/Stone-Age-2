@@ -43,6 +43,8 @@ public class GridOperationManager : MonoBehaviour
 
         //StartCoroutine(CheckForInput());
         AddGridCoordinateManager();
+        
+        gameObject.AddComponent<GridTilemapManager>();
         // AddMaskGenerateManager();
 
         gridCollider = GetComponent<BoxCollider>();
