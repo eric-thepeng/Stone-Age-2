@@ -34,9 +34,9 @@ public class TooltipManager : MonoBehaviour
             switch (mode)
             {
                 case ToolMode.INVENTORYHOME:
-                    tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height * 1.3f;
+                    tip.transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Title").GetComponent<RectTransform>());
+                    textHeight = tip.transform.Find("Title").GetComponent<RectTransform>().rect.height * 1.3f;
                     break;
                 case ToolMode.INVENTORYRECRAFT:
                     tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
@@ -84,6 +84,8 @@ public class TooltipManager : MonoBehaviour
         {
             if(displayTip != null)
             {
+                //RectTransform tooltipRectTransform = displayTip.GetComponent<RectTransform>();
+                //tooltipRectTransform.anchoredPosition = mousePosition;
                 displayTip.transform.position = mousePosition;
             }
 
@@ -99,7 +101,8 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] GameObject mapExploreSpotTemplate;
     GameObject currentTemplate;
 
-    [SerializeField] float offset;
+    [SerializeField] float xOffset;
+    [SerializeField] float yOffset;
     private Vector3 mousePos;
     Tooltip tip;
     private Vector3 lastMousePosition;
@@ -153,23 +156,24 @@ public class TooltipManager : MonoBehaviour
         switch (mouseArea)
         {
             case MouseArea.TOPLEFT:
-                newPosition = new Vector3(mousePos.x + offset, mousePos.y - offset, mousePos.z);
+                newPosition = new Vector3(mousePos.x + xOffset, mousePos.y + _height + yOffset, mousePos.z);
                 break;
             case MouseArea.TOPRIGHT:
-                newPosition = new Vector3(mousePos.x - offset, mousePos.y - offset, mousePos.z);
+                newPosition = new Vector3(mousePos.x - xOffset, mousePos.y + _height + yOffset, mousePos.z);
                 break;
             case MouseArea.BOTTOMLEFT:
-                newPosition = new Vector3(mousePos.x + offset, mousePos.y + offset, mousePos.z);
+                newPosition = new Vector3(mousePos.x + xOffset, mousePos.y, mousePos.z - _height + yOffset);
                 break;
             case MouseArea.BOTTOMRIGHT:
-                newPosition = new Vector3(mousePos.x - offset, mousePos.y + offset, mousePos.z);
+                newPosition = new Vector3(mousePos.x - xOffset, mousePos.y, mousePos.z - _height + yOffset);
                 break;
             default:
-                newPosition = new Vector3(mousePos.x - offset, mousePos.y - offset, mousePos.z);
+                newPosition = new Vector3(mousePos.x - xOffset, mousePos.y, mousePos.z);
                 break;
         }
         if(tip!= null)
         {
+            print(mousePos.x + " " + mousePos.y);
             tip.changePosition(newPosition);
         }   
        
@@ -198,6 +202,8 @@ public class TooltipManager : MonoBehaviour
             mousePos = hit.point;
         }
 
+
+
         //change of mousse position
         if (_mousePosition != lastMousePosition)
         {
@@ -206,12 +212,10 @@ public class TooltipManager : MonoBehaviour
                 if (_mousePosition.x < screenWidth / 2)
                 {
                     currentMouseArea = MouseArea.TOPLEFT;
-                    //Debug.Log("Mouse is in the top left.");
                 }
                 else
                 {
                     currentMouseArea = MouseArea.TOPRIGHT;
-                    //Debug.Log("Mouse is in the top right.");
                 }
             }
             else
@@ -219,21 +223,19 @@ public class TooltipManager : MonoBehaviour
                 if (_mousePosition.x < screenWidth / 2)
                 {
                     currentMouseArea = MouseArea.BOTTOMLEFT;
-                    //Debug.Log("Mouse is in the bottom left.");
                 }
                 else
                 {
                     currentMouseArea = MouseArea.BOTTOMRIGHT;
-                    //Debug.Log("Mouse is in the bottom right.");
                 }
 
             }
 
             if(tip != null)
-            {
+            { 
                 UpdateTipPosition(mousePos, currentMouseArea);
             }
-            //UpdateTipPosition(mousePos, currentMouseArea);
+;
             lastMousePosition = _mousePosition;
         }
     
