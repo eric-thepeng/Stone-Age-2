@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public static class SOExport
 {
     [MenuItem("Assets/Export Data")]
-    static void ExportScriptableObjectsData()
+    static void ExportScriptableObjects()
     {
         string[] guids = AssetDatabase.FindAssets("t:ItemScriptableObject"); 
         List<string> lines = new List<string>();
