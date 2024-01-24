@@ -68,7 +68,7 @@ public class ItemScriptableObject : SerializedScriptableObject
             return export;
         }
     }
-
+    
     public int TetrisUnitAmount
     {
         get
@@ -93,10 +93,29 @@ public class ItemScriptableObject : SerializedScriptableObject
     }
     
     /// <summary>
+    /// The max x and y dimension (bottom-right most unit) of the formation coord 
+    /// </summary>
+    public Vector2Int Dimension
+    {
+        get
+        {
+            Vector2Int botRight = new Vector2Int(0, 0);
+            foreach (var VARIABLE in HomogeneousCoord)
+            {
+                if (VARIABLE.x > botRight.x) botRight.x = VARIABLE.x;
+                if (VARIABLE.y > botRight.y) botRight.y = VARIABLE.y;
+            }
+            return botRight + new Vector2Int(1, 1); // plus 1,1 because coords start at 0,0
+        }
+    }
+
+    
+    /// <summary>
     /// </summary>
     /// <returns>The difference between the Tetris' bottom-right boundary and its center.</returns>
     public Vector2 GetBottomRightDelta()
     {
+        /*
         Vector2 botRight = new Vector2(0, 0);
         bool first = true;
         foreach( KeyValuePair < Vector2, ItemScriptableObject> kvp in FormationRecipeCoord)
@@ -110,7 +129,11 @@ public class ItemScriptableObject : SerializedScriptableObject
             if (kvp.Key.y > botRight.y) botRight.y = kvp.Key.y;
         }
         botRight = new Vector2(botRight.x, -botRight.y);
-        return botRight/2;
+        return botRight/2;*/
+
+        Vector2 delta = Dimension - new Vector2Int(1, 1);
+        delta /= 2;
+        return new Vector2(delta.x, -delta.y); // -y because coord is positive but delta is negative
     }
 
     public override string ToString()
