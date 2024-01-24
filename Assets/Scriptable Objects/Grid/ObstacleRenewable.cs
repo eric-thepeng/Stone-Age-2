@@ -7,16 +7,20 @@ using UnityEngine.UIElements;
 
 public class ObstacleRenewable : MonoBehaviour
 {
-    public Vector2 countdownTime = new Vector2(10f,10f); // 初始倒计时时间
+    [SerializeField]
+    private Vector2 interval = new Vector2(10f,10f); // 初始倒计时时间
     
-    public int maxObjects = 3; // 最大对象数量
+    [SerializeField]
+    private int maxObjects = 3; // 最大对象数量
 
-    public int range = 10;
+    [SerializeField]
+    private int generationRange = 10;
     
     private Tilemap tilemap; // 用于检查位置是否为空的Tilemap
     
     public List<GameObject> respawnPrefabList; // 存储Prefab的列表
     
+    [SerializeField]
     private List<GameObject> spawnedObjects = new List<GameObject>(); // 存储已生成的对象列表
 
     private float countdownTimer;
@@ -26,7 +30,7 @@ public class ObstacleRenewable : MonoBehaviour
     void Start()
     {
         // need to change to find tilemap
-        countdownTimer = Random.Range(countdownTime.x,countdownTime.y);
+        countdownTimer = Random.Range(interval.x,interval.y);
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class ObstacleRenewable : MonoBehaviour
 
         if (countdownTimer <= 0f)
         {
-
+            spawnedObjects.RemoveAll(item => item == null);
             if (spawnedObjects.Count < maxObjects)
             {
                 bool spawned = false;
@@ -62,9 +66,9 @@ public class ObstacleRenewable : MonoBehaviour
                         attemptedSpawnCount++;
                     }
                 }
-                countdownTimer = Random.Range(countdownTime.x,countdownTime.y);
             }
             
+            countdownTimer = Random.Range(interval.x,interval.y);
             
         }
     }
@@ -72,7 +76,7 @@ public class ObstacleRenewable : MonoBehaviour
     
     Vector3 GetRandomPosition()
     {
-        Vector3 randomPosition = new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range));
+        Vector3 randomPosition = new Vector3(Random.Range(-generationRange, generationRange), 0f, Random.Range(-generationRange, generationRange));
         // Debug.Log("Random Position: " + randomPosition);
         return randomPosition;
     }
