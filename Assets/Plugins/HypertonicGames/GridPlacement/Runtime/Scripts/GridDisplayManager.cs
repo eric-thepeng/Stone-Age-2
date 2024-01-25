@@ -245,7 +245,7 @@ namespace Hypertonic.GridPlacement
 
             Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();
             Tilemap RegionPresetTilemap = gridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
-            tilemapGameObject.AddComponent<TilemapRenderer>();
+            tilemapGameObject.AddComponent<TilemapRenderer>().sortingOrder = -10;
 
             tilemapGameObject.transform.localScale = new Vector3(2, 2, 2);
             tilemapGameObject.transform.rotation = Quaternion.Euler(90,0,0);
