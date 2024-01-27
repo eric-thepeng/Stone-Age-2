@@ -36,16 +36,19 @@ public class TooltipManager : MonoBehaviour
                 case ToolMode.INVENTORYHOME:
                     tip.transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Title").GetComponent<RectTransform>());
-                    textHeight = tip.transform.Find("Title").GetComponent<RectTransform>().rect.height * 1.3f;
+                    tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
+                    tip.transform.Find("Title").transform.rotation = Quaternion.Euler(45, 0, 0);
+                    textHeight = tip.transform.Find("Title").GetComponent<RectTransform>().rect.height;
                     break;
                 case ToolMode.INVENTORYRECRAFT:
                     tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
                     GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
                     Tetris.transform.SetParent(tip.transform);
-                    //Tetris.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
+                    tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
+                    tip.transform.Find("Text").transform.rotation = Quaternion.Euler(45, 0, 0);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
                     //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
-                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.8f;
+                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.5f;
                     break;
             }
 
@@ -91,7 +94,7 @@ public class TooltipManager : MonoBehaviour
         }
         public void DestroyDisplay()
         {
-            //Destroy(displayTip);
+            Destroy(displayTip);
         }
     }
 
