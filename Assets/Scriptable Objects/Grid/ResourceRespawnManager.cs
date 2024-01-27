@@ -48,7 +48,6 @@ public class ResourceRespawnManager : MonoBehaviour
         [SerializeField]
         private Vector2 interval = new Vector2(10f,10f);
     
-        [SerializeField]
         private List<GameObject> spawnedObjects = new List<GameObject>();
         private BoxCollider obstacleCollider;
 

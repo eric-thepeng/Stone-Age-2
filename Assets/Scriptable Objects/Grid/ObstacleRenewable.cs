@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Hypertonic.GridPlacement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,11 +17,15 @@ public class ObstacleRenewable : MonoBehaviour
     [SerializeField]
     private int generationRange = 10;
     
+    
     private Tilemap tilemap; // 用于检查位置是否为空的Tilemap
     
     public List<GameObject> respawnPrefabList; // 存储Prefab的列表
     
-    [SerializeField]
+    
+    [Header("Animation")] [SerializeField] private AnimationCurve animationCurve;
+    [SerializeField] private float animationDuration;
+
     private List<GameObject> spawnedObjects = new List<GameObject>(); // 存储已生成的对象列表
 
     private float countdownTimer;
@@ -67,7 +72,27 @@ public class ObstacleRenewable : MonoBehaviour
                         Destroy(spawnedObject);
                         attemptedSpawnCount++;
                     }
+                    
+                    if (spawned)
+                    {
+                        Vector3 originalScale = spawnedObject.transform.localScale;
+                        DOVirtual.Float(0f, 1f, animationDuration, (float value) =>
+                        {
+                            float scaleValue = animationCurve.Evaluate(value);
+                            Vector3 newScale = spawnedObject.transform.localScale;
+                            newScale.x = originalScale.x * scaleValue;
+                            newScale.y = originalScale.y * scaleValue;
+                            newScale.z = originalScale.z * scaleValue;
+                            spawnedObject.transform.localScale = newScale;
+                        }).OnComplete(() =>
+                        {
+                            // 动画完成后恢复原始尺寸
+                            spawnedObject.transform.localScale = originalScale;
+                        });
+
+                    }
                 }
+                
             }
             
             countdownTimer = Random.Range(interval.x,interval.y);

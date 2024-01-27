@@ -439,7 +439,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     GridManagerAccessor.GridManager.EndPaintMode(true);
                     i.CancelSelectedBuidling();
-                    Debug.Log("CancelSelectedBuidling");
+                    // Debug.Log("CancelSelectedBuidling");
 
                     CloseBuildingMode();
                 }
@@ -459,7 +459,7 @@ public class BuildingManager : MonoBehaviour
                         if (GridManagerAccessor.GridManager.ObjectToPlace.GetComponent<PlaceableObject>().containsTag("EmptyObject"))
                         {
                             bool _hit = DeletingProcessHitItem(hitInfo);
-                            Debug.Log(_hit);
+                            // Debug.Log(_hit);
                             if (!_hit) ToggleModifying();
                         }
                         else
@@ -475,7 +475,7 @@ public class BuildingManager : MonoBehaviour
                     if (GetSelectedBuildingISO() != null)
                     {
                         i.CancelSelectedBuidling();
-                        Debug.Log("CancelSelectedBuidling");
+                        // Debug.Log("CancelSelectedBuidling");
                     }
 
                     CloseBuildingMode();
@@ -573,7 +573,7 @@ public class BuildingManager : MonoBehaviour
     {
         if(selectedUIIB != null)selectedUIIB.SetSelectedBackground(false);
         selectedUIIB = uiib;
-        Debug.Log(uiib);
+        // Debug.Log(uiib);
         UI_BuildingPointer.i.SetUp((BuildingISO)uiib.GetISO());
         //Debug.Log((BuildingISO)uiib.GetISO());
     }

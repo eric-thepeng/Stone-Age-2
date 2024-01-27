@@ -140,9 +140,9 @@ namespace Hypertonic.GridPlacement
                 if (_objectPlacementContainer == null)
                 {
                     _objectPlacementContainer = new GameObject("Object Placement Container");
-
                     if(_gridManager != null)
                     {
+                        _objectPlacementContainer.transform.parent = _gridManager.GridTransformGO.transform.parent;
                         _objectPlacementContainer.transform.position = _gridManager.GridTransformGO.transform.position;
                     }
                 }
