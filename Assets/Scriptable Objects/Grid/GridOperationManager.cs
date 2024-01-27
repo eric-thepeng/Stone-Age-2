@@ -45,6 +45,8 @@ public class GridOperationManager : MonoBehaviour
         AddGridCoordinateManager();
         
         gameObject.AddComponent<GridTilemapManager>();
+        
+        FindObjectOfType<ResourceRespawnManager>().Setup();      
         // AddMaskGenerateManager();
 
         gridCollider = GetComponent<BoxCollider>();

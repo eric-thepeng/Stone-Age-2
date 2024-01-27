@@ -15,7 +15,7 @@ public class GridTilemapManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Tilemap typeTilemap = GridManagerAccessor.GridManager.GridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
         typeTilemap = FindObjectOfType<GridDisplayManager>().GenerateCurrentGridBackground(transform);
