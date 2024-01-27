@@ -42,10 +42,10 @@ public class TooltipManager : MonoBehaviour
                     tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
                     GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
                     Tetris.transform.SetParent(tip.transform);
-                  
-                    //LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Tetris").GetComponent<SpriteRenderer>());
+                    //Tetris.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
+                    //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
+                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.8f;
                     break;
             }
 
@@ -53,7 +53,6 @@ public class TooltipManager : MonoBehaviour
             //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
             tipHeight = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.y;
-
 
             Vector3 targetScale = tip.transform.Find("Background").transform.localScale;
             targetScale.y = (textHeight / tipHeight) * targetScale.y;
@@ -92,7 +91,7 @@ public class TooltipManager : MonoBehaviour
         }
         public void DestroyDisplay()
         {
-            Destroy(displayTip);
+            //Destroy(displayTip);
         }
     }
 
@@ -173,7 +172,6 @@ public class TooltipManager : MonoBehaviour
         }
         if(tip!= null)
         {
-            print(mousePos.x + " " + mousePos.y);
             tip.changePosition(newPosition);
         }   
        
@@ -204,7 +202,7 @@ public class TooltipManager : MonoBehaviour
 
 
 
-        //change of mousse position
+        //change of mouse position
         if (_mousePosition != lastMousePosition)
         {
             if (_mousePosition.y < screenHeight / 3)
