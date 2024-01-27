@@ -185,7 +185,8 @@ namespace Hypertonic.GridPlacement
             _grid = new PlacementGrid(_gridSettings, DeleteObjectFn, PlacementGridSetupCallback);
             _gridDisplayManager.Setup(this, _gridSettings);
 
-            GridTransformGO = new GameObject("Grid Object Container");
+            GridTransformGO = new GameObject("Grid Objects Container");
+            GridTransformGO.transform.parent = transform;
             GridTransformGO.transform.position = RuntimeGridPosition;
             GridTransformGO.transform.rotation = Quaternion.Euler(new Vector3(0, RuntimeGridRotation, 0));
 

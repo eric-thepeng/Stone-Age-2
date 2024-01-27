@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Hypertonic.GridPlacement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -83,7 +84,7 @@ public class ResourceRespawnManager : MonoBehaviour
                 // return false;
             }
             
-            Debug.Log("spawn countdown started - " + availableType);
+            // Debug.Log("spawn countdown started - " + availableType);
             spawnCoroutine = runner.StartCoroutine(SpawnCountdown(runner));
             return true;
         }
@@ -100,7 +101,7 @@ public class ResourceRespawnManager : MonoBehaviour
 
         private void SpawnCountdownComplete()
         {
-            Debug.Log("spawn countdown ended - " + availableType);
+            // Debug.Log("spawn countdown ended - " + availableType);
             spawnedObjects.RemoveAll(item => item == null);
             if (spawnedObjects.Count < maximumAmount)
             {
@@ -144,39 +145,48 @@ public class ResourceRespawnManager : MonoBehaviour
         // }
     }
 
-    public class TileWithIndex
-    {
-        private TileBase _tileBase;
-        private Vector3Int _position;
-
-        public TileWithIndex(Vector3Int position, TileBase tileBase)
-        {
-            _tileBase = tileBase;
-            _position = position;
-        }
-
-        public TileBase TileBase
-        {
-            get => _tileBase;
-            set => _tileBase = value;
-        }
-
-        public Vector3Int Position
-        {
-            get => _position;
-            set => _position = value;
-        }
-    }
+    // public class TileWithIndex
+    // {
+    //     private TileBase _tileBase;
+    //     private Vector3Int _position;
+    //
+    //     public TileWithIndex(Vector3Int position, TileBase tileBase)
+    //     {
+    //         _tileBase = tileBase;
+    //         _position = position;
+    //     }
+    //
+    //     public TileBase TileBase
+    //     {
+    //         get => _tileBase;
+    //         set => _tileBase = value;
+    //     }
+    //
+    //     public Vector3Int Position
+    //     {
+    //         get => _position;
+    //         set => _position = value;
+    //     }
+    // }
 
 
     [SerializeField] List<RespawnRule> respawnRules;
-    private Dictionary<AvailableType, List<TileWithIndex>> tileDictionary = new Dictionary<AvailableType, List<TileWithIndex>>();
+    private Dictionary<AvailableType, List<Vector3Int>> tileDictionary = new Dictionary<AvailableType, List<Vector3Int>>();
+
+    [Header("Animation")] [SerializeField] private AnimationCurve animationCurve;
+    [SerializeField] private float animationDuration;
+    
     
     // 获取Tilemap组件的引用
+    // public Tilemap respawnTileFab;
+    
     private Tilemap tilemap;
+    private GameObject obstacleContainer;
     
     protected virtual void Start()
     {
+        obstacleContainer = new GameObject("Obstacles Container");
+        obstacleContainer.transform.parent = transform;
     }
 
     public void Setup()
@@ -223,13 +233,13 @@ public class ResourceRespawnManager : MonoBehaviour
                     // 如果字典中已经包含该类型，将瓷砖添加到列表中
                     if (tileDictionary.ContainsKey(tileType))
                     {
-                        tileDictionary[tileType].Add(new TileWithIndex(pos,tileBase));
+                        tileDictionary[tileType].Add(pos);
                     }
                     // 否则，创建新的列表并添加到字典中
                     else
                     {
-                        List<TileWithIndex> tileList = new List<TileWithIndex>();
-                        tileList.Add(new TileWithIndex(pos,tileBase));
+                        List<Vector3Int> tileList = new List<Vector3Int>();
+                        tileList.Add(pos);
                         tileDictionary.Add(tileType, tileList);
                     }
                 }
@@ -243,7 +253,7 @@ public class ResourceRespawnManager : MonoBehaviour
         List<GameObject> respawnPrefabs = respawnRules[index].respawnPrefabList;
         AvailableType type = respawnRules[index].availableType;
         
-        Debug.Log("attempting spawn: " + index + " - " + type);
+        // Debug.Log("attempting spawn: " + index + " - " + type);
         
         bool spawned = false;
         int attemptedSpawnCount = 0;
@@ -253,6 +263,8 @@ public class ResourceRespawnManager : MonoBehaviour
             GameObject spawnedObject = Instantiate(respawnPrefabs[Random.Range(0, respawnPrefabs.Count)], spawnPosition,
                 Quaternion.identity);
             spawnedObject.transform.position = spawnPosition;
+            spawnedObject.transform.parent = obstacleContainer.transform;
+            
             BoxCollider obstacleCollider = spawnedObject.GetComponent<BoxCollider>();
 
             // 检查位置是否为空
@@ -260,48 +272,92 @@ public class ResourceRespawnManager : MonoBehaviour
             {
                 respawnRules[index].AddSpawnedObject(spawnedObject);
                 
-                Debug.Log("successfully spawn: " + spawnedObject);
+                // Debug.Log("successfully spawn: " + spawnedObject);
                 spawned = true;
             }
             else
             {
-                Debug.Log("failure when spawn: " + spawnedObject);
+                // Debug.Log("failure when spawn: " + spawnedObject);
                 Destroy(spawnedObject);
                 attemptedSpawnCount++;
             }
+
+            if (spawned)
+            {
+                Vector3 originalScale = spawnedObject.transform.localScale;
+                DOVirtual.Float(0f, 1f, animationDuration, (float value) =>
+                {
+                    float scaleValue = animationCurve.Evaluate(value);
+                    Vector3 newScale = spawnedObject.transform.localScale;
+                    newScale.x = originalScale.x * scaleValue;
+                    newScale.y = originalScale.y * scaleValue;
+                    newScale.z = originalScale.z * scaleValue;
+                    spawnedObject.transform.localScale = newScale;
+                }).OnComplete(() =>
+                {
+                    // 动画完成后恢复原始尺寸
+                    spawnedObject.transform.localScale = originalScale;
+                });
+
+            }
         }
     }
-    
-    public TileWithIndex GetRandomTileByType(AvailableType availableType)
-    {
-        List<TileWithIndex> availableTiles = new List<TileWithIndex>();
 
-        if ((availableType & AvailableType.DefaultTile) != 0)
+    
+    public Vector3Int GetRandomTileByType(AvailableType availableType)
+    {
+        List<Vector3Int> availableTiles = new List<Vector3Int>();
+
+        foreach (AvailableType type in Enum.GetValues(typeof(AvailableType)))
         {
-            availableTiles.AddRange(tileDictionary[AvailableType.DefaultTile]);
+            if (type != AvailableType.None && (availableType & type) == type)
+            {
+                if (tileDictionary.ContainsKey(type))
+                {
+                    availableTiles.AddRange(tileDictionary[type]);
+                }
+            }
         }
-        if ((availableType & AvailableType.WaterTile) != 0)
-        {
-            availableTiles.AddRange(tileDictionary[AvailableType.WaterTile]);
-        }
-        if ((availableType & AvailableType.HillTile) != 0)
-        {
-            availableTiles.AddRange(tileDictionary[AvailableType.HillTile]);
-        }
-        
+
         if (availableTiles.Count > 0)
         {
-            int randomIndex = Random.Range(0, availableTiles.Count);
-            Debug.Log("count - " + randomIndex);
+            int randomIndex = UnityEngine.Random.Range(0, availableTiles.Count);
             return availableTiles[randomIndex];
         }
 
-        return null; // No matching tiles found
+        return new Vector3Int(-1, -1, -1); // No matching tiles found
     }
+    
+    // public Vector3Int GetRandomTileByType(AvailableType availableType)
+    // {
+    //     List<Vector3Int> availableTiles = new List<Vector3Int>();
+    //
+    //     if ((availableType & AvailableType.DefaultTile) != 0)
+    //     {
+    //         availableTiles.AddRange(tileDictionary[AvailableType.DefaultTile]);
+    //     }
+    //     if ((availableType & AvailableType.WaterTile) != 0)
+    //     {
+    //         availableTiles.AddRange(tileDictionary[AvailableType.WaterTile]);
+    //     }
+    //     if ((availableType & AvailableType.HillTile) != 0)
+    //     {
+    //         availableTiles.AddRange(tileDictionary[AvailableType.HillTile]);
+    //     }
+    //     
+    //     if (availableTiles.Count > 0)
+    //     {
+    //         int randomIndex = Random.Range(0, availableTiles.Count);
+    //         Debug.Log("count - " + randomIndex);
+    //         return availableTiles[randomIndex];
+    //     }
+    //
+    //     return new Vector3Int(-1,-1,-1); // No matching tiles found
+    // }
     
     Vector3 GetRandomPosition(AvailableType type)
     {
-        Vector3Int randomPosition = GetRandomTileByType(type).Position;
+        Vector3Int randomPosition = GetRandomTileByType(type);
         Vector3 tileWorldPosition = tilemap.GetCellCenterWorld(randomPosition);
         tileWorldPosition.y = 0;
         // Debug.Log("Random Position: " + randomPosition);
@@ -328,7 +384,7 @@ public class ResourceRespawnManager : MonoBehaviour
 
                 if (tilemap.GetTile(pos) == null)
                 {
-                    Debug.Log("tilemap: " + pos + " is null");
+                    // Debug.Log("tilemap: " + pos + " is null");
                     return false;
                 }
             }

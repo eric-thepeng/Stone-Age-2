@@ -31,6 +31,7 @@ public class ObstacleRenewable : MonoBehaviour
     {
         // need to change to find tilemap
         countdownTimer = Random.Range(interval.x,interval.y);
+        
     }
 
     // Update is called once per frame
@@ -51,6 +52,7 @@ public class ObstacleRenewable : MonoBehaviour
                     GameObject spawnedObject = Instantiate(respawnPrefabList[Random.Range(0, respawnPrefabList.Count)], spawnPosition,
                         Quaternion.identity);
                     spawnedObject.transform.position = spawnPosition;
+                    spawnedObject.transform.parent = GameObject.Find("Obstacles Container").transform;
                     obstacleCollider = spawnedObject.GetComponent<BoxCollider>();
 
                     // 检查位置是否为空

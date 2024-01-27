@@ -90,7 +90,7 @@ namespace Hypertonic.GridPlacement
         private GameObject GenerateGridCanvas(GridSettings gridSettings)
         {
             GameObject canvasGameObject = new GameObject("Placement Grid Canvas " + gridSettings.Key);
-
+            canvasGameObject.transform.parent = transform;
             canvasGameObject.layer = LayerMask.NameToLayer("Grid");
             
             GameObject indicatorCanvasGameObject = new GameObject("Indicator Canvas");
@@ -136,7 +136,7 @@ namespace Hypertonic.GridPlacement
 
         public Tilemap GenerateCurrentGridBackground(Transform parent)
         {
-            GameObject backgroundImage = new GameObject("Background Image");
+            GameObject backgroundImage = new GameObject("Tilemap Data");
             backgroundImage.transform.SetParent(parent, false);
             
 
@@ -233,7 +233,7 @@ namespace Hypertonic.GridPlacement
 
         private void GenerateGridBackground(GridSettings gridSettings, Transform gridTransform)
         {
-            GameObject backgroundImage = new GameObject("Background Image");
+            GameObject backgroundImage = new GameObject("Tilemap Background Image");
             backgroundImage.transform.SetParent(gridTransform, false);
             
 
@@ -338,7 +338,7 @@ namespace Hypertonic.GridPlacement
             //
             // _gridSpriteRenderer.gameObject.transform.localScale = new Vector3(gridSettings.CellSize*10, gridSettings.CellSize * 10, gridSettings.CellSize * 10);
 
-            FindObjectOfType<GridTilemapManager>().TypeTilemap = tilemap;
+            // FindObjectOfType<GridTilemapManager>().TypeTilemap = tilemap;
         }
         
         
