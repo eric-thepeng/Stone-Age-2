@@ -14,6 +14,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     [SerializeField] private SO_ExploreSpotSetUpInfo setUpInfo = null;
     private int startState = 0;
     private SO_SerialEffectIdentifier serialEffectIdentifier;
+    bool mouseOver = false;
 
     private void Awake()
     {
@@ -79,5 +80,19 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     public SO_SerialEffectIdentifier mySEI { get => serialEffectIdentifier; }
 
     #endregion
+    private void OnMouseEnter()
+    {
+        if (setUpInfo == null) return;
+        TooltipManager.i.ShowMapTip(GetSetUpInfo(), TooltipManager.ToolMode.INVENTORYRECRAFT);
+        mouseOver = true;
+    }
+
+    private void OnMouseExit()
+    {
+        if (setUpInfo == null) return;
+        TooltipManager.i.DestroyTip();
+        mouseOver = false;
+    }
+
 
 }

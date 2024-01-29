@@ -41,11 +41,13 @@ public class Tetris : DragInventoryItem
 
     //To trigger and check recipe-related actions
     public RecipeCombinator myRC;
+
     
 
     private void Update()
     {
-        if(stateNow == state.Drag && Input.GetMouseButton(0)) //DRAG
+
+        if (stateNow == state.Drag && Input.GetMouseButton(0)) //DRAG
         {
             transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
         }
@@ -91,11 +93,13 @@ public class Tetris : DragInventoryItem
     private void OnMouseEnter()
     {
         CraftingManager.i.mouseEnterTetris(itemSO);
+        TooltipManager.i.ShowTip(itemSO, TooltipManager.ToolMode.INVENTORYHOME);
     }
 
     private void OnMouseExit()
     {
         CraftingManager.i.mouseExitTetris();
+        TooltipManager.i.DestroyTip();
     }
 
     private void OnMouseDown() // 
@@ -107,8 +111,6 @@ public class Tetris : DragInventoryItem
         ResetEdges(); //so that rest of the recipe refreshes
         tetrisDownPos = transform.position;
     }
-
-
     public void RefreshEdges(Tetris excludeTetris = null)
     {
         foreach (Edge e in allEdges)
