@@ -5,6 +5,7 @@ using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Playables;
 
 /// <summary>
 /// Need to override PerformAction() and IsAssigned() from IPerformableAction
@@ -441,5 +442,116 @@ public class SubUniAction : IPerformableAction
     public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction && blueprints != null;
+    }
+}
+
+[Serializable]public class TimelineAnimationAction : SubUniAction
+{
+    public enum ActionType{NoAction, StartTimeline, WaitForTimeline, StartAndWaitForTimeline, StartAnimation, WaitForAnimation, StartAndWaitForAnimation}
+    public ActionType actionType = ActionType.NoAction;
+    
+    [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
+    public string targetGameObjectSetUpIdentifierID;
+    
+    PlayableDirector myPD;
+    Animator myAMT;
+
+    public override void PerformAction()
+    {
+        // Routine
+        
+        if(actionType == ActionType.NoAction) Debug.LogError("TimelineAnimation Game SubUniAction has action type NoAction");
+
+        if (targetGameObject == null)
+            targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
+        
+        if(targetGameObject == null) Debug.LogError("TimelineAnimation can not find game object by id");
+        
+        onActionStarts.Invoke();
+        
+        // Perform According to Action Type
+        
+        if (TargetIsAnimator()) // ---- ANIMATOR ----
+        {
+            myAMT = targetGameObject.GetComponent<Animator>();
+            if (actionType == ActionType.StartAnimation || actionType == ActionType.WaitForAnimation)
+            {
+                
+            }
+
+
+
+        }else if (TargetIsTimeline()) // ---- TIMELINE ----
+        {
+            myPD = targetGameObject.GetComponent<PlayableDirector>();
+
+            if (actionType == ActionType.StartTimeline || actionType == ActionType.StartAndWaitForTimeline)
+            {
+                myPD.Play();
+                if(actionType == ActionType.StartTimeline) FinishUniAction();
+            }
+
+            if (actionType == ActionType.WaitForTimeline || actionType == ActionType.StartAndWaitForTimeline)
+            {
+                myPD.stopped += OnPlayableDirectorStopped;
+            }
+        }
+        
+        
+
+        /*
+        if(actionType == ActionType.NoAction) Debug.LogError("GameObjectAction SubUniAction has action type NoAction");
+
+        onActionStarts.Invoke();
+
+        if (targetGameObject == null)
+            targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
+        
+        Vector3 finalGlobalPosition = targetGameObject.transform.position + targetVector;
+        Vector3 finalLocalPosition = targetGameObject.transform.localPosition + targetVector;
+
+        if (actionType == ActionType.LocalMoveAmount) targetGameObject.transform.DOLocalMove(finalLocalPosition, moveTime).onComplete = onActionCompletes.Invoke;
+        else if (actionType == ActionType.GlobalMoveAmount) targetGameObject.transform.DOMove(finalGlobalPosition, moveTime).onComplete = onActionCompletes.Invoke;
+        
+        else if (actionType == ActionType.LocalMoveTo) targetGameObject.transform.DOLocalMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
+        else if (actionType == ActionType.GlobalMoveTo) targetGameObject.transform.DOMove(targetVector, moveTime).onComplete = onActionCompletes.Invoke;
+        
+        else if (actionType == ActionType.SetActive)
+        {
+            targetGameObject.SetActive(true); 
+            onActionCompletes.Invoke();
+        }
+        else if (actionType == ActionType.SetInactive)
+        {
+            targetGameObject.SetActive(false); 
+            onActionCompletes.Invoke();
+        }*/
+    }
+
+    void OnPlayableDirectorStopped(PlayableDirector myPlayableDirector)
+    {
+        if(myPlayableDirector == myPD) FinishUniAction();
+    }
+    
+    public void FinishUniAction()
+    {
+        onActionCompletes.Invoke();
+    }
+
+    private bool TargetIsAnimator()
+    {
+        return actionType == ActionType.StartAnimation || actionType == ActionType.WaitForAnimation ||
+               actionType == ActionType.StartAndWaitForAnimation;
+    }
+
+    private bool TargetIsTimeline()
+    {
+        return actionType == ActionType.StartTimeline || actionType == ActionType.WaitForTimeline ||
+               actionType == ActionType.StartAndWaitForTimeline;
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
     }
 }

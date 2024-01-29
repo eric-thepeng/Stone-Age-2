@@ -672,6 +672,8 @@ Transform:
   - {fileID: 699600420}
   - {fileID: 1219421289}
   - {fileID: 7801121840523872676}
+  - {fileID: 4249716890977100122}
+  - {fileID: 4454809218098131089}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1241,79 +1243,7 @@ MonoBehaviour:
   uniActionSequence:
     allUniActions:
     - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Welcome to Uniland
-          - Hello
-      uniQuestAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      playerStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      levelUpAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetLevelUp: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetUnlockLevel: 0
-      gamePanelAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPanel: 0
-      cameraAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetAction: 0
-        i: 0
-      iuaiAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        actionIndex: 0
-      characterGatherAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGatherSpot: {fileID: 0}
-        targetCharacter: {fileID: 0}
-      blueprintAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        blueprints: []
-    - delayTime: 0
-      uniActionType: 4
+      uniActionType: 12
       gameObjectAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -1336,10 +1266,10 @@ MonoBehaviour:
       playerStatAction:
         note: leave a note for editor
         triggerAndQueNext: 0
-        actionType: 2
-        targetPlayerStatType: 1
+        actionType: 0
+        targetPlayerStatType: 0
         targetISO: {fileID: 0}
-        targetAmount: 30
+        targetAmount: 0
       buttonAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -1382,6 +1312,12 @@ MonoBehaviour:
         triggerAndQueNext: 0
         actionType: 0
         blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 3
+        targetGameObject: {fileID: 4281462120753774353}
+        targetGameObjectSetUpIdentifierID: 
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -1398,8 +1334,7 @@ MonoBehaviour:
         actionType: 1
         narrativeSequenceToPlay:
           data:
-          - Test 1 passed
-          - Good job
+          - works works
       uniQuestAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -1454,148 +1389,84 @@ MonoBehaviour:
         triggerAndQueNext: 0
         actionType: 0
         blueprints: []
-    - delayTime: 0
-      uniActionType: 4
-      gameObjectAction:
+      timelineAnimationAction:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        narrativeSequenceToPlay:
-          data: []
-      uniQuestAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      playerStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 1
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 3
-      buttonAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      levelUpAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetLevelUp: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetUnlockLevel: 0
-      gamePanelAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPanel: 0
-      cameraAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetAction: 0
-        i: 0
-      iuaiAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        actionIndex: 0
-      characterGatherAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGatherSpot: {fileID: 0}
-        targetCharacter: {fileID: 0}
-      blueprintAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        blueprints: []
-    - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 1
-        narrativeSequenceToPlay:
-          data:
-          - Test 2 passed
-          - Good job
-      uniQuestAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      playerStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      levelUpAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetLevelUp: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetUnlockLevel: 0
-      gamePanelAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPanel: 0
-      cameraAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetAction: 0
-        i: 0
-      iuaiAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        actionIndex: 0
-      characterGatherAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGatherSpot: {fileID: 0}
-        targetCharacter: {fileID: 0}
-      blueprintAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        blueprints: []
+--- !u!1 &4281462120753774353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4249716890977100122}
+  - component: {fileID: 6935935684966845596}
+  - component: {fileID: 2864258428152849193}
+  m_Layer: 0
+  m_Name: Test Playable Director
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4249716890977100122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281462120753774353}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.4007726, y: 48.049686, z: -70.21509}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3728001428836454453}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &6935935684966845596
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281462120753774353}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 9e53ebcaa39c345a5afb2214a72b6bd4, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -5853231796415957109, guid: 9e53ebcaa39c345a5afb2214a72b6bd4, type: 2}
+    value: {fileID: 8192956019027612336}
+  m_ExposedReferences:
+    m_References:
+    - 33d7d808d07534734bfb9ce8c5369596: {fileID: 5716337666264231084}
+--- !u!114 &2864258428152849193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281462120753774353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
+  uniActionSequence:
+    allUniActions: []
 --- !u!1 &5604911407577065568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,6 +1518,111 @@ Transform:
   m_Father: {fileID: 3728001428836454453}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5716337666264231084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4454809218098131089}
+  - component: {fileID: 8211947827019389332}
+  - component: {fileID: 8192956019027612336}
+  m_Layer: 0
+  m_Name: Triangle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4454809218098131089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716337666264231084}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.68, z: -9.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3728001428836454453}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &8211947827019389332
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716337666264231084}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!95 &8192956019027612336
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716337666264231084}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &80626751890778098
 PrefabInstance:
   m_ObjectHideFlags: 0
