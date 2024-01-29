@@ -31,17 +31,24 @@ public class TooltipManager : MonoBehaviour
         {
             iso = newIso;
             displayTip = tip;
+            string name = iso.tetrisHoverName;
+            string description = iso.tetrisDescription;
+            if (name == "not set") name = "";
+            if (description == "not set") description = "";
+            
             switch (mode)
             {
+                //without description
                 case ToolMode.INVENTORYHOME:
-                    tip.transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+                    tip.transform.Find("Title").GetComponent<TextMeshPro>().text = name;
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Title").GetComponent<RectTransform>());
                     tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
                     tip.transform.Find("Title").transform.rotation = Quaternion.Euler(45, 0, 0);
                     textHeight = tip.transform.Find("Title").GetComponent<RectTransform>().rect.height;
                     break;
+                    //with description
                 case ToolMode.INVENTORYRECRAFT:
-                    tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = iso.tetrisHoverName;
+                    tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = name;
                     GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
                     Tetris.transform.SetParent(tip.transform);
                     tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
@@ -49,6 +56,8 @@ public class TooltipManager : MonoBehaviour
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
                     //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
                     textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.5f;
+                    break;
+                default:
                     break;
             }
 
@@ -66,28 +75,36 @@ public class TooltipManager : MonoBehaviour
         {
             es = newES;
             displayTip = tip;
+            string name = es.spotHoverName;
+            string description = es.spotHoverDescription;
+            if (name == "not set") name = "";
+            if (description == "not set") description = "";
 
-            tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = es.spotHoverName;
-            tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = es.spotHoverDescription;
+            tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = name;
+            tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = description;
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-            textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
+            textHeight = 2 * (tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height);
+            //tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
 
             //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
             tipHeight = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.y;
 
-
             Vector3 targetScale = tip.transform.Find("Background").transform.localScale;
             targetScale.y = (textHeight / tipHeight) * targetScale.y;
             tip.transform.Find("Background").transform.localScale = targetScale;
+
+            //both not set
+            if(name == "" && description == "")
+            {
+                DestroyDisplay();
+            }
         }
         public void changePosition(Vector3 mousePosition)
         {
             if(displayTip != null)
             {
-                //RectTransform tooltipRectTransform = displayTip.GetComponent<RectTransform>();
-                //tooltipRectTransform.anchoredPosition = mousePosition;
                 displayTip.transform.position = mousePosition;
             }
 
@@ -145,7 +162,9 @@ public class TooltipManager : MonoBehaviour
     public void ShowMapTip(SO_ExploreSpotSetUpInfo es, ToolMode mode)
     {
         currentTemplate = mapExploreSpotTemplate;
-        newDisplayTip = Instantiate(currentTemplate, this.transform);
+        Transform trans = this.transform;
+        trans.position += new Vector3(0, 1, 0);
+        newDisplayTip = Instantiate(currentTemplate, trans);
         newDisplayTip.SetActive(true);
         tip = new Tooltip(es, newDisplayTip);
     }
@@ -191,6 +210,7 @@ public class TooltipManager : MonoBehaviour
         lastMousePosition = Input.mousePosition;
     }
 
+    //track tip location
     void Update()
     {
         int screenHeight = Screen.height;
@@ -202,9 +222,6 @@ public class TooltipManager : MonoBehaviour
         {
             mousePos = hit.point;
         }
-
-
-
         //change of mouse position
         if (_mousePosition != lastMousePosition)
         {
