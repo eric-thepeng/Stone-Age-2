@@ -45,7 +45,7 @@ public class DialogueManager : MonoBehaviour
 
         if (loggingLine)
         {
-            LogLineImmediately(currentNSA.narrativeSequenceToPlay.GetLine(currentLine));
+            LogLineImmediately(currentNSA.targetNSSO.GetLocalizedNarrativeSequence().GetLine(currentLine));
         }
         else
         {
@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
     
     void PerformLine(int line)
     {
-        StartCoroutine(LogLine(currentNSA.narrativeSequenceToPlay.GetLine(line)));
+        StartCoroutine(LogLine(currentNSA.targetNSSO.GetLocalizedNarrativeSequence().GetLine(line)));
     }
 
     void ClearLine()
@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
 
     void PerformNextLine()
     {
-        if(currentNSA.narrativeSequenceToPlay.HasLine(currentLine+1))
+        if(currentNSA.targetNSSO.GetLocalizedNarrativeSequence().HasLine(currentLine+1))
         {
             currentLine++;
             PerformCurrentLine();

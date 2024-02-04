@@ -84,7 +84,7 @@ public class SubUniAction : IPerformableAction
     public enum ActionType{NoAction, PlayNarrativeSequence}
     public ActionType actionType = ActionType.NoAction;
     
-    public NarrativeSequence narrativeSequenceToPlay;
+    public NarrativeSequenceScriptableObject targetNSSO;
 
     public override void PerformAction()
     {
