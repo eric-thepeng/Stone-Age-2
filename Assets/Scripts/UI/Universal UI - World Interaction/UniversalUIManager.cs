@@ -22,6 +22,7 @@ public class UniversalUIManager : MonoBehaviour
     public class UniversalUIComponent
     {
         public WorldInteractable.InteractionType.TypeName identifier;
+        //public Texture2D cursorIcon;
 
         public GameObject uiGameObject;
         private RectTransform recTransform = null;
@@ -74,16 +75,29 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
 
+    [Serializable]
+    public class DefaultUI : UniversalUIComponent
+    {
+        public override void SetValue(float v)
+        {
+
+        }
+    }
+
     private WorldInteractable.InteractionType displayingWIIT;
     private UniversalUIComponent displayingUIComponent;
     
     public LongPressUI myLongPressUI;
     public ClickUI myClickUI;
+    public DefaultUI myDefaultUI;
+
+    public Texture2D cursorIcon;
 
     private UniversalUIComponent[] allUIComponent;
 
     private void Start()
     {
+        Cursor.SetCursor(cursorIcon, Vector3.zero, CursorMode.ForceSoftware);
         allUIComponent = new UniversalUIComponent[] {myLongPressUI, myClickUI };
         foreach (var uiComponent in allUIComponent)
         {
@@ -122,6 +136,7 @@ public class UniversalUIManager : MonoBehaviour
             }
         }
     }
+
 
     public void CancelDisplayComponent(WorldInteractable.InteractionType wiit)
     {

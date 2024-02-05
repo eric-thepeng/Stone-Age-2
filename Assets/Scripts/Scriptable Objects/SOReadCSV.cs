@@ -11,7 +11,7 @@ public static class SOReadCSV
 
         for (int i = 1; i < lines.Length; i++)
         {
-            string[] col = lines[i].Split(',');
+            string[] col = lines[i].Split(';');
             result.Add(col[0], col[1]);
         }
 

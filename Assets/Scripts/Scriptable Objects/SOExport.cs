@@ -20,7 +20,7 @@ public static class SOExport
 
             if (obj != null)
             {
-                lines.Add(obj.tetrisHoverName + ", NOT SET");
+                lines.Add(obj.tetrisHoverName + "; NOT SET");
             }
         }
 

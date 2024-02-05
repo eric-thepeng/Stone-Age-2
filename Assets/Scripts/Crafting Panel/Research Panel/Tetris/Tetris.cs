@@ -67,6 +67,7 @@ public class Tetris : DragInventoryItem
             else
             {
                 CraftingManager.i.PutBackTetrisToInventory(this.gameObject, true);
+                TooltipManager.i.DisableTip();
             }
             
         }
@@ -99,7 +100,7 @@ public class Tetris : DragInventoryItem
     private void OnMouseExit()
     {
         CraftingManager.i.mouseExitTetris();
-        TooltipManager.i.DestroyTip();
+        TooltipManager.i.DisableTip();
     }
 
     private void OnMouseDown() // 

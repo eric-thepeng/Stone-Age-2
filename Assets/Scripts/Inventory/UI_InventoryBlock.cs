@@ -76,7 +76,7 @@ public class UI_InventoryBlock : MonoBehaviour
     {
         if (itemInfo == null) return;
         //CraftingManager.i.mouseEnterInventoryBlock(this);
-        if (BlueprintAndResearchManager.i.isBnROpen())
+        if (PlayerState.IsResearch())
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
         }
@@ -84,28 +84,22 @@ public class UI_InventoryBlock : MonoBehaviour
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYHOME);
         }
-        
-        //InventoryHoverInfo.i.Display(transform.position);
         mouseOver = true;
     }
 
     private void OnMouseExit()
     {
         if (itemInfo == null) return;
-        //CraftingManager.i.mouseExitInventoryBlock();
-        TooltipManager.i.DestroyTip();
-        //InventoryHoverInfo.i.Disappear();
+        TooltipManager.i.DisableTip();
         mouseOver = false;
     }
 
     private void OnMouseDown()
     {
-
         if (itemInfo == null) return;
-
         if (mouseOver)
         {
-            TooltipManager.i.DestroyTip();
+            TooltipManager.i.DisableTip();
             mouseOver = false;
         }
 
@@ -172,7 +166,8 @@ public class UI_InventoryBlock : MonoBehaviour
 
     private void OnMouseUp()
     {
-        //if ( mouseOver ) { InventoryHoverInfo.i.Display(transform.position); }
+        if(TooltipManager.i.isTipPresent()) TooltipManager.i.DisableTip();
+
     }
 
     void CreateTetrisDrag()

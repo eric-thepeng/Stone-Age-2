@@ -54,7 +54,6 @@ public class TooltipManager : MonoBehaviour
                     tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
                     tip.transform.Find("Text").transform.rotation = Quaternion.Euler(45, 0, 0);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-                    //textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + Tetris.transform.Find("Icon Sprite").GetComponent<SpriteRenderer>().sprite.bounds.size.y  * Tetris.transform.Find("Icon Sprite").transform.localScale.y;
                     textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.5f;
                     break;
                 default:
@@ -85,7 +84,6 @@ public class TooltipManager : MonoBehaviour
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
             textHeight = 2 * (tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height);
-            //tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height;
 
             //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
@@ -101,7 +99,7 @@ public class TooltipManager : MonoBehaviour
                 DestroyDisplay();
             }
         }
-        public void changePosition(Vector3 mousePosition)
+        public void ChangePosition(Vector3 mousePosition)
         {
             if(displayTip != null)
             {
@@ -112,6 +110,11 @@ public class TooltipManager : MonoBehaviour
         public void DestroyDisplay()
         {
             Destroy(displayTip);
+        }
+
+        public void DisableDisplay()
+        {
+            displayTip.SetActive(false);
         }
     }
 
@@ -144,6 +147,8 @@ public class TooltipManager : MonoBehaviour
     
     public void ShowTip(ItemScriptableObject iso, ToolMode mode)
     {
+        StartCoroutine(Wait(0.3f));
+        if (isTipPresent()) tip.DestroyDisplay();
         switch (mode)
         {
             case ToolMode.INVENTORYHOME:
@@ -156,11 +161,12 @@ public class TooltipManager : MonoBehaviour
         newDisplayTip = Instantiate(currentTemplate, this.transform);
         newDisplayTip.SetActive(true);
         tip = new Tooltip(iso, newDisplayTip, mode);
-
-
     }
+
     public void ShowMapTip(SO_ExploreSpotSetUpInfo es, ToolMode mode)
     {
+        StartCoroutine(Wait(0.3f));
+        if (isTipPresent()) tip.DestroyDisplay();
         currentTemplate = mapExploreSpotTemplate;
         Transform trans = this.transform;
         trans.position += new Vector3(0, 1, 0);
@@ -171,6 +177,7 @@ public class TooltipManager : MonoBehaviour
 
     public void UpdateTipPosition(Vector3 mousePos, MouseArea mouseArea)
     {
+        StartCoroutine(Wait(0.3f));
         float _width = tip.tipWidth;
         float _height = tip.tipHeight;
         Vector3 newPosition = mousePos;
@@ -194,14 +201,25 @@ public class TooltipManager : MonoBehaviour
         }
         if(tip!= null)
         {
-            tip.changePosition(newPosition);
+            tip.ChangePosition(newPosition);
         }   
        
     }
 
-    public void DestroyTip()
+    public bool isTipPresent()
     {
+        if(tip == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void DisableTip()
+    {
+        StartCoroutine(Wait(0.3f));
         tip.DestroyDisplay();
+        //tip.DisableDisplay();
     }
 
     void Start()
@@ -258,5 +276,10 @@ public class TooltipManager : MonoBehaviour
         }
     
 
+    }
+
+    private IEnumerator Wait(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
     }
 }
