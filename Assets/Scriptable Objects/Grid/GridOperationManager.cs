@@ -41,14 +41,20 @@ public class GridOperationManager : MonoBehaviour
         _gridManager = new GameObject("Grid Manager").AddComponent<GridManager>();
         _gridManager.Setup(_gridSettings);
 
+        _gridManager.transform.parent = transform;
+
         //StartCoroutine(CheckForInput());
         AddGridCoordinateManager();
+        
+        gameObject.AddComponent<GridTilemapManager>();
+        
+        FindObjectOfType<ResourceRespawnManager>().Setup();      
         // AddMaskGenerateManager();
 
         gridCollider = GetComponent<BoxCollider>();
         if (gridCollider != null)
         {
-            transform.position = _gridSettings.GridPosition;
+            // transform.position = _gridSettings.GridPosition;
             gridCollider.size = new Vector3(_gridSettings.AmountOfCellsX * _gridSettings.CellSize, 1, _gridSettings.AmountOfCellsY * _gridSettings.CellSize);
         }
 
