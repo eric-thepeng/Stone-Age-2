@@ -16,7 +16,7 @@ public class CharacterInteraction : WorldInteractable
     // private ParticleSystem particleSystem;
 
     [SerializeField]
-    private float clickInterval = 0.1f;
+    private float clickInterval;
 
     // [Header("Animation")]
     [SerializeField]
@@ -28,11 +28,11 @@ public class CharacterInteraction : WorldInteractable
 
     [Header("Click Cycle")]
     [SerializeField]
-    private int maxClicks = 5;
+    private int maxClicks;
     private int currentClicks = 0;
 
     [SerializeField]
-    private float countdownTime = 10f;
+    private float countdownTime;
     private float currentTime;
 
     [Header("Icon Related")]
@@ -69,6 +69,20 @@ public class CharacterInteraction : WorldInteractable
 
             }
         }
+
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     DisableRuaCountdown();
+        // }
+        // if (Input.GetKeyDown(KeyCode.J))
+        // {
+        //     EnableRuaCountdown();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.K))
+        // {
+        //     EnterRuaState();
+        // }
         
         
     }
@@ -155,5 +169,13 @@ public class CharacterInteraction : WorldInteractable
         
         currentTime = 0;
         iconRenderer.sprite = clickableIcon;
+    }
+
+    public void Initialize(CharacterBasicStats initialStats)
+    {
+        maxClicks = initialStats.maxClicks;
+        PointToAdd = initialStats.pointsToAdd;
+        clickInterval = initialStats.clickInterval;
+        countdownTime = initialStats.countdownTime;
     }
 }

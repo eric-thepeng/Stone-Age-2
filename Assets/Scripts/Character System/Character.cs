@@ -217,6 +217,8 @@ public class Character : MonoBehaviour
         l2dCharacter = Instantiate(GetL2dGameObject(), transform);
         homeStatus.L2dCharacter = l2dCharacter;
         charInteractions = l2dCharacter.GetComponent<CharacterInteraction>();
+        
+        charInteractions.Initialize(initialStats);
     }
 
     void Update()
