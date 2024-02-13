@@ -11,6 +11,13 @@ public class CharacterHomeStatus : MonoBehaviour
 
     private HomeState currentState;
     private GameObject l2dCharacter;
+
+    public GameObject L2dCharacter
+    {
+        get => l2dCharacter;
+        set => l2dCharacter = value;
+    }
+
     private CharacterMovement characterMovement;
 
     private float moveSpeed = 1f;
@@ -25,7 +32,7 @@ public class CharacterHomeStatus : MonoBehaviour
         moveSpeed = character.GetMoveSpeed();
         hangOutWaitTime = character.GetHangOutWaitTime();
 
-        l2dCharacter = Instantiate(character.GetL2dGameObject());
+        // l2dCharacter = Instantiate(character.GetL2dGameObject());
         if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
 
         characterMovement = l2dCharacter.GetComponent<CharacterMovement>();

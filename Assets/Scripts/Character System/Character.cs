@@ -172,9 +172,24 @@ namespace Uniland.Characters
 public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterBasicStats initialStats;
+    
+    
     private CharacterStats characterStats;
 
+    public CharacterBasicStats InitialStats
+    {
+        get => initialStats;
+        set => initialStats = value;
+    }
+
+    // [SerializeField]
     private CharacterHomeStatus homeStatus; 
+    
+    [SerializeField]
+    private GameObject l2dCharacter;
+    
+    // [SerializeField]
+    private CharacterInteraction charInteractions;
     
     enum CharacterState {Idle, Gather}
     CharacterState state = CharacterState.Idle;
@@ -198,6 +213,10 @@ public class Character : MonoBehaviour
             CharacterGatherUnityEvent = new UnityEvent<SO_ExploreSpotSetUpInfo, CharacterBasicStats, int>();
         characterStats = new CharacterStats(initialStats);
         homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
+        
+        l2dCharacter = Instantiate(GetL2dGameObject(), transform);
+        homeStatus.L2dCharacter = l2dCharacter;
+        charInteractions = l2dCharacter.GetComponent<CharacterInteraction>();
     }
 
     void Update()
@@ -369,4 +388,6 @@ public class Character : MonoBehaviour
     {
         return characterStats.energy.EnergyLessThanRestingPercentage();
     }
+    
+    
 }

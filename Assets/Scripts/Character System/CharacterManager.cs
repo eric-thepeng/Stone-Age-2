@@ -105,6 +105,22 @@ public class CharacterManager : MonoBehaviour
 
         //inGameExistingCharacters.Add(newCharacterConfig);
     }
+    
+    // usage: Character tarCharacter = getCharacter(characterSettings);
+    // tarCharacter.charInteractions.EnableRuaCountdown();
+    // tarCharacter.charInteractions.DisableRuaCountdown();
+    public Character getCharacter(CharacterBasicStats characterSettings) {
+        // check if character exists in inGameExistingCharacters
+        foreach (CharacterConfig characterConfig in inGameExistingCharacters)
+        {
+            if (characterConfig.characterSettings.name == characterSettings.name)
+            {
+                return characterConfig.character;
+            }
+        }
+        return null;
+
+    }
 
 
 }
