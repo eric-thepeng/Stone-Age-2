@@ -25,7 +25,7 @@ public class CharacterBasicStats : ScriptableObject
     public int moveSpeed;
     public float hangOutWaitTime;
 
-    [Header("Interaction Related")]
+    [Header("Interaction (Rua) Related")]
     public int maxClicks = 5;
     public int pointsToAdd = 1;
     public float clickInterval = 0.1f;
