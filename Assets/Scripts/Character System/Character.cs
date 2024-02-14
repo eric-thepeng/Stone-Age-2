@@ -189,7 +189,7 @@ public class Character : MonoBehaviour
     private GameObject l2dCharacter;
     
     // [SerializeField]
-    private CharacterInteraction charInteractions;
+    public CharacterInteraction charInteractions;
     
     enum CharacterState {Idle, Gather}
     CharacterState state = CharacterState.Idle;
