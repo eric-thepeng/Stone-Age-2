@@ -11,7 +11,8 @@ public class CharacterMovement : MonoBehaviour
     private Transform _visual;
     private CubismModel _model;
     private Animator _animator;
-    private CubismParameter _leafShadow;
+    public CubismParameter _leafShadow;
+    private float _leafValue;
     Vector3 _originalScale;
 
     // ensure prewalk doesn't trigger when changing direction
@@ -23,10 +24,10 @@ public class CharacterMovement : MonoBehaviour
         _model = GetComponentInChildren<CubismModel>();
         _visual = _model.transform;
         _originalScale = _visual.transform.localScale;
-        _leafShadow = _model.Parameters[8];
+        //_leafShadow = _model.Parameters[8];
     }
 
-    void Update()
+    void LateUpdate()
     {
         Vector3 movement = Vector3.zero;
 
@@ -57,19 +58,19 @@ public class CharacterMovement : MonoBehaviour
         }
 
         transform.position = transform.position + movement * Time.deltaTime * moveSpeed;
-
-        if (movement.x < 0)
+        //Debug.Log(movement);
+        if (movement.x < 0f)
         {
-            _leafShadow.Value = 1;
-            Debug.Log(_leafShadow.Value);
+            _leafValue = 1;
             _visual.transform.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
         }
-        else if (movement.x > 0)
+        else if (movement.x > 0f)
         {
-            _leafShadow.Value = 0;
-            Debug.Log(_leafShadow.Value);
+            _leafValue = 0;
             _visual.transform.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);
         }
+
+        _leafShadow.Value = _leafValue;
 
         _previousMovement = movement;
     }
