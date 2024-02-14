@@ -555,3 +555,40 @@ public class SubUniAction : IPerformableAction
         return actionType != ActionType.NoAction;
     }
 }
+
+[Serializable] public class CharacterInteractionAction : SubUniAction
+{
+    public enum ActionType{NoAction, EnableRuaCountdown, DisableRuaCountdown, EnterRuaState}
+    public ActionType actionType = ActionType.NoAction;
+
+    public CharacterBasicStats targetCBS = null;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        Character targetCharacter = CharacterManager.i.getCharacter(targetCBS);
+        
+        if(targetCharacter == null) Debug.LogError("Cannot find character");
+
+        switch (actionType)
+        {
+            case ActionType.EnableRuaCountdown:
+                targetCharacter.charInteractions.EnableRuaCountdown();
+                break;
+            case ActionType.DisableRuaCountdown:
+                targetCharacter.charInteractions.DisableRuaCountdown();
+                break;
+            case ActionType.EnterRuaState:
+                targetCharacter.charInteractions.EnterRuaState();
+                break;
+        }
+        
+        onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && targetCBS != null;
+    }
+}

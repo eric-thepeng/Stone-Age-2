@@ -83,6 +83,9 @@ public class TetrisBuildingToolEditor : Editor
             GameObject newImage = Instantiate(builder.iconSpriteGameObject, newGameObject.transform);
             newImage.GetComponent<SpriteRenderer>().sprite = iso.iconSprite;
             newImage.gameObject.name = "Icon Sprite";
+            newImage.transform.localScale = new Vector3(newImage.transform.localScale.x * iso.Dimension.x, newImage.transform.localScale.y * iso.Dimension.y,1);
+            newImage.transform.localPosition += builder.unitLength * new Vector3(iso.Dimension.x - 1+ 0.15f, -(iso.Dimension.y - 1 +0.15f), 0) * 0.5f;
+            //newImage.transform.localScale = new Vector3(iso.tetris);
 
             // add text
             /*
@@ -113,12 +116,13 @@ public class TetrisBuildingToolEditor : Editor
 
             // create shadow
             GameObject shadow = Instantiate(unitsContainer.gameObject, newGameObject.transform);
+            Destroy(shadow.GetComponent<BoxCollider2D>());
             shadow.gameObject.name = "Shadow container";
             shadow.transform.localPosition = new Vector3(0,0,0) + builder.shadowOffsetStandard;
             shadow.transform.localScale = new Vector3(1, 1, 1);
             foreach (SpriteRenderer sr in shadow.GetComponentsInChildren<SpriteRenderer>())
             {
-                sr.color = Color.black;
+                sr.color = builder.shadowColor;
                 sr.sortingOrder -= 3;
             }
 
