@@ -118,7 +118,7 @@ public class TetrisBuildingToolEditor : Editor
             shadow.transform.localScale = new Vector3(1, 1, 1);
             foreach (SpriteRenderer sr in shadow.GetComponentsInChildren<SpriteRenderer>())
             {
-                sr.color = Color.black;
+                sr.color = builder.shadowColor;
                 sr.sortingOrder -= 3;
             }
 
