@@ -16,7 +16,7 @@ public class CharacterInteraction : WorldInteractable
     // private ParticleSystem particleSystem;
 
     [SerializeField]
-    private float clickInterval = 0.1f;
+    private float clickInterval;
 
     // [Header("Animation")]
     [SerializeField]
@@ -28,11 +28,11 @@ public class CharacterInteraction : WorldInteractable
 
     [Header("Click Cycle")]
     [SerializeField]
-    private int maxClicks = 5;
+    private int maxClicks;
     private int currentClicks = 0;
 
     [SerializeField]
-    private float countdownTime = 10f;
+    private float countdownTime;
     private float currentTime;
 
     [Header("Icon Related")]
@@ -40,30 +40,51 @@ public class CharacterInteraction : WorldInteractable
     [SerializeField] private Sprite clickableIcon;
     [SerializeField] private Sprite unclickableIcon;
 
+    private bool _enabledRuaMode;
+
     void Start()
     {
         originalScale = transform.localScale;
-        SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
         
         currentTime = countdownTime;
-        iconRenderer.sprite = clickableIcon;
+
+        SetCurrentInteraction(null);
     }
 
     public void Update()
     {
         transform.rotation = new Quaternion();
         // 更新倒计时
-        currentTime -= Time.deltaTime;
-        if (currentTime <= 0)
+        if (_enabledRuaMode)
         {
-            // 重置
-            currentTime = countdownTime;
-            currentClicks = 0;
+            currentTime -= Time.deltaTime;
+            if (currentTime <= 0)
+            {
+                // 重置
+                currentTime = countdownTime;
+                currentClicks = 0;
             
-            iconRenderer.sprite = clickableIcon;
-            SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
+                iconRenderer.sprite = clickableIcon;
+                SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
 
+            }
         }
+
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     DisableRuaCountdown();
+        // }
+        // if (Input.GetKeyDown(KeyCode.J))
+        // {
+        //     EnableRuaCountdown();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.K))
+        // {
+        //     EnterRuaState();
+        // }
+        
+        
     }
 
     public void AddPoint()
@@ -98,10 +119,16 @@ public class CharacterInteraction : WorldInteractable
                 transform.localScale = originalScale;
             });
 
-            StartCoroutine(waitForDuration(clickInterval));//particleSystem.main.duration));
             
             currentClicks++;
-            if (currentClicks == maxClicks) iconRenderer.sprite = unclickableIcon;
+            if (currentClicks >= maxClicks)
+            {
+                iconRenderer.sprite = unclickableIcon;
+            }
+            else
+            {
+                StartCoroutine(waitForDuration(clickInterval));//particleSystem.main.duration));
+            }
         }
     }
 
@@ -109,5 +136,46 @@ public class CharacterInteraction : WorldInteractable
     {
         yield return new WaitForSeconds(duration);
         SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
+    }
+    
+    public void EnableRuaCountdown()
+    {
+        // iconRenderer.sprite = clickableIcon;
+        if (currentClicks < maxClicks)
+        {
+            SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
+            iconRenderer.sprite = clickableIcon;
+        }
+        _enabledRuaMode = true;
+        // if ()
+    }
+    
+    public void DisableRuaCountdown()
+    {
+            SetCurrentInteraction(null);
+        
+        _enabledRuaMode = false;
+        iconRenderer.sprite = unclickableIcon;
+    }
+
+    public void EnterRuaState()
+    {
+        if (!_enabledRuaMode)
+        {
+            EnableRuaCountdown();
+        }
+        
+        SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
+        
+        currentTime = 0;
+        iconRenderer.sprite = clickableIcon;
+    }
+
+    public void Initialize(CharacterBasicStats initialStats)
+    {
+        maxClicks = initialStats.maxClicks;
+        PointToAdd = initialStats.pointsToAdd;
+        clickInterval = initialStats.clickInterval;
+        countdownTime = initialStats.countdownTime;
     }
 }

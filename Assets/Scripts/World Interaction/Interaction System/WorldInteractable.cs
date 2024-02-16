@@ -115,9 +115,17 @@ public class WorldInteractable : MonoBehaviour
     public void SetCurrentInteraction(InteractionType newInteractionType)
     {
         currentInteraction = newInteractionType;
-        if (mouseState.isHovering)
+        
+        if (currentInteraction == null)
         {
-            currentInteraction.DisplayUI(true);
+            UniversalUIManager.i.CancelDisplayComponent(null);
+        }
+        else
+        {
+            if (mouseState.isHovering)
+            {
+                currentInteraction.DisplayUI(true);
+            }
         }
     } 
 
@@ -131,6 +139,11 @@ public class WorldInteractable : MonoBehaviour
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject) return false;
         return allowInteraction;
+    }
+
+    protected bool hasCurrentInteraction()
+    {
+        return currentInteraction != null;
     }
 
     protected void ChangeGlobalAllowInteraction(bool changeTo)
