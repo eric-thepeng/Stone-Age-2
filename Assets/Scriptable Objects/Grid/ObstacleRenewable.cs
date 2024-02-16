@@ -16,7 +16,8 @@ public class ObstacleRenewable : MonoBehaviour
 
     [SerializeField]
     private int generationRange = 10;
-    
+
+    [SerializeField] private bool randomRotation = false;
     
     private Tilemap tilemap; // 用于检查位置是否为空的Tilemap
     
@@ -54,11 +55,17 @@ public class ObstacleRenewable : MonoBehaviour
                 while (!spawned && attemptedSpawnCount < 5)
                 {
                     Vector3 spawnPosition = transform.position + GetRandomPosition();
+                    
                     GameObject spawnedObject = Instantiate(respawnPrefabList[Random.Range(0, respawnPrefabList.Count)], spawnPosition,
                         Quaternion.identity);
                     spawnedObject.transform.position = spawnPosition;
                     spawnedObject.transform.parent = GameObject.Find("Obstacles Container").transform;
                     obstacleCollider = spawnedObject.GetComponent<BoxCollider>();
+
+                    if (randomRotation)
+                    {
+                        spawnedObject.transform.GetChild(0).transform.Rotate(0f, Random.Range(0f, 360f), 0f);
+                    }
 
                     // 检查位置是否为空
                     if (IsPositionEmpty(obstacleCollider))
