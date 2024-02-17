@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class CharacterHomeStatus : MonoBehaviour
+public class CharacterBehaviors : MonoBehaviour
 {
-    public enum HomeState { Resting, Gatherable, Gathering }
+    public enum HomeState { 
+        Resting, 
+        Gatherable, 
+        Gathering
+        
+    }
 
     private Character character;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Uniland.Characters;
 using UnityEngine.Events;
-using static CharacterHomeStatus;
+using static CharacterBehaviors;
 
 namespace Uniland.Characters
 {
@@ -83,6 +83,84 @@ namespace Uniland.Characters
             return ((float)currentEnergy) / ((float)maxEnergy);
         }
     }
+    
+    
+    class Saturation
+    {
+        private int currentSaturation;
+        private int maxSaturation;
+
+        private float restingSaturationPercentage;
+
+        //public Energy(int maxEnergy)
+        //{
+        //    this.maxEnergy = maxEnergy;
+        //    currentEnergy = this.maxEnergy;
+        //    restingEnergyPercentage = 0.4f;
+        //}
+
+        public Saturation(int maxSaturation, float restingSaturationPercentage)
+        {
+            this.maxSaturation = maxSaturation;
+            currentSaturation = this.maxSaturation;
+            this.restingSaturationPercentage = restingSaturationPercentage;
+        }
+
+        public Saturation(int currentSaturation, int maxSaturation)
+        {
+            this.currentSaturation = currentSaturation;
+            this.maxSaturation = maxSaturation;
+        }
+
+        public int GetMaxSaturation()
+        {
+            return maxSaturation;
+        }
+
+        public int GetCurrentSaturation()
+        {
+            return currentSaturation;
+        }
+
+        public void RestoreAllSaturation()
+        {
+            currentSaturation = maxSaturation;
+        }
+
+        public bool CostSaturation()
+        {
+            if(NoSaturation()) return false;
+            currentSaturation -= 1;
+            return true;
+        }
+
+        public bool AddSaturation()
+        {
+            if (maximizeSaturation()) return false;
+            currentSaturation += 1;
+            return true;
+        }
+
+        public bool NoSaturation()
+        {
+            return currentSaturation <= 0;
+        }
+
+        public bool maximizeSaturation()
+        {
+            return currentSaturation == maxSaturation;
+        }
+
+        public bool SaturationLessThanRestingPercentage()
+        {
+            return currentSaturation <= maxSaturation * restingSaturationPercentage;
+        }
+
+        public float RemainSaturationPercentage()
+        {
+            return ((float)currentSaturation) / ((float)maxSaturation);
+        }
+    }
 
     class GatherSpeed
     {
@@ -154,6 +232,7 @@ namespace Uniland.Characters
     class CharacterStats
     {
         public Energy energy;
+        public Saturation saturation;
         public GatherSpeed gatherSpeed;
         public ExploreSpeed exploreSpeed;
         public RestingSpeed restingSpeed;
@@ -161,12 +240,18 @@ namespace Uniland.Characters
         public CharacterStats(CharacterBasicStats basicStats)
         {
             energy = new Energy(basicStats.energy, basicStats.restingEnergyPercentage);
+            saturation = new Saturation(basicStats.saturation, basicStats.restingSaturationPercentage);
+            
             gatherSpeed = new GatherSpeed(basicStats.gatherSpeed);
             exploreSpeed = new ExploreSpeed(basicStats.exploreSpeed);
             restingSpeed = new RestingSpeed(basicStats.restingSpeed);
+            
             herdSize = new HerdSize(basicStats.herdSize);
         }
     }
+    
+    
+    
 }
 
 public class Character : MonoBehaviour
@@ -183,7 +268,7 @@ public class Character : MonoBehaviour
     }
 
     // [SerializeField]
-    private CharacterHomeStatus homeStatus; 
+    private CharacterBehaviors _behaviors; 
     
     [SerializeField]
     private GameObject l2dCharacter;
@@ -199,6 +284,8 @@ public class Character : MonoBehaviour
     float gatherTimeLeft;
     float restTimeLeft;
     CharacterIcon myCI;
+
+    [SerializeField] private int charExperience;
     
     // Unity Event
 
@@ -212,13 +299,15 @@ public class Character : MonoBehaviour
         if (CharacterGatherUnityEvent == null)
             CharacterGatherUnityEvent = new UnityEvent<SO_ExploreSpotSetUpInfo, CharacterBasicStats, int>();
         characterStats = new CharacterStats(initialStats);
-        homeStatus = (GetComponent<CharacterHomeStatus>()==null)?gameObject.AddComponent<CharacterHomeStatus>():GetComponent<CharacterHomeStatus>();
+        _behaviors = (GetComponent<CharacterBehaviors>()==null)?gameObject.AddComponent<CharacterBehaviors>():GetComponent<CharacterBehaviors>();
         
         l2dCharacter = Instantiate(GetL2dGameObject(), transform);
-        homeStatus.L2dCharacter = l2dCharacter;
+        _behaviors.L2dCharacter = l2dCharacter;
         charInteractions = l2dCharacter.GetComponent<CharacterInteraction>();
         
         charInteractions.Initialize(initialStats);
+
+        charExperience = 0;
     }
 
     void Update()
@@ -253,11 +342,11 @@ public class Character : MonoBehaviour
             {
                 characterIcon.ChangeIconColorToHome();
 
-                homeStatus.EnterState(HomeState.Gatherable);
+                _behaviors.EnterState(HomeState.Gatherable);
             } else
             {
                 characterIcon.ChangeIconColorToGather();
-                homeStatus.EnterState(HomeState.Resting);
+                _behaviors.EnterState(HomeState.Resting);
             }
             
             /* Energy is always displayed
@@ -309,7 +398,7 @@ public class Character : MonoBehaviour
             SetCircularUIState(CircularUI.CircularUIState.Display);
 
             CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,1);
-            homeStatus.EnterState(HomeState.Gathering);
+            _behaviors.EnterState(HomeState.Gathering);
         }
 
 
@@ -330,10 +419,10 @@ public class Character : MonoBehaviour
 
         if (characterStats.energy.EnergyLessThanRestingPercentage())
         {
-            homeStatus.EnterState(HomeState.Resting);
+            _behaviors.EnterState(HomeState.Resting);
         } else
         {
-            homeStatus.EnterState(HomeState.Gatherable);
+            _behaviors.EnterState(HomeState.Gatherable);
         }
     }
 
@@ -381,9 +470,9 @@ public class Character : MonoBehaviour
     }
 
 
-    public CharacterHomeStatus GetHomeStatus()
+    public CharacterBehaviors GetHomeStatus()
     {
-        return homeStatus;
+        return _behaviors;
     }
 
     public bool EnergyLessThanRestingPercentage()
