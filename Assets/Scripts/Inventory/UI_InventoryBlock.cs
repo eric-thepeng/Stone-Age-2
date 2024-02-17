@@ -52,7 +52,7 @@ public class UI_InventoryBlock : MonoBehaviour
         //display shit
         itemSprite.gameObject.SetActive(true);
         displayNumber.gameObject.SetActive(true);
-        numberBackground.gameObject.SetActive(true);
+        //numberBackground.gameObject.SetActive(true);
         itemSprite.sprite = itemInfo.iso.iconSprite;
         UpdateDisplayAmount();
 
@@ -64,7 +64,7 @@ public class UI_InventoryBlock : MonoBehaviour
         displayAmount = 0;
         itemSprite.gameObject.SetActive(false);
         displayNumber.gameObject.SetActive(false);
-        numberBackground.gameObject.SetActive(false);
+        //numberBackground.gameObject.SetActive(false);
     }
 
     public void UpdateDisplayAmount()

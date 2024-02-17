@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2278451288467499416}
   - component: {fileID: 7259028074167575742}
   - component: {fileID: 1905752916062472100}
+  - component: {fileID: 396184337363346086}
   m_Layer: 0
   m_Name: Empty Cube 1x1
   m_TagString: Untagged
@@ -143,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaea92c0aa594d5cb18c5758012ac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionCount: 0
+  useStatusIndicator: 1
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1905752916062472100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +158,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16df5182d06243289e4a15106d556e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  biomeType: 7
   gridCellIndex: {x: 0, y: 0}
   BISO: {fileID: 0}
   _gridObjectTags:
   - EmptyObject
+--- !u!208 &396184337363346086
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760037766763816239}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -69,6 +69,7 @@ namespace Hypertonic.GridPlacement
             DestroyExistingGrid();
             GridDisplay = GenerateGridCanvas(gridSettings);
             GenerateGridBackground(GridSettings, GridDisplay.transform);
+            
         }
 
         private void DestroyExistingGrid()
@@ -89,7 +90,7 @@ namespace Hypertonic.GridPlacement
         private GameObject GenerateGridCanvas(GridSettings gridSettings)
         {
             GameObject canvasGameObject = new GameObject("Placement Grid Canvas " + gridSettings.Key);
-
+            canvasGameObject.transform.parent = transform;
             canvasGameObject.layer = LayerMask.NameToLayer("Grid");
             
             GameObject indicatorCanvasGameObject = new GameObject("Indicator Canvas");
@@ -133,10 +134,106 @@ namespace Hypertonic.GridPlacement
         //    SetGridSize(gridSettings);
         //}
 
+        public Tilemap GenerateCurrentGridBackground(Transform parent)
+        {
+            GameObject backgroundImage = new GameObject("Tilemap Data");
+            backgroundImage.transform.SetParent(parent, false);
+            
+
+            backgroundImage.layer = LayerMask.NameToLayer("Grid");
+
+            Grid grid = backgroundImage.AddComponent<Grid>();
+            GameObject tilemapGameObject = new GameObject("Tilemap - " + GridSettings.name);
+            tilemapGameObject.transform.parent = backgroundImage.transform;
+
+            Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();
+            Tilemap RegionPresetTilemap = GridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
+            
+
+            tilemapGameObject.transform.localScale = new Vector3(2, 2, 2);
+            tilemapGameObject.transform.rotation = Quaternion.Euler(90,0,0);
+            
+            tilemapGameObject.transform.position = GridSettings.GridPosition -
+                                                   new Vector3(GridSettings.CellSize * 0.5f * GridSettings.AmountOfCellsX, 0,
+                                                       GridSettings.CellSize * 0.5f *  GridSettings.AmountOfCellsY);
+
+            for (int x = 0; x < GridSettings.AmountOfCellsX; x++)
+            {
+                for (int y = 0; y < GridSettings.AmountOfCellsY; y++)
+                {
+                    Vector3Int position = new Vector3Int(x, y, 0);
+                    tilemap.SetTile(position, RegionPresetTilemap.GetTile(position));
+                    // tilemap.SetColor(position, gridSettings.CellColourDefault);
+                }
+            }
+
+            foreach (ObstacleIndicator obstacle in FindObjectsOfType<ObstacleIndicator>())
+            {
+                // BoxCollider boxCollider = obstacle.GetComponent<BoxCollider>();
+
+                foreach (BoxCollider boxCollider in obstacle.GetComponents<BoxCollider>())
+                {
+                    Bounds colliderBounds = boxCollider.bounds;
+                    Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                    Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
+
+
+                    // 转换到 Tilemap 的格子坐标
+                    Vector2Int tilemapBottomLeft = GetCellIndexFromWorldPosition(GridSettings,minCorner);
+                    Vector2Int tilemapTopRight = GetCellIndexFromWorldPosition(GridSettings,maxCorner);
+                    
+                    // Debug.Log("tilemap - " + boxCollider.transform.name + tilemapBottomLeft + ", " + tilemapTopRight);
+                    for (int x = tilemapBottomLeft.x; x <= tilemapTopRight.x; x++)
+                    {
+                        for (int y = tilemapBottomLeft.y; y <= tilemapTopRight.y; y++)
+                        {
+                            Vector3Int position = new Vector3Int(x, y, 0);
+                            tilemap.SetTile(position, null);
+                            tilemap.RefreshTile(position);
+                        }
+                    }
+                
+                }
+
+            }
+            
+            
+            foreach (GridHeightPositioner obstacle in FindObjectsOfType<GridHeightPositioner>())
+            {
+                // BoxCollider boxCollider = obstacle.GetComponent<BoxCollider>();
+
+                foreach (BoxCollider boxCollider in obstacle.GetComponents<BoxCollider>())
+                {
+                    Bounds colliderBounds = boxCollider.bounds;
+                    Vector3 minCorner = colliderBounds.min; // 碰撞箱的左下角
+                    Vector3 maxCorner = colliderBounds.max; // 碰撞箱的右上角
+
+
+                    // 转换到 Tilemap 的格子坐标
+                    Vector2Int tilemapBottomLeft = GetCellIndexFromWorldPosition(GridSettings,minCorner);
+                    Vector2Int tilemapTopRight = GetCellIndexFromWorldPosition(GridSettings,maxCorner);
+                    
+                    // Debug.Log("tilemap - " + boxCollider.transform.name + tilemapBottomLeft + ", " + tilemapTopRight);
+                    for (int x = tilemapBottomLeft.x; x < tilemapTopRight.x; x++)
+                    {
+                        for (int y = tilemapBottomLeft.y; y < tilemapTopRight.y; y++)
+                        {
+                            Vector3Int position = new Vector3Int(x, y, 0);
+                            tilemap.SetTile(position, null);
+                            tilemap.RefreshTile(position);
+                        }
+                    }
+                
+                }
+
+            }
+
+            return tilemap;
+        }
 
         private void GenerateGridBackground(GridSettings gridSettings, Transform gridTransform)
         {
-            GameObject backgroundImage = new GameObject("Background Image");
+            GameObject backgroundImage = new GameObject("Tilemap Background Image");
             backgroundImage.transform.SetParent(gridTransform, false);
             
 
@@ -148,9 +245,7 @@ namespace Hypertonic.GridPlacement
 
             Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();
             Tilemap RegionPresetTilemap = gridSettings.RegionTypePresetTilemap.GetComponent<Tilemap>();
-            
-            TilemapRenderer tilemapRenderer = tilemapGameObject.AddComponent<TilemapRenderer>();
-            tilemapRenderer.sortingOrder = -10;
+            tilemapGameObject.AddComponent<TilemapRenderer>().sortingOrder = -10;
 
             tilemapGameObject.transform.localScale = new Vector3(2, 2, 2);
             tilemapGameObject.transform.rotation = Quaternion.Euler(90,0,0);
@@ -243,7 +338,7 @@ namespace Hypertonic.GridPlacement
             //
             // _gridSpriteRenderer.gameObject.transform.localScale = new Vector3(gridSettings.CellSize*10, gridSettings.CellSize * 10, gridSettings.CellSize * 10);
 
-
+            // FindObjectOfType<GridTilemapManager>().TypeTilemap = tilemap;
         }
         
         

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -21,8 +22,8 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] GameObject inventoryBlockTemplate;
     [SerializeField] List<UI_InventoryBlock> allInventoryBlocks = new List<UI_InventoryBlock>();
     ItemScriptableObject.Category displayingCategory;
-    int maxColumns = 4;
-    int maxRows = 8;
+    [SerializeField] int maxColumns = 4;
+    [SerializeField] int maxRows = 5;
     [SerializeField] float horizontalDisplacement;
     [SerializeField] float verticalDisplacement;
     [SerializeField] private GameObject categoryIndicatorBuildings;
@@ -31,6 +32,13 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] private GameObject itemDetailUI;
     [SerializeField] private GameObject inventoryBlocksParent;
 
+    [SerializeField] private TextMeshPro pageCountTMP;
+
+    /// <summary>
+    /// 0 is first page
+    /// </summary>
+    private int displayingPage = 0;
+    
     public bool resetBackground = false;
 
     private void Awake()
@@ -38,7 +46,7 @@ public class UI_Inventory : MonoBehaviour
         CreateInventoryBlocks();
     }
 
-    public void DisplayCategory(ItemScriptableObject.Category cat)
+    public void DisplayCategory(ItemScriptableObject.Category cat, int page = 0)
     {
         SetCategoryDisplayIndicator(cat);
         displayingCategory = cat;
@@ -47,8 +55,11 @@ public class UI_Inventory : MonoBehaviour
             ib.ClearDisplay();
         }
         int j = 0;
-        for(int i = 0; i < Inventory.i.CategoryToList(cat).Count; i++)
+        int amountPerPage = maxColumns * maxRows;
+        int totalAmountOfISO = Inventory.i.CategoryToList(cat).Count;
+        for(int i = amountPerPage * page; i < amountPerPage * page + 20; i++)
         {
+            if(i >= totalAmountOfISO) break;
             if(Inventory.i.CategoryToList(cat)[i].inStockAmount.GetAmount() > 0)
             {
                 Inventory.ItemInfo itemInfoToDisplay = Inventory.i.CategoryToList(cat)[i];
@@ -57,6 +68,36 @@ public class UI_Inventory : MonoBehaviour
                 j++;
             }
         }
+
+        pageCountTMP.text = "" + (page+1) + "/" + GetMaxPageAmount(cat);
+    }
+
+    public void DisplayNextPage()
+    {
+        // return if there is no next page
+        if(displayingPage+1 == GetMaxPageAmount(displayingCategory)) return;
+        displayingPage++;
+        DisplayCategory(displayingCategory, displayingPage);
+    }
+
+    public void DisplayPreviousPage()
+    {
+        //return if this is the first page (page 0)
+        if(displayingPage == 0) return;
+        displayingPage--;
+        DisplayCategory(displayingCategory, displayingPage);
+    }
+
+    public int GetAmountPerPage()
+    {
+        return maxColumns * maxRows;
+    }
+    
+    public int GetMaxPageAmount(ItemScriptableObject.Category cat)
+    {
+        int isoCount = Inventory.i.CategoryToList(cat).Count;
+        if (isoCount == 0) return 1;
+        return  (isoCount - 1) / GetAmountPerPage() + 1;
     }
 
     
@@ -103,11 +144,11 @@ public class UI_Inventory : MonoBehaviour
                 go.transform.localPosition += new Vector3(i * horizontalDisplacement, -j * verticalDisplacement, 0);
                 go.gameObject.name = "IB_" + i + "_" + j;
                 go.tag = "InventoryBlock";
-                go.SetActive(true);
                 go.GetComponent<UI_InventoryBlock>().Initialize(i,j);
                 allInventoryBlocks.Add(go.GetComponent<UI_InventoryBlock>());
             }
         }
+        inventoryBlockTemplate.SetActive(false);
     }
 
     public void DisplayItemDetail(ItemScriptableObject isoToDisplay)

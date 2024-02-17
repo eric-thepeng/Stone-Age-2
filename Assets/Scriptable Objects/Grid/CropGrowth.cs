@@ -154,8 +154,11 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     public UnityEvent matureRewardEvent;
     public UnityEvent stateChangeEvent;
-
-    public FinishedAction finishedAction = FinishedAction.RESET;
+    
+    [SerializeField] 
+    private FinishedAction finishedAction = FinishedAction.RESET;
+    [SerializeField] 
+    public bool autoGrowth;
 
     [Header("Rewards")]
     public ItemScriptableObject rewardObjects;
@@ -194,16 +197,19 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
     {
         allUnlockStates[num].Initialize();
 
-        if (allUnlockStates[num].timeToClear > 0)
+        if (!autoGrowth || currentState == allUnlockStates.Count - 1)
         {
-            SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, () => Water(),allUnlockStates[num].timeToClear));
-        } else
-        {
-            SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, () => Water()));
-        }
-        //currentInteraction.pressDuration = allUnlockStates[num].timeToClear;
+            if (allUnlockStates[num].timeToClear > 0)
+            {
+                SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, () => Water(),allUnlockStates[num].timeToClear));
+            } else
+            {
+                SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, () => Water()));
+            }
+            //currentInteraction.pressDuration = allUnlockStates[num].timeToClear;
 
-        //Debug.LogWarning(num);
+            //Debug.LogWarning(num);
+        }
 
         if (num == allUnlockStates.Count - 1 )
         {
@@ -252,6 +258,14 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
                 currentState = 0;
                 InitializeCrop(0);
+                
+                if (allUnlockStates[0].timeToClear > 0)
+                {
+                    SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress, () => Water(),allUnlockStates[0].timeToClear));
+                } else
+                {
+                    SetCurrentInteraction(new InteractionType(InteractionType.TypeName.Click, () => Water()));
+                }
                 //allUnlockStates[0].Initialize();
             }
             else if (finishedAction == FinishedAction.RESET_WATER)
@@ -292,6 +306,7 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
     public bool Water()
     {
+        // ResetProgress();
         //Debug.Log("Watering state: " + currentState);
         if (allUnlockStates[currentState].Water(this) == false)
         {
@@ -315,10 +330,13 @@ public class CropGrowth : BuildingInteractable, IResourceSetProvider
 
         currentState++;
 
-
-
         //allUnlockStates[currentState].Initialize();
         InitializeCrop(currentState);
+        
+        if (currentState < allUnlockStates.Count - 1)
+        {
+            if (autoGrowth) Water();
+        }
         return true;
     }
     

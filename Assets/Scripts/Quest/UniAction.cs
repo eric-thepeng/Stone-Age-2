@@ -23,6 +23,8 @@ using UnityEngine.UI;
         IUniActionInteractionAction,
         CharacterGatherAction,
         BlueprintAction,
+        TimelineAnimationAction,
+        CharacterInteractionAction,
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -38,6 +40,8 @@ using UnityEngine.UI;
     public IUniActionInteractionAction iuaiAction;
     public CharacterGatherAction characterGatherAction;
     public BlueprintAction blueprintAction;
+    public TimelineAnimationAction timelineAnimationAction;
+    public CharacterInteractionAction characterInteractionAction;
 
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -86,6 +90,12 @@ using UnityEngine.UI;
                 break;
             case UniActionType.BlueprintAction:
                 pAction = blueprintAction;
+                break;
+            case UniActionType.TimelineAnimationAction:
+                pAction = timelineAnimationAction;
+                break;
+            case UniActionType.CharacterInteractionAction:
+                pAction = characterInteractionAction;
                 break;
         }
         

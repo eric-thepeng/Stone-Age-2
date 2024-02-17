@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 3433258397853431767}
   - component: {fileID: 6283289190263630169}
   m_Layer: 0
-  m_Name: Map Interactable First Character
+  m_Name: MIS - Yiso Unlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,7 +1351,7 @@ MonoBehaviour:
     newObj: {fileID: 5953536217307443491}
     newObjAction: 2
     unlockCost:
-      spiritPoint: 8
+      spiritPoint: 0
       resources: []
   uniActionEventToTriggerInstance:
     m_PersistentCalls:
@@ -4004,7 +4004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3279150706959948677, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4497190624418574320, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4021,6 +4021,10 @@ PrefabInstance:
     - target: {fileID: 7316361143718926688, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_Name
       value: DisplaySpendAndUnlockResource
+      objectReference: {fileID: 0}
+    - target: {fileID: 7316361143718926688, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7861473025324786076, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: resourceSetProvider

@@ -212,6 +212,7 @@ namespace Hypertonic.GridPlacement.Editor
             HidePresetGrid();
 
             _gridDisplayManagerObject = new GameObject("Grid Display Manager - " + _gridSettings.Key);
+            
             _gridDisplayManager = _gridDisplayManagerObject.AddComponent<GridDisplayManager>();
 
             _gridDisplayManager.Setup(null, _gridSettings);

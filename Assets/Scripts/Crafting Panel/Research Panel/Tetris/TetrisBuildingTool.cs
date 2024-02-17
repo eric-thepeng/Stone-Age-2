@@ -12,6 +12,7 @@ public class TetrisBuildingTool : MonoBehaviour
     [SerializeField, Header("------Color Info------")] public Color tetrisColor;
     [SerializeField] public Color outlineColor;
     [SerializeField] public float outlineWidth = 0.03f;
+    [SerializeField] public Color shadowColor;
     [SerializeField] public Vector3 shadowOffsetStandard = new Vector3(0.1f, -0.1f, 0f);
     
     [SerializeField, Header("------Config, DO NOT EDIT------")] public GameObject unitGameObject;
