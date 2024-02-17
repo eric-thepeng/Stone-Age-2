@@ -23,8 +23,38 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
     [Serializable]public class ConnectionLine
     {
         public GameObject lineGameObject;
-        public BLDExploreSpot exploreSpot1;
-        public BLDExploreSpot exploreSpot2;
+        public MonoBehaviour iSerialEffect1;
+        public MonoBehaviour iSerialEffect2;
+
+        private SO_SerialEffectIdentifier _se1 = null;
+        private SO_SerialEffectIdentifier _se2 = null;
+
+        public SO_SerialEffectIdentifier se1
+        {
+            get
+            {
+                if (_se1 == null)
+                {
+                    SO_SerialEffectIdentifier ise = ((ISerialEffect)iSerialEffect1).mySEI;
+                }
+                return _se1;
+            }
+        }
+        
+        public SO_SerialEffectIdentifier se2
+        {
+            get
+            {
+                if (_se2 == null)
+                {
+                    SO_SerialEffectIdentifier ise = ((ISerialEffect)iSerialEffect2).mySEI;
+                }
+
+                return _se2;
+            }
+        }
+        
+        
 
         public void ChangeColor(Color32 tarColor)
         {
@@ -33,8 +63,8 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
 
         public bool CheckSEIMatch(SO_SerialEffectIdentifier sei1, SO_SerialEffectIdentifier sei2)
         {
-            if (exploreSpot1.mySEI == sei1 & exploreSpot2.mySEI == sei2) return true;
-            if (exploreSpot1.mySEI == sei2 & exploreSpot2.mySEI == sei1) return true;
+            if (se1 == sei1 & se2 == sei2) return true;
+            if (se1 == sei2 & se2 == sei1) return true;
             return false;
         }
     }
