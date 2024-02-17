@@ -6,6 +6,8 @@ public class ROSpawn : MonoBehaviour
 {
     public List<GameObject> objectsToSpawn; // List of objects to spawn
 
+    public float spawnScale = 1; 
+
     void Start()
     {
         SpawnObject();
@@ -17,6 +19,8 @@ public class ROSpawn : MonoBehaviour
         GameObject objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Count)];
 
         // Spawn the object at the position of this GameObject
-        Instantiate(objectToSpawn, transform.position, objectToSpawn.transform.rotation);
+        GameObject spawnedObject = Instantiate(objectToSpawn, transform.position, objectToSpawn.transform.rotation, transform);
+
+        spawnedObject.transform.localScale = Vector3.Scale(spawnedObject.transform.localScale, new Vector3(spawnScale, spawnScale, spawnScale));
     }
 }

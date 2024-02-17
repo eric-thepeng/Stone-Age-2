@@ -11,11 +11,10 @@ Material:
   m_Shader: {fileID: 4800000, guid: 7633a2fd8a3bed44791c9e952ff86e5d, type: 3}
   m_ValidKeywords:
   - _MK_ARTISTIC_ANIMATION_STUTTER
-  - _MK_ARTISTIC_DRAWN
   - _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
   - _MK_DETAIL_BLEND_MIX
   - _MK_ENVIRONMENT_REFLECTIONS_ADVANCED
-  - _MK_LIGHT_CEL
+  - _MK_LIGHT_BANDED
   - _MK_OUTLINE_HULL_CLIP
   - _MK_OUTLINE_NOISE
   - _MK_RECEIVE_SHADOWS
@@ -190,7 +189,7 @@ Material:
     - _AlphaClipping: 0
     - _AlphaCutoff: 0.5
     - _Anisotropy: 0
-    - _Artistic: 1
+    - _Artistic: 0
     - _ArtisticFrequency: 1
     - _ArtisticProjection: 1
     - _Blend: 0
@@ -208,7 +207,7 @@ Material:
     - _DetailNormalMapIntensity: 1
     - _DetailNormalMapScale: 1
     - _Diffuse: 0
-    - _DiffuseSmoothness: 1
+    - _DiffuseSmoothness: 0.1
     - _DiffuseThresholdOffset: 0.25
     - _Dissolve: 0
     - _DissolveAmount: 0.5
@@ -232,10 +231,10 @@ Material:
     - _IridescenceSize: 1
     - _IridescenceSmoothness: 0.5
     - _IridescenceThresholdOffset: 0
-    - _Light: 1
-    - _LightBands: 4
-    - _LightBandsScale: 0.406
-    - _LightThreshold: 0.25
+    - _Light: 2
+    - _LightBands: 3
+    - _LightBandsScale: 0.557
+    - _LightThreshold: 0.3
     - _LightTransmission: 0
     - _LightTransmissionDistortion: 0.25
     - _LightTransmissionIntensity: 1
@@ -270,7 +269,7 @@ Material:
     - _Specular: 1
     - _SpecularHighlights: 1
     - _SpecularIntensity: 2
-    - _SpecularSmoothness: 1
+    - _SpecularSmoothness: 0
     - _SpecularThresholdOffset: 0.25
     - _SrcBlend: 1
     - _Stencil: 1
