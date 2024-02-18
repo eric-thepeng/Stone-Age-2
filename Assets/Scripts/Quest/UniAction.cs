@@ -25,6 +25,7 @@ using UnityEngine.UI;
         BlueprintAction,
         TimelineAnimationAction,
         CharacterInteractionAction,
+        ScreenNotificationAction,
     }
 
     public UniActionType uniActionType = UniActionType.NoAction;
@@ -42,6 +43,7 @@ using UnityEngine.UI;
     public BlueprintAction blueprintAction;
     public TimelineAnimationAction timelineAnimationAction;
     public CharacterInteractionAction characterInteractionAction;
+    public ScreenNotificationAction screenNotificationAction;
 
     private UnityEvent _onActionStarts = new UnityEvent();
     private UnityEvent _onActionCompletes = new UnityEvent();
@@ -96,6 +98,9 @@ using UnityEngine.UI;
                 break;
             case UniActionType.CharacterInteractionAction:
                 pAction = characterInteractionAction;
+                break;
+            case UniActionType.ScreenNotificationAction:
+                pAction = screenNotificationAction;
                 break;
         }
         

@@ -592,3 +592,37 @@ public class SubUniAction : IPerformableAction
         return actionType != ActionType.NoAction && targetCBS != null;
     }
 }
+
+[Serializable] public class ScreenNotificationAction : SubUniAction
+{
+    public enum ActionType{NoAction, StartDurationNotification, StartInfiniteNotification, EndNotification}
+    public ActionType actionType = ActionType.NoAction;
+
+    public string text = "Text Not Assigned";
+    public float duration = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+        
+        switch (actionType)
+        {
+            case ActionType.StartDurationNotification:
+                UI_ScreenNotification.i.StartNotification(text,true,duration);
+                break;
+            case ActionType.StartInfiniteNotification:
+                UI_ScreenNotification.i.StartNotification(text,false);
+                break;
+            case ActionType.EndNotification:
+                UI_ScreenNotification.i.EndNotification();
+                break;
+        }
+        
+        onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
