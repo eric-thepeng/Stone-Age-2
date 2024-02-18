@@ -115,7 +115,7 @@ public class CharacterIcon : MonoBehaviour
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
-
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             iconState = IconState.Dragging;
             if(onCharacterPickedUp!=null)onCharacterPickedUp();
         }
@@ -127,7 +127,8 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(iconState == IconState.Gathering)
+        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
+        if (iconState == IconState.Gathering)
         {
             DisplayRecallButton();
         }
@@ -135,10 +136,11 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if(iconState == IconState.Gathering)
+        UniversalUIManager.i.CancelDisplayCursor();
+        if (iconState == IconState.Gathering)
         {
             CancelRecallButton();
-        }
+        }   
     }
 
     private void DisplayRecallButton()

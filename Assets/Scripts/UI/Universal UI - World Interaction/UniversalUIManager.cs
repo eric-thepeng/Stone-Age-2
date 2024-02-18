@@ -98,8 +98,6 @@ public class UniversalUIManager : MonoBehaviour
         A,
         B,
         C,
-        D,
-        E
     }
 
     public Dictionary<CursorType, Texture2D> mouseSprites = new Dictionary<CursorType, Texture2D>();
@@ -108,7 +106,7 @@ public class UniversalUIManager : MonoBehaviour
     private void Start()
     {
         //cursor
-        cursors = new Texture2D[] { cursorDefault, cursorB, cursorC, cursorD, cursorE };
+        cursors = new Texture2D[] { cursorDefault, cursorB, cursorC};
         int c = 0;
         foreach (CursorType cursorType in Enum.GetValues(typeof(CursorType)))
         {
