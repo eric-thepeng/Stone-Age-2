@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToSpawn:
-  - {fileID: 6898499343737597249, guid: 5e0f4466f71c6b14cbc41c556ec3b809, type: 3}
-  - {fileID: 5456859849834977884, guid: 3ae38d5c72bc7c04cbeb9457c1d814a3, type: 3}
-  spawnScale: 1
+  - {fileID: 1012936405776824180, guid: 6002dce19d4ae28448335f75b08e8d0f, type: 3}
+  spawnScale: 1.5
 --- !u!1 &5909491603796297777
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,11 +390,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406674, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Name
-      value: RO_Stick
+      value: RO_Wood_Stick
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406674, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: timeToClear
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.spiritPoint
@@ -412,7 +415,7 @@ PrefabInstance:
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].iso
       value: 
-      objectReference: {fileID: 11400000, guid: 64ca0caf3c0dd4ae993fcb37199bbe6b, type: 2}
+      objectReference: {fileID: 11400000, guid: dcb32aa5c20044a5a82e61b92f61a7d5, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[1].iso
       value: 
@@ -423,7 +426,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: dcb32aa5c20044a5a82e61b92f61a7d5, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].amount
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[1].amount
