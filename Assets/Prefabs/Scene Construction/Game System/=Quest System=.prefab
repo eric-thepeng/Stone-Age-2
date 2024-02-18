@@ -999,6 +999,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -1074,6 +1079,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -1149,6 +1159,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -1224,6 +1239,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -1299,6 +1319,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -1374,6 +1399,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -1449,6 +1479,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &278398234957475209
 GameObject:
   m_ObjectHideFlags: 0
@@ -4776,6 +4811,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &1449334624780057057
 GameObject:
   m_ObjectHideFlags: 0
@@ -5193,6 +5233,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &1595106422913657408
 GameObject:
   m_ObjectHideFlags: 0
@@ -6503,7 +6548,6 @@ Transform:
   - {fileID: 5887325176941045024}
   - {fileID: 2308331567211825416}
   - {fileID: 9164654186012065830}
-  - {fileID: 8543593563366842128}
   m_Father: {fileID: 1966285382561841551}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7604,6 +7648,8 @@ Transform:
   m_Children:
   - {fileID: 1966285382561841551}
   - {fileID: 3972028593602869437}
+  - {fileID: 8778860980575727114}
+  - {fileID: 4996011436116825776}
   m_Father: {fileID: 6756724190148151878}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8189,6 +8235,538 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2292594491223345734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8778860980575727114}
+  - component: {fileID: 4886665847506135474}
+  m_Layer: 0
+  m_Name: a-00-3 Clear Trash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8778860980575727114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2292594491223345734}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3274794311728069406}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4886665847506135474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2292594491223345734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 4
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 1
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: da10b99b9cbb6462ea9633b1f4b57534, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 4
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 2
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: 8275a178c42b14b5e997cfcb343bb06a, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 11
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        blueprints:
+        - {fileID: 11400000, guid: 3ef00bfb4cf0ff24998bce34efac0f7b, type: 2}
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetUniQuest: {fileID: 2541703518230236596}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &2325649549188738424
 GameObject:
   m_ObjectHideFlags: 0
@@ -8315,6 +8893,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &2357034059716516615
 GameObject:
   m_ObjectHideFlags: 0
@@ -9964,103 +10547,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2990790053265823110
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8543593563366842128}
-  - component: {fileID: 6572246500848903130}
-  - component: {fileID: 8831114614392395885}
-  - component: {fileID: 2891446982829405339}
-  m_Layer: 0
-  m_Name: Fog (324)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8543593563366842128
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2990790053265823110}
-  m_LocalRotation: {x: -0.27613187, y: 0.088424236, z: -0.14481568, w: 0.9460237}
-  m_LocalPosition: {x: 0, y: 54.600002, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3575180646573986716}
-  m_RootOrder: 312
-  m_LocalEulerAnglesHint: {x: -29.791, y: 16.555, z: -21.839}
---- !u!33 &6572246500848903130
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2990790053265823110}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8831114614392395885
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2990790053265823110}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2891446982829405339
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2990790053265823110}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2991970490905719270
 GameObject:
   m_ObjectHideFlags: 0
@@ -10672,6 +11158,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 9
       gameObjectAction:
@@ -10747,6 +11238,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -10822,6 +11318,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -10897,6 +11398,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -10972,6 +11478,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -11047,6 +11558,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -11122,6 +11638,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &3205238448257901914
 GameObject:
   m_ObjectHideFlags: 0
@@ -12703,6 +13224,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -12778,6 +13304,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -12853,6 +13384,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -12928,6 +13464,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -13003,6 +13544,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -13078,6 +13624,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -13153,6 +13704,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -13228,6 +13784,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &3580400470271891754
 GameObject:
   m_ObjectHideFlags: 0
@@ -13648,6 +14209,11 @@ MonoBehaviour:
         actionType: 3
         targetGameObject: {fileID: 5627976032029734113}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -13723,6 +14289,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -13798,6 +14369,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -13873,6 +14449,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -13948,6 +14529,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &3733641758767594665
 GameObject:
   m_ObjectHideFlags: 0
@@ -15266,7 +15852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3931105295653868853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.329315, y: 28.143284, z: 2.0523121}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15367,6 +15953,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 7
       gameObjectAction:
@@ -15442,6 +16033,91 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 2
+        targetGameObject: {fileID: 1801732801664096882}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: -40, z: 0}
+        moveTime: 5
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -15517,6 +16193,491 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 1
+        actionType: 1
+        targetUniQuest: {fileID: 400074657087169387}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetUniQuest: {fileID: 3889997890832144215}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 13
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetCBS: {fileID: 11400000, guid: 5f50b093cd4a6444bb7e15953df2959c, type: 2}
+    - delayTime: 0
+      uniActionType: 4
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 2
+        targetPlayerStatType: 1
+        targetISO: {fileID: 0}
+        targetAmount: 10
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: ee019c2f6561d438cb9f744282249212, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetUniQuest: {fileID: 4886665847506135474}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &3936578430240110191
 GameObject:
   m_ObjectHideFlags: 0
@@ -16128,6 +17289,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -16203,6 +17369,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -16278,6 +17449,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -16353,6 +17529,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -16428,6 +17609,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -16503,6 +17689,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -16578,6 +17769,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -16653,6 +17849,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4049510345507623281
 GameObject:
   m_ObjectHideFlags: 0
@@ -18205,6 +19406,137 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4292246813277202487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4996011436116825776}
+  - component: {fileID: 2541703518230236596}
+  m_Layer: 0
+  m_Name: a-00-4 Build Bed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4996011436116825776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292246813277202487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3274794311728069406}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2541703518230236596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292246813277202487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a860c3b8a30c444aaabdeb14be42a465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasStarted: 0
+  hasCompleted: 0
+  currentUniAction: 0
+  totalUniActions: 0
+  uponGameStart: 0
+  uniActionSequence:
+    allUniActions:
+    - delayTime: 0
+      uniActionType: 3
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetUniQuest: {fileID: 6231096946907931197}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4339360307024569055
 GameObject:
   m_ObjectHideFlags: 0
@@ -18525,6 +19857,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -18600,6 +19937,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -18675,6 +20017,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4413312388654449234
 GameObject:
   m_ObjectHideFlags: 0
@@ -18898,6 +20245,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 11
       gameObjectAction:
@@ -18974,6 +20326,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -19049,6 +20406,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -19124,6 +20486,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -19199,6 +20566,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -19274,6 +20646,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -19349,6 +20726,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4457229841685124339
 GameObject:
   m_ObjectHideFlags: 0
@@ -19863,6 +21245,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -19938,6 +21325,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 9
       gameObjectAction:
@@ -20013,6 +21405,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -20088,6 +21485,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -20163,6 +21565,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -20238,6 +21645,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -20313,6 +21725,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -20388,6 +21805,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4606809642287189129
 GameObject:
   m_ObjectHideFlags: 0
@@ -22163,6 +23585,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -22238,6 +23665,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -22313,6 +23745,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -22388,6 +23825,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -22463,6 +23905,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -22538,6 +23985,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &4862674650948084001
 GameObject:
   m_ObjectHideFlags: 0
@@ -25671,6 +27123,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &5599948127271213255
 GameObject:
   m_ObjectHideFlags: 0
@@ -25894,6 +27351,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &5623558492531154862
 GameObject:
   m_ObjectHideFlags: 0
@@ -26752,6 +28214,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 7
       gameObjectAction:
@@ -26827,6 +28294,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -26902,6 +28374,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &5837108400384988440
 GameObject:
   m_ObjectHideFlags: 0
@@ -29196,6 +30673,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -29271,6 +30753,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -29346,6 +30833,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 7
       gameObjectAction:
@@ -29421,6 +30913,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -29496,6 +30993,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -29571,6 +31073,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &6659526139217770854
 GameObject:
   m_ObjectHideFlags: 0
@@ -29794,6 +31301,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 6
       gameObjectAction:
@@ -29869,6 +31381,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -29944,6 +31461,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -30019,6 +31541,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 10
       gameObjectAction:
@@ -30094,6 +31621,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -30169,6 +31701,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &6672644840569843343
 GameObject:
   m_ObjectHideFlags: 0
@@ -30780,6 +32317,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &6724910503936350601
 GameObject:
   m_ObjectHideFlags: 0
@@ -31344,6 +32886,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -31419,6 +32966,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -31494,6 +33046,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &6877741103034240929
 GameObject:
   m_ObjectHideFlags: 0
@@ -31620,6 +33177,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 11
       gameObjectAction:
@@ -31699,6 +33261,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -31774,6 +33341,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -31849,6 +33421,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -31924,6 +33501,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 7
       gameObjectAction:
@@ -31999,6 +33581,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -32074,6 +33661,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -32149,6 +33741,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -32224,6 +33821,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &6888739920429468947
 GameObject:
   m_ObjectHideFlags: 0
@@ -33611,6 +35213,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -33686,6 +35293,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -33761,6 +35373,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -33836,6 +35453,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 2
       gameObjectAction:
@@ -33911,6 +35533,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 4
       gameObjectAction:
@@ -33986,6 +35613,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -34061,6 +35693,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &7395197475795030319
 GameObject:
   m_ObjectHideFlags: 0
@@ -38342,6 +39979,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &8653290284387330414
 GameObject:
   m_ObjectHideFlags: 0
@@ -39438,6 +41080,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -39513,6 +41160,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -39588,6 +41240,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 5
       gameObjectAction:
@@ -39663,6 +41320,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 1
       gameObjectAction:
@@ -39738,6 +41400,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -39813,6 +41480,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &8977371587429462938
 GameObject:
   m_ObjectHideFlags: 0
@@ -40133,6 +41805,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
     - delayTime: 0
       uniActionType: 11
       gameObjectAction:
@@ -40217,6 +41894,11 @@ MonoBehaviour:
         actionType: 0
         targetGameObject: {fileID: 0}
         targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
 --- !u!1 &9094640613771592477
 GameObject:
   m_ObjectHideFlags: 0

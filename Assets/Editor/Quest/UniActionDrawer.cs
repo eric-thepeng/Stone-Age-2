@@ -57,6 +57,9 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.TimelineAnimationAction:
                 DrawProperty("timelineAnimationAction", property, ref rowRect);
                 break;
+            case UniAction.UniActionType.CharacterInteractionAction:
+                DrawProperty("characterInteractionAction", property, ref rowRect);
+                break;
         }
 
         EditorGUI.EndProperty();
@@ -106,6 +109,9 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.TimelineAnimationAction:
                 height += GetHeightForProperty(property, "timelineAnimationAction");
+                break;
+            case UniAction.UniActionType.CharacterInteractionAction:
+                height += GetHeightForProperty(property, "characterInteractionAction");
                 break;
         }
 
