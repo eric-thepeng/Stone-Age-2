@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class UI_ScreenNotification : MonoBehaviour
 {
-    [SerializeField] private GameObject board;
+    [SerializeField] private Transform board;
     [SerializeField] private TextMeshPro targetTMP;
     
     static UI_ScreenNotification instance;
@@ -36,9 +37,11 @@ public class UI_ScreenNotification : MonoBehaviour
     public void StartNotification(string text, bool autoEnd = true, float duration = 10)
     {
         targetTMP.text = text;
-        board.SetActive(true);
+        board.gameObject.SetActive(true);
+        board.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        board.DOScale(new Vector3(1, 1, 1), 0.3f);
         StopAllCoroutines();
-        StartCoroutine(EndNotificationAfterDuration(duration));
+        if(autoEnd) StartCoroutine(EndNotificationAfterDuration(duration));
     }
 
     IEnumerator EndNotificationAfterDuration(float duration)
@@ -49,6 +52,6 @@ public class UI_ScreenNotification : MonoBehaviour
 
     void TurnOffDisplay()
     {
-        board.SetActive(false);
+        board.gameObject.SetActive(false);
     }
 }

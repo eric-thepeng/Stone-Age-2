@@ -36,6 +36,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
     
     public void TabSwitchToResearch()
     {
+        PlayerState.OnGamePanelOpen.Invoke(PlayerState.GamePanel.Research);
+
         isResearchPanelOpen = true;
         isBlueprintPanelOpen = false;
         researchPanelGO.transform.localPosition = activePanelLocalPosition;
@@ -46,14 +48,14 @@ public class BlueprintAndResearchManager : MonoBehaviour
 
     public void TabSwitchToBlueprint()
     {
+        PlayerState.OnGamePanelOpen.Invoke(PlayerState.GamePanel.Crafting);
+
         isResearchPanelOpen = false;
         isBlueprintPanelOpen = true;
         researchPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
         researchSwitchButton.SetActive(true);
         blueprintSwitchButton.SetActive(false);
-        
-        
     }
 
     public void OpenPanel()
