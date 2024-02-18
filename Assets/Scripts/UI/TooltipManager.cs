@@ -218,7 +218,7 @@ public class TooltipManager : MonoBehaviour
     public void DisableTip()
     {
         StartCoroutine(Wait(0.3f));
-        tip.DestroyDisplay();
+        if (tip != null) tip.DestroyDisplay();
         //tip.DisableDisplay();
     }
 
