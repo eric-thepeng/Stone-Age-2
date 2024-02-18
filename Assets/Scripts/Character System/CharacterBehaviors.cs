@@ -15,13 +15,7 @@ public class CharacterBehaviors : MonoBehaviour
     private Character character;
 
     private HomeState currentState;
-    private GameObject l2dCharacter;
-
-    public GameObject L2dCharacter
-    {
-        get => l2dCharacter;
-        set => l2dCharacter = value;
-    }
+    
 
     private CharacterMovement characterMovement;
 
@@ -38,12 +32,12 @@ public class CharacterBehaviors : MonoBehaviour
         hangOutWaitTime = character.GetHangOutWaitTime();
 
         // l2dCharacter = Instantiate(character.GetL2dGameObject());
-        if (l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
+        if (character.l2dCharacter == null) Debug.LogError("Character " + character.GetCharacterName() + "'s L2dCharacter is missing!");
 
-        characterMovement = l2dCharacter.GetComponent<CharacterMovement>();
+        characterMovement = character.l2dCharacter.GetComponent<CharacterMovement>();
         if (characterMovement == null)
         {
-            characterMovement = l2dCharacter.AddComponent<CharacterMovement>();
+            characterMovement = character.l2dCharacter.AddComponent<CharacterMovement>();
         }
         //Debug.Log(characterMovement.transform.name);
 
@@ -62,7 +56,7 @@ public class CharacterBehaviors : MonoBehaviour
 
         hangOutArea.enabled = false;
 
-        if (character.EnergyLessThanRestingPercentage())
+        if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
         {
             currentState = HomeState.Resting;
             characterMovement.StartSleeping();
@@ -74,7 +68,89 @@ public class CharacterBehaviors : MonoBehaviour
 
         }
     }
+    
+    
+    public enum CharacterState {Idle, Gather}
+    public CharacterState state = CharacterState.Idle;
 
+
+    float gatherTimeLeft;
+
+    public float GatherTimeLeft
+    {
+        get => gatherTimeLeft;
+        set => gatherTimeLeft = value;
+    }
+
+    public float RestTimeLeft
+    {
+        get => restTimeLeft;
+        set => restTimeLeft = value;
+    }
+
+    float restTimeLeft;
+    
+    void Update()
+    {
+        //Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
+        if (state == CharacterState.Gather)
+        {
+            if(character.CharacterStats.energy.NoEnergy())
+            {
+                character.EndGatherUI();
+                character.GatheringSpot.EndGathering();
+                //state = CharacterState.Idle;
+                //currentEnergy = maxEnergy;
+                //myCI.ResetHome();   
+            }
+            if(gatherTimeLeft <= 0)
+            {
+                character.YieldResource();
+                character.DiscoverSpot();
+                character.CharacterStats.energy.CostEnergy();
+                gatherTimeLeft = character.GatheringSpot.gatherTime;
+            }
+            //update ui
+            gatherTimeLeft -= character.CharacterStats.gatherSpeed.GetCurrentGatherSpeed() * Time.deltaTime;
+
+            character.CharacterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
+            character.GatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
+        }
+        else if(state == CharacterState.Idle)
+        {
+            if (!character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+            {
+                character.CharacterIcon.ChangeIconColorToHome();
+
+                EnterState(HomeState.Gatherable);
+            } else
+            {
+                character.CharacterIcon.ChangeIconColorToGather();
+                EnterState(HomeState.Resting);
+            }
+            
+            /* Energy is always displayed
+             
+            if (!characterStats.energy.maximizeEnergy())
+            {
+                characterIcon.setga(CircularUI.CircularUIState.Display);
+            } else
+            {
+                characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
+            }*/
+
+            if (restTimeLeft <= 0)
+            {
+                character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
+                character.CharacterStats.energy.AddEnergy();
+                restTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+            }
+            //update ui
+            restTimeLeft -= character.CharacterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
+
+            //characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+        }
+    }
     public void EnterState(HomeState state)
     {
         if (characterMovement == null) return;
@@ -146,12 +222,8 @@ public class CharacterBehaviors : MonoBehaviour
 
     public void setL2dCharacterActive(bool active)
     {
-        l2dCharacter.SetActive(active);
+        character.l2dCharacter.SetActive(active);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

@@ -7,7 +7,7 @@ using static CharacterBehaviors;
 
 namespace Uniland.Characters
 {
-    class Energy
+    public class Energy
     {
         private int currentEnergy;
         private int maxEnergy;
@@ -85,7 +85,7 @@ namespace Uniland.Characters
     }
     
     
-    class Saturation
+    public class Saturation
     {
         private int currentSaturation;
         private int maxSaturation;
@@ -162,7 +162,7 @@ namespace Uniland.Characters
         }
     }
 
-    class GatherSpeed
+    public class GatherSpeed
     {
         private float currentGatherSpeed;
 
@@ -178,7 +178,7 @@ namespace Uniland.Characters
 
     }
 
-    class ExploreSpeed
+    public class ExploreSpeed
     {
         private float exploreSpeed;
 
@@ -193,7 +193,7 @@ namespace Uniland.Characters
         }
     }
 
-    class RestingSpeed
+    public class RestingSpeed
     {
         private float restingSpeed;
 
@@ -208,7 +208,7 @@ namespace Uniland.Characters
         }
     }
 
-    class HerdSize
+    public class HerdSize
     {
         private int herdSize;
 
@@ -229,7 +229,7 @@ namespace Uniland.Characters
 
     }
 
-    class CharacterStats
+    public class CharacterStats
     {
         public Energy energy;
         public Saturation saturation;
@@ -258,8 +258,13 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private CharacterBasicStats initialStats;
     
-    
     private CharacterStats characterStats;
+
+    public CharacterStats CharacterStats
+    {
+        get => characterStats;
+        set => characterStats = value;
+    }
 
     public CharacterBasicStats InitialStats
     {
@@ -271,18 +276,34 @@ public class Character : MonoBehaviour
     private CharacterBehaviors _behaviors; 
     
     [SerializeField]
-    private GameObject l2dCharacter;
-    
+    public GameObject l2dCharacter;
+
+
     // [SerializeField]
     public CharacterInteraction charInteractions;
     
-    enum CharacterState {Idle, Gather}
-    CharacterState state = CharacterState.Idle;
 
     GatherSpot gatheringSpot;
+
+    public GatherSpot GatheringSpot1
+    {
+        get => gatheringSpot;
+        set => gatheringSpot = value;
+    }
+
+    public CharacterIcon CharacterIcon
+    {
+        get => characterIcon;
+        set => characterIcon = value;
+    }
+
+    public GatherSpot GatheringSpot
+    {
+        get => gatheringSpot;
+        set => gatheringSpot = value;
+    }
+
     CharacterIcon characterIcon;
-    float gatherTimeLeft;
-    float restTimeLeft;
     CharacterIcon myCI;
 
     [SerializeField] private int charExperience;
@@ -298,11 +319,12 @@ public class Character : MonoBehaviour
     {
         if (CharacterGatherUnityEvent == null)
             CharacterGatherUnityEvent = new UnityEvent<SO_ExploreSpotSetUpInfo, CharacterBasicStats, int>();
-        characterStats = new CharacterStats(initialStats);
+        // characterStats = new CharacterStats(initialStats);
         _behaviors = (GetComponent<CharacterBehaviors>()==null)?gameObject.AddComponent<CharacterBehaviors>():GetComponent<CharacterBehaviors>();
-        
-        l2dCharacter = Instantiate(GetL2dGameObject(), transform);
-        _behaviors.L2dCharacter = l2dCharacter;
+        //
+        // l2dCharacter = Instantiate(GetL2dGameObject(), transform);
+        // Debug.Log(l2dCharacter + "generated");
+        // _behaviors.L2dCharacter = l2dCharacter;
         charInteractions = l2dCharacter.GetComponent<CharacterInteraction>();
         
         charInteractions.Initialize(initialStats);
@@ -310,67 +332,6 @@ public class Character : MonoBehaviour
         charExperience = 0;
     }
 
-    void Update()
-    {
-        //Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
-        if (state == CharacterState.Gather)
-        {
-            if(characterStats.energy.NoEnergy())
-            {
-                EndGather();
-                gatheringSpot.EndGathering();
-                //state = CharacterState.Idle;
-                //currentEnergy = maxEnergy;
-                //myCI.ResetHome();   
-            }
-            if(gatherTimeLeft <= 0)
-            {
-                YieldResource();
-                DiscoverSpot();
-                characterStats.energy.CostEnergy();
-                gatherTimeLeft = gatheringSpot.gatherTime;
-            }
-            //update ui
-            gatherTimeLeft -= characterStats.gatherSpeed.GetCurrentGatherSpeed() * Time.deltaTime;
-
-            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
-            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
-        }
-        else if(state == CharacterState.Idle)
-        {
-            if (!EnergyLessThanRestingPercentage())
-            {
-                characterIcon.ChangeIconColorToHome();
-
-                _behaviors.EnterState(HomeState.Gatherable);
-            } else
-            {
-                characterIcon.ChangeIconColorToGather();
-                _behaviors.EnterState(HomeState.Resting);
-            }
-            
-            /* Energy is always displayed
-             
-            if (!characterStats.energy.maximizeEnergy())
-            {
-                characterIcon.setga(CircularUI.CircularUIState.Display);
-            } else
-            {
-                characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
-            }*/
-
-            if (restTimeLeft <= 0)
-            {
-                characterIcon.SetGatheringProgress(0, 100 * characterStats.energy.RemainEnergyPercentage(), false);
-                characterStats.energy.AddEnergy();
-                restTimeLeft = characterStats.restingSpeed.GetRestingSpeed();
-            }
-            //update ui
-            restTimeLeft -= characterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
-
-            //characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
-        }
-    }
 
     public void SetUp(CharacterIcon ci)
     {
@@ -382,19 +343,19 @@ public class Character : MonoBehaviour
         this.initialStats = initialStats;
     }
 
-    public void StartGather(GatherSpot es, CharacterIcon ci)
+    public void StartGatherUI(GatherSpot es, CharacterIcon ci)
     {
 
         if (!characterStats.energy.EnergyLessThanRestingPercentage())
         {
             gatheringSpot = es;
-            gatherTimeLeft = es.gatherTime;
+            _behaviors.GatherTimeLeft = es.gatherTime;
 
-            state = CharacterState.Gather;
+            _behaviors.state = CharacterState.Gather;
             myCI = ci;
 
-            characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
-            gatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
+            characterIcon.SetGatheringProgress(100 * (1 - (_behaviors.GatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
+            gatheringSpot.SetGatheringProgress(100 * (1 - (_behaviors.GatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), false);
             SetCircularUIState(CircularUI.CircularUIState.Display);
 
             CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,1);
@@ -404,12 +365,12 @@ public class Character : MonoBehaviour
 
     }
 
-    public void EndGather()
+    public void EndGatherUI()
     {
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
         gatheringSpot.EndGathering();
-        state = CharacterState.Idle;
+        _behaviors.state = CharacterState.Idle;
         //characterStats.energy.RestoreAllEnergy();
 
         myCI.ResetHome();
@@ -475,10 +436,7 @@ public class Character : MonoBehaviour
         return _behaviors;
     }
 
-    public bool EnergyLessThanRestingPercentage()
-    {
-        return characterStats.energy.EnergyLessThanRestingPercentage();
-    }
+    
     
     
 }

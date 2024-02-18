@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -82,6 +83,9 @@ public class CharacterManager : MonoBehaviour
         newCharacterConfig.character = characterObject.AddComponent<Character>();
         newCharacterConfig.character.Initialize(newCharacterConfig.characterSettings);
         CharacterBehaviors behaviors = characterObject.AddComponent<CharacterBehaviors>();
+        
+        newCharacterConfig.character.l2dCharacter = Instantiate(characterConfig.characterSettings.l2dGameObject, newCharacterConfig.character.transform);
+        newCharacterConfig.character.CharacterStats = new CharacterStats(newCharacterConfig.characterSettings);
 
         behaviors.hangOutArea = newCharacterConfig.hangOutArea;
         characterObject.transform.position = behaviors.hangOutArea.center;
