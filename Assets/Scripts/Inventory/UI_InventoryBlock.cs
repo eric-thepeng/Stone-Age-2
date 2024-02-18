@@ -79,10 +79,12 @@ public class UI_InventoryBlock : MonoBehaviour
         if (PlayerState.IsResearch())
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
         }
         else
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYHOME);
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
         }
         mouseOver = true;
     }
@@ -92,6 +94,7 @@ public class UI_InventoryBlock : MonoBehaviour
         if (itemInfo == null) return;
         TooltipManager.i.DisableTip();
         mouseOver = false;
+        UniversalUIManager.i.CancelDisplayCursor();
     }
 
     private void OnMouseDown()
