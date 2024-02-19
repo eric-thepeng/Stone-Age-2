@@ -38,8 +38,12 @@ public class BlueprintAndResearchManager : MonoBehaviour
     {
         isResearchPanelOpen = true;
         isBlueprintPanelOpen = false;
+        
+        //THIS TWO LINES
         researchPanelGO.transform.localPosition = activePanelLocalPosition;
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
+        //Until here
+        
         researchSwitchButton.SetActive(false);
         blueprintSwitchButton.SetActive(true);
     }
@@ -48,8 +52,12 @@ public class BlueprintAndResearchManager : MonoBehaviour
     {
         isResearchPanelOpen = false;
         isBlueprintPanelOpen = true;
+        
+        //THIS TWO LINES
         researchPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
+        //Until here
+        
         researchSwitchButton.SetActive(true);
         blueprintSwitchButton.SetActive(false);
         

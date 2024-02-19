@@ -57,6 +57,7 @@ public class CraftingManager : SerializedMonoBehaviour
         UI_FullScreenUIDragCollider.i.Open(this);
         panelOpen = true;
         UI_InventoryPanel.i.OpenPanel();
+        PanelTransform.localPosition = new Vector3(0, 0, 30);
         
         infoPanelAnimator.SetTrigger("TriggerOpen");
         Debug.Log("TriggerOpen");
@@ -67,10 +68,10 @@ public class CraftingManager : SerializedMonoBehaviour
         UI_FullScreenUIDragCollider.i.Close();
         panelOpen = false;
         UI_InventoryPanel.i.ClosePanel();
+        PanelTransform.localPosition = new Vector3(0, -10, 30);
         PutBackAllTetrisToInventory();
-        
+
         infoPanelAnimator.SetTrigger("TriggerClose");
-        Debug.Log("TriggerClose");
     }
 
     IEnumerator OpenPanelCor()
