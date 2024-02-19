@@ -20,6 +20,9 @@ public class BlueprintAndResearchManager : MonoBehaviour
     [SerializeField] private GameObject researchPanelGO, blueprintPanelGO;
     [SerializeField] private GameObject researchSwitchButton, blueprintSwitchButton;
     [SerializeField] private Vector3 activePanelLocalPosition;
+    
+    [SerializeField] private Animator blueprintPanelAnimator;
+    [SerializeField] private Animator researchPanelAnimator;
 
     private bool isResearchPanelOpen = false;
     private bool isBlueprintPanelOpen = false;
