@@ -59,6 +59,7 @@ public class CraftingManager : SerializedMonoBehaviour
         UI_InventoryPanel.i.OpenPanel();
         
         infoPanelAnimator.SetTrigger("TriggerOpen");
+        Debug.Log("TriggerOpen");
     }
 
     public void ClosePanel()
@@ -69,6 +70,7 @@ public class CraftingManager : SerializedMonoBehaviour
         PutBackAllTetrisToInventory();
         
         infoPanelAnimator.SetTrigger("TriggerClose");
+        Debug.Log("TriggerClose");
     }
 
     IEnumerator OpenPanelCor()
