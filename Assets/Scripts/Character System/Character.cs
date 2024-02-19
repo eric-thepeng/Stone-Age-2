@@ -151,7 +151,7 @@ namespace Uniland.Characters
             return currentSaturation == maxSaturation;
         }
 
-        public bool SaturationLessThanRestingPercentage()
+        public bool SaturationLessThanFullPercentage()
         {
             return currentSaturation <= maxSaturation * restingSaturationPercentage;
         }
@@ -370,7 +370,6 @@ public class Character : MonoBehaviour
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
         gatheringSpot.EndGathering();
-        _behaviors.state = CharacterState.Idle;
         //characterStats.energy.RestoreAllEnergy();
 
         myCI.ResetHome();
@@ -378,13 +377,13 @@ public class Character : MonoBehaviour
         CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,0);
 
 
-        if (characterStats.energy.EnergyLessThanRestingPercentage())
-        {
-            _behaviors.EnterState(HomeState.Resting);
-        } else
-        {
-            _behaviors.EnterState(HomeState.Gatherable);
-        }
+        // if (characterStats.energy.EnergyLessThanRestingPercentage())
+        // {
+        //     _behaviors.EnterState(HomeState.Resting);
+        // } else
+        // {
+        //     _behaviors.EnterState(HomeState.Gatherable);
+        // }
     }
 
     void SetCircularUIState(CircularUI.CircularUIState circularUIState)

@@ -111,6 +111,19 @@ public class CharacterMovement : MonoBehaviour
         _isMovingToTarget = true;
     }
 
+    public bool SetTargetPosition(Vector3 position)
+    {
+        _targetPosition = position;
+        NavMeshPath path = new NavMeshPath();
+        if (_navMeshAgent.CalculatePath(_targetPosition, path) && path.status == NavMeshPathStatus.PathComplete)
+        {
+            _navMeshAgent.SetDestination(_targetPosition);
+            _isMovingToTarget = true;
+            return true;
+        }
+        return false;
+    }
+
     public void MoveToPosition(Vector3 position)
     {
         _targetPosition = position;

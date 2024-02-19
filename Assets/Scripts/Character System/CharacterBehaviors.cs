@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 public class CharacterBehaviors : MonoBehaviour
 {
     public enum HomeState { 
-        Resting, 
-        Gatherable, 
-        Gathering
+        Sleeping1,
+        Feeding,
+        Sleeping2,
+        Interacting,
+        Working,
+        HangingAround,
+        Exploring
         
+        // Resting,
+        // Gatherable,
+        // Gathering
     }
 
     private Character character;
@@ -22,6 +30,26 @@ public class CharacterBehaviors : MonoBehaviour
     private float moveSpeed = 1f;
     public BoxCollider hangOutArea;
     private float hangOutWaitTime = 2f; // 停顿时间
+
+    public enum CharacterState {Idle, Gather}
+    public CharacterState state = CharacterState.Idle;
+
+
+    float gatherTimeLeft;
+
+    public float GatherTimeLeft
+    {
+        get => gatherTimeLeft;
+        set => gatherTimeLeft = value;
+    }
+
+    public float RestTimeLeft
+    {
+        get => restTimeLeft;
+        set => restTimeLeft = value;
+    }
+
+    float restTimeLeft;
 
 
     // Start is called before the first frame update
@@ -68,42 +96,24 @@ public class CharacterBehaviors : MonoBehaviour
 
         }
     }
-    
-    
-    public enum CharacterState {Idle, Gather}
-    public CharacterState state = CharacterState.Idle;
 
-
-    float gatherTimeLeft;
-
-    public float GatherTimeLeft
-    {
-        get => gatherTimeLeft;
-        set => gatherTimeLeft = value;
-    }
-
-    public float RestTimeLeft
-    {
-        get => restTimeLeft;
-        set => restTimeLeft = value;
-    }
-
-    float restTimeLeft;
+    private Vector3 _behaviorTargetPosition;
     
     void Update()
     {
-        //Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
-        if (state == CharacterState.Gather)
+        if (state == CharacterState.Gather) // if character is exploring on the map
         {
-            if(character.CharacterStats.energy.NoEnergy())
+            if(character.CharacterStats.energy.NoEnergy()) // end exploring when no energy
             {
+                state = CharacterState.Idle;
+                
                 character.EndGatherUI();
                 character.GatheringSpot.EndGathering();
-                //state = CharacterState.Idle;
-                //currentEnergy = maxEnergy;
-                //myCI.ResetHome();   
+                
+                // EnterState(HomeState.Resting);
+                
             }
-            if(gatherTimeLeft <= 0)
+            if(gatherTimeLeft <= 0) // else, reduce energy and continue
             {
                 character.YieldResource();
                 character.DiscoverSpot();
@@ -116,29 +126,9 @@ public class CharacterBehaviors : MonoBehaviour
             character.CharacterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
             character.GatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
         }
-        else if(state == CharacterState.Idle)
+        else if(state == CharacterState.Idle) // if character is at home
         {
-            if (!character.CharacterStats.energy.EnergyLessThanRestingPercentage())
-            {
-                character.CharacterIcon.ChangeIconColorToHome();
-
-                EnterState(HomeState.Gatherable);
-            } else
-            {
-                character.CharacterIcon.ChangeIconColorToGather();
-                EnterState(HomeState.Resting);
-            }
             
-            /* Energy is always displayed
-             
-            if (!characterStats.energy.maximizeEnergy())
-            {
-                characterIcon.setga(CircularUI.CircularUIState.Display);
-            } else
-            {
-                characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
-            }*/
-
             if (restTimeLeft <= 0)
             {
                 character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
@@ -147,13 +137,73 @@ public class CharacterBehaviors : MonoBehaviour
             }
             //update ui
             restTimeLeft -= character.CharacterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
+            
+            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+            {
+                PlaceableObject[] _bedObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
+                // _behaviorTargetPosition = _bedObject.transform.position;
 
-            //characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+                PlaceableObject _bedObject = null;
+                int count = 0;
+                while (count < _bedObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_bedObjects[count].transform.position))
+                    {
+                        _bedObject = _bedObjects[count];
+                        _behaviorTargetPosition = _bedObject.transform.position;
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                
+                if (currentState != HomeState.Sleeping1 && _bedObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Sleeping1);
+                    return;
+                }
+                
+            }
+            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage())
+            {
+                // character.CharacterIcon.ChangeIconColorToGather();
+                
+                // if () {}// if character find food to eat
+                    EnterState(HomeState.Sleeping1);
+                return;
+            }
+            
+
+
         }
     }
+    
+    
+    public T[] FindAndSortComponents<T>(Vector3 center, float searchRadius) where T : Component
+    {
+        // 使用 Physics.OverlapSphere 查找所有碰撞体
+        Collider[] hitColliders = Physics.OverlapSphere(center, searchRadius);
+        // 从碰撞体中获取指定类型的组件，并过滤掉没有该组件的对象
+        var components = hitColliders.Select(collider => collider.GetComponent<T>())
+            .Where(component => component != null)
+            .ToArray();
+
+        // 按与中心点的距离排序
+        return components.OrderBy(component => (component.transform.position - center).sqrMagnitude).ToArray();
+    }
+    
     public void EnterState(HomeState state)
     {
         if (characterMovement == null) return;
+
+        if (state == HomeState.Sleeping1)
+        {
+            character.CharacterIcon.ChangeIconColorToHome();
+        }
+        
 
         if (currentState == HomeState.Resting)
         {
