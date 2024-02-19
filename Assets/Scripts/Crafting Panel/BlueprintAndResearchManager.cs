@@ -43,6 +43,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         isBlueprintPanelOpen = false;
         
         //THIS TWO LINES
+        researchPanelAnimator.SetTrigger("TriggerOpen");
+        blueprintPanelAnimator.SetTrigger("TriggerClose");
         researchPanelGO.transform.localPosition = activePanelLocalPosition;
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         //Until here
@@ -57,6 +59,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         isBlueprintPanelOpen = true;
         
         //THIS TWO LINES
+        researchPanelAnimator.SetTrigger("TriggerClose");
+        blueprintPanelAnimator.SetTrigger("TriggerOpen");
         researchPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
         //Until here
