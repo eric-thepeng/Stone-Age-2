@@ -17,6 +17,7 @@ Material:
   - _MK_ENVIRONMENT_REFLECTIONS_ADVANCED
   - _MK_LIGHT_BANDED
   - _MK_OUTLINE_HULL_CLIP
+  - _MK_OUTLINE_NOISE
   - _MK_RECEIVE_SHADOWS
   - _MK_SPECULAR_ISOTROPIC
   - _MK_WRAPPED_DIFFUSE
@@ -250,15 +251,15 @@ Material:
     - _OutlineData: 0
     - _OutlineFadeMax: 2
     - _OutlineFadeMin: 0.25
-    - _OutlineNoise: 0
-    - _OutlineSize: 400
+    - _OutlineNoise: 0.164
+    - _OutlineSize: 250
     - _OutlineTab: 1
     - _Parallax: 0.02
     - _ReceiveShadows: 1
     - _RenderFace: 2
     - _RenderPriority: 0
     - _Rim: 0
-    - _RimSize: 1
+    - _RimSize: 5
     - _RimSmoothness: 0.5
     - _RimThresholdOffset: 0.25
     - _Roughness: 0.5
@@ -298,13 +299,13 @@ Material:
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GoochDarkColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
+    - _GoochDarkColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _LightTransmissionColor: {r: 1, g: 0.65, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimDarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimDarkColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 0.20312497, g: 0.20312497, b: 0.20312497, a: 1}
     - _VertexAnimationFrequency: {r: 2.5, g: 2.5, b: 2.5, a: 1}
   m_BuildTextureStacks: []
