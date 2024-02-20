@@ -21,8 +21,9 @@ public class PlaceableObject : MonoBehaviour
         None = 0,
         DefaultTile = 1 << 0, // 1
         WaterTile = 1 << 1, // 2
-        HillTile = 1 << 2 // 4
-        //Option4 = 1 << 3  // 8
+        HillTile = 1 << 2, // 4
+        LavaTile = 1 << 3 // 8
+        //Option6 = 1 << 3  // 16
         // 可以继续添加更多选项
     }
 
@@ -37,6 +38,9 @@ public class PlaceableObject : MonoBehaviour
         } else if (name.Contains("HillTile"))
         {
             return BiomeType.HillTile;
+        } else if (name.Contains("LavaTile"))
+        {
+            return BiomeType.LavaTile;
         }
         else
         {
@@ -80,6 +84,42 @@ public class PlaceableObject : MonoBehaviour
     private List<string> _gridObjectTags;
 
 
+    [Header("Character Settings")] 
+    [SerializeField] private bool isOccupiedByCharacter; 
+    [SerializeField] private Character occupiedCharacter;
+    [SerializeField] private float remainOccupyTime;
+
+    [Header("Character Tasks")] 
+    [SerializeField] private float taskDuration;
+    [SerializeField] private int charRewardPoint;
+    [SerializeField] private Action finishedEvent;
+
+    public void Occupy(Character character, float occupyTime)
+    {
+        isOccupiedByCharacter = true;
+        occupiedCharacter = character;
+
+        StartCoroutine(OccupationCountdown(occupyTime)); // 启动协程
+    }
+
+    private IEnumerator OccupationCountdown(float duration)
+    {
+        remainOccupyTime = duration;
+        while (remainOccupyTime > 0)
+        {
+            yield return new WaitForSeconds(0.1f); // 等待1秒
+            remainOccupyTime -= 0.1f; // 更新剩余时间
+        }
+
+        // 倒计时结束
+        isOccupiedByCharacter = false;
+        occupiedCharacter = null; // 或者保留角色引用，取决于你的需求
+        remainOccupyTime = 0;
+
+        finishedEvent?.Invoke(); // 调用完成事件
+        SpiritPoint.i.Add(charRewardPoint);
+    }
+
     public bool containsTag(string ObjectTag)
     {
         if (_gridObjectTags.Contains(ObjectTag)) return true;
@@ -97,7 +137,7 @@ public class PlaceableObject : MonoBehaviour
     private BuildingManager buildingManager;
 
     private BoxCollider boxCollider;
-    private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
+    // private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
 
     private GridOperationManager gridOperationManager;
 
@@ -114,39 +154,6 @@ public class PlaceableObject : MonoBehaviour
         GetComponent<NavMeshObstacle>().enabled = false;
 
         boxCollider = GetComponent<BoxCollider>();
-        // spriteToRender = gridOperationManager.ObstacleSprite;
-        //
-        // if (boxCollider != null)
-        // {
-        //
-        //     // 创建一个新的GameObject作为Sprite
-        //     GameObject spriteObj = new GameObject("GridMask - " + transform.name);
-        //
-        //     GameObject gridMasks = GameObject.Find("GridMasks");
-        //     if (gridMasks == null)
-        //     {
-        //         gridMasks = new GameObject("GridMasks");
-        //     }
-        //     spriteObj.transform.SetParent(transform);
-        //     //spriteObjs.Add(spriteObj);
-        //     SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
-        //     imageMask.sprite = spriteToRender;
-        //     ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
-        //
-        //     float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-        //
-        //     Vector3 spriteSize = boxCollider.size;
-        //     spriteSize.y = boxCollider.size.z;
-        //     spriteSize.z = boxCollider.size.y;
-        //
-        //     Vector3 spritePosition = boxCollider.center;
-        //     spritePosition.y = gridHeightPositioner.GridHeight;
-        //
-        //     spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-        //     spriteObj.transform.localPosition = spritePosition;
-        //     spriteObj.transform.localScale = spriteSize;
-        //
-        // }
     }
 
     private void Update()

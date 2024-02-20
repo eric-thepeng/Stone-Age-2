@@ -26,7 +26,7 @@ public class BLDFarmland : CropGrowth
     
 
     [Header("UI Objects - Progress Bar")]
-    public bool Visibility;
+    public bool enableProgressBar;
     public GameObject Bar;
     public GameObject progress;
     public GameObject background;
@@ -34,14 +34,22 @@ public class BLDFarmland : CropGrowth
     //[Header("Invoke Related")]
     private float timeToClear;
 
-    Sprite goalSprite;
-
+    [Header("Animation")] [SerializeField] private AnimationCurve animationCurve;
+    [SerializeField] private float animationDuration;
+    
+    private Sprite goalSprite;
+    private Vector3 originalScale;
+    
     protected override void Start()
     {
         base.Start();
+        Bar.SetActive(false);
         iconRenderer = Icon.GetComponent<SpriteRenderer>();
+
+        originalScale = transform.localScale;
     }
-    
+
+    private bool firstPlaced;
     private void Update()
     {
         isPlaced = !GridManagerAccessor.GridManager.IsPlacingGridObject;
@@ -65,12 +73,23 @@ public class BLDFarmland : CropGrowth
             //Icon.GetComponent<SpriteRenderer>().sprite = null;
         }
 
+        if (isPlaced && !firstPlaced)
+        {
+            firstPlaced = true;
+            
+            if (autoGrowth)
+            {
+                Water();
+                SetCurrentInteraction(null);
+            }
+        }
+
         if (isCountingDown)
         {
             Icon.SetActive(false);
             //Icon.GetComponent<SpriteRenderer>().sprite = null;
 
-            if (Visibility)
+            if (enableProgressBar)
             {
                 Bar.SetActive(true);
                 Vector3 _pos = progress.transform.localPosition;
@@ -101,6 +120,7 @@ public class BLDFarmland : CropGrowth
     {
         if (Water())
         {
+            playScaleAnimation(animationDuration);
             Debug.Log("Unlock to Next State");
         }
     }
@@ -113,6 +133,7 @@ public class BLDFarmland : CropGrowth
         Icon.SetActive(true);
         goalSprite = GetCurrentUnlockState().interactableIcon;
 
+        playScaleAnimation(animationDuration);
     }
 
     protected override void onCropMatured()
@@ -123,8 +144,25 @@ public class BLDFarmland : CropGrowth
         //goalSprite = matureIcon;
         Icon.SetActive(true);
         goalSprite = GetCurrentUnlockState().interactableIcon;
+        
+        playScaleAnimation(animationDuration);
     }
 
+    private void playScaleAnimation(float duration)
+    {
+        DOVirtual.Float(0f, 1f, duration, (float value) =>
+        {
+            float scaleValue = animationCurve.Evaluate(value);
+            Vector3 newScale = transform.localScale;
+            newScale.y = originalScale.y * scaleValue;
+            transform.localScale = newScale;
+        }).OnComplete(() =>
+        {
+            // 动画完成后恢复原始尺寸
+            transform.localScale = originalScale;
+        });
+    }
+    
     private GameObject waterObject;
 
     public void PlayWaterEffect(GameObject particlePrefab)

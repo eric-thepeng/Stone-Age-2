@@ -141,7 +141,7 @@ public class GatherSpot : MonoBehaviour
 
     public void CancelGather()
     {
-        gatheringCharacter.EndGather();
+        gatheringCharacter.EndGatherUI();
         CancelRecallButton();
     }
 

@@ -18,9 +18,11 @@ MonoBehaviour:
   GridSizeRatio: {x: 1, y: 3}
   AmountOfCellsX: 3
   AmountOfCellsY: 9
+  DesiredCellSize: 1.2666667
   GridPosition: {x: -6.983727, y: 0.001, z: 0}
   GridRotation: 0
   ParentToGrid: 1
+  RegionTypePresetTilemap: {fileID: 0}
   CellImage: {fileID: 21300000, guid: ffcc9c6045864204c90dbdb2482f3c0a, type: 3}
   OccupiedCellImage: {fileID: 21300000, guid: 6e097060cd3d2d54b8b9c66219b7d8c9, type: 3}
   CellColourAvailable: {r: 0.6383647, g: 1, b: 0.6383647, a: 1}
@@ -29,11 +31,23 @@ MonoBehaviour:
   HidePlacementCellsIfOutsideOfGrid: 1
   ShowOccupiedCells: 1
   GridCanvasEventCameraName: 
-  ChangeObjectMaterials: 1
+  statusIndicatorPrefab: {fileID: 0}
+  OutOfBorderIndicatorIcon: {fileID: 0}
+  BiomeNotPlaceableIcon: {fileID: 0}
+  UsePlaceableMaterial: 1
+  UseUnplaceableMaterial: 1
   ObjectPlaceableMaterial: {fileID: 2100000, guid: 7fb8be3249023ba41932317f6da47b0d, type: 2}
   ObjectUnPlaceableMaterial: {fileID: 2100000, guid: 447137d51a391c74fa67e1a5883f0520, type: 2}
+  CalculateChildColliders: 0
   DefaultAlignment: 0
   InitialPlacementCellIndex: {x: 0, y: 0}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationDuration: 0
   PlatformGridInputsDefinitionMappings:
   - Name: Android
     RuntimePlatform: 11
@@ -88,3 +102,4 @@ MonoBehaviour:
     GridInputDefinition: {fileID: 0}
   PreventInputThroughUI: 1
   DisplayInEditor: 0
+  SizingOption: 0

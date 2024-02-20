@@ -20,6 +20,9 @@ public class BlueprintAndResearchManager : MonoBehaviour
     [SerializeField] private GameObject researchPanelGO, blueprintPanelGO;
     [SerializeField] private GameObject researchSwitchButton, blueprintSwitchButton;
     [SerializeField] private Vector3 activePanelLocalPosition;
+    
+    [SerializeField] private Animator blueprintPanelAnimator;
+    [SerializeField] private Animator researchPanelAnimator;
 
     private bool isResearchPanelOpen = false;
     private bool isBlueprintPanelOpen = false;
@@ -36,24 +39,38 @@ public class BlueprintAndResearchManager : MonoBehaviour
     
     public void TabSwitchToResearch()
     {
+        PlayerState.OnGamePanelOpen.Invoke(PlayerState.GamePanel.Research);
+
         isResearchPanelOpen = true;
         isBlueprintPanelOpen = false;
+        
+        //THIS TWO LINES
+        //researchPanelAnimator.SetTrigger("TriggerOpen");
+        //blueprintPanelAnimator.SetTrigger("TriggerClose");
         researchPanelGO.transform.localPosition = activePanelLocalPosition;
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
+        //Until here
+        
         researchSwitchButton.SetActive(false);
         blueprintSwitchButton.SetActive(true);
     }
 
     public void TabSwitchToBlueprint()
     {
+        PlayerState.OnGamePanelOpen.Invoke(PlayerState.GamePanel.Crafting);
+
         isResearchPanelOpen = false;
         isBlueprintPanelOpen = true;
+        
+        //THIS TWO LINES
+        //researchPanelAnimator.SetTrigger("TriggerClose");
+        //blueprintPanelAnimator.SetTrigger("TriggerOpen");
         researchPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
+        //Until here
+        
         researchSwitchButton.SetActive(true);
         blueprintSwitchButton.SetActive(false);
-        
-        
     }
 
     public void OpenPanel()
