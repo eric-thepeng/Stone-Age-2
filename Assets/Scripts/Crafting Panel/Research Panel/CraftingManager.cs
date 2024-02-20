@@ -14,6 +14,8 @@ public class CraftingManager : SerializedMonoBehaviour
     [SerializeField] public Transform testtesttest;
     [SerializeField] List<ItemScriptableObject> startingTetris = new List<ItemScriptableObject>();
 
+    [SerializeField] private Animator infoPanelAnimator;
+    
     public List<GameObject> allTetris = new List<GameObject>();
     float unitLength = 0.15f;
 
@@ -53,13 +55,23 @@ public class CraftingManager : SerializedMonoBehaviour
     public void OpenPanel()
     {
         UI_FullScreenUIDragCollider.i.Open(this);
-        StartCoroutine(OpenPanelCor());
+        panelOpen = true;
+        UI_InventoryPanel.i.OpenPanel();
+        PanelTransform.localPosition = new Vector3(0, 0, 30);
+        
+        infoPanelAnimator.SetTrigger("TriggerOpen");
+        Debug.Log("TriggerOpen");
     }
 
     public void ClosePanel()
     {
         UI_FullScreenUIDragCollider.i.Close();
-        StartCoroutine(ClosePanelCor());
+        panelOpen = false;
+        UI_InventoryPanel.i.ClosePanel();
+        PanelTransform.localPosition = new Vector3(0, -10, 30);
+        PutBackAllTetrisToInventory();
+
+        infoPanelAnimator.SetTrigger("TriggerClose");
     }
 
     IEnumerator OpenPanelCor()

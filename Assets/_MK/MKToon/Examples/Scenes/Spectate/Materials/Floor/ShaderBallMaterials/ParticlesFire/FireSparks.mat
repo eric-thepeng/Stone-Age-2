@@ -2,16 +2,27 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FireSparks
   m_Shader: {fileID: 4800000, guid: 65f8982ee37c28d45a36fa523f1d4950, type: 3}
-  m_ShaderKeywords: _FLIPBOOK_ON _FRESNELHIGHLIGHTS_ON _MK_ALBEDO_MAP _MK_COLOR_BLEND_ADDITIVE
-    _MK_DETAIL_BLEND_MIX _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_FLIPBOOK _MK_FRESNEL_HIGHLIGHTS
-    _MK_LIGHT_CEL _MK_SURFACE_TYPE_TRANSPARENT _MK_WRAPPED_DIFFUSE _WRAPPEDLIGHTING_ON
+  m_ValidKeywords:
+  - _MK_ALBEDO_MAP
+  - _MK_COLOR_BLEND_ADDITIVE
+  - _MK_SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords:
+  - _FLIPBOOK_ON
+  - _FRESNELHIGHLIGHTS_ON
+  - _MK_DETAIL_BLEND_MIX
+  - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
+  - _MK_FLIPBOOK
+  - _MK_FRESNEL_HIGHLIGHTS
+  - _MK_LIGHT_CEL
+  - _MK_WRAPPED_DIFFUSE
+  - _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -156,8 +167,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AdvancedTab: 1
+    - _AlbedoMapIntensity: 1
     - _AlphaClipping: 0
     - _AlphaCutoff: 0.587
     - _Anisotropy: 0
@@ -166,7 +179,9 @@ Material:
     - _ArtisticProjection: 0
     - _Blend: 0
     - _BlendDst: 10
+    - _BlendDstAlpha: 10
     - _BlendSrc: 5
+    - _BlendSrcAlpha: 1
     - _Brightness: 1
     - _BumpScale: 1
     - _CameraFade: 0
@@ -176,7 +191,7 @@ Material:
     - _ColorGrading: 0
     - _Contrast: 1
     - _CustomBlend: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0.587
     - _DetailBlend: 0
     - _DetailMix: 0.5
     - _DetailNormalMapIntensity: 1
@@ -269,7 +284,7 @@ Material:
     m_Colors:
     - _AlbedoColor: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.4150943, g: 0.4150943, b: 0.4150943, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
@@ -285,3 +300,4 @@ Material:
     - _SpecularColor: {r: 0.20312497, g: 0.20312497, b: 0.20312497, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5686275}
     - _VertexAnimationFrequency: {r: 2.5, g: 2.5, b: 2.5, a: 1}
+  m_BuildTextureStacks: []

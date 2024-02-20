@@ -25,10 +25,10 @@ public class UI_ExploreSpotsConnectionEditor : Editor
                 Undo.RegisterCreatedObjectUndo(newLineGameObject, "Create Line"); // Register Undo for each new line
 
                 line.lineGameObject = newLineGameObject;
-                newLineGameObject.name = line.exploreSpot1.name + " to " + line.exploreSpot2.name;
+                newLineGameObject.name = line.iSerialEffect1.gameObject.name + " to " + line.iSerialEffect2.gameObject.name;
 
-                Vector3 pos1 = line.exploreSpot1.gameObject.transform.localPosition;
-                Vector3 pos2 = line.exploreSpot2.gameObject.transform.localPosition;
+                Vector3 pos1 = line.iSerialEffect1.gameObject.transform.localPosition;
+                Vector3 pos2 = line.iSerialEffect2.gameObject.transform.localPosition;
 
                 Vector3 center = (pos1 - pos2) / 2 + pos2;
                 float length = (pos1 - pos2).magnitude;

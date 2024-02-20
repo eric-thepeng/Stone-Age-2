@@ -55,13 +55,27 @@ public class BlueprintManager : MonoBehaviour
 
     public void ObtainBlueprints()
     {
+        string notificationString = "";
+        int totalAddAmount = 0;
+        
         foreach (var blueprint in blueprintsToObtain)
         {
             if(blueprint.IsObtained()) continue;
             obtainedBlueprints.Add(blueprint);
             blueprint.ChangeBlueprintState(ItemCraftScriptableObject.BlueprintState.Obtained_Not_Researched);
             AddNewBlueprintCard(blueprint, obtainedBlueprints.Count-1);
+            
+            //set notification string
+            notificationString += " " + blueprint.ItemCrafted.tetrisHoverName;
+            totalAddAmount += 1;
         }
+
+        if(totalAddAmount == 0) return;
+        
+        if (totalAddAmount == 1) notificationString = "1 new blueprint obtain: " + notificationString;
+        else notificationString = totalAddAmount + " new blueprints obtain: " + notificationString;
+        
+        UI_ScreenNotification.i.StartNotification(notificationString, true,3);
     }
 
     private void AddNewBlueprintCard(ItemCraftScriptableObject icso, int index)

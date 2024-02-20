@@ -54,6 +54,8 @@ public class ResourceRespawnManager : MonoBehaviour
         [SerializeField]
         private bool keepLooping;
         
+        public bool randomRotation;
+        
         // 新增的倒计时协程
         // counting related
         public Action onCountdownComplete;
@@ -263,6 +265,9 @@ public class ResourceRespawnManager : MonoBehaviour
                 Quaternion.identity);
             spawnedObject.transform.position = spawnPosition;
             spawnedObject.transform.parent = obstacleContainer.transform;
+            
+            if (respawnRules[index].randomRotation)
+                spawnedObject.transform.GetChild(0).rotation = Quaternion.Euler(0, Random.Range(0, 360),0);
             
             BoxCollider obstacleCollider = spawnedObject.GetComponent<BoxCollider>();
 
