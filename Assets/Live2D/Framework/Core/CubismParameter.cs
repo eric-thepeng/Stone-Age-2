@@ -139,7 +139,7 @@ namespace Live2D.Cubism.Core
         /// <summary>
         /// Current value.
         /// </summary>
-        [SerializeField]
+        [SerializeField, HideInInspector]
         public float Value;
 
 
