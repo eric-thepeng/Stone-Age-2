@@ -46,4 +46,9 @@ public class BuildingISO : ItemScriptableObject
     {
         return height;
     }
+    
+    public bool containTag(string tag)
+    {
+        return _gridObjectTags.Contains(tag);
+    }
 }

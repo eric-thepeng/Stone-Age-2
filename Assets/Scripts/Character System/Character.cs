@@ -77,6 +77,11 @@ namespace Uniland.Characters
         {
             return currentEnergy <= maxEnergy * restingEnergyPercentage;
         }
+        
+        public bool EnergyLessThanPercentage(float percentage)
+        {
+            return currentEnergy <= maxEnergy * percentage;
+        }
 
         public float RemainEnergyPercentage()
         {
@@ -359,7 +364,7 @@ public class Character : MonoBehaviour
             SetCircularUIState(CircularUI.CircularUIState.Display);
 
             CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,1);
-            _behaviors.EnterState(HomeState.Gathering);
+            _behaviors.EnterState(HomeState.Exploring);
         }
 
 

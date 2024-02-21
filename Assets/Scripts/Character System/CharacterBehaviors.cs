@@ -84,17 +84,19 @@ public class CharacterBehaviors : MonoBehaviour
 
         hangOutArea.enabled = false;
 
-        if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
-        {
-            currentState = HomeState.Resting;
-            characterMovement.StartSleeping();
-        } else
-        {
-            currentState = HomeState.Gatherable;
-            characterMovement.StopSleeping();
-            characterMovement.StartHangingOut();
-
-        }
+        
+        currentState = HomeState.HangingAround;
+        // if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+        // {
+        //     currentState = HomeState.Resting;
+        //     characterMovement.StartSleeping();
+        // } else
+        // {
+        //     currentState = HomeState.Gatherable;
+        //     characterMovement.StopSleeping();
+        //     characterMovement.StartHangingOut();
+        //
+        // }
     }
 
     private Vector3 _behaviorTargetPosition;
@@ -137,10 +139,21 @@ public class CharacterBehaviors : MonoBehaviour
             }
             //update ui
             restTimeLeft -= character.CharacterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
+
+            CheckState();
+
+        }
+    }
+
+    private void CheckState()
+    {
+        
+            PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
-            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) // sleeping <25%
             {
-                PlaceableObject[] _bedObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
+                
+                PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
                 // _behaviorTargetPosition = _bedObject.transform.position;
 
                 PlaceableObject _bedObject = null;
@@ -167,18 +180,98 @@ public class CharacterBehaviors : MonoBehaviour
                 }
                 
             }
-            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage())
+            
+            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage()) // food <25%
             {
                 // character.CharacterIcon.ChangeIconColorToGather();
                 
+                PlaceableObject[] _foodObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("foodContainer")).ToArray();
                 // if () {}// if character find food to eat
-                    EnterState(HomeState.Sleeping1);
-                return;
+                
+                PlaceableObject _foodObject = null;
+                int count = 0;
+                while (count < _foodObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_foodObjects[count].transform.position))
+                    {
+                        _foodObject = _foodObjects[count];
+                        _behaviorTargetPosition = _foodObject.transform.position;
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                
+                if (currentState != HomeState.Feeding && _foodObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Feeding);
+                    return;
+                }
+                
+
             }
             
+            if (character.CharacterStats.energy.EnergyLessThanPercentage(1)) // sleeping <100%
+            {
+                
+                PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
+                // _behaviorTargetPosition = _bedObject.transform.position;
+
+                PlaceableObject _bedObject = null;
+                int count = 0;
+                while (count < _bedObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_bedObjects[count].transform.position))
+                    {
+                        _bedObject = _bedObjects[count];
+                        _behaviorTargetPosition = _bedObject.transform.position;
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                
+                if (currentState != HomeState.Sleeping2 && _bedObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Sleeping2);
+                    return;
+                }
+            }
+            
+            // find interacting object
+            PlaceableObject[] _interactingObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("interactable")).ToArray();
+            // _behaviorTargetPosition = _interactingObject.transform.position;
+            
+            PlaceableObject _interactingObject = null;
+            int interactableCount = 0;
+            while (interactableCount < _interactingObjects.Length)
+            {
+                if (characterMovement.SetTargetPosition(_interactingObjects[interactableCount].transform.position))
+                {
+                    _interactingObject = _interactingObjects[interactableCount];
+                    _behaviorTargetPosition = _interactingObject.transform.position;
+                    break;
+                }
+                else
+                {
+                    interactableCount++;
+                }
+            }
+                
+            if (currentState != HomeState.Interacting && _interactingObject != null) // if character find interactable object to go
+            {
+                    
+                EnterState(HomeState.Interacting);
+                return;
+            }
 
 
-        }
     }
     
     
@@ -195,73 +288,20 @@ public class CharacterBehaviors : MonoBehaviour
         return components.OrderBy(component => (component.transform.position - center).sqrMagnitude).ToArray();
     }
     
-    public void EnterState(HomeState state)
+    public void EnterState(HomeState state, GameObject targetObject = null)
     {
         if (characterMovement == null) return;
 
         if (state == HomeState.Sleeping1)
         {
-            character.CharacterIcon.ChangeIconColorToHome();
+            characterMovement.SetTargetPosition(targetObject.transform.position);
+            // start character moving
+            // when character arrive destination, start sleeping
+            
+            // character.CharacterIcon.ChangeIconColorToHome();
         }
         
 
-        if (currentState == HomeState.Resting)
-        {
-            if (state == HomeState.Gatherable)
-            {
-                currentState = HomeState.Gatherable;
-                characterMovement.StopSleeping();
-                characterMovement.StartHangingOut();
-
-
-            }
-            else if (state == HomeState.Gathering)
-            {
-                currentState = HomeState.Gathering;
-
-                characterMovement.StopSleeping();
-                //characterMovement.StopHangingOut();
-                setL2dCharacterActive(false);
-            }
-        }
-        else if (currentState == HomeState.Gatherable)
-        {
-            if (state == HomeState.Gathering)
-            {
-                currentState = HomeState.Gathering;
-
-                characterMovement.StopHangingOut();
-                setL2dCharacterActive(false);
-
-            }
-            //else if (state == HomeState.Gatherable)
-            //{
-
-            //}
-            //else if (state == HomeState.Resting)
-            //{
-
-            //}
-        }
-        else if (currentState == HomeState.Gathering)
-        {
-            if (state == HomeState.Resting)
-            {
-                currentState = HomeState.Resting;
-                setL2dCharacterActive(true);
-
-                characterMovement.StartSleeping();
-                characterMovement.StopHangingOut();
-
-            }
-            else if (state == HomeState.Gatherable)
-            {
-                currentState = HomeState.Gatherable;
-                setL2dCharacterActive(true);
-
-                characterMovement.StartHangingOut();
-            }
-        }
 
     }
 
