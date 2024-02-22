@@ -32,6 +32,14 @@ public class CharacterMovement : MonoBehaviour
     // ensure prewalk doesn't trigger when changing direction
     Vector3 _previousMovement;
     private NavMeshAgent _navMeshAgent;
+    
+    private CharacterBehaviors _characterBehavior;
+
+    public CharacterBehaviors CharacterBehavior
+    {
+        get => _characterBehavior;
+        set => _characterBehavior = value;
+    }
 
     private void Awake()
     {
@@ -48,6 +56,9 @@ public class CharacterMovement : MonoBehaviour
         _leafShadow = _model.Parameters[8];
 
         hangOutWaitTime = Random.Range(0, hangOutWaitTime);
+
+        SelectRandomTargetPosition();
+        StartHangingOut();
     }
 
     
@@ -64,16 +75,26 @@ public class CharacterMovement : MonoBehaviour
         {
             if (!ReachedTarget())
             {
+                // _characterBehavior.IsPendingTowardsTarget = true;
                 MoveTowardsTarget();
             }
             else
             {
-                _hangOutTimer -= Time.deltaTime;
-                if (_hangOutTimer <= 0)
+                _characterBehavior.IsPendingTowardsTarget = false;
+                if (_navMeshAgent.velocity == new Vector3(0, 0, 0))
                 {
-                    SelectRandomTargetPosition();
-                    _hangOutTimer = hangOutWaitTime;
+                    // player pending = false, restart check state
+                    _characterBehavior.CurrentState = CharacterBehaviors.HomeState.HangingAround;
                 }
+                else
+                {
+                    
+                    _characterBehavior.StartCyclicallyWorking(_characterBehavior);
+                    
+                    // player pending = false, start working
+                    // player reach object
+                }
+                
             }
         }
     }
@@ -82,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
     public void StartHangingOut()
     {
         _isHangingOut = true;
-        SelectRandomTargetPosition();
+        // SelectRandomTargetPosition();
         _hangOutTimer = hangOutWaitTime;
     }
 
@@ -102,12 +123,18 @@ public class CharacterMovement : MonoBehaviour
         if (sleepText != null) sleepText.SetActive(false);
     }
 
-    private void SelectRandomTargetPosition()
+    public void SelectRandomTargetPosition()
     {
         float randomX = Random.Range(hangOutAreaMin.x, hangOutAreaMax.x);
         float randomZ = Random.Range(hangOutAreaMin.z, hangOutAreaMax.z);
         _targetPosition = new Vector3(randomX, transform.position.y, randomZ);
-        _navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
+        bool isPathValid = false;
+        while (!isPathValid)
+        {
+            isPathValid = SetTargetPosition(_targetPosition);
+        }
+        
+        // _navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
         _isMovingToTarget = true;
     }
 
@@ -123,12 +150,12 @@ public class CharacterMovement : MonoBehaviour
         }
         return false;
     }
-
-    public void MoveToPosition(Vector3 position)
-    {
-        _targetPosition = position;
-        _isMovingToTarget = true;
-    }
+    //
+    // public void MoveToPosition(Vector3 position)
+    // {
+    //     _targetPosition = position;
+    //     _isMovingToTarget = true;
+    // }
 
     private bool ReachedTarget()
     {
@@ -168,51 +195,4 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    //void Update()
-    //{
-    //    Vector3 movement = Vector3.zero;
-
-    //    if (Input.GetKey(KeyCode.UpArrow))
-    //    {
-    //        movement.z += 1;
-    //    }
-    //    if (Input.GetKey(KeyCode.DownArrow))
-    //    {
-    //        movement.z -= 1;
-    //    }
-    //    if (Input.GetKey(KeyCode.LeftArrow))
-    //    {
-    //        movement.x -= 1;
-    //    }
-    //    if (Input.GetKey(KeyCode.RightArrow))
-    //    {
-    //        movement.x += 1;
-    //    }
-
-    //    if (movement == Vector3.zero && _previousMovement == Vector3.zero)
-    //    {
-    //        _animator.SetBool("isWalking", false);
-    //    }
-    //    else
-    //    {
-    //        _animator.SetBool("isWalking", true);
-    //    }
-
-    //    transform.position = transform.position + movement * Time.deltaTime * moveSpeed;
-
-    //    if (movement.x < 0)
-    //    {
-    //        _leafShadow.Value = 1;
-    //        //Debug.Log(_leafShadow.Value);
-    //        _visual.transform.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
-    //    }
-    //    else if (movement.x > 0)
-    //    {
-    //        _leafShadow.Value = 0;
-    //        //Debug.Log(_leafShadow.Value);
-    //        _visual.transform.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);
-    //    }
-
-    //    _previousMovement = movement;
-    //}
 }

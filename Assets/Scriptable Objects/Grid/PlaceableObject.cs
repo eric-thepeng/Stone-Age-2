@@ -87,38 +87,56 @@ public class PlaceableObject : MonoBehaviour
     [Header("Character Settings")] 
     [SerializeField] private bool isOccupiedByCharacter; 
     [SerializeField] private Character occupiedCharacter;
-    [SerializeField] private float remainOccupyTime;
+    // [SerializeField] private float remainOccupyTime;
 
     [Header("Character Tasks")] 
     [SerializeField] private float taskDuration;
     [SerializeField] private int charRewardPoint;
     [SerializeField] private Action finishedEvent;
 
-    public void Occupy(Character character, float occupyTime)
+    public bool IsOccupiedByCharacter
     {
-        isOccupiedByCharacter = true;
-        occupiedCharacter = character;
-
-        StartCoroutine(OccupationCountdown(occupyTime)); // 启动协程
+        get => isOccupiedByCharacter;
+        set => isOccupiedByCharacter = value;
     }
 
-    private IEnumerator OccupationCountdown(float duration)
+    public Character OccupiedCharacter
     {
-        remainOccupyTime = duration;
-        while (remainOccupyTime > 0)
-        {
-            yield return new WaitForSeconds(0.1f); // 等待1秒
-            remainOccupyTime -= 0.1f; // 更新剩余时间
-        }
-
-        // 倒计时结束
-        isOccupiedByCharacter = false;
-        occupiedCharacter = null; // 或者保留角色引用，取决于你的需求
-        remainOccupyTime = 0;
-
-        finishedEvent?.Invoke(); // 调用完成事件
-        SpiritPoint.i.Add(charRewardPoint);
+        get => occupiedCharacter;
+        set => occupiedCharacter = value;
     }
+
+    public float TaskDuration
+    {
+        get => taskDuration;
+        set => taskDuration = value;
+    }
+
+    // public void Occupy(Character character, float occupyTime)
+    // {
+    //     isOccupiedByCharacter = true;
+    //     occupiedCharacter = character;
+    //
+    //     StartCoroutine(OccupationCountdown(occupyTime)); // 启动协程
+    // }
+    //
+    // private IEnumerator OccupationCountdown(float duration)
+    // {
+    //     remainOccupyTime = duration;
+    //     while (remainOccupyTime > 0)
+    //     {
+    //         yield return new WaitForSeconds(0.1f); // 等待1秒
+    //         remainOccupyTime -= 0.1f; // 更新剩余时间
+    //     }
+    //
+    //     // 倒计时结束
+    //     isOccupiedByCharacter = false;
+    //     occupiedCharacter = null; // 或者保留角色引用，取决于你的需求
+    //     remainOccupyTime = 0;
+    //
+    //     finishedEvent?.Invoke(); // 调用完成事件
+    //     SpiritPoint.i.Add(charRewardPoint);
+    // }
 
     public bool containsTag(string ObjectTag)
     {
@@ -227,6 +245,11 @@ public class PlaceableObject : MonoBehaviour
         }
     }
 
+    public void InvokeFinishedWorkEvent()
+    {
+        finishedEvent?.Invoke();
+        SpiritPoint.i.Add(charRewardPoint);
+    }
 
 
 

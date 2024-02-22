@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,18 @@ public class CharacterBehaviors : MonoBehaviour
     private Character character;
 
     private HomeState currentState;
-    
 
+    public HomeState CurrentState
+    {
+        get => currentState;
+        set => currentState = value;
+    }
+
+    [SerializeField]
     private CharacterMovement characterMovement;
 
     private float moveSpeed = 1f;
+    [HideInInspector]
     public BoxCollider hangOutArea;
     private float hangOutWaitTime = 2f; // 停顿时间
 
@@ -35,21 +43,12 @@ public class CharacterBehaviors : MonoBehaviour
     public CharacterState state = CharacterState.Idle;
 
 
-    float gatherTimeLeft;
+    // public float RestTimeLeft
+    // {
+    //     get => restTimeLeft;
+    //     set => restTimeLeft = value;
+    // }
 
-    public float GatherTimeLeft
-    {
-        get => gatherTimeLeft;
-        set => gatherTimeLeft = value;
-    }
-
-    public float RestTimeLeft
-    {
-        get => restTimeLeft;
-        set => restTimeLeft = value;
-    }
-
-    float restTimeLeft;
 
 
     // Start is called before the first frame update
@@ -67,6 +66,8 @@ public class CharacterBehaviors : MonoBehaviour
         {
             characterMovement = character.l2dCharacter.AddComponent<CharacterMovement>();
         }
+
+        characterMovement.CharacterBehavior = this;
         //Debug.Log(characterMovement.transform.name);
 
             characterMovement.moveSpeed = moveSpeed;
@@ -86,6 +87,8 @@ public class CharacterBehaviors : MonoBehaviour
 
         
         currentState = HomeState.HangingAround;
+        
+        EnterState(currentState);
         // if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
         // {
         //     currentState = HomeState.Resting;
@@ -99,7 +102,26 @@ public class CharacterBehaviors : MonoBehaviour
         // }
     }
 
-    private Vector3 _behaviorTargetPosition;
+
+    [SerializeField]
+    private bool _isPendingTowardsTarget = false;
+
+    public bool IsPendingTowardsTarget
+    {
+        get => _isPendingTowardsTarget;
+        set => _isPendingTowardsTarget = value;
+    }
+
+    float gatherTimeLeft;
+
+    public float GatherTimeLeft
+    {
+        get => gatherTimeLeft;
+        set => gatherTimeLeft = value;
+    }
+
+    [SerializeField]
+    float periodTimeLeft; // period for execute
     
     void Update()
     {
@@ -128,30 +150,38 @@ public class CharacterBehaviors : MonoBehaviour
             character.CharacterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
             character.GatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
         }
-        else if(state == CharacterState.Idle) // if character is at home
+        else if(state == CharacterState.Idle && !_isPendingTowardsTarget) // if character is at home
         {
             
-            if (restTimeLeft <= 0)
+            if (periodTimeLeft <= 0)
             {
-                character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
-                character.CharacterStats.energy.AddEnergy();
-                restTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                // character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
+                // character.CharacterStats.energy.AddEnergy();
+                
+                periodTimeLeft = 1;
+                // periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                
+                CheckState();
+                
             }
             //update ui
-            restTimeLeft -= character.CharacterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
+            periodTimeLeft -= 1 * Time.deltaTime;
 
-            CheckState();
 
         }
     }
+    
 
     private void CheckState()
     {
-        
+        Debug.Log("check state start");
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
-            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) // sleeping <25%
+            // sleeping <25%
+            
+            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) 
             {
+                if (currentState == HomeState.Sleeping1) return;
                 
                 PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
                 // _behaviorTargetPosition = _bedObject.transform.position;
@@ -163,7 +193,6 @@ public class CharacterBehaviors : MonoBehaviour
                     if (characterMovement.SetTargetPosition(_bedObjects[count].transform.position))
                     {
                         _bedObject = _bedObjects[count];
-                        _behaviorTargetPosition = _bedObject.transform.position;
                         break;
                     }
                     else
@@ -175,15 +204,18 @@ public class CharacterBehaviors : MonoBehaviour
                 if (currentState != HomeState.Sleeping1 && _bedObject != null) // if character find bed to go
                 {
                     
-                    EnterState(HomeState.Sleeping1);
+                    EnterState(HomeState.Sleeping1, _bedObject);
                     return;
                 }
                 
             }
             
-            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage()) // food <25%
+            // food <25%
+            
+            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage()) 
             {
                 // character.CharacterIcon.ChangeIconColorToGather();
+                if (currentState == HomeState.Feeding) return;
                 
                 PlaceableObject[] _foodObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("foodContainer")).ToArray();
                 // if () {}// if character find food to eat
@@ -195,7 +227,6 @@ public class CharacterBehaviors : MonoBehaviour
                     if (characterMovement.SetTargetPosition(_foodObjects[count].transform.position))
                     {
                         _foodObject = _foodObjects[count];
-                        _behaviorTargetPosition = _foodObject.transform.position;
                         break;
                     }
                     else
@@ -207,7 +238,7 @@ public class CharacterBehaviors : MonoBehaviour
                 if (currentState != HomeState.Feeding && _foodObject != null) // if character find bed to go
                 {
                     
-                    EnterState(HomeState.Feeding);
+                    EnterState(HomeState.Feeding, _foodObject);
                     return;
                 }
                 
@@ -216,6 +247,7 @@ public class CharacterBehaviors : MonoBehaviour
             
             if (character.CharacterStats.energy.EnergyLessThanPercentage(1)) // sleeping <100%
             {
+                if (currentState == HomeState.Sleeping2) return;
                 
                 PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
                 // _behaviorTargetPosition = _bedObject.transform.position;
@@ -227,7 +259,6 @@ public class CharacterBehaviors : MonoBehaviour
                     if (characterMovement.SetTargetPosition(_bedObjects[count].transform.position))
                     {
                         _bedObject = _bedObjects[count];
-                        _behaviorTargetPosition = _bedObject.transform.position;
                         break;
                     }
                     else
@@ -239,14 +270,15 @@ public class CharacterBehaviors : MonoBehaviour
                 if (currentState != HomeState.Sleeping2 && _bedObject != null) // if character find bed to go
                 {
                     
-                    EnterState(HomeState.Sleeping2);
+                    EnterState(HomeState.Sleeping2, _bedObject);
                     return;
                 }
             }
             
             // find interacting object
+            if (currentState == HomeState.Interacting) return;
+            
             PlaceableObject[] _interactingObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("interactable")).ToArray();
-            // _behaviorTargetPosition = _interactingObject.transform.position;
             
             PlaceableObject _interactingObject = null;
             int interactableCount = 0;
@@ -255,7 +287,6 @@ public class CharacterBehaviors : MonoBehaviour
                 if (characterMovement.SetTargetPosition(_interactingObjects[interactableCount].transform.position))
                 {
                     _interactingObject = _interactingObjects[interactableCount];
-                    _behaviorTargetPosition = _interactingObject.transform.position;
                     break;
                 }
                 else
@@ -267,9 +298,12 @@ public class CharacterBehaviors : MonoBehaviour
             if (currentState != HomeState.Interacting && _interactingObject != null) // if character find interactable object to go
             {
                     
-                EnterState(HomeState.Interacting);
+                EnterState(HomeState.Interacting, _interactingObject);
                 return;
             }
+            
+            if (currentState == HomeState.HangingAround) return;
+            EnterState(HomeState.HangingAround);
 
 
     }
@@ -287,27 +321,89 @@ public class CharacterBehaviors : MonoBehaviour
         // 按与中心点的距离排序
         return components.OrderBy(component => (component.transform.position - center).sqrMagnitude).ToArray();
     }
+
+    [SerializeField]
+    private PlaceableObject _targetObject;
     
-    public void EnterState(HomeState state, GameObject targetObject = null)
+    public void EnterState(HomeState state, PlaceableObject targetObject = null)
     {
+        
+        Debug.Log("Enter state " + state + ", target " + targetObject);
+        
         if (characterMovement == null) return;
 
-        if (state == HomeState.Sleeping1)
+        if (targetObject != null)
         {
-            characterMovement.SetTargetPosition(targetObject.transform.position);
+            _targetObject = targetObject;
+            characterWorkingEvent = targetObject.InvokeFinishedWorkEvent;
+            workingDuration = targetObject.TaskDuration;
+
+            targetObject.OccupiedCharacter = character;
+            targetObject.IsOccupiedByCharacter = true;
+        }
+        
+        // set target position
+        // set player status: finding path
+        // set target status (pending occupied)
+        // set current event to 'calculate distance form player to target'
+        // execute 'calculate player distance from target event'
+            // if close to target, set occupy status to true
+            // set current event to cyclically execute target working event
+            
+        if (state == HomeState.HangingAround)
+        {
+            IsPendingTowardsTarget = false;
+            characterMovement.SelectRandomTargetPosition();
             // start character moving
             // when character arrive destination, start sleeping
             
             // character.CharacterIcon.ChangeIconColorToHome();
         }
+        else
+        {
+            IsPendingTowardsTarget = true;
+            characterMovement.SetTargetPosition(targetObject.transform.position);
+
+        }
         
-
-
     }
 
-    public HomeState getCurrentHomeState()
+    public Action characterWorkingEvent; // coroutine
+    private Coroutine workingCoroutine;
+    private float workingDuration = 10f; 
+    
+    public void StartCyclicallyWorking(MonoBehaviour runner)
     {
-        return currentState;
+        // MonoBehaviour runner = this;
+        
+        if (workingCoroutine != null)
+        {
+            // Debug.Log("Still in counting!");
+            runner.StopCoroutine(workingCoroutine);
+            //return false;
+        }
+        workingCoroutine = runner.StartCoroutine(WorkingCountdown(runner));
+        // return true;
+    }
+
+    public void StopCyclicallyWorking(MonoBehaviour runner)
+    {
+        if (workingCoroutine != null)
+        {
+            // Debug.Log("Still in counting!");
+            runner.StopCoroutine(workingCoroutine);
+            //return false;
+        }
+    }
+    
+    
+    private IEnumerator WorkingCountdown(MonoBehaviour runner)
+    {
+        yield return new WaitForSeconds(workingDuration); // 等待设定的生长时间
+
+        characterWorkingEvent?.Invoke(); // 触发成长完成事件
+
+        StartCyclicallyWorking(this);
     }
 
     public void setL2dCharacterActive(bool active)
