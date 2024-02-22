@@ -16,8 +16,7 @@ public class BuildingISO : ItemScriptableObject
     [SerializeField] int width = 1;
     [SerializeField] int height = 1;
     
-    [SerializeField]
-    private List<string> _gridObjectTags;
+    public List<string> gridObjectTags;
     
     public List<Vector2Int> getCoordinates()
     {
@@ -49,6 +48,6 @@ public class BuildingISO : ItemScriptableObject
     
     public bool containTag(string tag)
     {
-        return _gridObjectTags.Contains(tag);
+        return gridObjectTags.Contains(tag);
     }
 }

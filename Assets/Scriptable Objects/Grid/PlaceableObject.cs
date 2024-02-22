@@ -80,8 +80,7 @@ public class PlaceableObject : MonoBehaviour
     [SerializeField]
     private BuildingISO BISO;
 
-    [SerializeField]
-    private List<string> _gridObjectTags;
+    private List<string> _gridObjectTags = new List<string>();
 
 
     [Header("Character Settings")] 
@@ -172,6 +171,15 @@ public class PlaceableObject : MonoBehaviour
         GetComponent<NavMeshObstacle>().enabled = false;
 
         boxCollider = GetComponent<BoxCollider>();
+
+        if (BISO != null)
+        {
+            _gridObjectTags = BISO.gridObjectTags;
+        }
+        else
+        {
+            _gridObjectTags.Add("EmptyObject");
+        }
     }
 
     private void Update()
@@ -198,8 +206,10 @@ public class PlaceableObject : MonoBehaviour
         }
     }
 
+    public bool isPlaced;
     public void DisableEffects()
     {
+        isPlaced = false;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)
@@ -224,6 +234,7 @@ public class PlaceableObject : MonoBehaviour
 
     public void EnableEffects()
     {
+        isPlaced = true;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)

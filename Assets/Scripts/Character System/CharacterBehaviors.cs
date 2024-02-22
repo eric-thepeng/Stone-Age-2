@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Hypertonic.GridPlacement;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -150,7 +151,7 @@ public class CharacterBehaviors : MonoBehaviour
             character.CharacterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
             character.GatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
         }
-        else if(state == CharacterState.Idle && !_isPendingTowardsTarget) // if character is at home
+        else if(state == CharacterState.Idle && !_isPendingTowardsTarget && !GridManagerAccessor.GridManager.IsPlacingGridObject) // if character is at home
         {
             
             if (periodTimeLeft <= 0)
@@ -174,7 +175,7 @@ public class CharacterBehaviors : MonoBehaviour
 
     private void CheckState()
     {
-        Debug.Log("check state start");
+        Debug.Log("Check State: Energy - " + character.CharacterStats.energy.GetCurrentEnergy() + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
             // sleeping <25%
@@ -188,6 +189,7 @@ public class CharacterBehaviors : MonoBehaviour
 
                 PlaceableObject _bedObject = null;
                 int count = 0;
+                
                 while (count < _bedObjects.Length)
                 {
                     if (characterMovement.SetTargetPosition(_bedObjects[count].transform.position))
@@ -201,6 +203,7 @@ public class CharacterBehaviors : MonoBehaviour
                     }
                 }
                 
+                Debug.Log("Find " + _bedObjects.Length + " beds , select " + count + " " + _bedObject + " to go");
                 if (currentState != HomeState.Sleeping1 && _bedObject != null) // if character find bed to go
                 {
                     

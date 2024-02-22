@@ -63,6 +63,13 @@ namespace Uniland.Characters
             return true;
         }
 
+        public bool SetEnergy(int energy)
+        {
+            if (energy > maxEnergy) return false;
+            currentEnergy = energy;
+            return true;
+        }
+
         public bool NoEnergy()
         {
             return currentEnergy <= 0;
@@ -80,7 +87,7 @@ namespace Uniland.Characters
         
         public bool EnergyLessThanPercentage(float percentage)
         {
-            return currentEnergy <= maxEnergy * percentage;
+            return currentEnergy < maxEnergy * percentage;
         }
 
         public float RemainEnergyPercentage()
@@ -110,13 +117,22 @@ namespace Uniland.Characters
             currentSaturation = this.maxSaturation;
             this.restingSaturationPercentage = restingSaturationPercentage;
         }
+        //
+        // public Saturation(int currentSaturation, int maxSaturation)
+        // {
+        //     this.currentSaturation = currentSaturation;
+        //     this.maxSaturation = maxSaturation;
+        // }
 
-        public Saturation(int currentSaturation, int maxSaturation)
+        
+        public bool SetSaturation(int saturation)
         {
-            this.currentSaturation = currentSaturation;
-            this.maxSaturation = maxSaturation;
+            if (saturation > maxSaturation) return false;
+            currentSaturation = saturation;
+            return true;
         }
 
+        
         public int GetMaxSaturation()
         {
             return maxSaturation;
@@ -335,6 +351,9 @@ public class Character : MonoBehaviour
         charInteractions.Initialize(initialStats);
 
         charExperience = 0;
+
+        characterStats.energy.SetEnergy(0);
+        characterStats.saturation.SetSaturation(0);
     }
 
 

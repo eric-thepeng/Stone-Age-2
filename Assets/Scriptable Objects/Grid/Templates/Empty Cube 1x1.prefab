@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaea92c0aa594d5cb18c5758012ac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useStatusIndicator: 1
+  useStatusIndicator: 0
   spriteRenderer: {fileID: 0}
 --- !u!114 &1905752916062472100
 MonoBehaviour:
@@ -163,6 +163,10 @@ MonoBehaviour:
   BISO: {fileID: 0}
   _gridObjectTags:
   - EmptyObject
+  isOccupiedByCharacter: 0
+  occupiedCharacter: {fileID: 0}
+  taskDuration: 0
+  charRewardPoint: 0
 --- !u!208 &396184337363346086
 NavMeshObstacle:
   m_ObjectHideFlags: 0
