@@ -55,6 +55,7 @@ public class CharacterBehaviors : MonoBehaviour
 
 
 
+    private Vector3 _l2dCharacterOldPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +71,8 @@ public class CharacterBehaviors : MonoBehaviour
         {
             characterMovement = character.l2dCharacter.AddComponent<CharacterMovement>();
         }
+        
+        _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).localPosition;
 
         characterMovement.CharacterBehavior = this;
         //Debug.Log(characterMovement.transform.name);
@@ -178,7 +181,7 @@ public class CharacterBehaviors : MonoBehaviour
 
     private void CheckState()
     {
-        Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
+        // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
             // sleeping <25%
@@ -392,6 +395,10 @@ public class CharacterBehaviors : MonoBehaviour
             characterMovement.StopHangingOut();
             characterMovement.StartSleeping();
 
+            // _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).position;
+            characterMovement.transform.GetChild(1).position = _targetObject.transform.position + new Vector3(0, 2.8f, 0);
+            // characterMovement.animator.SetTrigger("Sit");
+
             characterWorkingEvent = () =>
             {
                 character.CharacterStats.energy.AddEnergy();
@@ -400,6 +407,7 @@ public class CharacterBehaviors : MonoBehaviour
         } else if (currentState == HomeState.Feeding) {
             characterMovement.StopHangingOut();
             // characterMovement.StartSleeping();
+            characterMovement.animator.SetBool("isCrafting", true);
 
             characterWorkingEvent = () =>
             {
@@ -454,12 +462,22 @@ public class CharacterBehaviors : MonoBehaviour
         {
             _targetObject.OccupiedCharacter = null;
             _targetObject.IsOccupiedByCharacter = false;
+            
+            characterMovement.transform.position = _targetObject.GetInteractionPoint();
+            
+            characterMovement.animator.SetTrigger("Stand");
+            
         }
+        
+        characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
+        
+        characterMovement.animator.SetBool("isCrafting", false);
         
         _targetObject = null;
         characterWorkingEvent = null;
-        characterMovement.StopHangingOut();
         characterMovement.StopSleeping();
+        characterMovement.StopHangingOut();
+        
     }
 
     public Action characterWorkingEvent; // coroutine
@@ -471,7 +489,7 @@ public class CharacterBehaviors : MonoBehaviour
     private IEnumerator WorkingCountdown(MonoBehaviour runner)
     {
         yield return new WaitForSeconds(workingDuration); // 等待设定的生长时间
-        Debug.Log("Execute Working Event...");
+        // Debug.Log("Execute Working Event...");
 
         characterWorkingEvent?.Invoke(); // 触发成长完成事件
 

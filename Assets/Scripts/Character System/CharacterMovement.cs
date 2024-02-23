@@ -25,7 +25,8 @@ public class CharacterMovement : MonoBehaviour
 
     private Transform _visual;
     private CubismModel _model;
-    private Animator _animator;
+    [HideInInspector]
+    public Animator animator;
     [SerializeField]
     private CubismParameter _leafShadow;
     private float _leafValue = 0;
@@ -48,7 +49,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
-        _animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -94,7 +95,6 @@ public class CharacterMovement : MonoBehaviour
                     if (Vector3.Distance(transform.position, _targetPosition) < 0.5f)
                     {
                         _characterBehavior.EnterWorkingState();
-                        _isHangingOut = false;
                         
                     }
                     else
@@ -105,6 +105,7 @@ public class CharacterMovement : MonoBehaviour
                         _characterBehavior.CurrentState = CharacterBehaviors.HomeState.Unset;
                         // _reachedTarget = false;
                     }
+                    _isHangingOut = false;
                 
                 }
 
@@ -124,12 +125,13 @@ public class CharacterMovement : MonoBehaviour
     public void StopHangingOut()
     {
         _isHangingOut = false;
-        _animator.SetBool("isWalking", false);
+        animator.SetBool("isWalking", false);
     }
 
     public void StartSleeping()
     {
         if (sleepText != null) sleepText.SetActive(true);
+        animator.SetTrigger("Sit");
     }
 
     public void StopSleeping()
@@ -177,7 +179,7 @@ public class CharacterMovement : MonoBehaviour
             || _navMeshAgent.velocity == new Vector3(0,0,0)
             )
         {
-            _animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
             // _isMovingToTarget = false;
             return true;
         }
@@ -187,14 +189,14 @@ public class CharacterMovement : MonoBehaviour
     
     private void MoveTowardsTarget()
     {
-        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f)
-        {
-            _animator.SetBool("isWalking", false);
-            // _isMovingToTarget = false;
-            return;
-        }
+        // if (Vector3.Distance(transform.position, _targetPosition) < 0.1f)
+        // {
+        //     animator.SetBool("isWalking", false);
+        //     // _isMovingToTarget = false;
+        //     return;
+        // }
 
-        _animator.SetBool("isWalking", true);
+        animator.SetBool("isWalking", true);
 
         // Vector3 movementDirection = (_targetPosition - transform.position).normalized;
         // transform.position = Vector3.MoveTowards(transform.position, _targetPosition, moveSpeed * Time.deltaTime);

@@ -53,6 +53,7 @@ MonoBehaviour:
   hangOutAreaMin: {x: 0, y: 0, z: 0}
   hangOutAreaMax: {x: 0, y: 0, z: 0}
   sleepText: {fileID: 4671135053565314198}
+  animator: {fileID: 0}
   _leafShadow: {fileID: 3490764729957639232}
   _targetPosition: {x: 0, y: 0, z: 0}
   _isHangingOut: 0
@@ -326,7 +327,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6150900744371768178}
-  m_LocalRotation: {x: -0.000000029802319, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.1700001, y: -0.46634984, z: 0.097875945}
   m_LocalScale: {x: 0.8899998, y: 0.49929008, z: 0.89000005}
   m_ConstrainProportionsScale: 1
@@ -812,6 +813,10 @@ PrefabInstance:
     - target: {fileID: 2168103562831592805, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_Name
       value: Yiso_character_live2D_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168103562831592805, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2188762013010977225, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: _childParts.Array.data[0]
@@ -1599,15 +1604,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1615,11 +1620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.158
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1627,7 +1632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38268346
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 8824325050662621675, guid: 5e04d3d8d932ca943ae63df627d02bbb, type: 3}
       propertyPath: m_LocalRotation.y

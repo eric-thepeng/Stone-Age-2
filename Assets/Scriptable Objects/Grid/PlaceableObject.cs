@@ -170,7 +170,7 @@ public class PlaceableObject : MonoBehaviour
 
     public Direction direction; // 通过Unity编辑器选择方向
     public float offset = 0.5f; // 边框外偏移量
-    public Vector3 characterInteractionPoint;
+    private Vector3 characterInteractionPoint;
     // public GameObject characterInteractionObject;
     
     private void Start()
