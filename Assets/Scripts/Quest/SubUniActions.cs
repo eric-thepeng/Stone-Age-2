@@ -188,12 +188,13 @@ public class SubUniAction : IPerformableAction
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
     public string targetGameObjectSetUpIdentifierID;
 
+    private WorldSpaceButton wsb = null;
 
     public override void PerformAction()
     {
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
-        WorldSpaceButton wsb = targetGameObject.GetComponent<WorldSpaceButton>();
+        wsb = targetGameObject.GetComponent<WorldSpaceButton>();
         if(wsb == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
         
         onActionStarts?.Invoke();
@@ -216,6 +217,7 @@ public class SubUniAction : IPerformableAction
     private void FinishClick()
     {
         onActionCompletes.Invoke();
+        wsb.onActionCompletes.RemoveListener(FinishClick);
     }
 
     public override bool IsAssigned()
@@ -318,6 +320,7 @@ public class SubUniAction : IPerformableAction
     private void CompleteAction()
     {
         onActionCompletes.Invoke();
+        PlayerState.OnGamePanelOpen.RemoveListener(WaitForPanelOpen);
     }
 
     public override bool IsAssigned()

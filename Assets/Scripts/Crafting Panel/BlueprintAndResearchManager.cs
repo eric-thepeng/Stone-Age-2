@@ -71,6 +71,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         
         //researchSwitchButton.SetActive(true);
         //blueprintSwitchButton.SetActive(false);
+
+        CraftingManager.i.PutBackAllTetrisToInventory();
     }
 
     public void OpenPanel()
