@@ -18,7 +18,7 @@ public class BlueprintAndResearchManager : MonoBehaviour
     }
     
     [SerializeField] private GameObject researchPanelGO, blueprintPanelGO;
-    [SerializeField] private GameObject researchSwitchButton, blueprintSwitchButton;
+    //[SerializeField] private GameObject researchSwitchButton, blueprintSwitchButton;
     [SerializeField] private Vector3 activePanelLocalPosition;
     
     [SerializeField] private Animator blueprintPanelAnimator;
@@ -51,8 +51,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition + new Vector3(0,-10,0);
         //Until here
         
-        researchSwitchButton.SetActive(false);
-        blueprintSwitchButton.SetActive(true);
+        //researchSwitchButton.SetActive(false);
+        //blueprintSwitchButton.SetActive(true);
     }
 
     public void TabSwitchToBlueprint()
@@ -69,8 +69,8 @@ public class BlueprintAndResearchManager : MonoBehaviour
         blueprintPanelGO.transform.localPosition = activePanelLocalPosition;
         //Until here
         
-        researchSwitchButton.SetActive(true);
-        blueprintSwitchButton.SetActive(false);
+        //researchSwitchButton.SetActive(true);
+        //blueprintSwitchButton.SetActive(false);
     }
 
     public void OpenPanel()
