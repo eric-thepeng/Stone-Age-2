@@ -18,8 +18,8 @@ public class CharacterMovement : MonoBehaviour
     [HideInInspector]
     public Vector3 hangOutAreaMax; // 挂出区域的最大边界
 
-    [HideInInspector]
-    public float hangOutWaitTime = 2f; // 停顿时间
+    // [HideInInspector]
+    // public float hangOutWaitTime = 2f; // 停顿时间
 
     public GameObject sleepText;
 
@@ -45,30 +45,32 @@ public class CharacterMovement : MonoBehaviour
     {
         _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
         _navMeshAgent.speed = moveSpeed;
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
     {
-        _animator = GetComponentInChildren<Animator>();
         _model = GetComponentInChildren<CubismModel>();
         _visual = _model.transform;
         _originalScale = _visual.transform.localScale;
         _leafShadow = _model.Parameters[8];
 
-        hangOutWaitTime = Random.Range(0, hangOutWaitTime);
+        // hangOutWaitTime = Random.Range(0, hangOutWaitTime);
 
-        SelectRandomTargetPosition();
-        StartHangingOut();
+        // SelectRandomTargetPosition();
+        // StartHangingOut();
     }
 
     
     public Vector3 _targetPosition;
-    public bool _isMovingToTarget = false;
+    // public bool _isMovingToTarget = false;
 
 
     public bool _isHangingOut = false;
-    public float _hangOutTimer = 0f;
+    // public float _hangOutTimer = 0f;
 
+    private bool _reachedTarget = false;
+    
     void Update()
     {
         if (_isHangingOut)
@@ -77,24 +79,32 @@ public class CharacterMovement : MonoBehaviour
             {
                 // _characterBehavior.IsPendingTowardsTarget = true;
                 MoveTowardsTarget();
+                _reachedTarget = false;
             }
             else
             {
-                _characterBehavior.IsPendingTowardsTarget = false;
-                if (_navMeshAgent.velocity == new Vector3(0, 0, 0))
+                if (!_reachedTarget)
                 {
-                    // player pending = false, restart check state
-                    _characterBehavior.CurrentState = CharacterBehaviors.HomeState.HangingAround;
-                }
-                else
-                {
-                    
-                    _characterBehavior.StartCyclicallyWorking(_characterBehavior);
-                    
-                    // player pending = false, start working
-                    // player reach object
-                }
+                    _characterBehavior.IsPendingTowardsTarget = false;
+                    _reachedTarget = true;
+                    Debug.Log("Target Stop Moving, Distance: " + Vector3.Distance(transform.position, _targetPosition));
+                    if (Vector3.Distance(transform.position, _targetPosition) < 0.5f)
+                    {
+                        _characterBehavior.EnterWorkingState();
+                        _isHangingOut = false;
+                        
+                    }
+                    else
+                    {
+                        // player pending = false, start working
+                        // player reach object
+                        // player pending = false, restart check state
+                        _characterBehavior.CurrentState = CharacterBehaviors.HomeState.Unset;
+                        // _reachedTarget = false;
+                    }
                 
+                }
+
             }
         }
     }
@@ -103,8 +113,9 @@ public class CharacterMovement : MonoBehaviour
     public void StartHangingOut()
     {
         _isHangingOut = true;
+        _reachedTarget = false;
         // SelectRandomTargetPosition();
-        _hangOutTimer = hangOutWaitTime;
+        // _hangOutTimer = hangOutWaitTime;
     }
 
     public void StopHangingOut()
@@ -135,7 +146,7 @@ public class CharacterMovement : MonoBehaviour
         }
         
         // _navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
-        _isMovingToTarget = true;
+        // _isMovingToTarget = true;
     }
 
     public bool SetTargetPosition(Vector3 position)
@@ -145,7 +156,7 @@ public class CharacterMovement : MonoBehaviour
         if (_navMeshAgent.CalculatePath(_targetPosition, path) && path.status == NavMeshPathStatus.PathComplete)
         {
             _navMeshAgent.SetDestination(_targetPosition);
-            _isMovingToTarget = true;
+            // _isMovingToTarget = true;
             return true;
         }
         return false;
@@ -159,10 +170,12 @@ public class CharacterMovement : MonoBehaviour
 
     private bool ReachedTarget()
     {
-        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f || _navMeshAgent.velocity == new Vector3(0,0,0))
+        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f 
+            || _navMeshAgent.velocity == new Vector3(0,0,0)
+            )
         {
             _animator.SetBool("isWalking", false);
-            _isMovingToTarget = false;
+            // _isMovingToTarget = false;
             return true;
         }
 
@@ -174,7 +187,7 @@ public class CharacterMovement : MonoBehaviour
         if (Vector3.Distance(transform.position, _targetPosition) < 0.1f)
         {
             _animator.SetBool("isWalking", false);
-            _isMovingToTarget = false;
+            // _isMovingToTarget = false;
             return;
         }
 

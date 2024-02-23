@@ -160,6 +160,19 @@ public class PlaceableObject : MonoBehaviour
 
     private GridHeightPositioner gridHeightPositioner;
 
+    public enum Direction
+    {
+        Forward,
+        Backward,
+        Left,
+        Right
+    }
+
+    public Direction direction; // 通过Unity编辑器选择方向
+    public float offset = 0.5f; // 边框外偏移量
+    public Vector3 characterInteractionPoint;
+    // public GameObject characterInteractionObject;
+    
     private void Start()
     {
         gridHeightPositioner = GetComponent<GridHeightPositioner>();
@@ -180,11 +193,38 @@ public class PlaceableObject : MonoBehaviour
         {
             _gridObjectTags.Add("EmptyObject");
         }
+        
     }
 
-    private void Update()
+    public Vector3 GetInteractionPoint()
     {
+        
+        Vector3 newPosition = transform.position + boxCollider.center;
+
+        // 根据碰撞体的大小和选定的方向计算偏移
+        switch (direction)
+        {
+            case Direction.Forward:
+                newPosition += transform.forward * (boxCollider.size.z / 2 + offset);
+                break;
+            case Direction.Backward:
+                newPosition -= transform.forward * (boxCollider.size.z / 2 + offset);
+                break;
+            case Direction.Left:
+                newPosition -= transform.right * (boxCollider.size.x / 2 + offset);
+                break;
+            case Direction.Right:
+                newPosition += transform.right * (boxCollider.size.x / 2 + offset);
+                break;
+        }
+
+        // newPosition.y = 0;
+        
+        // 更新GameObject的位置
+        // characterInteractionObject.transform.position = newPosition;
+        return newPosition;
     }
+    
 
     void CheckEffects(Transform parent)
     {
@@ -205,11 +245,9 @@ public class PlaceableObject : MonoBehaviour
             }
         }
     }
-
-    public bool isPlaced;
     public void DisableEffects()
     {
-        isPlaced = false;
+        GetComponent<NavMeshObstacle>().enabled = false;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)
@@ -234,7 +272,7 @@ public class PlaceableObject : MonoBehaviour
 
     public void EnableEffects()
     {
-        isPlaced = true;
+        GetComponent<NavMeshObstacle>().enabled = true;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)
