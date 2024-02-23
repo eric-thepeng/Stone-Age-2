@@ -174,7 +174,7 @@ namespace Uniland.Characters
 
         public bool SaturationLessThanFullPercentage()
         {
-            return currentSaturation <= maxSaturation * restingSaturationPercentage;
+            return currentSaturation < maxSaturation * restingSaturationPercentage;
         }
 
         public float RemainSaturationPercentage()
