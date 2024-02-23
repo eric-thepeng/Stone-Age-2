@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*
  * 一个统一的地方接收button input并执行
@@ -23,14 +24,7 @@ public class PlayerInputChannel : MonoBehaviour
 
     public delegate void OnPlayerPressWorldButton(WorldButtons wb);
     public static event OnPlayerPressWorldButton onPlayerPressWorldButton;
-    public enum GamePanel
-    {
-        Home,
-        Crafting,
-        Research,
-        ExploreMap,
-        Inventory,
-    }
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C)) CraftingPanelOpenButton();
@@ -43,20 +37,20 @@ public class PlayerInputChannel : MonoBehaviour
 
     }
 
-    public static void GoToPanel(GamePanel targetGamePanel)
+    public static void GoToPanel(PlayerState.GamePanel targetGamePanel)
     {
         switch (targetGamePanel)
         {
-            case GamePanel.Home:
+            case PlayerState.GamePanel.Home:
                 HomeReturnButton();
                 break;
-            case GamePanel.Crafting:
+            case PlayerState.GamePanel.Crafting:
                 CraftingPanelOpenButton();
                 break;
-            case GamePanel.ExploreMap:
+            case PlayerState.GamePanel.ExploreMap:
                 ExploreMapButton();
                 break;
-            case GamePanel.Inventory:
+            case PlayerState.GamePanel.Inventory:
                 InventoryPanelOpenButton();
                 break;
         }

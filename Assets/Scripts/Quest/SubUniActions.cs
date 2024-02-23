@@ -267,10 +267,10 @@ public class SubUniAction : IPerformableAction
 
 [Serializable] public class GamePanelAction : SubUniAction
 {
-    public enum ActionType{NoAction, GoToPanel}
+    public enum ActionType{NoAction, GoToPanel, WaitForPanelOpen}
     public ActionType actionType = ActionType.NoAction;
 
-    public PlayerInputChannel.GamePanel targetPanel = PlayerInputChannel.GamePanel.Home;
+    public PlayerState.GamePanel targetPanel = PlayerState.GamePanel.Home;
     
     public override void PerformAction()
     {
@@ -279,8 +279,45 @@ public class SubUniAction : IPerformableAction
         if (actionType == ActionType.GoToPanel)
         {
             PlayerInputChannel.GoToPanel(targetPanel);
-            onActionCompletes.Invoke();
+            CompleteAction();
         }
+        else
+        {
+            PlayerState.OnGamePanelOpen.AddListener(WaitForPanelOpen);
+        }
+    }
+
+    public void WaitForPanelOpen(PlayerState.GamePanel panel)
+    {
+
+        /*
+        //NEED TO REWORK THIS
+        switch (targetPanel)
+        {
+            case PlayerInputChannel.GamePanel.Home:
+                if (state == PlayerState.State.Browsing) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.Crafting:
+                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
+                break;
+            /*
+            case PlayerInputChannel.GamePanel.Inventory:
+                if (state == PlayerState.State.Browsing) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.Research:
+                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.ExploreMap:
+                if (state == PlayerState.State.ExploreMap) complete = true;
+                break;
+        }*/
+            
+        if(targetPanel == panel) CompleteAction();
+    }
+
+    private void CompleteAction()
+    {
+        onActionCompletes.Invoke();
     }
 
     public override bool IsAssigned()
@@ -590,5 +627,39 @@ public class SubUniAction : IPerformableAction
     public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction && targetCBS != null;
+    }
+}
+
+[Serializable] public class ScreenNotificationAction : SubUniAction
+{
+    public enum ActionType{NoAction, StartDurationNotification, StartInfiniteNotification, EndNotification}
+    public ActionType actionType = ActionType.NoAction;
+
+    public string text = "Text Not Assigned";
+    public float duration = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+        
+        switch (actionType)
+        {
+            case ActionType.StartDurationNotification:
+                UI_ScreenNotification.i.StartNotification(text,true,duration);
+                break;
+            case ActionType.StartInfiniteNotification:
+                UI_ScreenNotification.i.StartNotification(text,false);
+                break;
+            case ActionType.EndNotification:
+                UI_ScreenNotification.i.EndNotification();
+                break;
+        }
+        
+        onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
     }
 }

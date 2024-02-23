@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SocialPlatforms.GameCenter;
 
 /* NOTES Oct 1 2023 Peng Guo
 
@@ -29,9 +31,23 @@ public static class PlayerState
     private enum RecipeViewerState {Open, Hide, Close } //Open: open   Close: hide   Hide: open a little bit
     static private RecipeViewerState recipeViewerPanelState = RecipeViewerState.Close;
 
+    public static UnityEvent<State> OnPlayerEnterState = new UnityEvent<State>();
+    public static UnityEvent<State> OnPlayerExitState = new UnityEvent<State>();
+    
+    public enum GamePanel
+    {
+        Home,
+        Crafting,
+        Research,
+        ExploreMap,
+        Inventory,
+    }
 
+    public static UnityEvent<GamePanel> OnGamePanelOpen = new UnityEvent<GamePanel>();
+    
     public static void ExitState()
     {
+        OnPlayerExitState.Invoke(state);
         if(state == State.Browsing)
         {
             
@@ -58,8 +74,10 @@ public static class PlayerState
 
     public static void EnterState(State enterState)
     {
+        OnPlayerEnterState.Invoke(state);
         if (enterState == State.Browsing)
         {
+            OnGamePanelOpen.Invoke(GamePanel.Home);
             ChangeInventoryPanel(false);
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
             PanelButtonIndicator.i.Exit();
@@ -70,12 +88,6 @@ public static class PlayerState
             CraftingManager.i.OpenPanel();
             BlueprintAndResearchManager.i.OpenPanel();
             PanelButtonIndicator.i.EnterCrafting();
-            
-            /*Old Tech Tree Code
-            ChangeInventoryPanel(false);
-            RecipeMapManager.i.OpenPanel();
-            ChangeRecipeViewerPanel(RecipeViewerState.Open);
-            PanelButtonIndicator.i.EnterResearch();*/
         }
         else if (enterState == State.Building)
         {
@@ -87,6 +99,7 @@ public static class PlayerState
             ChangeInventoryPanel(true);
         }else if (enterState == State.ExploreMap)
         {
+            OnGamePanelOpen.Invoke(GamePanel.ExploreMap);
             ExploreMapPanel.i.OpenPanel();
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
         }
@@ -100,6 +113,7 @@ public static class PlayerState
         if (changeTo == inventoryPanelOpen) return;
         if (changeTo)
         {
+            OnGamePanelOpen.Invoke(GamePanel.Inventory);
             UI_InventoryPanel.i.OpenPanel();
         }
         else

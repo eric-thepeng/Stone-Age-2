@@ -19,6 +19,9 @@ public class UI_InventoryBlock : MonoBehaviour
     [SerializeField] SpriteRenderer itemSprite;
     [SerializeField] TextMeshPro displayNumber;
     [SerializeField] SpriteRenderer numberBackground;
+    [SerializeField] private SpriteRenderer blockBackground;
+
+    [SerializeField] private Color selectedBlockBackgroundColor;
 
     private DragInventoryItem dii = null;
 
@@ -164,7 +167,9 @@ public class UI_InventoryBlock : MonoBehaviour
 
     public void SetSelectedBackground(bool newState)
     {
-        transform.Find("Selected Background").gameObject.SetActive(newState);
+        if (newState) blockBackground.color = selectedBlockBackgroundColor;
+        else blockBackground.color = Color.white;
+        //transform.Find("Selected Background").gameObject.SetActive(newState);
     }
 
     private void OnMouseUp()
