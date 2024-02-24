@@ -445,6 +445,7 @@ public class WorkshopData
         output += "RecipeAmount: " + currentWorkshopRecipeAmount;
         
         return output;
-    } 
+    }
+
 }
 
