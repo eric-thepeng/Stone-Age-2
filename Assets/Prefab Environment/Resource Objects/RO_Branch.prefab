@@ -47,6 +47,7 @@ MonoBehaviour:
   objectsToSpawn:
   - {fileID: 6898499343737597249, guid: 5e0f4466f71c6b14cbc41c556ec3b809, type: 3}
   - {fileID: 5456859849834977884, guid: 3ae38d5c72bc7c04cbeb9457c1d814a3, type: 3}
+  spawnScale: 1
 --- !u!1 &5909491603796297777
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +398,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: timeToClear
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.spiritPoint
       value: 0
       objectReference: {fileID: 0}
@@ -434,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.spiritPoint
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.size

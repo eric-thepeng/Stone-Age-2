@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 2164745092116917087}
   - component: {fileID: 3000914284397536506}
   - component: {fileID: 1027265937943416880}
+  - component: {fileID: -1946635291710024734}
+  - component: {fileID: 3405269769615537307}
+  - component: {fileID: -8646100166899075377}
+  - component: {fileID: 3028728722465822327}
   m_Layer: 0
   m_Name: Oak_02_Light
   m_TagString: Untagged
@@ -83,3 +87,66 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-1946635291710024734
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531620374995169765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.031130321, y: 0.021061841, z: 0.03402082}
+  m_Center: {x: 0.002256116, y: -0.00045136912, z: 0.016396131}
+--- !u!114 &3405269769615537307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531620374995169765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a650146e72a1042a59590028cdd2c00a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8646100166899075377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531620374995169765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2009d447855804ce9b35097201f939ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3028728722465822327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531620374995169765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41052a8e9ee11414c9f571e0f8455f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interval: {x: 0, y: 1}
+  maxObjects: 1
+  generationRange: 4
+  randomRotation: 1
+  respawnPrefabList:
+  - {fileID: 4044957555968467657, guid: a7486a1deb6fc4afcb8fce6aa4c87d14, type: 3}
+  - {fileID: 4044957555968467657, guid: 3280110dfaa544bf4a7f8e0dc5e9186b, type: 3}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animationDuration: 0

@@ -63,7 +63,7 @@ public class CharacterIcon : MonoBehaviour
                 {
                         GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<GatherSpot>();
                         toGather.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
-                        character.StartGather(toGather, this);
+                        character.StartGatherUI(toGather, this);
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
@@ -110,7 +110,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().getCurrentHomeState() != CharacterHomeStatus.HomeState.Resting)
+        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().getCurrentHomeState() != CharacterBehaviors.HomeState.Resting)
         {
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
@@ -166,7 +166,7 @@ public class CharacterIcon : MonoBehaviour
 
     public void CancelGather()
     {
-        character.EndGather();
+        character.EndGatherUI();
         CancelRecallButton();
     }
 

@@ -21,6 +21,10 @@ public class ROSpawn : MonoBehaviour
         // Spawn the object at the position of this GameObject
         GameObject spawnedObject = Instantiate(objectToSpawn, transform.position, objectToSpawn.transform.rotation, transform);
 
+        Quaternion randomRotation = Quaternion.Euler(-90, Random.Range(0, 360), 0);
+
+        spawnedObject.transform.rotation = randomRotation;
+
         spawnedObject.transform.localScale = Vector3.Scale(spawnedObject.transform.localScale, new Vector3(spawnScale, spawnScale, spawnScale));
     }
 }

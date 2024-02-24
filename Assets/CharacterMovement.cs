@@ -50,7 +50,7 @@ public class CharacterMovement : MonoBehaviour
         hangOutWaitTime = Random.Range(0, hangOutWaitTime);
     }
 
-
+    
     public Vector3 _targetPosition;
     public bool _isMovingToTarget = false;
 

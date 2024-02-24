@@ -267,7 +267,7 @@ public class ResourceRespawnManager : MonoBehaviour
             spawnedObject.transform.parent = obstacleContainer.transform;
             
             if (respawnRules[index].randomRotation)
-                spawnedObject.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+                spawnedObject.transform.GetChild(0).rotation = Quaternion.Euler(0, Random.Range(0, 360),0);
             
             BoxCollider obstacleCollider = spawnedObject.GetComponent<BoxCollider>();
 
