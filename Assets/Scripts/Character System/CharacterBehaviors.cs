@@ -72,7 +72,7 @@ public class CharacterBehaviors : MonoBehaviour
             characterMovement = character.l2dCharacter.AddComponent<CharacterMovement>();
         }
         
-        _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).localPosition;
+        _l2dCharacterOldPosition = characterMovement.transform.GetChild(0).localPosition;
 
         characterMovement.CharacterBehavior = this;
         //Debug.Log(characterMovement.transform.name);
@@ -396,7 +396,7 @@ public class CharacterBehaviors : MonoBehaviour
             characterMovement.StartSleeping();
 
             // _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).position;
-            characterMovement.transform.GetChild(1).position = _targetObject.transform.position + new Vector3(0, 2.8f, 0);
+            characterMovement.transform.GetChild(0).position = _targetObject.transform.position + new Vector3(0, 2.8f, 0);
             // characterMovement.animator.SetTrigger("Sit");
 
             characterWorkingEvent = () =>
@@ -463,7 +463,7 @@ public class CharacterBehaviors : MonoBehaviour
             _targetObject.OccupiedCharacter = null;
             _targetObject.IsOccupiedByCharacter = false;
             
-            characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
+            characterMovement.transform.GetChild(0).localPosition = _l2dCharacterOldPosition;
             // characterMovement.transform.position = _targetObject.GetInteractionPoint();
             
             characterMovement.animator.SetTrigger("Stand");
