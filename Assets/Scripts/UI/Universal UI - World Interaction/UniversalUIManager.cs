@@ -74,17 +74,50 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
 
+    [Serializable]
+    public class DefaultUI : UniversalUIComponent
+    {
+
+    }
+
     private WorldInteractable.InteractionType displayingWIIT;
     private UniversalUIComponent displayingUIComponent;
     
     public LongPressUI myLongPressUI;
     public ClickUI myClickUI;
+    public DefaultUI myDefaultUI;
 
+    public Texture2D cursorDefault;
+    public Texture2D cursorB;
+    public Texture2D cursorC;
+    public Texture2D cursorD;
+    public Texture2D cursorE;
+    private Texture2D[] cursors;
+    public enum CursorType
+    {
+        A,
+        B,
+        C,
+        D
+    }
+
+    public Dictionary<CursorType, Texture2D> mouseSprites = new Dictionary<CursorType, Texture2D>();
     private UniversalUIComponent[] allUIComponent;
 
     private void Start()
     {
-        allUIComponent = new UniversalUIComponent[] {myLongPressUI, myClickUI };
+        //cursor
+        cursors = new Texture2D[] { cursorDefault, cursorB, cursorC, cursorD };
+        int c = 0;
+        foreach (CursorType cursorType in Enum.GetValues(typeof(CursorType)))
+        {
+            mouseSprites.Add(cursorType, cursors[c]);
+            c++;
+        }
+        SetCursor(cursorDefault);
+
+        //sprite
+        allUIComponent = new UniversalUIComponent[] {myLongPressUI, myClickUI};
         foreach (var uiComponent in allUIComponent)
         {
             uiComponent.Initialize();
@@ -102,6 +135,14 @@ public class UniversalUIManager : MonoBehaviour
             displayingUIComponent.SetPosition();
         }
     }
+
+
+
+    public void SetCursor(Texture2D cursorTexture)
+    {
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
 
     public void DisplayComponent(WorldInteractable.InteractionType wiit)
     {
@@ -123,6 +164,12 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
 
+    public void DisplayCursor(CursorType cursorType)
+    {
+        SetCursor(mouseSprites[cursorType]);
+    }
+
+
     public void CancelDisplayComponent(WorldInteractable.InteractionType wiit)
     {
         if(wiit!=null && displayingWIIT != wiit) return;
@@ -132,5 +179,10 @@ public class UniversalUIManager : MonoBehaviour
         {
             uiComponent.CloseUI();
         }
+    }
+
+    public void CancelDisplayCursor()
+    {
+        SetCursor(mouseSprites[CursorType.A]);
     }
 }

@@ -90,7 +90,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     private void OnMouseExit()
     {
         if (setUpInfo == null) return;
-        TooltipManager.i.DestroyTip();
+        TooltipManager.i.DisableTip();
         mouseOver = false;
     }
 

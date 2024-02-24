@@ -222,6 +222,7 @@ public class CraftingManager : SerializedMonoBehaviour
             TetrisFlyToInventoryEffect(go.GetComponent<Tetris>().itemSO, go.transform.position, 0.3f, false);
         }
         Destroy(go);
+        TooltipManager.i.DisableTip();
     }
 
     public void PutBackAllTetrisToInventory()
