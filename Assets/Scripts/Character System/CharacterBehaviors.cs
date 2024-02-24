@@ -132,6 +132,13 @@ public class CharacterBehaviors : MonoBehaviour
     
     void Update()
     {
+        if (state == CharacterState.Gather)
+        {
+            character.l2dCharacter.SetActive(false);
+        } else if (state == CharacterState.Idle) {
+            character.l2dCharacter.SetActive(true);
+        }
+        
         if (state == CharacterState.Gather) // if character is exploring on the map
         {
             if(character.CharacterStats.energy.NoEnergy()) // end exploring when no energy
@@ -162,11 +169,11 @@ public class CharacterBehaviors : MonoBehaviour
             
             if (periodTimeLeft <= 0)
             {
-                // character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
+                character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
                 // character.CharacterStats.energy.AddEnergy();
                 
-                periodTimeLeft = 1;
-                // periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                // periodTimeLeft = 1;
+                periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
                 
                 CheckState();
                 
