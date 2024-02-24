@@ -638,6 +638,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &303742603394030697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7608117764513288428}
+  m_Layer: 0
+  m_Name: Blueprint And Research Panels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7608117764513288428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303742603394030697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 693656013105335357}
+  - {fileID: 1312488039237158418}
+  m_Father: {fileID: 9103145056879745792}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &311388897702484450
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,8 +948,8 @@ Transform:
   - {fileID: 693656015064141519}
   - {fileID: 7044109760215556378}
   - {fileID: 2994334177185154967}
-  m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 1
+  m_Father: {fileID: 7608117764513288428}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &5663547848534603578
 SortingGroup:
@@ -2442,8 +2475,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   researchPanelGO: {fileID: 693656013105335356}
   blueprintPanelGO: {fileID: 6022094732868792873}
-  researchSwitchButton: {fileID: 5456380332361999750}
-  blueprintSwitchButton: {fileID: 5734063719171456584}
   activePanelLocalPosition: {x: 0, y: 0, z: 0}
   blueprintPanelAnimator: {fileID: 0}
   researchPanelAnimator: {fileID: 0}
@@ -2947,7 +2978,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &693656014546418894
 SpriteRenderer:
@@ -4447,7 +4478,7 @@ Transform:
   m_Children:
   - {fileID: 6081969250573444183}
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &5666420298955044427
 SortingGroup:
@@ -5547,8 +5578,8 @@ Transform:
   - {fileID: 9220154566317520819}
   - {fileID: 2942764030992987639}
   - {fileID: 84229035}
-  m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 2
+  m_Father: {fileID: 7608117764513288428}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &8829860553518714112
 SortingGroup:
@@ -6590,10 +6621,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6903535456536023103}
-  - {fileID: 693656013105335357}
-  - {fileID: 1312488039237158418}
   - {fileID: 1597925809136109809}
   - {fileID: 693656014546418865}
+  - {fileID: 7608117764513288428}
   m_Father: {fileID: 693656014415236002}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
