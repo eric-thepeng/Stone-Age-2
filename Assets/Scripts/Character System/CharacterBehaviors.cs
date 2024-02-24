@@ -181,7 +181,7 @@ public class CharacterBehaviors : MonoBehaviour
 
     private void CheckState()
     {
-        // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
+        Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
             // sleeping <25%
@@ -339,7 +339,7 @@ public class CharacterBehaviors : MonoBehaviour
     public void EnterState(HomeState state, PlaceableObject targetObject = null)
     {
         
-        Debug.Log("Enter state " + state + ", target " + targetObject);
+        // Debug.Log("Enter state " + state + ", target " + targetObject);
         ExitState();
         currentState = state;
         
