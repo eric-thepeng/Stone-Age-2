@@ -463,13 +463,14 @@ public class CharacterBehaviors : MonoBehaviour
             _targetObject.OccupiedCharacter = null;
             _targetObject.IsOccupiedByCharacter = false;
             
-            characterMovement.transform.position = _targetObject.GetInteractionPoint();
+            characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
+            // characterMovement.transform.position = _targetObject.GetInteractionPoint();
             
             characterMovement.animator.SetTrigger("Stand");
             
         }
         
-        characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
+        // characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
         
         characterMovement.animator.SetBool("isCrafting", false);
         
