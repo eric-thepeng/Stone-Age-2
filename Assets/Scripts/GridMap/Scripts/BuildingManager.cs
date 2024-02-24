@@ -402,8 +402,11 @@ public class BuildingManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             //Debug.Log(mouseInPlacementMode);
-            if (mouseInPlacementMode && GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
+            if (mouseInPlacementMode && GetSelectedBuildingISO() != null && !WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) 
+                // && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true)
+                )
             {
+                // Debug.Log("hitting home grid");
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
@@ -450,7 +453,9 @@ public class BuildingManager : MonoBehaviour
         {
 
             bool _rayHit = Physics.Raycast(ray, out hitInfo);
-            if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true))
+            if (!WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true) 
+                // && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true)
+                )
             {
                 if (modifying)
                 {

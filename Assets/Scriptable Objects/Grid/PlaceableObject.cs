@@ -80,9 +80,62 @@ public class PlaceableObject : MonoBehaviour
     [SerializeField]
     private BuildingISO BISO;
 
-    [SerializeField]
-    private List<string> _gridObjectTags;
+    private List<string> _gridObjectTags = new List<string>();
 
+
+    [Header("Character Settings")] 
+    [SerializeField] private bool isOccupiedByCharacter; 
+    [SerializeField] private Character occupiedCharacter;
+    // [SerializeField] private float remainOccupyTime;
+
+    [Header("Character Tasks")] 
+    [SerializeField] private float taskDuration;
+    [SerializeField] private int charRewardPoint;
+    [SerializeField] private Action finishedEvent;
+
+    public bool IsOccupiedByCharacter
+    {
+        get => isOccupiedByCharacter;
+        set => isOccupiedByCharacter = value;
+    }
+
+    public Character OccupiedCharacter
+    {
+        get => occupiedCharacter;
+        set => occupiedCharacter = value;
+    }
+
+    public float TaskDuration
+    {
+        get => taskDuration;
+        set => taskDuration = value;
+    }
+
+    // public void Occupy(Character character, float occupyTime)
+    // {
+    //     isOccupiedByCharacter = true;
+    //     occupiedCharacter = character;
+    //
+    //     StartCoroutine(OccupationCountdown(occupyTime)); // 启动协程
+    // }
+    //
+    // private IEnumerator OccupationCountdown(float duration)
+    // {
+    //     remainOccupyTime = duration;
+    //     while (remainOccupyTime > 0)
+    //     {
+    //         yield return new WaitForSeconds(0.1f); // 等待1秒
+    //         remainOccupyTime -= 0.1f; // 更新剩余时间
+    //     }
+    //
+    //     // 倒计时结束
+    //     isOccupiedByCharacter = false;
+    //     occupiedCharacter = null; // 或者保留角色引用，取决于你的需求
+    //     remainOccupyTime = 0;
+    //
+    //     finishedEvent?.Invoke(); // 调用完成事件
+    //     SpiritPoint.i.Add(charRewardPoint);
+    // }
 
     public bool containsTag(string ObjectTag)
     {
@@ -101,12 +154,25 @@ public class PlaceableObject : MonoBehaviour
     private BuildingManager buildingManager;
 
     private BoxCollider boxCollider;
-    private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
+    // private Sprite spriteToRender; // 拖拽你想渲染的Sprite到这里
 
     private GridOperationManager gridOperationManager;
 
     private GridHeightPositioner gridHeightPositioner;
 
+    public enum Direction
+    {
+        Forward,
+        Backward,
+        Left,
+        Right
+    }
+
+    public Direction direction; // 通过Unity编辑器选择方向
+    public float offset = 0.5f; // 边框外偏移量
+    private Vector3 characterInteractionPoint;
+    // public GameObject characterInteractionObject;
+    
     private void Start()
     {
         gridHeightPositioner = GetComponent<GridHeightPositioner>();
@@ -118,44 +184,47 @@ public class PlaceableObject : MonoBehaviour
         GetComponent<NavMeshObstacle>().enabled = false;
 
         boxCollider = GetComponent<BoxCollider>();
-        // spriteToRender = gridOperationManager.ObstacleSprite;
-        //
-        // if (boxCollider != null)
-        // {
-        //
-        //     // 创建一个新的GameObject作为Sprite
-        //     GameObject spriteObj = new GameObject("GridMask - " + transform.name);
-        //
-        //     GameObject gridMasks = GameObject.Find("GridMasks");
-        //     if (gridMasks == null)
-        //     {
-        //         gridMasks = new GameObject("GridMasks");
-        //     }
-        //     spriteObj.transform.SetParent(transform);
-        //     //spriteObjs.Add(spriteObj);
-        //     SpriteMask imageMask = spriteObj.AddComponent<SpriteMask>();
-        //     imageMask.sprite = spriteToRender;
-        //     ObstacleMask obsMask = spriteObj.AddComponent<ObstacleMask>();
-        //
-        //     float cellSize = GridUtilities.GetWorldSizeOfCell(gridOperationManager._gridSettings);
-        //
-        //     Vector3 spriteSize = boxCollider.size;
-        //     spriteSize.y = boxCollider.size.z;
-        //     spriteSize.z = boxCollider.size.y;
-        //
-        //     Vector3 spritePosition = boxCollider.center;
-        //     spritePosition.y = gridHeightPositioner.GridHeight;
-        //
-        //     spriteObj.transform.rotation = Quaternion.Euler(90, 0, 0);
-        //     spriteObj.transform.localPosition = spritePosition;
-        //     spriteObj.transform.localScale = spriteSize;
-        //
-        // }
+
+        if (BISO != null)
+        {
+            _gridObjectTags = BISO.gridObjectTags;
+        }
+        else
+        {
+            _gridObjectTags.Add("EmptyObject");
+        }
+        
     }
 
-    private void Update()
+    public Vector3 GetInteractionPoint()
     {
+        
+        Vector3 newPosition = transform.position + boxCollider.center;
+
+        // 根据碰撞体的大小和选定的方向计算偏移
+        switch (direction)
+        {
+            case Direction.Forward:
+                newPosition += transform.forward * (boxCollider.size.z / 2 + offset);
+                break;
+            case Direction.Backward:
+                newPosition -= transform.forward * (boxCollider.size.z / 2 + offset);
+                break;
+            case Direction.Left:
+                newPosition -= transform.right * (boxCollider.size.x / 2 + offset);
+                break;
+            case Direction.Right:
+                newPosition += transform.right * (boxCollider.size.x / 2 + offset);
+                break;
+        }
+
+        // newPosition.y = 0;
+        
+        // 更新GameObject的位置
+        // characterInteractionObject.transform.position = newPosition;
+        return newPosition;
     }
+    
 
     void CheckEffects(Transform parent)
     {
@@ -176,9 +245,9 @@ public class PlaceableObject : MonoBehaviour
             }
         }
     }
-
     public void DisableEffects()
     {
+        GetComponent<NavMeshObstacle>().enabled = false;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)
@@ -203,6 +272,7 @@ public class PlaceableObject : MonoBehaviour
 
     public void EnableEffects()
     {
+        GetComponent<NavMeshObstacle>().enabled = true;
         if (objectsWithEffects != null)
         {
             foreach (GameObject obj in objectsWithEffects)
@@ -224,6 +294,11 @@ public class PlaceableObject : MonoBehaviour
         }
     }
 
+    public void InvokeFinishedWorkEvent()
+    {
+        finishedEvent?.Invoke();
+        SpiritPoint.i.Add(charRewardPoint);
+    }
 
 
 

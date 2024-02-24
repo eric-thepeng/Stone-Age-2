@@ -63,7 +63,7 @@ public class CharacterIcon : MonoBehaviour
                 {
                         GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true).GetComponent<GatherSpot>();
                         toGather.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
-                        character.StartGather(toGather, this);
+                        character.StartGatherUI(toGather, this);
                         //transform.localPosition = placeholderPosition;
                         transform.localPosition = homePosition;
                         ChangeIconColor(gatherColor);
@@ -110,12 +110,12 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().getCurrentHomeState() != CharacterHomeStatus.HomeState.Resting)
+        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().CurrentState != CharacterBehaviors.HomeState.Sleeping1)
         {
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
-
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             iconState = IconState.Dragging;
             if(onCharacterPickedUp!=null)onCharacterPickedUp();
         }
@@ -127,7 +127,8 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(iconState == IconState.Gathering)
+        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
+        if (iconState == IconState.Gathering)
         {
             DisplayRecallButton();
         }
@@ -135,10 +136,11 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if(iconState == IconState.Gathering)
+        UniversalUIManager.i.CancelDisplayCursor();
+        if (iconState == IconState.Gathering)
         {
             CancelRecallButton();
-        }
+        }   
     }
 
     private void DisplayRecallButton()
@@ -164,7 +166,7 @@ public class CharacterIcon : MonoBehaviour
 
     public void CancelGather()
     {
-        character.EndGather();
+        character.EndGatherUI();
         CancelRecallButton();
     }
 

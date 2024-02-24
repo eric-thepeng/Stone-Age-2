@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -188,12 +189,13 @@ public class SubUniAction : IPerformableAction
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
     public string targetGameObjectSetUpIdentifierID;
 
+    private WorldSpaceButton wsb = null;
 
     public override void PerformAction()
     {
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
-        WorldSpaceButton wsb = targetGameObject.GetComponent<WorldSpaceButton>();
+        wsb = targetGameObject.GetComponent<WorldSpaceButton>();
         if(wsb == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
         
         onActionStarts?.Invoke();
@@ -216,6 +218,7 @@ public class SubUniAction : IPerformableAction
     private void FinishClick()
     {
         onActionCompletes.Invoke();
+        wsb.onActionCompletes.RemoveListener(FinishClick);
     }
 
     public override bool IsAssigned()
@@ -267,10 +270,10 @@ public class SubUniAction : IPerformableAction
 
 [Serializable] public class GamePanelAction : SubUniAction
 {
-    public enum ActionType{NoAction, GoToPanel}
+    public enum ActionType{NoAction, GoToPanel, WaitForPanelOpen}
     public ActionType actionType = ActionType.NoAction;
 
-    public PlayerInputChannel.GamePanel targetPanel = PlayerInputChannel.GamePanel.Home;
+    public PlayerState.GamePanel targetPanel = PlayerState.GamePanel.Home;
     
     public override void PerformAction()
     {
@@ -279,8 +282,46 @@ public class SubUniAction : IPerformableAction
         if (actionType == ActionType.GoToPanel)
         {
             PlayerInputChannel.GoToPanel(targetPanel);
-            onActionCompletes.Invoke();
+            CompleteAction();
         }
+        else
+        {
+            PlayerState.OnGamePanelOpen.AddListener(WaitForPanelOpen);
+        }
+    }
+
+    public void WaitForPanelOpen(PlayerState.GamePanel panel)
+    {
+
+        /*
+        //NEED TO REWORK THIS
+        switch (targetPanel)
+        {
+            case PlayerInputChannel.GamePanel.Home:
+                if (state == PlayerState.State.Browsing) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.Crafting:
+                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
+                break;
+            /*
+            case PlayerInputChannel.GamePanel.Inventory:
+                if (state == PlayerState.State.Browsing) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.Research:
+                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
+                break;
+            case PlayerInputChannel.GamePanel.ExploreMap:
+                if (state == PlayerState.State.ExploreMap) complete = true;
+                break;
+        }*/
+            
+        if(targetPanel == panel) CompleteAction();
+    }
+
+    private void CompleteAction()
+    {
+        onActionCompletes.Invoke();
+        PlayerState.OnGamePanelOpen.RemoveListener(WaitForPanelOpen);
     }
 
     public override bool IsAssigned()
@@ -585,6 +626,84 @@ public class SubUniAction : IPerformableAction
         }
         
         onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && targetCBS != null;
+    }
+}
+
+[Serializable] public class ScreenNotificationAction : SubUniAction
+{
+    public enum ActionType{NoAction, StartDurationNotification, StartInfiniteNotification, EndNotification}
+    public ActionType actionType = ActionType.NoAction;
+
+    public string text = "Text Not Assigned";
+    public float duration = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+        
+        switch (actionType)
+        {
+            case ActionType.StartDurationNotification:
+                UI_ScreenNotification.i.StartNotification(text,true,duration);
+                break;
+            case ActionType.StartInfiniteNotification:
+                UI_ScreenNotification.i.StartNotification(text,false);
+                break;
+            case ActionType.EndNotification:
+                UI_ScreenNotification.i.EndNotification();
+                break;
+        }
+        
+        onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterStatAction : SubUniAction
+{
+    public enum ActionType{NoAction, UponEnergyRatioReach}
+    public ActionType actionType = ActionType.NoAction;
+
+    public CharacterBasicStats targetCBS = null;
+    public float targetNumber = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        Character targetCharacter = CharacterManager.i.getCharacter(targetCBS);
+        CharacterStats targetCStats = targetCharacter.CharacterStats;
+        
+        if(targetCharacter == null) Debug.LogError("Cannot find character");
+
+        switch (actionType)
+        {
+            case ActionType.UponEnergyRatioReach:
+                if (targetCStats.energy.RemainEnergyPercentage() >= targetNumber)
+                {
+                    onActionCompletes.Invoke();
+                    return;
+                }
+                else
+                {
+                    targetCStats.energy.RemainEnergyPercentageBroadcast.AddListener(UponEnergyRatioReachTarget);
+                }
+                break;
+        }
+    }
+
+    public void UponEnergyRatioReachTarget(float toCheck)
+    {
+        if(toCheck >= targetNumber) onActionCompletes.Invoke();
     }
 
     public override bool IsAssigned()

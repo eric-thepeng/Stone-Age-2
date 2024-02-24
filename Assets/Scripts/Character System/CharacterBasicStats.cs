@@ -9,8 +9,10 @@ public class CharacterBasicStats : ScriptableObject
 
 
     public int energy;
-
     public float restingEnergyPercentage;
+    
+    public int saturation;
+    public float restingSaturationPercentage;
 
     public float gatherSpeed;
     public float exploreSpeed;

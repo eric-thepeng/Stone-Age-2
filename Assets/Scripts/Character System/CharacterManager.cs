@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -81,10 +82,13 @@ public class CharacterManager : MonoBehaviour
         GameObject characterObject = new GameObject(newCharacterConfig.characterSettings.name);
         newCharacterConfig.character = characterObject.AddComponent<Character>();
         newCharacterConfig.character.Initialize(newCharacterConfig.characterSettings);
-        CharacterHomeStatus homeStatus = characterObject.AddComponent<CharacterHomeStatus>();
+        CharacterBehaviors behaviors = characterObject.AddComponent<CharacterBehaviors>();
+        
+        newCharacterConfig.character.l2dCharacter = Instantiate(characterConfig.characterSettings.l2dGameObject, newCharacterConfig.character.transform);
+        newCharacterConfig.character.CharacterStats = new CharacterStats(newCharacterConfig.characterSettings);
 
-        homeStatus.hangOutArea = newCharacterConfig.hangOutArea;
-        characterObject.transform.position = homeStatus.hangOutArea.center;
+        behaviors.hangOutArea = newCharacterConfig.hangOutArea;
+        characterObject.transform.position = behaviors.hangOutArea.center;
         characterObject.transform.SetParent(transform.GetChild(0));
 
         GameObject characterIcon = Instantiate(characterIconPrefab, GameObject.Find("Character Icon").transform);

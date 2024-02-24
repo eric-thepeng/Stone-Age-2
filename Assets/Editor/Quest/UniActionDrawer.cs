@@ -60,6 +60,12 @@ public class UniActionDrawer : PropertyDrawer
             case UniAction.UniActionType.CharacterInteractionAction:
                 DrawProperty("characterInteractionAction", property, ref rowRect);
                 break;
+            case UniAction.UniActionType.ScreenNotificationAction:
+                DrawProperty("screenNotificationAction", property, ref rowRect);
+                break;
+            case UniAction.UniActionType.CharacterStatAction:
+                DrawProperty("characterStatAction", property, ref rowRect);
+                break;
         }
 
         EditorGUI.EndProperty();
@@ -112,6 +118,12 @@ public class UniActionDrawer : PropertyDrawer
                 break;
             case UniAction.UniActionType.CharacterInteractionAction:
                 height += GetHeightForProperty(property, "characterInteractionAction");
+                break;
+            case UniAction.UniActionType.ScreenNotificationAction:
+                height += GetHeightForProperty(property, "screenNotificationAction");
+                break;
+            case UniAction.UniActionType.CharacterStatAction:
+                height += GetHeightForProperty(property, "characterStatAction");
                 break;
         }
 
