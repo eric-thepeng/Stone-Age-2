@@ -15,6 +15,9 @@ public class BuildingISO : ItemScriptableObject
     public GameObject buildingPrefab;
     [SerializeField] int width = 1;
     [SerializeField] int height = 1;
+    
+    public List<string> gridObjectTags;
+    
     public List<Vector2Int> getCoordinates()
     {
         List<Vector2Int> returnList = new List<Vector2Int>();
@@ -41,5 +44,10 @@ public class BuildingISO : ItemScriptableObject
     public int GetHeight()
     {
         return height;
+    }
+    
+    public bool containTag(string tag)
+    {
+        return gridObjectTags.Contains(tag);
     }
 }

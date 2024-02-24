@@ -63,6 +63,13 @@ namespace Uniland.Characters
             return true;
         }
 
+        public bool SetEnergy(int energy)
+        {
+            if (energy > maxEnergy) return false;
+            currentEnergy = energy;
+            return true;
+        }
+
         public bool NoEnergy()
         {
             return currentEnergy <= 0;
@@ -76,6 +83,11 @@ namespace Uniland.Characters
         public bool EnergyLessThanRestingPercentage()
         {
             return currentEnergy <= maxEnergy * restingEnergyPercentage;
+        }
+        
+        public bool EnergyLessThanPercentage(float percentage)
+        {
+            return currentEnergy < maxEnergy * percentage;
         }
 
         public float RemainEnergyPercentage()
@@ -105,13 +117,22 @@ namespace Uniland.Characters
             currentSaturation = this.maxSaturation;
             this.restingSaturationPercentage = restingSaturationPercentage;
         }
+        //
+        // public Saturation(int currentSaturation, int maxSaturation)
+        // {
+        //     this.currentSaturation = currentSaturation;
+        //     this.maxSaturation = maxSaturation;
+        // }
 
-        public Saturation(int currentSaturation, int maxSaturation)
+        
+        public bool SetSaturation(int saturation)
         {
-            this.currentSaturation = currentSaturation;
-            this.maxSaturation = maxSaturation;
+            if (saturation > maxSaturation) return false;
+            currentSaturation = saturation;
+            return true;
         }
 
+        
         public int GetMaxSaturation()
         {
             return maxSaturation;
@@ -151,9 +172,9 @@ namespace Uniland.Characters
             return currentSaturation == maxSaturation;
         }
 
-        public bool SaturationLessThanRestingPercentage()
+        public bool SaturationLessThanFullPercentage()
         {
-            return currentSaturation <= maxSaturation * restingSaturationPercentage;
+            return currentSaturation < maxSaturation * restingSaturationPercentage;
         }
 
         public float RemainSaturationPercentage()
@@ -330,6 +351,9 @@ public class Character : MonoBehaviour
         charInteractions.Initialize(initialStats);
 
         charExperience = 0;
+
+        characterStats.energy.SetEnergy(0);
+        characterStats.saturation.SetSaturation(0);
     }
 
 
@@ -359,7 +383,7 @@ public class Character : MonoBehaviour
             SetCircularUIState(CircularUI.CircularUIState.Display);
 
             CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,1);
-            _behaviors.EnterState(HomeState.Gathering);
+            _behaviors.EnterState(HomeState.Exploring);
         }
 
 
@@ -370,7 +394,6 @@ public class Character : MonoBehaviour
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
         gatheringSpot.EndGathering();
-        _behaviors.state = CharacterState.Idle;
         //characterStats.energy.RestoreAllEnergy();
 
         myCI.ResetHome();
@@ -378,13 +401,13 @@ public class Character : MonoBehaviour
         CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,0);
 
 
-        if (characterStats.energy.EnergyLessThanRestingPercentage())
-        {
-            _behaviors.EnterState(HomeState.Resting);
-        } else
-        {
-            _behaviors.EnterState(HomeState.Gatherable);
-        }
+        // if (characterStats.energy.EnergyLessThanRestingPercentage())
+        // {
+        //     _behaviors.EnterState(HomeState.Resting);
+        // } else
+        // {
+        //     _behaviors.EnterState(HomeState.Gatherable);
+        // }
     }
 
     void SetCircularUIState(CircularUI.CircularUIState circularUIState)

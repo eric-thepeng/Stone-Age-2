@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5645436661064748640}
   - component: {fileID: 8982163011936592877}
   - component: {fileID: 5863973981389942975}
+  - component: {fileID: -54420005422791916}
   m_Layer: 8
   m_Name: "\u7F8A\u54E5"
   m_TagString: Untagged
@@ -50,14 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  hangOutAreaMin: {x: -25, y: 0, z: -25}
-  hangOutAreaMax: {x: 25, y: 0, z: 25}
-  hangOutWaitTime: 2
-  sleepText: {fileID: 4671135053565314198}
-  _targetPosition: {x: 0, y: 0, z: 0}
-  _isMovingToTarget: 0
-  _isHangingOut: 0
-  _hangOutTimer: 0
+  _leafShadow: {fileID: 0}
 --- !u!114 &8982163011936592877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +125,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 0.1}
   m_Center: {x: 0, y: 1, z: -0.2}
+--- !u!114 &-54420005422791916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133323687345555425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e0a88788d46424198bdb6364737cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+  hangOutAreaMin: {x: 0, y: 0, z: 0}
+  hangOutAreaMax: {x: 0, y: 0, z: 0}
+  sleepText: {fileID: 4671135053565314198}
+  _targetPosition: {x: 0, y: 0, z: 0}
+  _isHangingOut: 0
 --- !u!1 &4671135053565314198
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3464631122178708793
 RectTransform:
   m_ObjectHideFlags: 0

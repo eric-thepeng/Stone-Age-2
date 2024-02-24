@@ -1,29 +1,61 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Hypertonic.GridPlacement;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using Random = UnityEngine.Random;
 
 public class CharacterBehaviors : MonoBehaviour
 {
     public enum HomeState { 
-        Resting, 
-        Gatherable, 
-        Gathering
+        Unset,
+        Sleeping1,
+        Feeding,
+        Sleeping2,
+        Interacting,
+        Working,
+        HangingAround,
+        Exploring
         
+        // Resting,
+        // Gatherable,
+        // Gathering
     }
 
     private Character character;
 
+    [SerializeField]
     private HomeState currentState;
-    
 
+    public HomeState CurrentState
+    {
+        get => currentState;
+        set => currentState = value;
+    }
+
+    [SerializeField]
     private CharacterMovement characterMovement;
 
     private float moveSpeed = 1f;
+    [HideInInspector]
     public BoxCollider hangOutArea;
     private float hangOutWaitTime = 2f; // 停顿时间
 
+    public enum CharacterState {Idle, Gather}
+    public CharacterState state = CharacterState.Idle;
 
+
+    // public float RestTimeLeft
+    // {
+    //     get => restTimeLeft;
+    //     set => restTimeLeft = value;
+    // }
+
+
+
+    private Vector3 _l2dCharacterOldPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +71,14 @@ public class CharacterBehaviors : MonoBehaviour
         {
             characterMovement = character.l2dCharacter.AddComponent<CharacterMovement>();
         }
+        
+        _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).localPosition;
+
+        characterMovement.CharacterBehavior = this;
         //Debug.Log(characterMovement.transform.name);
 
             characterMovement.moveSpeed = moveSpeed;
-            characterMovement.hangOutWaitTime = hangOutWaitTime;
+            // characterMovement.hangOutWaitTime = hangOutWaitTime;
 
         if (hangOutArea != null) {
             hangOutArea.enabled = true;
@@ -56,23 +92,32 @@ public class CharacterBehaviors : MonoBehaviour
 
         hangOutArea.enabled = false;
 
-        if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
-        {
-            currentState = HomeState.Resting;
-            characterMovement.StartSleeping();
-        } else
-        {
-            currentState = HomeState.Gatherable;
-            characterMovement.StopSleeping();
-            characterMovement.StartHangingOut();
-
-        }
+        
+        currentState = HomeState.HangingAround;
+        
+        EnterState(currentState);
+        // if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+        // {
+        //     currentState = HomeState.Resting;
+        //     characterMovement.StartSleeping();
+        // } else
+        // {
+        //     currentState = HomeState.Gatherable;
+        //     characterMovement.StopSleeping();
+        //     characterMovement.StartHangingOut();
+        //
+        // }
     }
-    
-    
-    public enum CharacterState {Idle, Gather}
-    public CharacterState state = CharacterState.Idle;
 
+
+    [SerializeField]
+    private bool _isPendingTowardsTarget = false;
+
+    public bool IsPendingTowardsTarget
+    {
+        get => _isPendingTowardsTarget;
+        set => _isPendingTowardsTarget = value;
+    }
 
     float gatherTimeLeft;
 
@@ -82,28 +127,24 @@ public class CharacterBehaviors : MonoBehaviour
         set => gatherTimeLeft = value;
     }
 
-    public float RestTimeLeft
-    {
-        get => restTimeLeft;
-        set => restTimeLeft = value;
-    }
-
-    float restTimeLeft;
+    [SerializeField]
+    float periodTimeLeft; // period for execute
     
     void Update()
     {
-        //Debug.Log(characterStats.energy.GetCurrentEnergy() + "/" + characterStats.energy.GetMaxEnergy() + " (" + characterStats.energy.RemainEnergyPercentage() + ")");
-        if (state == CharacterState.Gather)
+        if (state == CharacterState.Gather) // if character is exploring on the map
         {
-            if(character.CharacterStats.energy.NoEnergy())
+            if(character.CharacterStats.energy.NoEnergy()) // end exploring when no energy
             {
+                state = CharacterState.Idle;
+                
                 character.EndGatherUI();
                 character.GatheringSpot.EndGathering();
-                //state = CharacterState.Idle;
-                //currentEnergy = maxEnergy;
-                //myCI.ResetHome();   
+                
+                // EnterState(HomeState.Resting);
+                
             }
-            if(gatherTimeLeft <= 0)
+            if(gatherTimeLeft <= 0) // else, reduce energy and continue
             {
                 character.YieldResource();
                 character.DiscoverSpot();
@@ -116,110 +157,360 @@ public class CharacterBehaviors : MonoBehaviour
             character.CharacterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
             character.GatheringSpot.SetGatheringProgress(100 * (1 - (gatherTimeLeft / character.GatheringSpot.gatherTime)), 100 * character.CharacterStats.energy.RemainEnergyPercentage(), true);
         }
-        else if(state == CharacterState.Idle)
+        else if(state == CharacterState.Idle && !_isPendingTowardsTarget && !GridManagerAccessor.GridManager.IsPlacingGridObject) // if character is at home
         {
-            if (!character.CharacterStats.energy.EnergyLessThanRestingPercentage())
-            {
-                character.CharacterIcon.ChangeIconColorToHome();
-
-                EnterState(HomeState.Gatherable);
-            } else
-            {
-                character.CharacterIcon.ChangeIconColorToGather();
-                EnterState(HomeState.Resting);
-            }
             
-            /* Energy is always displayed
-             
-            if (!characterStats.energy.maximizeEnergy())
+            if (periodTimeLeft <= 0)
             {
-                characterIcon.setga(CircularUI.CircularUIState.Display);
-            } else
-            {
-                characterIcon.SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
-            }*/
-
-            if (restTimeLeft <= 0)
-            {
-                character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
-                character.CharacterStats.energy.AddEnergy();
-                restTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                // character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
+                // character.CharacterStats.energy.AddEnergy();
+                
+                periodTimeLeft = 1;
+                // periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                
+                CheckState();
+                
             }
             //update ui
-            restTimeLeft -= character.CharacterStats.restingSpeed.GetRestingSpeed() * Time.deltaTime;
+            periodTimeLeft -= 1 * Time.deltaTime;
 
-            //characterIcon.SetGatheringProgress(100 * (1 - (gatherTimeLeft / gatheringSpot.gatherTime)), 100 * characterStats.energy.RemainEnergyPercentage(), true);
+
         }
     }
-    public void EnterState(HomeState state)
+    
+
+    private void CheckState()
     {
+        // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
+            PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
+            
+            // sleeping <25%
+            
+            if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) 
+            {
+                if (currentState == HomeState.Sleeping1) return;
+                
+                PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
+                // _behaviorTargetPosition = _bedObject.transform.position;
+
+                PlaceableObject _bedObject = null;
+                int count = 0;
+                
+                while (count < _bedObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_bedObjects[count].GetInteractionPoint()))
+                    {
+                        _bedObject = _bedObjects[count];
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                
+                if (currentState != HomeState.Sleeping1 && _bedObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Sleeping1, _bedObject);
+                    return;
+                }
+                
+            }
+            
+            // food <25%
+            
+            if (character.CharacterStats.saturation.SaturationLessThanFullPercentage()) 
+            {
+                // character.CharacterIcon.ChangeIconColorToGather();
+                if (currentState == HomeState.Feeding) return;
+                
+                PlaceableObject[] _foodObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("foodContainer")).ToArray();
+                // if () {}// if character find food to eat
+                
+                PlaceableObject _foodObject = null;
+                int count = 0;
+                while (count < _foodObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_foodObjects[count].GetInteractionPoint()))
+                    {
+                        _foodObject = _foodObjects[count];
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+                
+                if (currentState != HomeState.Feeding && _foodObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Feeding, _foodObject);
+                    return;
+                }
+                
+
+            }
+            
+            if (character.CharacterStats.energy.EnergyLessThanPercentage(1)) // sleeping <100%
+            {
+                
+                if (currentState == HomeState.Sleeping2) return;
+                
+                PlaceableObject[] _bedObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("bed")).ToArray();
+                // _behaviorTargetPosition = _bedObject.transform.position;
+
+                PlaceableObject _bedObject = null;
+                int count = 0;
+                
+                while (count < _bedObjects.Length)
+                {
+                    if (characterMovement.SetTargetPosition(_bedObjects[count].GetInteractionPoint()))
+                    {
+                        _bedObject = _bedObjects[count];
+                        break;
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+
+                
+                if (currentState != HomeState.Sleeping2 && _bedObject != null) // if character find bed to go
+                {
+                    
+                    EnterState(HomeState.Sleeping2, _bedObject);
+                    return;
+                }
+            }
+            
+            // find interacting object
+            if (currentState == HomeState.Interacting) return;
+            
+            PlaceableObject[] _interactingObjects = _nearbyObjects.Where(obj => obj.GetBuildingISO().containTag("interactable")).ToArray();
+            
+            PlaceableObject _interactingObject = null;
+            int interactableCount = 0;
+            while (interactableCount < _interactingObjects.Length)
+            {
+                if (characterMovement.SetTargetPosition(_interactingObjects[interactableCount].transform.position))
+                {
+                    _interactingObject = _interactingObjects[interactableCount];
+                    break;
+                }
+                else
+                {
+                    interactableCount++;
+                }
+            }
+                
+            if (currentState != HomeState.Interacting && _interactingObject != null) // if character find interactable object to go
+            {
+                    
+                EnterState(HomeState.Interacting, _interactingObject);
+                return;
+            }
+            
+            if (currentState == HomeState.HangingAround) return;
+            EnterState(HomeState.HangingAround);
+
+
+    }
+    
+    
+    public T[] FindAndSortComponents<T>(Vector3 center, float searchRadius) where T : Component
+    {
+        // 使用 Physics.OverlapSphere 查找所有碰撞体
+        Collider[] hitColliders = Physics.OverlapSphere(center, searchRadius);
+        // 从碰撞体中获取指定类型的组件，并过滤掉没有该组件的对象
+        var components = hitColliders.Select(collider => collider.GetComponent<T>())
+            .Where(component => component != null)
+            .ToArray();
+
+        // 按与中心点的距离排序
+        return components.OrderBy(component => (component.transform.position - center).sqrMagnitude).ToArray();
+    }
+
+    [SerializeField]
+    private PlaceableObject _targetObject;
+    
+    public void EnterState(HomeState state, PlaceableObject targetObject = null)
+    {
+        
+        Debug.Log("Enter state " + state + ", target " + targetObject);
+        ExitState();
+        currentState = state;
+        
         if (characterMovement == null) return;
 
-        if (currentState == HomeState.Resting)
+        if (targetObject != null)
         {
-            if (state == HomeState.Gatherable)
-            {
-                currentState = HomeState.Gatherable;
-                characterMovement.StopSleeping();
-                characterMovement.StartHangingOut();
+            _targetObject = targetObject;
+            characterWorkingEvent = targetObject.InvokeFinishedWorkEvent;
+            workingDuration = targetObject.TaskDuration;
 
-
-            }
-            else if (state == HomeState.Gathering)
-            {
-                currentState = HomeState.Gathering;
-
-                characterMovement.StopSleeping();
-                //characterMovement.StopHangingOut();
-                setL2dCharacterActive(false);
-            }
+            targetObject.OccupiedCharacter = character;
+            targetObject.IsOccupiedByCharacter = true;
         }
-        else if (currentState == HomeState.Gatherable)
+        
+        // set target position
+        // set player status: finding path
+        // set target status (pending occupied)
+        // set current event to 'calculate distance form player to target'
+        // execute 'calculate player distance from target event'
+            // if close to target, set occupy status to true
+            // set current event to cyclically execute target working event
+            
+        if (state == HomeState.HangingAround)
         {
-            if (state == HomeState.Gathering)
+            
+            if (hangingoutCorountine != null)
             {
-                currentState = HomeState.Gathering;
-
-                characterMovement.StopHangingOut();
-                setL2dCharacterActive(false);
-
+                // Debug.Log("Still in counting!");
+                StopCoroutine(hangingoutCorountine);
+                //return false;
             }
-            //else if (state == HomeState.Gatherable)
-            //{
-
-            //}
-            //else if (state == HomeState.Resting)
-            //{
-
-            //}
+            hangingoutCorountine = StartCoroutine(HangingAroundCountdown());
+            
+            // start character moving
+            // when character arrive destination, start sleeping
+            
+            // character.CharacterIcon.ChangeIconColorToHome();
         }
-        else if (currentState == HomeState.Gathering)
+        else
         {
-            if (state == HomeState.Resting)
-            {
-                currentState = HomeState.Resting;
-                setL2dCharacterActive(true);
+            IsPendingTowardsTarget = true;
+            characterMovement.StartHangingOut();
 
-                characterMovement.StartSleeping();
-                characterMovement.StopHangingOut();
-
-            }
-            else if (state == HomeState.Gatherable)
-            {
-                currentState = HomeState.Gatherable;
-                setL2dCharacterActive(true);
-
-                characterMovement.StartHangingOut();
-            }
         }
-
+        
     }
 
-    public HomeState getCurrentHomeState()
+    public void EnterWorkingState()
     {
-        return currentState;
+        if (currentState == HomeState.Sleeping1 || currentState == HomeState.Sleeping2)
+        {
+            characterMovement.StopHangingOut();
+            characterMovement.StartSleeping();
+
+            // _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).position;
+            characterMovement.transform.GetChild(1).position = _targetObject.transform.position + new Vector3(0, 2.8f, 0);
+            // characterMovement.animator.SetTrigger("Sit");
+
+            characterWorkingEvent = () =>
+            {
+                character.CharacterStats.energy.AddEnergy();
+            };
+
+        } else if (currentState == HomeState.Feeding) {
+            characterMovement.StopHangingOut();
+            // characterMovement.StartSleeping();
+            characterMovement.animator.SetBool("isCrafting", true);
+
+            characterWorkingEvent = () =>
+            {
+                character.CharacterStats.saturation.AddSaturation();
+            };
+
+            
+        } else if (currentState == HomeState.Interacting)
+        {
+        } else if (currentState == HomeState.HangingAround)
+        {
+            // wait & set new position
+            if (hangingoutCorountine != null)
+            {
+                // Debug.Log("Still in counting!");
+                StopCoroutine(hangingoutCorountine);
+                //return false;
+            }
+            hangingoutCorountine = StartCoroutine(HangingAroundCountdown());
+        }
+
+        if (currentState != HomeState.HangingAround)
+        {
+            if (workingCoroutine != null)
+            {
+                // Debug.Log("Still in counting!");
+                StopCoroutine(workingCoroutine);
+                //return false;
+            }
+            workingCoroutine = StartCoroutine(WorkingCountdown(this));
+        }
+
+        
     }
 
+    public void ExitState()
+    {
+        if (workingCoroutine != null)
+        {
+            // Debug.Log("Still in counting!");
+            StopCoroutine(workingCoroutine);
+            //return false;
+        }
+        if (hangingoutCorountine != null)
+        {
+            // Debug.Log("Still in counting!");
+            StopCoroutine(hangingoutCorountine);
+            //return false;
+        }
+
+        if (_targetObject != null)
+        {
+            _targetObject.OccupiedCharacter = null;
+            _targetObject.IsOccupiedByCharacter = false;
+            
+            characterMovement.transform.position = _targetObject.GetInteractionPoint();
+            
+            characterMovement.animator.SetTrigger("Stand");
+            
+        }
+        
+        characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
+        
+        characterMovement.animator.SetBool("isCrafting", false);
+        
+        _targetObject = null;
+        characterWorkingEvent = null;
+        characterMovement.StopSleeping();
+        characterMovement.StopHangingOut();
+        
+    }
+
+    public Action characterWorkingEvent; // coroutine
+    private Coroutine workingCoroutine;
+    private Coroutine hangingoutCorountine;
+    private float workingDuration = 10f; 
+    
+    
+    private IEnumerator WorkingCountdown(MonoBehaviour runner)
+    {
+        yield return new WaitForSeconds(workingDuration); // 等待设定的生长时间
+        // Debug.Log("Execute Working Event...");
+
+        characterWorkingEvent?.Invoke(); // 触发成长完成事件
+
+        if (workingCoroutine != null)
+        {
+            runner.StopCoroutine(workingCoroutine);
+            //return false;
+        }
+        workingCoroutine = runner.StartCoroutine(WorkingCountdown(runner));
+    }
+
+    private IEnumerator HangingAroundCountdown()
+    {
+        yield return new WaitForSeconds(Random.Range(0, hangOutWaitTime));
+        
+        IsPendingTowardsTarget = false;
+        characterMovement.SelectRandomTargetPosition();
+        characterMovement.StartHangingOut();
+
+    }
+    
     public void setL2dCharacterActive(bool active)
     {
         character.l2dCharacter.SetActive(active);
