@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -664,5 +665,49 @@ public class SubUniAction : IPerformableAction
     public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterStatAction : SubUniAction
+{
+    public enum ActionType{NoAction, UponEnergyRatioReach}
+    public ActionType actionType = ActionType.NoAction;
+
+    public CharacterBasicStats targetCBS = null;
+    public float targetNumber = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        Character targetCharacter = CharacterManager.i.getCharacter(targetCBS);
+        CharacterStats targetCStats = targetCharacter.CharacterStats;
+        
+        if(targetCharacter == null) Debug.LogError("Cannot find character");
+
+        switch (actionType)
+        {
+            case ActionType.UponEnergyRatioReach:
+                if (targetCStats.energy.RemainEnergyPercentage() >= targetNumber)
+                {
+                    onActionCompletes.Invoke();
+                    return;
+                }
+                else
+                {
+                    targetCStats.energy.RemainEnergyPercentageBroadcast.AddListener(UponEnergyRatioReachTarget);
+                }
+                break;
+        }
+    }
+
+    public void UponEnergyRatioReachTarget(float toCheck)
+    {
+        if(toCheck >= targetNumber) onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && targetCBS != null;
     }
 }

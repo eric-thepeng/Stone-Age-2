@@ -14,6 +14,8 @@ namespace Uniland.Characters
 
         private float restingEnergyPercentage;
 
+        public UnityEvent<float> RemainEnergyPercentageBroadcast;
+
         //public Energy(int maxEnergy)
         //{
         //    this.maxEnergy = maxEnergy;
@@ -26,6 +28,7 @@ namespace Uniland.Characters
             this.maxEnergy = maxEnergy;
             currentEnergy = this.maxEnergy;
             this.restingEnergyPercentage = restingEnergyPercentage;
+            RemainEnergyPercentageBroadcast = new UnityEvent<float>();
         }
 
         public Energy(int currentEnergy, int maxEnergy)
@@ -47,12 +50,14 @@ namespace Uniland.Characters
         public void RestoreAllEnergy()
         {
             currentEnergy = maxEnergy;
+            RemainEnergyPercentageBroadcast.Invoke(RemainEnergyPercentage());
         }
 
         public bool CostEnergy()
         {
             if(NoEnergy()) return false;
             currentEnergy -= 1;
+            RemainEnergyPercentageBroadcast.Invoke(RemainEnergyPercentage());
             return true;
         }
 
@@ -60,6 +65,7 @@ namespace Uniland.Characters
         {
             if (maximizeEnergy()) return false;
             currentEnergy += 1;
+            RemainEnergyPercentageBroadcast.Invoke(RemainEnergyPercentage());
             return true;
         }
 
@@ -67,6 +73,7 @@ namespace Uniland.Characters
         {
             if (energy > maxEnergy) return false;
             currentEnergy = energy;
+            RemainEnergyPercentageBroadcast.Invoke(RemainEnergyPercentage());
             return true;
         }
 
