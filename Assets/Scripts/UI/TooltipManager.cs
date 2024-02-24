@@ -49,12 +49,13 @@ public class TooltipManager : MonoBehaviour
                     //with description
                 case ToolMode.INVENTORYRECRAFT:
                     tip.transform.Find("Text").transform.Find("Title").GetComponent<TextMeshPro>().text = name;
-                    GameObject Tetris = CraftingManager.i.CreateTetris(newIso, tip.transform.Find("Tetris Pic").transform.position, CraftingManager.CreateFrom.VISUAL_ONLY);
+                    Vector3 adjustedPosition = tip.transform.Find("Tetris Pic").transform.position + new Vector3(-newIso.Dimension.x * 0.5f/5, 0, 0);
+                    GameObject Tetris = CraftingManager.i.CreateTetris(newIso, adjustedPosition, CraftingManager.CreateFrom.VISUAL_ONLY);
                     Tetris.transform.SetParent(tip.transform);
                     tip.transform.Find("Background").transform.rotation = Quaternion.Euler(45, 0, 0);
                     tip.transform.Find("Text").transform.rotation = Quaternion.Euler(45, 0, 0);
                     LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.5f;
+                    textHeight = tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + (newIso.Dimension.y) * 0.5f + 0.2f;
                     break;
                 default:
                     break;
@@ -83,7 +84,7 @@ public class TooltipManager : MonoBehaviour
             tip.transform.Find("Text").transform.Find("Description").GetComponent<TextMeshPro>().text = description;
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>());
             LayoutRebuilder.ForceRebuildLayoutImmediate(tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>());
-            textHeight = 2 * (tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height);
+            textHeight = 1 * (tip.transform.Find("Text").transform.Find("Title").GetComponent<RectTransform>().rect.height + tip.transform.Find("Text").transform.Find("Description").GetComponent<RectTransform>().rect.height);
 
             //keep
             tipWidth = tip.transform.Find("Background").GetComponent<Renderer>().bounds.size.x;
@@ -123,8 +124,8 @@ public class TooltipManager : MonoBehaviour
     [SerializeField] GameObject mapExploreSpotTemplate;
     GameObject currentTemplate;
 
-    [SerializeField] float xOffset;
-    [SerializeField] float yOffset;
+    [SerializeField] float xOffset = 0.5f;
+    [SerializeField] float yOffset = -0.2f;
     private Vector3 mousePos;
     Tooltip tip;
     private Vector3 lastMousePosition;
