@@ -132,6 +132,13 @@ public class CharacterBehaviors : MonoBehaviour
     
     void Update()
     {
+        if (state == CharacterState.Gather)
+        {
+            character.l2dCharacter.SetActive(false);
+        } else if (state == CharacterState.Idle) {
+            character.l2dCharacter.SetActive(true);
+        }
+        
         if (state == CharacterState.Gather) // if character is exploring on the map
         {
             if(character.CharacterStats.energy.NoEnergy()) // end exploring when no energy
@@ -162,11 +169,11 @@ public class CharacterBehaviors : MonoBehaviour
             
             if (periodTimeLeft <= 0)
             {
-                // character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
+                character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
                 // character.CharacterStats.energy.AddEnergy();
                 
-                periodTimeLeft = 1;
-                // periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
+                // periodTimeLeft = 1;
+                periodTimeLeft = character.CharacterStats.restingSpeed.GetRestingSpeed();
                 
                 CheckState();
                 
@@ -181,7 +188,7 @@ public class CharacterBehaviors : MonoBehaviour
 
     private void CheckState()
     {
-        // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
+        Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 30);
             
             // sleeping <25%
@@ -339,7 +346,7 @@ public class CharacterBehaviors : MonoBehaviour
     public void EnterState(HomeState state, PlaceableObject targetObject = null)
     {
         
-        Debug.Log("Enter state " + state + ", target " + targetObject);
+        // Debug.Log("Enter state " + state + ", target " + targetObject);
         ExitState();
         currentState = state;
         
