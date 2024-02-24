@@ -907,6 +907,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5756223618512889538}
   - {fileID: 693656013750410600}
   - {fileID: 1781855664971841729}
   - {fileID: 693656013547958221}
@@ -915,7 +916,7 @@ Transform:
   - {fileID: 7044109760215556378}
   - {fileID: 2994334177185154967}
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &5663547848534603578
 SortingGroup:
@@ -1340,7 +1341,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &693656013547958220
 SpriteRenderer:
@@ -1608,7 +1609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693656013813241988
 GameObject:
@@ -1944,7 +1945,7 @@ Transform:
   - {fileID: 693656013816209311}
   - {fileID: 693656014430397376}
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &693656013856657211
 SortingGroup:
@@ -2444,6 +2445,8 @@ MonoBehaviour:
   researchSwitchButton: {fileID: 5456380332361999750}
   blueprintSwitchButton: {fileID: 5734063719171456584}
   activePanelLocalPosition: {x: 0, y: 0, z: 0}
+  blueprintPanelAnimator: {fileID: 0}
+  researchPanelAnimator: {fileID: 0}
 --- !u!114 &8352110638509401533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2758,7 +2761,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' Craft One'
+  m_text: ' Craft'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -2944,7 +2947,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &693656014546418894
 SpriteRenderer:
@@ -3100,7 +3103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &693656014776960135
 Transform:
   m_ObjectHideFlags: 0
@@ -3377,7 +3380,7 @@ Transform:
   m_Children:
   - {fileID: 693656014857094978}
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693656015197783965
 GameObject:
@@ -3439,7 +3442,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &976461152020451239
 GameObject:
@@ -3982,7 +3985,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2626188774715731785
 GameObject:
@@ -4444,7 +4447,7 @@ Transform:
   m_Children:
   - {fileID: 6081969250573444183}
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &5666420298955044427
 SortingGroup:
@@ -4953,7 +4956,7 @@ GameObject:
   - component: {fileID: 3748640221945119409}
   - component: {fileID: 300358849547425603}
   m_Layer: 0
-  m_Name: Tab Button - Research
+  m_Name: Tab Button - ToBlueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4966,14 +4969,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5456380332361999750}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 2.8, y: 3.42, z: -0.000002682209}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: -0.000000029802319, y: 0.000000029802319, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 3.093, y: 3.452, z: 0}
+  m_LocalScale: {x: 0.40000007, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7444739580828173526}
   - {fileID: 2060879847825271905}
-  m_Father: {fileID: 9103145056879745792}
+  m_Father: {fileID: 693656013105335357}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &1238560894274233959
@@ -5058,7 +5061,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9103673920912352597}
         m_TargetAssemblyTypeName: BlueprintAndResearchManager, Assembly-CSharp
-        m_MethodName: TabSwitchToResearch
+        m_MethodName: TabSwitchToBlueprint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5126,7 +5129,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693656013105335357}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &646617783555067757
 SpriteRenderer:
@@ -5215,7 +5218,7 @@ Transform:
   - {fileID: 6757530070345750423}
   - {fileID: 408106634954214585}
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &110146760537093795
 SpriteRenderer:
@@ -5545,7 +5548,7 @@ Transform:
   - {fileID: 2942764030992987639}
   - {fileID: 84229035}
   m_Father: {fileID: 9103145056879745792}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &8829860553518714112
 SortingGroup:
@@ -5874,7 +5877,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Research
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
   m_sharedMaterial: {fileID: 4016326455724967664, guid: a36ad6d6f0e9d4507b58f80e5d3a32bd, type: 2}
@@ -5958,6 +5961,7 @@ GameObject:
   - component: {fileID: 2501451912166797149}
   - component: {fileID: 2301539368121814397}
   - component: {fileID: 7805758439969325985}
+  - component: {fileID: 8990982984301138887}
   m_Layer: 0
   m_Name: Research Button
   m_TagString: Untagged
@@ -5973,7 +5977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7270598269180630396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.94, z: 0}
+  m_LocalPosition: {x: 0, y: -1.49, z: -0}
   m_LocalScale: {x: 1, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6023,7 +6027,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: b73a7f27c26ce4a0aacf40d1e2291541, type: 3}
-  m_Color: {r: 1, g: 0.87427086, b: 0.5518868, a: 1}
+  m_Color: {r: 0.8301887, g: 0.727117, b: 0.46600217, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6086,6 +6090,21 @@ MonoBehaviour:
   buttonActive: 1
   affectSR: {fileID: 0}
   customClickSoundID: Default Sound
+--- !u!114 &8990982984301138887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7270598269180630396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: CraftingSystem_InfoPanel_ResearchButton
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
 --- !u!1 &7505460632381636944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6316,7 +6335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7622147380931014534}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.272322, y: -2.2083967, z: 0}
+  m_LocalPosition: {x: -27, y: -2.2083967, z: 0}
   m_LocalScale: {x: 5.0540476, y: 4.75688, z: 1.1139964}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6570,7 +6589,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5756223618512889538}
   - {fileID: 6903535456536023103}
   - {fileID: 693656013105335357}
   - {fileID: 1312488039237158418}

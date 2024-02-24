@@ -76,14 +76,14 @@ public class CraftingInformationPanel : MonoBehaviour
         if (blueprintCard.GetICSO().IsResearched())
         {
             researchedDisplay.localPosition = new Vector3(0, 0, 0);
-            notResearchedDisplay.localPosition = new Vector3(-4, 0, 0);
+            notResearchedDisplay.localPosition = new Vector3(-30, 0, 0);
             
             //Set Up cipProduction
             cipProduction.SetUpToActive(blueprintCard);
         }
         else
         {
-            researchedDisplay.localPosition = new Vector3(-4, 0, 0);
+            researchedDisplay.localPosition = new Vector3(-30, 0, 0);
             notResearchedDisplay.localPosition = new Vector3(0, 0, 0);
         }
         

@@ -8359,9 +8359,9 @@ MonoBehaviour:
       playerStatAction:
         note: leave a note for editor
         triggerAndQueNext: 0
-        actionType: 1
+        actionType: 2
         targetPlayerStatType: 0
-        targetISO: {fileID: 0}
+        targetISO: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
         targetAmount: 1
       buttonAction:
         note: leave a note for editor
@@ -8531,10 +8531,10 @@ MonoBehaviour:
       playerStatAction:
         note: leave a note for editor
         triggerAndQueNext: 0
-        actionType: 1
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 2
+        actionType: 2
+        targetPlayerStatType: 2
+        targetISO: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
+        targetAmount: 7
       buttonAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -16604,8 +16604,94 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 1
-        text: W-A-S-D to move around the camera
+        text: W-A-S-D to move around the camera. Click to pat Yiso!
         duration: 5
+    - delayTime: 0
+      uniActionType: 8
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetAction: 1
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
     - delayTime: 0
       uniActionType: 3
       gameObjectAction:
@@ -16771,7 +16857,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 1
-        targetCBS: {fileID: 11400000, guid: 5f50b093cd4a6444bb7e15953df2959c, type: 2}
+        targetCBS: {fileID: 11400000, guid: 3215b82e4281e4674b447dc797246ac9, type: 2}
       screenNotificationAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -20210,6 +20296,694 @@ MonoBehaviour:
         text: Text Not Assigned
         duration: 0
     - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 5
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_WorldSpaceButton
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 1
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 6
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: WorldUI_CraftOpenButton_Highlighter
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: 02ab7fbe516bc45ac89bdfb0491892e8, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 14
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 2
+        text: Click on the research button to go to your research table.
+        duration: 0
+    - delayTime: 0
+      uniActionType: 5
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: CraftingSystem_InfoPanel_ResearchButton
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: c472aa9b9148a4939b9bce2509b04268, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 14
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 2
+        text: Drag and drop 6 straw from your inventory and place them accordingly
+        duration: 0
+    - delayTime: 0
       uniActionType: 4
       gameObjectAction:
         note: leave a note for editor
@@ -20253,6 +21027,178 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 2
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
+        targetNSSO: {fileID: 11400000, guid: 4fbf36ee0c4da496d9a285d66d33a947, type: 2}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPanel: 0
+      cameraAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetAction: 0
+        i: 0
+      iuaiAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        actionIndex: 0
+      characterGatherAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGatherSpot: {fileID: 0}
+        targetCharacter: {fileID: 0}
+      blueprintAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        blueprints: []
+      timelineAnimationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      characterInteractionAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetCBS: {fileID: 0}
+      screenNotificationAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        text: Text Not Assigned
+        duration: 0
+    - delayTime: 0
+      uniActionType: 7
+      gameObjectAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetVector: {x: 0, y: 0, z: 0}
+        moveTime: 1
+      narrativeSequenceAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetNSSO: {fileID: 0}
+      uniQuestAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetUniQuest: {fileID: 0}
+      playerStatAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetPlayerStatType: 0
+        targetISO: {fileID: 0}
+        targetAmount: 0
+      buttonAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetGameObject: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+      levelUpAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 0
+        targetLevelUp: {fileID: 0}
+        targetGameObjectSetUpIdentifierID: 
+        targetUnlockLevel: 0
+      gamePanelAction:
+        note: leave a note for editor
+        triggerAndQueNext: 0
+        actionType: 1
         targetPanel: 0
       cameraAction:
         note: leave a note for editor
@@ -33336,7 +34282,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6756724190148151879}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.640272, y: 26.368143, z: -19.617952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38018,7 +38964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3568517355196735561
 Transform:
   m_ObjectHideFlags: 0
@@ -42572,7 +43518,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 2
-        text: Go back home to build this straw bed.
+        text: Open inventory, select Buildings, and select the straw bed.
         duration: 0
     - delayTime: 0
       uniActionType: 7
@@ -42618,7 +43564,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 2
-        targetPanel: 0
+        targetPanel: 4
       cameraAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -42661,92 +43607,6 @@ MonoBehaviour:
         text: Text Not Assigned
         duration: 0
     - delayTime: 0
-      uniActionType: 14
-      gameObjectAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetNSSO: {fileID: 0}
-      uniQuestAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetUniQuest: {fileID: 0}
-      playerStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      levelUpAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetLevelUp: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetUnlockLevel: 0
-      gamePanelAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPanel: 0
-      cameraAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetAction: 0
-        i: 0
-      iuaiAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        actionIndex: 0
-      characterGatherAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGatherSpot: {fileID: 0}
-        targetCharacter: {fileID: 0}
-      blueprintAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        blueprints: []
-      timelineAnimationAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      characterInteractionAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetCBS: {fileID: 0}
-      screenNotificationAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 2
-        text: Open inventory, select Buildings, and select the straw bed.
-        duration: 0
-    - delayTime: 0
       uniActionType: 2
       gameObjectAction:
         note: leave a note for editor
@@ -42760,7 +43620,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 1
-        targetNSSO: {fileID: 11400000, guid: 2d220e0d87a5b4b92b0c3b17e9986e03, type: 2}
+        targetNSSO: {fileID: 11400000, guid: 567ebbfce6ce841709d1dcb0599610ea, type: 2}
       uniQuestAction:
         note: leave a note for editor
         triggerAndQueNext: 0
