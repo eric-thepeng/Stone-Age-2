@@ -42,7 +42,7 @@ public class PlayerStat
         int delta = newAmount - amount;
         amount = newAmount;
         broadcastStatChange.Invoke(amount);
-        broadcastStatDelta.Invoke(amount);
+        broadcastStatDelta.Invoke(delta);
     }
 
     /// <summary>
@@ -75,6 +75,78 @@ public class PlayerStat
     
 
 }
+
+public class PlayerStatFloat
+{
+    private UnityEvent<float> broadcastStatChange;
+    private UnityEvent<float> broadcastStatDelta;
+
+    private float amount;
+    private float accumulatedAmount;
+    public PlayerStatFloat(float amount = 0)
+    {
+        this.amount = amount;
+        accumulatedAmount = amount;
+        broadcastStatChange = new UnityEvent<float>();
+        broadcastStatDelta = new UnityEvent<float>();
+    }
+
+    public float GetAmount()
+    {
+        return amount;
+    }
+
+    /// <summary>
+    /// Change delta amount of the stat
+    /// </summary>
+    /// <param name="delta"></param>
+    public void ChangeAmount(int delta)
+    {
+        amount += delta;
+        if (delta > 0) accumulatedAmount += delta;
+        broadcastStatChange.Invoke(amount);
+        broadcastStatDelta.Invoke(delta);
+    }
+    
+    public void AssignAmount(int newAmount)
+    {
+        float delta = newAmount - amount;
+        amount = newAmount;
+        broadcastStatChange.Invoke(amount);
+        broadcastStatDelta.Invoke(delta);
+    }
+
+    /// <summary>
+    /// broadcasted float is exact amount after each change
+    /// </summary>
+    /// <param name="newUnityAction"></param>
+    public void SubscribeStatAmount(UnityAction<float> newUnityAction)
+    {
+        broadcastStatChange.AddListener(newUnityAction);
+    }
+
+    public void UnsubscribeStatAmount(UnityAction<float> newUnityAction)
+    {
+        broadcastStatChange.RemoveListener(newUnityAction);
+    }
+    
+    /// <summary>
+    /// broadcasted int is delta amount changed during each change
+    /// </summary>
+    /// <param name="newUnityAction"></param>
+    public void SubscribeStatDelta(UnityAction<float> newUnityAction)
+    {
+        broadcastStatDelta.AddListener(newUnityAction);
+    }
+    
+    public void UnsubscribeStatDelta(UnityAction<float> newUnityAction)
+    {
+        broadcastStatDelta.RemoveListener(newUnityAction);
+    }
+    
+
+}
+
 
 public class PlayerStatCollection<T>
 {
