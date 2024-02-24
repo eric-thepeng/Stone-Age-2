@@ -92,7 +92,7 @@ public class CharacterMovement : MonoBehaviour
                     _characterBehavior.IsPendingTowardsTarget = false;
                     _reachedTarget = true;
                     Debug.Log("Target Stop Moving, Distance: " + Vector3.Distance(transform.position, _targetPosition));
-                    if (Vector3.Distance(transform.position, _targetPosition) < 0.5f)
+                    if (Vector3.Distance(transform.position, _targetPosition) < 1f)
                     {
                         _characterBehavior.EnterWorkingState();
                         
@@ -175,12 +175,14 @@ public class CharacterMovement : MonoBehaviour
 
     private bool ReachedTarget()
     {
-        if (Vector3.Distance(transform.position, _targetPosition) < 0.1f 
-            || _navMeshAgent.velocity == new Vector3(0,0,0)
+        if (_navMeshAgent.velocity == new Vector3(0,0,0)
             )
         {
             animator.SetBool("isWalking", false);
             // _isMovingToTarget = false;
+            return true;
+        } else if (Vector3.Distance(transform.position, _targetPosition) < 1f)
+        {
             return true;
         }
 
