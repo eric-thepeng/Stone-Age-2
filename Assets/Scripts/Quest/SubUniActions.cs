@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -188,12 +189,13 @@ public class SubUniAction : IPerformableAction
     [Header("Assign targetGameObject OR enter setUpIdentifierID")]public GameObject targetGameObject = null;
     public string targetGameObjectSetUpIdentifierID;
 
+    private WorldSpaceButton wsb = null;
 
     public override void PerformAction()
     {
         if (targetGameObject == null)
             targetGameObject = GameObjectSetUpIdentifier.GetGameObjectByID(targetGameObjectSetUpIdentifierID);
-        WorldSpaceButton wsb = targetGameObject.GetComponent<WorldSpaceButton>();
+        wsb = targetGameObject.GetComponent<WorldSpaceButton>();
         if(wsb == null) Debug.LogError("Cannot find WorldSpaceButton from GameObjectSetUpIdentifier: " + targetGameObjectSetUpIdentifierID);
         
         onActionStarts?.Invoke();
@@ -216,6 +218,7 @@ public class SubUniAction : IPerformableAction
     private void FinishClick()
     {
         onActionCompletes.Invoke();
+        wsb.onActionCompletes.RemoveListener(FinishClick);
     }
 
     public override bool IsAssigned()
@@ -318,6 +321,7 @@ public class SubUniAction : IPerformableAction
     private void CompleteAction()
     {
         onActionCompletes.Invoke();
+        PlayerState.OnGamePanelOpen.RemoveListener(WaitForPanelOpen);
     }
 
     public override bool IsAssigned()
@@ -661,5 +665,49 @@ public class SubUniAction : IPerformableAction
     public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterStatAction : SubUniAction
+{
+    public enum ActionType{NoAction, UponEnergyRatioReach}
+    public ActionType actionType = ActionType.NoAction;
+
+    public CharacterBasicStats targetCBS = null;
+    public float targetNumber = 0;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        Character targetCharacter = CharacterManager.i.getCharacter(targetCBS);
+        CharacterStats targetCStats = targetCharacter.CharacterStats;
+        
+        if(targetCharacter == null) Debug.LogError("Cannot find character");
+
+        switch (actionType)
+        {
+            case ActionType.UponEnergyRatioReach:
+                if (targetCStats.energy.RemainEnergyPercentage() >= targetNumber)
+                {
+                    onActionCompletes.Invoke();
+                    return;
+                }
+                else
+                {
+                    targetCStats.energy.RemainEnergyPercentageBroadcast.AddListener(UponEnergyRatioReachTarget);
+                }
+                break;
+        }
+    }
+
+    public void UponEnergyRatioReachTarget(float toCheck)
+    {
+        if(toCheck >= targetNumber) onActionCompletes.Invoke();
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && targetCBS != null;
     }
 }

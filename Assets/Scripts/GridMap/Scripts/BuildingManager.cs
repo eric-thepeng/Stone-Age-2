@@ -406,7 +406,7 @@ public class BuildingManager : MonoBehaviour
                 // && WorldUtility.GetMouseHitObject(WorldUtility.LAYER.HOME_GRID, true)
                 )
             {
-                Debug.Log("hitting home grid");
+                // Debug.Log("hitting home grid");
                 BuildingISO selectedISO = GetSelectedBuildingISO();
                 if (Inventory.i.ItemInStockAmount(selectedISO) > 0)
                 {
