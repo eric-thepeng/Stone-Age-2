@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterRecruit : MonoBehaviour, ISerialEffect
+public class MIS_FindBlueprint : MonoBehaviour, ISerialEffect
 {
-    [SerializeField] private CharacterBasicStats characterToRecruit;
+    [SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain;
     [SerializeField] private int recruitAtLevelState = 2;
     [SerializeField] private SO_SerialEffectIdentifier serialEffectIdentifier;
 
@@ -20,7 +19,8 @@ public class CharacterRecruit : MonoBehaviour, ISerialEffect
     {
         if (level == recruitAtLevelState)
         {
-            CharacterManager.i.AddCharacter(characterToRecruit);
+            //CharacterManager.i.AddCharacter(characterToRecruit);
+            BlueprintManager.i.ObtainBlueprints(blueprintsToObtain);
             SendSerialEffect();
         }
     }
