@@ -1,26 +1,29 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
-public class CharacterRecruit : MonoBehaviour, ISerialEffect
+public class MIS_FindBlueprint : MonoBehaviour, ISerialEffect
 {
-    [SerializeField] private CharacterBasicStats characterToRecruit;
-    [SerializeField] private int recruitAtLevelState = 2;
+    [SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain;
+    [SerializeField] private int obtainAtLevelState = 2;
     [SerializeField] private SO_SerialEffectIdentifier serialEffectIdentifier;
 
+    private LevelUp myLevelUp;
 
     private void Awake()
     {
+        myLevelUp = GetComponent<LevelUp>();
         SetUpSerialEffectIdentifier();
-        GetComponent<LevelUp>().GetCurrentStatePlayerStat().SubscribeStatChange(CheckToRecruit);
+        myLevelUp.GetCurrentStatePlayerStat().SubscribeStatChange(CheckToRecruit);
     }
 
     private void CheckToRecruit(int level)
     {
-        if (level == recruitAtLevelState)
+        if (level == obtainAtLevelState)
         {
-            CharacterManager.i.AddCharacter(characterToRecruit);
+            //CharacterManager.i.AddCharacter(characterToRecruit);
+            BlueprintManager.i.ObtainBlueprints(blueprintsToObtain);
             SendSerialEffect();
         }
     }
@@ -39,7 +42,8 @@ public class CharacterRecruit : MonoBehaviour, ISerialEffect
 
     public void ReceiveSerialEffect(SO_SerialEffectIdentifier origionSEI)
     {
-        //unlockToState_1_Locked();
+        if(myLevelUp.GetCurrentState()!=0) return;
+        if(!myLevelUp.UnlockToNextState()) return;
         UI_ExploreSpotsConnection.i.UnlockLine(origionSEI, mySEI);
     }
 
