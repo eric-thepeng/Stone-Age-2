@@ -91,8 +91,11 @@ public class RecipeCombinator
             //{
             if (icso.CheckMatch(getRecipeGrid(), craftingStationCounter))
             {
-                //print("FOUND IT!!");
-                mergeISO = icso.ItemCrafted;
+                //Matching ICSO Found
+                if (icso.IsObtained())
+                {
+                    mergeISO = icso.ItemCrafted;
+                }
                 break;
             }
         }
