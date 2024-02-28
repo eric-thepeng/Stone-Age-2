@@ -40,10 +40,11 @@ public class UI_ExploreSpotsConnectionEditor : Editor
 
             foreach (var relationship in myScript.TargetSEIGroup.allRelationships)
             {
+                // Create Line Game Object
                 if (allSpotsSEIDictionary.ContainsKey(relationship.FirstUnit) &&
                     allSpotsSEIDictionary.ContainsKey(relationship.SecondUnit))
                 {
-                    
+
                     GameObject newLineGameObject = Instantiate(myScript.lineTemplate, myScript.transform);
                     Undo.RegisterCreatedObjectUndo(newLineGameObject, "Create Line"); // Register Undo for each new line
 

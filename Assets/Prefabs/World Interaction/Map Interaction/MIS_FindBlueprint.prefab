@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: MIS_FirstCharacter_LevelUp
+  id: MIS_FindBlueprint_1
   gosuiScriptableObject: {fileID: 0}
   gameObjectType: 0
 --- !u!114 &6781065298483586288
@@ -459,7 +459,7 @@ MonoBehaviour:
   blueprintsToObtain:
   - {fileID: 11400000, guid: 1ecb63b5c4ee045d689d932a97239103, type: 2}
   - {fileID: 11400000, guid: 79257bf1fe1b67e40b2ad98f0a25f2a5, type: 2}
-  recruitAtLevelState: 2
+  obtainAtLevelState: 1
   serialEffectIdentifier: {fileID: 0}
 --- !u!1 &8441667622302575074
 GameObject:
@@ -583,6 +583,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772964917134918770}
     m_Modifications:
+    - target: {fileID: 1499817173925592729, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2425260993369701799, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -660,6 +664,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -698,6 +714,10 @@ PrefabInstance:
     - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665771039588953898, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb40d57338454f2e91b4ca02f263b00, type: 3}

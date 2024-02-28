@@ -5,7 +5,7 @@ using UnityEngine;
 public class MIS_FindBlueprint : MonoBehaviour, ISerialEffect
 {
     [SerializeField] private List<ItemCraftScriptableObject> blueprintsToObtain;
-    [SerializeField] private int recruitAtLevelState = 2;
+    [SerializeField] private int obtainAtLevelState = 1;
     [SerializeField] private SO_SerialEffectIdentifier serialEffectIdentifier;
 
 
@@ -17,7 +17,7 @@ public class MIS_FindBlueprint : MonoBehaviour, ISerialEffect
 
     private void CheckToRecruit(int level)
     {
-        if (level == recruitAtLevelState)
+        if (level == obtainAtLevelState)
         {
             //CharacterManager.i.AddCharacter(characterToRecruit);
             BlueprintManager.i.ObtainBlueprints(blueprintsToObtain);
