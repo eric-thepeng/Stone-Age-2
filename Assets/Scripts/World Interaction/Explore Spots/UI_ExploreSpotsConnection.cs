@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -23,38 +24,11 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
     [Serializable]public class ConnectionLine
     {
         public GameObject lineGameObject;
-        public MonoBehaviour iSerialEffect1;
-        public MonoBehaviour iSerialEffect2;
 
-        private SO_SerialEffectIdentifier _se1 = null;
-        private SO_SerialEffectIdentifier _se2 = null;
+        public SO_SerialEffectIdentifier serialEffectIdentifier_1 = null;
+        public SO_SerialEffectIdentifier serialEffectIdentifier_2 = null;
 
-        public SO_SerialEffectIdentifier se1
-        {
-            get
-            {
-                if (_se1 == null)
-                {
-                    SO_SerialEffectIdentifier ise = ((ISerialEffect)iSerialEffect1).mySEI;
-                }
-                return _se1;
-            }
-        }
-        
-        public SO_SerialEffectIdentifier se2
-        {
-            get
-            {
-                if (_se2 == null)
-                {
-                    SO_SerialEffectIdentifier ise = ((ISerialEffect)iSerialEffect2).mySEI;
-                }
 
-                return _se2;
-            }
-        }
-        
-        
 
         public void ChangeColor(Color32 tarColor)
         {
@@ -63,11 +37,13 @@ public class UI_ExploreSpotsConnection : MonoBehaviour
 
         public bool CheckSEIMatch(SO_SerialEffectIdentifier sei1, SO_SerialEffectIdentifier sei2)
         {
-            if (se1 == sei1 & se2 == sei2) return true;
-            if (se1 == sei2 & se2 == sei1) return true;
+            if (serialEffectIdentifier_1 == sei1 & serialEffectIdentifier_2 == sei2) return true;
+            if (serialEffectIdentifier_1 == sei2 & serialEffectIdentifier_2 == sei1) return true;
             return false;
         }
     }
+
+    public SO_SerialEffectIdentifierGroup TargetSEIGroup = null;
     
     /* Two Types of Lines: 
      * Hidden - Hidden: hiddenColor
