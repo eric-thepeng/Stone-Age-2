@@ -78,10 +78,11 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseEnter()
     {
         if (itemInfo == null) return;
-        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
+       
         //CraftingManager.i.mouseEnterInventoryBlock(this);
         if (PlayerState.IsResearch())
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
         }
         else
@@ -109,10 +110,11 @@ public class UI_InventoryBlock : MonoBehaviour
             TooltipManager.i.DisableTip();
             mouseOver = false;
         }
-        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
+        
         // create tetris
         if (PlayerState.IsResearch())
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             //InventoryHoverInfo.i.Disappear();
             CreateTetrisDrag();
         }

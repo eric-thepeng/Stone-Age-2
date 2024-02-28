@@ -55,7 +55,7 @@ public class Tetris : DragInventoryItem
 
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
-            UniversalUIManager.i.CancelDisplayCursor();
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
             // Place Tetris
             if (CraftingManager.i.IsTetrisInCraftingArea(transform.localPosition))
             {
@@ -104,7 +104,7 @@ public class Tetris : DragInventoryItem
     {
         CraftingManager.i.mouseExitTetris();
         TooltipManager.i.DisableTip();
-        //UniversalUIManager.i.CancelDisplayCursor();
+        UniversalUIManager.i.CancelDisplayCursor();
     }
 
     private void OnMouseDown()

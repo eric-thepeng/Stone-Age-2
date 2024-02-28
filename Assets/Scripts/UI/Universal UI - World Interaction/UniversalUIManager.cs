@@ -140,7 +140,7 @@ public class UniversalUIManager : MonoBehaviour
 
     public void SetCursor(Texture2D cursorTexture)
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
 
