@@ -77,7 +77,7 @@ public class CharacterBehaviors : MonoBehaviour
         characterMovement.CharacterBehavior = this;
         //Debug.Log(characterMovement.transform.name);
 
-            characterMovement.moveSpeed = moveSpeed;
+        characterMovement.moveSpeed = moveSpeed;
             // characterMovement.hangOutWaitTime = hangOutWaitTime;
 
         if (hangOutArea != null) {

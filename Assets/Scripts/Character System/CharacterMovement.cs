@@ -48,12 +48,12 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-        _navMeshAgent.speed = moveSpeed;
         animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
     {
+        _navMeshAgent.speed = moveSpeed;
         _model = GetComponentInChildren<CubismModel>();
         _visual = _model.transform;
         _originalScale = _visual.transform.localScale;
