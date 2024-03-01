@@ -89,9 +89,9 @@ public class PlaceableObject : MonoBehaviour
     // [SerializeField] private float remainOccupyTime;
 
     [Header("Character Tasks")] 
-    [SerializeField] private float taskDuration;
+    [SerializeField] private float taskDuration = 1f;
     [SerializeField] private int charRewardPoint;
-    [SerializeField] private Action finishedEvent;
+    [SerializeField] private Action workingTask;
 
     public bool IsOccupiedByCharacter
     {
@@ -193,7 +193,16 @@ public class PlaceableObject : MonoBehaviour
         {
             _gridObjectTags.Add("EmptyObject");
         }
-        
+
+        if (GetComponent<BLDFarmland>() != null)
+        {
+            workingTask += () =>
+            {
+                GetComponent<BLDFarmland>().Water();
+                GetComponent<BLDFarmland>().
+                    SetCurrentInteraction(null);
+            };
+        }
     }
 
     public Vector3 GetInteractionPoint()
@@ -296,12 +305,9 @@ public class PlaceableObject : MonoBehaviour
 
     public void InvokeFinishedWorkEvent()
     {
-        finishedEvent?.Invoke();
+        workingTask?.Invoke();
         SpiritPoint.i.Add(charRewardPoint);
     }
-
-
-
 
 
 }

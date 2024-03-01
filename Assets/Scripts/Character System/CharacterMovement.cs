@@ -53,7 +53,6 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        _navMeshAgent.speed = moveSpeed;
         _model = GetComponentInChildren<CubismModel>();
         _visual = _model.transform;
         _originalScale = _visual.transform.localScale;
@@ -77,6 +76,8 @@ public class CharacterMovement : MonoBehaviour
     
     void Update()
     {
+        _navMeshAgent.speed = moveSpeed;
+        
         if (_isHangingOut)
         {
             if (!ReachedTarget())
