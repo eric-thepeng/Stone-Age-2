@@ -78,16 +78,17 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseEnter()
     {
         if (itemInfo == null) return;
+       
         //CraftingManager.i.mouseEnterInventoryBlock(this);
         if (PlayerState.IsResearch())
         {
-            TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
             UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
+            TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
         }
         else
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYHOME);
-            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
+            
         }
         mouseOver = true;
     }
@@ -96,8 +97,9 @@ public class UI_InventoryBlock : MonoBehaviour
     {
         if (itemInfo == null) return;
         TooltipManager.i.DisableTip();
-        mouseOver = false;
         UniversalUIManager.i.CancelDisplayCursor();
+        mouseOver = false;
+
     }
 
     private void OnMouseDown()
@@ -108,10 +110,11 @@ public class UI_InventoryBlock : MonoBehaviour
             TooltipManager.i.DisableTip();
             mouseOver = false;
         }
-
+        
         // create tetris
         if (PlayerState.IsResearch())
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             //InventoryHoverInfo.i.Disappear();
             CreateTetrisDrag();
         }
@@ -152,7 +155,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
                 BuildingManager.i.mouseInPlacementMode = false;
             }
-
+            
 
         }
         
@@ -175,7 +178,7 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseUp()
     {
         if(TooltipManager.i.isTipPresent()) TooltipManager.i.DisableTip();
-
+        UniversalUIManager.i.CancelDisplayCursor();
     }
 
     void CreateTetrisDrag()
