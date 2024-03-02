@@ -102,6 +102,7 @@ public static class PlayerState
             OnGamePanelOpen.Invoke(GamePanel.ExploreMap);
             ExploreMapPanel.i.OpenPanel();
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
+            ChangeInventoryPanel(false);
         }
 
         state = enterState;
@@ -170,9 +171,11 @@ public static class PlayerState
 
     public static void OpenCloseChangeInventoryPanel()
     {
-        Debug.Log("Is browsing:" + IsBrowsing() + ",  inventory panel open:" + inventoryPanelOpen);
-        if (!IsBrowsing() && !IsBuilding()) return;
-        ChangeInventoryPanel(!inventoryPanelOpen);
+        //Debug.Log("Is browsing:" + IsBrowsing() + ",  inventory panel open:" + inventoryPanelOpen);
+        if (IsBrowsing() || IsBuilding() || IsExploreMap())
+        {
+            ChangeInventoryPanel(!inventoryPanelOpen);
+        }
     }
 
     /*
