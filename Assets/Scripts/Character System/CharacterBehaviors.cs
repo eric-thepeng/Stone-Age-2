@@ -184,12 +184,14 @@ public class CharacterBehaviors : MonoBehaviour
 
 
         } else if (state == CharacterState.Idle && !_isPendingTowardsTarget &&
-                   GridManagerAccessor.GridManager.IsPlacingGridObject)
+                   _targetObject != null && _behaviorTargetPosition != _targetObject.transform.position && GridManagerAccessor.GridManager.IsPlacingGridObject) // if character is at home and is placing grid object.position && GridManagerAccessor.GridManager.IsPlacingGridObject)
         {
+            _behaviorTargetPosition = _targetObject.transform.position;
             currentState = HomeState.Unset;
         }
     }
     
+    private Vector3 _behaviorTargetPosition;
 
     private void CheckState()
     {
@@ -470,7 +472,7 @@ public class CharacterBehaviors : MonoBehaviour
             characterMovement.StartSleeping();
 
             // _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).position;
-            characterMovement.transform.GetChild(0).position = _targetObject.transform.position + new Vector3(0, 2.8f, 0);
+            characterMovement.transform.GetChild(0).position = _targetObject.transform.position + new Vector3(0f, 2.8f, 0);
             // Debug.Log("Set sit");
             // characterMovement.animator.SetTrigger("Sit");
 
