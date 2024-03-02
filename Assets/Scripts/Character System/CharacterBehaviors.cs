@@ -176,19 +176,24 @@ public class CharacterBehaviors : MonoBehaviour
                 periodTimeLeft = 1 / character.CharacterStats.restingSpeed.GetRestingSpeed();
                 
                 CheckState();
-                
+                character.CharacterIcon.UpdateUIText(UpdateStatusUIText());
+
             }
             //update ui
             periodTimeLeft -= 1 * Time.deltaTime;
 
 
+        } else if (state == CharacterState.Idle && !_isPendingTowardsTarget &&
+                   GridManagerAccessor.GridManager.IsPlacingGridObject)
+        {
+            currentState = HomeState.Unset;
         }
     }
     
 
     private void CheckState()
     {
-        Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
+        // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 50);
             
             // sleeping <25%
@@ -402,6 +407,7 @@ public class CharacterBehaviors : MonoBehaviour
         // Debug.Log("Enter state " + state + ", target " + targetObject);
         ExitState();
         currentState = state;
+        // isInWorkingState = false;
         
         if (characterMovement == null) return;
 
@@ -449,8 +455,12 @@ public class CharacterBehaviors : MonoBehaviour
         
     }
 
+    // private bool isInWorkingState = false;
+
     public void EnterWorkingState()
     {
+        // isInWorkingState = true;
+        
         if (currentState == HomeState.Sleeping1 || currentState == HomeState.Sleeping2)
         {
             characterMovement.StopHangingOut();
@@ -509,7 +519,7 @@ public class CharacterBehaviors : MonoBehaviour
             characterWorkingEvent = () =>
             {
                 
-                BuildingManager.i.ObjectMorphing(_targetObject.transform, GridManagerAccessor.GridManager.GridSettings.animationCurve,
+                if (_targetObject != null) BuildingManager.i.ObjectMorphing(_targetObject.transform, GridManagerAccessor.GridManager.GridSettings.animationCurve,
                     GridManagerAccessor.GridManager.GridSettings.animationDuration);
             };
         }
@@ -608,5 +618,15 @@ public class CharacterBehaviors : MonoBehaviour
         character.l2dCharacter.SetActive(active);
     }
 
+    public String UpdateStatusUIText()
+    {
+        String text = "Energy: " + character.CharacterStats.energy.GetCurrentEnergy() + " / "
+                      + character.CharacterStats.energy.GetMaxEnergy() 
+                      + "\nSaturation: " + character.CharacterStats.saturation.GetCurrentSaturation() 
+                      + " / " + character.CharacterStats.saturation.GetMaxSaturation() + "\nStatus: " 
+                      + currentState + (IsPendingTowardsTarget && currentState != HomeState.HangingAround ? "(Pending)" : "") ;
+        
+        return text;
+    }
     
 }

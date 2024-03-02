@@ -128,7 +128,7 @@ public class CharacterMovement : MonoBehaviour
     {
         // Debug.Log("Start hanging out!");
         
-        Debug.Log("Set iswalking true");
+        // Debug.Log("Set iswalking true");
         animator.SetBool("isWalking", true);
         _isHangingOut = true;
         _reachedTarget = false;
@@ -140,7 +140,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _isHangingOut = false;
         
-        Debug.Log("Set iswalking false");
+        // Debug.Log("Set iswalking false");
         animator.SetBool("isWalking", false);
     }
 
@@ -148,7 +148,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (sleepText != null) sleepText.SetActive(true);
         
-        Debug.Log("Set sit");
+        // Debug.Log("Set sit");
         animator.SetTrigger("Sit");
     }
 

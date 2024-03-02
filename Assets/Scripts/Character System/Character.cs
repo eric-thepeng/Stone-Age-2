@@ -393,12 +393,12 @@ public class Character : MonoBehaviour
     {
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
-        gatheringSpot.EndGathering();
+        if (gatheringSpot != null) gatheringSpot.EndGathering();
         //characterStats.energy.RestoreAllEnergy();
 
-        myCI.ResetHome();
+        if (myCI != null) myCI.ResetHome();
         
-        CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,0);
+        if (gatheringSpot != null) CharacterGatherUnityEvent.Invoke(gatheringSpot.transform.parent.GetComponentInParent<BLDExploreSpot>().GetSetUpInfo(),initialStats,0);
 
 
         // if (characterStats.energy.EnergyLessThanRestingPercentage())
@@ -412,8 +412,8 @@ public class Character : MonoBehaviour
 
     void SetCircularUIState(CircularUI.CircularUIState circularUIState)
     {
-        gatheringSpot.SetCircularUIState(circularUIState);
-        gatheringSpot.SetCircularUIState(circularUIState);
+        // gatheringSpot.SetCircularUIState(circularUIState);
+        if (gatheringSpot != null) gatheringSpot.SetCircularUIState(circularUIState);
 
         /*
         characterIcon.SetCircularUIState(circularUIState);
