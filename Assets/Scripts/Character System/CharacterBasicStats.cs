@@ -32,9 +32,17 @@ public class CharacterBasicStats : ScriptableObject
     public int pointsToAdd = 1;
     public float clickInterval = 0.1f;
     public float countdownTime = 10;
+    
+    public List<BuildingISO> favoriteBuildings;
 
     public override string ToString()
     {
         return "Basic Stats of " + name + " is [energy " + energy + " ] [gather speed " + gatherSpeed + " ] [explore speed " + exploreSpeed + "]";
+    }
+
+    public bool containsFavoriteBuilding(BuildingISO building)
+    {
+        Debug.Log(building);
+        return favoriteBuildings.Contains(building);
     }
 }

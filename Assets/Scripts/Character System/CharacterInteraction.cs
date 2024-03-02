@@ -40,7 +40,7 @@ public class CharacterInteraction : WorldInteractable
     [SerializeField] private Sprite clickableIcon;
     [SerializeField] private Sprite unclickableIcon;
 
-    private bool _enabledRuaMode;
+    private bool _enabledRuaMode = true;
 
     void Start()
     {

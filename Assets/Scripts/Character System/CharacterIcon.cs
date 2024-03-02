@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.UI;
 
 public class CharacterIcon : MonoBehaviour
@@ -110,7 +111,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsBrowsing() || PlayerState.IsExploreMap()) && character.GetHomeStatus().CurrentState != CharacterBehaviors.HomeState.Sleeping1)
+        if (iconState == IconState.Home && (PlayerState.IsExploreMap()) && character.GetHomeStatus().CurrentState != CharacterBehaviors.HomeState.Sleeping1)
         {
             UI_FullScreenUIDragCollider.i.Open(this);
             homePosition = transform.localPosition;
@@ -127,6 +128,8 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        DisplayStatusPanel();
+        
         UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
         if (iconState == IconState.Gathering)
         {
@@ -136,6 +139,7 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseExit()
     {
+        CancelStatusPanel();
         UniversalUIManager.i.CancelDisplayCursor();
         if (iconState == IconState.Gathering)
         {
@@ -183,5 +187,23 @@ public class CharacterIcon : MonoBehaviour
     public void ChangeIconColorToGather()
     {
         ChangeIconColor(gatherColor);
+    }
+    
+    
+    public void UpdateUIText(String text)
+    {
+        GetComponent<WorldSpaceButton>().SetButtonActive(true);
+        transform.Find("Status UI").Find("Text").GetComponent<TextMeshPro>().text = text;
+    }
+    
+    
+    private void DisplayStatusPanel()
+    {
+        transform.Find("Status UI").gameObject.SetActive(true);
+    }
+
+    private void CancelStatusPanel()
+    {
+        transform.Find("Status UI").gameObject.SetActive(false);
     }
 }
