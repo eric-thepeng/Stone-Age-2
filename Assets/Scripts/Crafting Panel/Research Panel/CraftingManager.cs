@@ -212,6 +212,8 @@ public class CraftingManager : SerializedMonoBehaviour
 
     public void PutBackTetrisToInventory(GameObject go, bool playerDragBack = false)
     {
+        TooltipManager.i.DisableTip();
+        UniversalUIManager.i.CancelDisplayCursor();
         RemoveFromTetrisList(go);
         if (playerDragBack)
         {
@@ -222,6 +224,7 @@ public class CraftingManager : SerializedMonoBehaviour
             TetrisFlyToInventoryEffect(go.GetComponent<Tetris>().itemSO, go.transform.position, 0.3f, false);
         }
         Destroy(go);
+
     }
 
     public void PutBackAllTetrisToInventory()

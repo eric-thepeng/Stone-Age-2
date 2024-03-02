@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Uniland.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -283,7 +284,7 @@ public class SubUniAction : IPerformableAction
             PlayerInputChannel.GoToPanel(targetPanel);
             CompleteAction();
         }
-        else
+        else if(actionType == ActionType.WaitForPanelOpen)
         {
             PlayerState.OnGamePanelOpen.AddListener(WaitForPanelOpen);
         }
@@ -291,36 +292,13 @@ public class SubUniAction : IPerformableAction
 
     public void WaitForPanelOpen(PlayerState.GamePanel panel)
     {
-
-        /*
-        //NEED TO REWORK THIS
-        switch (targetPanel)
-        {
-            case PlayerInputChannel.GamePanel.Home:
-                if (state == PlayerState.State.Browsing) complete = true;
-                break;
-            case PlayerInputChannel.GamePanel.Crafting:
-                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
-                break;
-            /*
-            case PlayerInputChannel.GamePanel.Inventory:
-                if (state == PlayerState.State.Browsing) complete = true;
-                break;
-            case PlayerInputChannel.GamePanel.Research:
-                if (state == PlayerState.State.BlueprintAndResearch) complete = true;
-                break;
-            case PlayerInputChannel.GamePanel.ExploreMap:
-                if (state == PlayerState.State.ExploreMap) complete = true;
-                break;
-        }*/
-            
         if(targetPanel == panel) CompleteAction();
     }
 
     private void CompleteAction()
     {
+        if(actionType == ActionType.WaitForPanelOpen) PlayerState.OnGamePanelOpen.RemoveListener(WaitForPanelOpen);
         onActionCompletes.Invoke();
-        PlayerState.OnGamePanelOpen.RemoveListener(WaitForPanelOpen);
     }
 
     public override bool IsAssigned()
@@ -664,5 +642,55 @@ public class SubUniAction : IPerformableAction
     public override bool IsAssigned()
     {
         return actionType != ActionType.NoAction;
+    }
+}
+
+[Serializable] public class CharacterStatAction : SubUniAction
+{
+    public enum ActionType{NoAction, UponEnergyRatioReach}
+    public ActionType actionType = ActionType.NoAction;
+
+    public CharacterBasicStats targetCBS = null;
+    public float targetNumber = 0;
+
+    private CharacterStats targetCStats = null;
+
+    public override void PerformAction()
+    {
+        onActionStarts.Invoke();
+
+        Character targetCharacter = CharacterManager.i.getCharacter(targetCBS);
+        targetCStats = targetCharacter.CharacterStats;
+        
+        if(targetCharacter == null) Debug.LogError("Cannot find character");
+
+        switch (actionType)
+        {
+            case ActionType.UponEnergyRatioReach:
+                if (targetCStats.energy.RemainEnergyPercentage() >= targetNumber)
+                {
+                    onActionCompletes.Invoke();
+                    return;
+                }
+                else
+                {
+                    targetCStats.energy.RemainEnergyPercentageBroadcast.AddListener(UponEnergyRatioReachTarget);
+                }
+                break;
+        }
+    }
+
+    public void UponEnergyRatioReachTarget(float toCheck)
+    {
+        if (toCheck >= targetNumber)
+        {
+            onActionCompletes.Invoke();
+            targetCStats.energy.RemainEnergyPercentageBroadcast.RemoveListener(UponEnergyRatioReachTarget);
+        }
+    }
+
+    public override bool IsAssigned()
+    {
+        return actionType != ActionType.NoAction && targetCBS != null;
     }
 }

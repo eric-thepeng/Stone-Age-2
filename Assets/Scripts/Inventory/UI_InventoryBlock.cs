@@ -78,43 +78,43 @@ public class UI_InventoryBlock : MonoBehaviour
     private void OnMouseEnter()
     {
         if (itemInfo == null) return;
+       
         //CraftingManager.i.mouseEnterInventoryBlock(this);
-        if (BlueprintAndResearchManager.i.isBnROpen())
+        if (PlayerState.IsResearch())
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYRECRAFT);
         }
         else
         {
             TooltipManager.i.ShowTip(this.GetISO(), TooltipManager.ToolMode.INVENTORYHOME);
+            
         }
-        
-        //InventoryHoverInfo.i.Display(transform.position);
         mouseOver = true;
     }
 
     private void OnMouseExit()
     {
         if (itemInfo == null) return;
-        //CraftingManager.i.mouseExitInventoryBlock();
-        TooltipManager.i.DestroyTip();
-        //InventoryHoverInfo.i.Disappear();
+        TooltipManager.i.DisableTip();
+        UniversalUIManager.i.CancelDisplayCursor();
         mouseOver = false;
+
     }
 
     private void OnMouseDown()
     {
-
         if (itemInfo == null) return;
-
         if (mouseOver)
         {
-            TooltipManager.i.DestroyTip();
+            TooltipManager.i.DisableTip();
             mouseOver = false;
         }
-
+        
         // create tetris
         if (PlayerState.IsResearch())
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             //InventoryHoverInfo.i.Disappear();
             CreateTetrisDrag();
         }
@@ -155,7 +155,7 @@ public class UI_InventoryBlock : MonoBehaviour
 
                 BuildingManager.i.mouseInPlacementMode = false;
             }
-
+            
 
         }
         
@@ -177,7 +177,8 @@ public class UI_InventoryBlock : MonoBehaviour
 
     private void OnMouseUp()
     {
-        //if ( mouseOver ) { InventoryHoverInfo.i.Display(transform.position); }
+        if(TooltipManager.i.isTipPresent()) TooltipManager.i.DisableTip();
+        UniversalUIManager.i.CancelDisplayCursor();
     }
 
     void CreateTetrisDrag()

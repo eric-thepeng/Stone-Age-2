@@ -13,7 +13,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     [Header("---Assign only [Set Up Info] and nothing else---")]
     [SerializeField] private SO_ExploreSpotSetUpInfo setUpInfo = null;
     private int startState = 0;
-    private SO_SerialEffectIdentifier serialEffectIdentifier;
+    //private SO_SerialEffectIdentifier serialEffectIdentifier;
     bool mouseOver = false;
 
     private void Awake()
@@ -21,7 +21,6 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
         if (setUpInfo != null)
         {
             GetUnlockState(1).SetUpUnlockCost(setUpInfo.unlockResourceSet);
-            serialEffectIdentifier = setUpInfo.serialEffectIdentifier;
             GatherSpot gatherSpot = GetComponentInChildren<GatherSpot>(includeInactive: true);
             gatherSpot.gatherTime = setUpInfo.gatherTime;
             gatherSpot.gatherResource = setUpInfo.gatherResource;
@@ -63,12 +62,12 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
 
     public void SendSerialEffect()
     {
-        serialEffectIdentifier.SendSerialEffect();
+        mySEI.SendSerialEffect();
     }
 
     public void SetUpSerialEffectIdentifier()
     {
-        serialEffectIdentifier.SetUpSerialEffectInterface(this);
+        mySEI.SetUpSerialEffectInterface(this);
     }
 
     public void ReceiveSerialEffect(SO_SerialEffectIdentifier origionSEI)
@@ -77,7 +76,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
         UI_ExploreSpotsConnection.i.UnlockLine(origionSEI, mySEI);
     }
 
-    public SO_SerialEffectIdentifier mySEI { get => serialEffectIdentifier; }
+    public SO_SerialEffectIdentifier mySEI { get => setUpInfo.serialEffectIdentifier; }
 
     #endregion
     private void OnMouseEnter()
@@ -90,7 +89,7 @@ public class BLDExploreSpot : LevelUp, ISerialEffect
     private void OnMouseExit()
     {
         if (setUpInfo == null) return;
-        TooltipManager.i.DestroyTip();
+        TooltipManager.i.DisableTip();
         mouseOver = false;
     }
 

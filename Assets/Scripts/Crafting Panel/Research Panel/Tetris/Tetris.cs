@@ -49,13 +49,15 @@ public class Tetris : DragInventoryItem
 
         if (stateNow == state.Drag && Input.GetMouseButton(0)) //DRAG
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             transform.position = WorldUtility.GetMouseHitPoint(WorldUtility.LAYER.UI_BACKGROUND, true);
         }
 
         if(stateNow == state.Drag && Input.GetMouseButtonUp(0))  //RELEASE ON DRAG
         {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
             // Place Tetris
-            if(CraftingManager.i.IsTetrisInCraftingArea(transform.localPosition))
+            if (CraftingManager.i.IsTetrisInCraftingArea(transform.localPosition))
             {
                 SetState(state.Wait);
                 RefreshEdges();
@@ -67,6 +69,7 @@ public class Tetris : DragInventoryItem
             else
             {
                 CraftingManager.i.PutBackTetrisToInventory(this.gameObject, true);
+                TooltipManager.i.DisableTip();
             }
             
         }
@@ -93,18 +96,21 @@ public class Tetris : DragInventoryItem
     private void OnMouseEnter()
     {
         CraftingManager.i.mouseEnterTetris(itemSO);
-        TooltipManager.i.ShowTip(itemSO, TooltipManager.ToolMode.INVENTORYHOME);
+        TooltipManager.i.ShowTip(itemSO, TooltipManager.ToolMode.INVENTORYHOME);        
+        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
     }
 
     private void OnMouseExit()
     {
         CraftingManager.i.mouseExitTetris();
-        TooltipManager.i.DestroyTip();
+        TooltipManager.i.DisableTip();
+        UniversalUIManager.i.CancelDisplayCursor();
     }
 
-    private void OnMouseDown() // 
+    private void OnMouseDown()
     {
         CraftingManager.i.mouseClickTetris();
+        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
         if (stateNow != state.Wait) return;
         SetState(state.Drag);
         if(myRC!=null) myRC.DisassembleMerge(this);

@@ -157,6 +157,10 @@ public class WorldInteractable : MonoBehaviour
     {
         if(!CanInteract()) return;
         TurnOnHighlight();
+        if (isBuildingInteractable)
+        {
+            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.D);
+        }
         if (currentInteraction == null)
         {
             UniversalUIManager.i.CancelDisplayComponent(null);
@@ -171,6 +175,7 @@ public class WorldInteractable : MonoBehaviour
     protected virtual void EndMouseHover()
     {
         if(!CanInteract()) return;
+        UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.A);
         TurnOffHighlight();
         currentInteraction?.DisplayUI(false);
     }

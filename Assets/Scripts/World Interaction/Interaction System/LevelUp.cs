@@ -115,7 +115,7 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
 
     public void UnlockToState(int targetState)
     {
-        if (targetState >= allUnlockStates.Count)
+        if (targetState > allUnlockStates.Count)
         {
             Debug.LogWarning("Try to exceed max amount of states with object " + gameObject.name);
             return;
