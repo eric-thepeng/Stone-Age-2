@@ -8,14 +8,16 @@ public class LocalizableTextMeshPro : LocalizationAction
     public TextMeshPro targetTMP = null;
 
     public bool changeFontOnly = false;
+
+    private float orgFontSize = -1;
     
-    public Dictionary<GameSetting.LanguageOption, string> data = new Dictionary<GameSetting.LanguageOption, string>()
+    public Dictionary<LocalizationManager.LanguageOption, string> data = new Dictionary<LocalizationManager.LanguageOption, string>()
     {
-        { GameSetting.LanguageOption.Chinese, "" },
-        { GameSetting.LanguageOption.English, "" }
+        { LocalizationManager.LanguageOption.Chinese, "" },
+        { LocalizationManager.LanguageOption.English, "" }
     };
     
-    public override void Localize(GameSetting.LanguageOption targetLanguage)
+    public override void Localize(LocalizationManager.LanguageOption targetLanguage)
     {
         if (targetTMP == null)
         {
@@ -27,12 +29,20 @@ public class LocalizableTextMeshPro : LocalizationAction
             Debug.LogError("No target TMP assigned on game object: " + gameObject.name);
         }
         
+        //FIRST TIME
+        if (orgFontSize == -1) orgFontSize = targetTMP.fontSize;
+        //END
+        
         if (!changeFontOnly)
         {
             targetTMP.text = data[targetLanguage];
         }
-        
-        targetTMP.font = GameSetting.i.GetFontAsset();
+
+        LocalizationLanguageData targetLLD = LocalizationManager.i.GetLocalizationLanguageData(targetLanguage) ;
+        if(targetLLD == null) Debug.LogError("NO SUCH LANGUAGE");
+
+        targetTMP.font = targetLLD.tmpFontAsset;
         targetTMP.UpdateFontAsset();
+        targetTMP.fontSize = orgFontSize * targetLLD.fontSizeRatio;
     }
 }
