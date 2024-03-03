@@ -35,7 +35,7 @@ public class CharacterMovement : MonoBehaviour
 
     // ensure prewalk doesn't trigger when changing direction
     Vector3 _previousMovement;
-    private NavMeshAgent _navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     
     private CharacterBehaviors _characterBehavior;
 
@@ -47,7 +47,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
-        _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+        navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -76,7 +76,7 @@ public class CharacterMovement : MonoBehaviour
     
     void Update()
     {
-        _navMeshAgent.speed = moveSpeed;
+        navMeshAgent.speed = moveSpeed;
         
         if (_isHangingOut)
         {
@@ -168,7 +168,7 @@ public class CharacterMovement : MonoBehaviour
             isPathValid = SetTargetPosition(_targetPosition);
         }
         
-        // _navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
+        // navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
         // _isMovingToTarget = true;
     }
 
@@ -176,9 +176,9 @@ public class CharacterMovement : MonoBehaviour
     {
         _targetPosition = position;
         NavMeshPath path = new NavMeshPath();
-        if (_navMeshAgent.CalculatePath(_targetPosition, path) && path.status == NavMeshPathStatus.PathComplete)
+        if (navMeshAgent.CalculatePath(_targetPosition, path) && path.status == NavMeshPathStatus.PathComplete)
         {
-            _navMeshAgent.SetDestination(_targetPosition);
+            navMeshAgent.SetDestination(_targetPosition);
             // _isMovingToTarget = true;
             return true;
         }
@@ -195,7 +195,7 @@ public class CharacterMovement : MonoBehaviour
     private bool ReachedTarget()
     {
         
-        if (_navMeshAgent.velocity == new Vector3(0,0,0))
+        if (navMeshAgent.velocity == new Vector3(0,0,0))
         {
             if (_stuckCount < 0.5f)
             {
@@ -232,12 +232,12 @@ public class CharacterMovement : MonoBehaviour
         // transform.position = Vector3.MoveTowards(transform.position, _targetPosition, moveSpeed * Time.deltaTime);
 
             
-        if (_navMeshAgent.velocity.x < 0)
+        if (navMeshAgent.velocity.x < 0)
         {
             _leafValue = 1;
             _visual.localScale = new Vector3(-_originalScale.x, _originalScale.y, _originalScale.z);
         }
-        else if (_navMeshAgent.velocity.x > 0)
+        else if (navMeshAgent.velocity.x > 0)
         {
             _leafValue = 0;
             _visual.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);
