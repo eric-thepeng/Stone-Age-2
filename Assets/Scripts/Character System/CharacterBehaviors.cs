@@ -96,6 +96,7 @@ public class CharacterBehaviors : MonoBehaviour
         currentState = HomeState.HangingAround;
         
         EnterState(currentState);
+        character.CharacterIcon.SetGatheringProgress(0, 100 * character.CharacterStats.energy.RemainEnergyPercentage(), false);
         
         // if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
         // {
