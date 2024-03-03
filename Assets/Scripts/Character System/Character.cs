@@ -26,7 +26,8 @@ namespace Uniland.Characters
         public Energy(int maxEnergy, float restingEnergyPercentage)
         {
             this.maxEnergy = maxEnergy;
-            currentEnergy = this.maxEnergy;
+            // currentEnergy = this.maxEnergy;
+            currentEnergy = 0;
             this.restingEnergyPercentage = restingEnergyPercentage;
             RemainEnergyPercentageBroadcast = new UnityEvent<float>();
         }
@@ -121,7 +122,8 @@ namespace Uniland.Characters
         public Saturation(int maxSaturation, float restingSaturationPercentage)
         {
             this.maxSaturation = maxSaturation;
-            currentSaturation = this.maxSaturation;
+            // currentSaturation = this.maxSaturation;
+            currentSaturation = 0;
             this.restingSaturationPercentage = restingSaturationPercentage;
         }
         //
@@ -358,9 +360,6 @@ public class Character : MonoBehaviour
         charInteractions.Initialize(initialStats);
 
         charExperience = 0;
-
-        characterStats.energy.SetEnergy(0);
-        characterStats.saturation.SetSaturation(0);
         
         _behaviors.CheckState();
     }
@@ -400,6 +399,8 @@ public class Character : MonoBehaviour
 
     public void EndGatherUI()
     {
+        if (gatheringSpot == null) return;
+        
         SetCircularUIState(CircularUI.CircularUIState.NonDisplay);
 
         gatheringSpot.EndGathering();
