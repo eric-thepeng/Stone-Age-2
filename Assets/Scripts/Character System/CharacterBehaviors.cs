@@ -96,6 +96,7 @@ public class CharacterBehaviors : MonoBehaviour
         currentState = HomeState.HangingAround;
         
         EnterState(currentState);
+        
         // if (character.CharacterStats.energy.EnergyLessThanRestingPercentage())
         // {
         //     currentState = HomeState.Resting;
@@ -128,7 +129,7 @@ public class CharacterBehaviors : MonoBehaviour
     }
 
     [SerializeField]
-    float periodTimeLeft; // period for execute
+    float periodTimeLeft = 0; // period for execute
     
     void Update()
     {
@@ -193,7 +194,7 @@ public class CharacterBehaviors : MonoBehaviour
     
     private Vector3 _behaviorTargetPosition;
 
-    private void CheckState()
+    public void CheckState()
     {
         // Debug.Log("Check State: " + currentState + ", Energy - " + character.CharacterStats.energy.GetCurrentEnergy() +character.CharacterStats.energy.EnergyLessThanRestingPercentage() +  "/"+ character.CharacterStats.energy.GetMaxEnergy() + character.CharacterStats.energy.EnergyLessThanPercentage(1) + ", Saturation - " + character.CharacterStats.saturation.GetCurrentSaturation());
             PlaceableObject[] _nearbyObjects = FindAndSortComponents<PlaceableObject>(transform.position, 50);

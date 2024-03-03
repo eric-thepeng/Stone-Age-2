@@ -48,6 +48,8 @@ public class CharacterIcon : MonoBehaviour
     private void Start()
     {
         character.SetUp(this);
+
+        homePosition = transform.localPosition;
         //gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
         //energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
     }
@@ -111,14 +113,14 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsExploreMap()) && character.GetHomeStatus().CurrentState != CharacterBehaviors.HomeState.Sleeping1)
+        if (iconState == IconState.Home && (PlayerState.IsExploreMap()) && !character.CharacterStats.energy.EnergyLessThanRestingPercentage())
         {
             UI_FullScreenUIDragCollider.i.Open(this);
-            homePosition = transform.localPosition;
+            // homePosition = transform.localPosition;
             // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
             UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
             iconState = IconState.Dragging;
-            if(onCharacterPickedUp!=null)onCharacterPickedUp();
+            if (onCharacterPickedUp != null) onCharacterPickedUp();
         }
         else if(iconState == IconState.Gathering)
         {
@@ -126,25 +128,60 @@ public class CharacterIcon : MonoBehaviour
         }
     }
 
+    // private void OnMouseUp()
+    // {
+    //     if (iconState == IconState.Dragging)
+    //     {
+    //         UI_FullScreenUIDragCollider.i.Close();
+    //         if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT,
+    //                 true)) // DRAGGING -> find a explore spot
+    //         {
+    //             GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true)
+    //                 .GetComponent<GatherSpot>();
+    //             toGather.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
+    //             character.StartGatherUI(toGather, this);
+    //             //transform.localPosition = placeholderPosition;
+    //             transform.localPosition = homePosition;
+    //             ChangeIconColor(gatherColor);
+    //             iconState = IconState.Gathering;
+    //             if (onCharacterStartGathering != null) onCharacterStartGathering();
+    //             return;
+    //         }
+    //
+    //         // DRAGGING -> HOME
+    //         if (onCharacterQuitPickUp != null) onCharacterQuitPickUp();
+    //         iconState = IconState.Home;
+    //         transform.localPosition = homePosition;
+    //
+    //         CancelGather();
+    //     }
+    // }
+
     private void OnMouseEnter()
     {
-        DisplayStatusPanel();
         
         UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
         if (iconState == IconState.Gathering)
         {
             DisplayRecallButton();
         }
+        else
+        {
+            DisplayStatusPanel();
+        }
     }
 
     private void OnMouseExit()
     {
-        CancelStatusPanel();
         UniversalUIManager.i.CancelDisplayCursor();
         if (iconState == IconState.Gathering)
         {
             CancelRecallButton();
-        }   
+        }
+        else
+        {
+            CancelStatusPanel();
+        }
     }
 
     private void DisplayRecallButton()
