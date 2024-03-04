@@ -91,6 +91,9 @@ public class CharacterMovement : MonoBehaviour
                 if (!_reachedTarget)
                 {
                     StopHangingOut();
+                    
+                    SetTargetPosition(transform.position);
+                    
                     _characterBehavior.IsPendingTowardsTarget = false;
                     _reachedTarget = true;
                     // Debug.Log("Target Stop Moving, Distance: " + Vector3.Distance(transform.position, _targetPosition));

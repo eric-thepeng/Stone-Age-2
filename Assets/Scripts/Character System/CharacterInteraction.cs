@@ -182,14 +182,19 @@ public class CharacterInteraction : WorldInteractable
         clickInterval = initialStats.clickInterval;
         countdownTime = initialStats.countdownTime;
     }
-    
+
+    private Vector3 _lastTargetPosition;
     protected override void BeginMouseHover()
     {
         base.BeginMouseHover();
         if (_enabledRuaMode)
         {
+            _lastTargetPosition = _characterMovement.navMeshAgent.steeringTarget;
+            _characterMovement.SetTargetPosition(transform.position);
             _characterMovement.StopHangingOut();
-            _characterMovement.navMeshAgent.enabled = false;
+            
+            Debug.Log("Mouse Hover!");
+            // _characterMovement.navMeshAgent.enabled = false;
         }
     }
 
@@ -198,8 +203,10 @@ public class CharacterInteraction : WorldInteractable
         base.EndMouseHover();
         if (_enabledRuaMode)
         {
+            _characterMovement.SetTargetPosition(_lastTargetPosition);
+            Debug.Log("Mouse Leave!");
             _characterMovement.StartHangingOut();
-            _characterMovement.navMeshAgent.enabled = true;
+            // _characterMovement.navMeshAgent.enabled = true;
         }
     }
 }
