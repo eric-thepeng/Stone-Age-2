@@ -101,6 +101,7 @@ public static class PlayerState
         {
             OnGamePanelOpen.Invoke(GamePanel.ExploreMap);
             ExploreMapPanel.i.OpenPanel();
+            ChangeInventoryPanel(false);
             ChangeRecipeViewerPanel(RecipeViewerState.Close);
             ChangeInventoryPanel(false);
         }

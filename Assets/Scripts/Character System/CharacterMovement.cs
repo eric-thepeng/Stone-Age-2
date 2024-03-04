@@ -48,7 +48,6 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-        _navMeshAgent.speed = moveSpeed;
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -77,24 +76,35 @@ public class CharacterMovement : MonoBehaviour
     
     void Update()
     {
+        _navMeshAgent.speed = moveSpeed;
+        
         if (_isHangingOut)
         {
             if (!ReachedTarget())
             {
                 // _characterBehavior.IsPendingTowardsTarget = true;
                 MoveTowardsTarget();
-                _reachedTarget = false;
+                // _reachedTarget = false;
             }
             else
             {
                 if (!_reachedTarget)
                 {
+                    StopHangingOut();
                     _characterBehavior.IsPendingTowardsTarget = false;
                     _reachedTarget = true;
-                    Debug.Log("Target Stop Moving, Distance: " + Vector3.Distance(transform.position, _targetPosition));
+                    // Debug.Log("Target Stop Moving, Distance: " + Vector3.Distance(transform.position, _targetPosition));
                     if (Vector3.Distance(transform.position, _targetPosition) < 1f)
                     {
-                        _characterBehavior.EnterWorkingState();
+                        if (_characterBehavior.CurrentState != CharacterBehaviors.HomeState.HangingAround)
+                        {
+                            _characterBehavior.EnterWorkingState();
+                        }
+                        else
+                        {
+                            _characterBehavior.CurrentState = CharacterBehaviors.HomeState.Unset;
+                        }
+                        
                         
                     }
                     else
@@ -116,6 +126,10 @@ public class CharacterMovement : MonoBehaviour
 
     public void StartHangingOut()
     {
+        // Debug.Log("Start hanging out!");
+        
+        // Debug.Log("Set iswalking true");
+        animator.SetBool("isWalking", true);
         _isHangingOut = true;
         _reachedTarget = false;
         // SelectRandomTargetPosition();
@@ -125,12 +139,16 @@ public class CharacterMovement : MonoBehaviour
     public void StopHangingOut()
     {
         _isHangingOut = false;
+        
+        // Debug.Log("Set iswalking false");
         animator.SetBool("isWalking", false);
     }
 
     public void StartSleeping()
     {
         if (sleepText != null) sleepText.SetActive(true);
+        
+        // Debug.Log("Set sit");
         animator.SetTrigger("Sit");
     }
 
@@ -173,15 +191,25 @@ public class CharacterMovement : MonoBehaviour
     //     _isMovingToTarget = true;
     // }
 
+    private float _stuckCount = 0;
     private bool ReachedTarget()
     {
-        if (_navMeshAgent.velocity == new Vector3(0,0,0)
-            )
+        
+        if (_navMeshAgent.velocity == new Vector3(0,0,0))
         {
-            animator.SetBool("isWalking", false);
+            if (_stuckCount < 0.5f)
+            {
+                _stuckCount += Time.deltaTime;
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+                _stuckCount = 0;
+                return true;
+            }
             // _isMovingToTarget = false;
-            return true;
-        } else if (Vector3.Distance(transform.position, _targetPosition) < 1f)
+        } else 
+        if (Vector3.Distance(transform.position, _targetPosition) < 1f)
         {
             return true;
         }

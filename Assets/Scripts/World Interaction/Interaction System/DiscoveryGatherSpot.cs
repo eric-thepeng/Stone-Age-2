@@ -48,6 +48,7 @@ public class DiscoveryGatherSpot : GatherSpot, IResourceSetProvider
 
     public bool Discovered()
     {
+        return false;
         return GetDiscoveryPercentage() == 1;
     }
 
