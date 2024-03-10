@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 578359489809127947}
   - component: {fileID: 578359489809127946}
   - component: {fileID: 578359489809127941}
+  - component: {fileID: -4846831398299044461}
+  - component: {fileID: -5880057283583019661}
   m_Layer: 0
-  m_Name: Opening Fog v2
+  m_Name: Ground Fog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +52,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: -78.62
+      - m_Value: -83
         m_Name: SDFCenterZ_02
         m_Overridden: 1
       - m_Value: 25
@@ -62,14 +64,17 @@ VisualEffect:
       - m_Value: -2
         m_Name: SDFCenterX_02
         m_Overridden: 1
-      - m_Value: 50
+      - m_Value: 30
         m_Name: SDFSizeX_01
         m_Overridden: 1
-      - m_Value: 7.4
+      - m_Value: -0.2
         m_Name: SDFCenterX_01
         m_Overridden: 1
-      - m_Value: 35.01
+      - m_Value: 26.3
         m_Name: SDFCenterZ_01
+        m_Overridden: 1
+      - m_Value: 30
+        m_Name: SDFSizeZ_01
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -87,10 +92,10 @@ VisualEffect:
       - m_Value: 200
         m_Name: SpawnAreaZ
         m_Overridden: 1
-      - m_Value: 2000
+      - m_Value: 2500
         m_Name: SpawnRate
         m_Overridden: 1
-      - m_Value: 2000
+      - m_Value: 2500
         m_Name: SpawnBurst
         m_Overridden: 1
     m_Matrix4x4f:
@@ -146,3 +151,40 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-4846831398299044461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578359489809127940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf7d5dc63bc24731b1b9eca57d9f1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SDF1_AfterRevealScroll:
+    sizeX: 30
+    sizeZ: 30
+    centerX: -0.2
+    centerZ: 26.3
+  SDF1_AfterRevealBuildingWorld:
+    sizeX: 150
+    sizeZ: 150
+    centerX: -0.2
+    centerZ: 17
+--- !u!114 &-5880057283583019661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578359489809127940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7bc92dd1d2484bceb7f2d804e9df12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: GroundFog
+  gosuiScriptableObject: {fileID: 0}
+  gameObjectType: 0
