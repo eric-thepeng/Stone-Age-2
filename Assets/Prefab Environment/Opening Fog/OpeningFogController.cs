@@ -1,31 +1,59 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+[Serializable]public class SDFVariables
+{
+    public float sizeX;
+    public float sizeZ;
+    public float centerX;
+    public float centerZ;
+}
+
+public struct SDFNaming
+{
+    public string sizeX;
+    public string sizeZ;
+    public string centerX;
+    public string centerZ;
+
+    public SDFNaming(string sx, string sz, string cx, string cz)
+    { 
+         sizeX = sx;
+         sizeZ = sz;
+         centerX = cx;
+         centerZ = cz;
+    }
+}
+
 public class OpeningFogController : MonoBehaviour, IUniActionInteraction
 {
-    [SerializeField]private int index;
-    
+    private int index;
     VisualEffect fogVFX;
+
+    [SerializeField] private SDFVariables SDF1_AfterRevealScroll;
+    [SerializeField] private SDFVariables SDF1_AfterRevealBuildingWorld;
+
+    private SDFNaming SDF1_Naming;
+    private SDFNaming SDF2_Naming;
 
     void Start()
     {
         fogVFX = GetComponent<VisualEffect>();
-        if (index == 2)
-        {
-            SpiritPoint.i.GetPlayerStat().SubscribeStatChange(UpdateInnerCircle);
-        }
+        SDF1_Naming = new SDFNaming("SDFSizeX_01", "SDFSizeZ_01", "SDFCenterX_01", "SDFCenterZ_01");
+        SDF2_Naming = new SDFNaming("SDFSizeX_02", "SDFSizeZ_02", "SDFCenterX_02", "SDFCenterZ_02");
     }
 
-    void Update()
+    void AdjustSDF(SDFNaming naming, SDFVariables variables)
     {
-        if ((Input.GetKeyDown(KeyCode.Alpha1) && index == 1) || (Input.GetKeyDown(KeyCode.Alpha2) && index == 2))
-        {
-            DeleteClouds();
-        }
+        fogVFX.SetFloat(naming.sizeX, variables.sizeX);
+        fogVFX.SetFloat(naming.sizeZ, variables.sizeZ);
+        fogVFX.SetFloat(naming.centerX, variables.centerX);
+        fogVFX.SetFloat(naming.centerZ, variables.centerZ);
     }
-
+    
     void DeleteClouds()
     {
         fogVFX.Stop();
@@ -39,7 +67,7 @@ public class OpeningFogController : MonoBehaviour, IUniActionInteraction
         if(currentAmount > 8) return;
         if (currentAmount == 8)
         {
-            DeleteClouds();
+            //DeleteClouds();
             return;
         }
         float currentX = fogVFX.GetFloat("SDFSizeX");
@@ -48,11 +76,25 @@ public class OpeningFogController : MonoBehaviour, IUniActionInteraction
         fogVFX.SetFloat("SDFSizeZ",currentZ * 1.1f);
     }
 
+    private void Effect_1_RevealScroll()
+    {
+        AdjustSDF(SDF1_Naming, SDF1_AfterRevealScroll);
+    }
+
+    private void Effect_2_RevealBuildingArea()
+    {
+        AdjustSDF(SDF1_Naming, SDF1_AfterRevealBuildingWorld);
+
+    }
+
+    /// <summary>
+    /// To be used by IUniActionInteraction with according index
+    /// </summary>
+    /// <param name="index">1. Reveal scroll. 2. Reveal building area</param>
     public void TriggerInteractionByUniAction(int index)
     {
-        if (index == this.index)
-        {
-            DeleteClouds();
-        }
+        if (index == 1) Effect_1_RevealScroll();
+        else if(index == 2) Effect_2_RevealBuildingArea();
+        else Debug.LogError("An index with no corresponding method is input: GameObject " + gameObject.name);
     }
 }
