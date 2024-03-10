@@ -17,6 +17,7 @@ public class ItemScriptableObject : SerializedScriptableObject
     public Sprite tetrisSprite;
     public Sprite iconSprite;
     public string tetrisDescription = "not set";
+    public string tetrisSideNote = "not set";
     [Header("--- DO NOT EDIT BELOW ---")]public GameObject myPrefab = null; 
     public bool isCraftingStation = false;
     public enum Category { Material, Building }
