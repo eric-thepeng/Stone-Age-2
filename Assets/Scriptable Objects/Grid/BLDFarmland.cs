@@ -19,17 +19,17 @@ public class BLDFarmland : CropGrowth
     private float totalGrowthTime;
     private float elapsedTime;
 
-    [Header("UI Objects - Icon")]
-    public GameObject Icon;
+    // [Header("UI Objects - Icon")]
+    private GameObject Icon;
 
     private SpriteRenderer iconRenderer;
     
 
     [Header("UI Objects - Progress Bar")]
     public bool enableProgressBar;
-    public GameObject Bar;
-    public GameObject progress;
-    public GameObject background;
+    private GameObject Bar;
+    private GameObject progress;
+    private GameObject background;
 
     //[Header("Invoke Related")]
     private float timeToClear;
@@ -42,11 +42,24 @@ public class BLDFarmland : CropGrowth
     
     protected override void Start()
     {
-        base.Start();
+        
+        
+        // if (Icon == null)
+        // {
+            GameObject newIcon = Instantiate(BuildingManager.i.buildingIconPrefab, transform);
+            Icon = newIcon.transform.Find("Icon").gameObject;
+            Bar = newIcon.transform.Find("Progress Bar").gameObject;
+            background = Bar.transform.Find("Background").gameObject;
+            progress = Bar.transform.Find("Progress").gameObject;
+        // }
+        
+        Icon.SetActive(false);
         Bar.SetActive(false);
         iconRenderer = Icon.GetComponent<SpriteRenderer>();
 
         originalScale = transform.localScale;
+        base.Start();
+
     }
 
     private bool firstPlaced;
