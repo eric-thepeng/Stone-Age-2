@@ -53,6 +53,8 @@ public class CharacterInteraction : WorldInteractable
         SetCurrentInteraction(null);
 
         _characterMovement = GetComponent<CharacterMovement>();
+        
+        iconRenderer.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -69,6 +71,7 @@ public class CharacterInteraction : WorldInteractable
                 currentClicks = 0;
             
                 iconRenderer.sprite = clickableIcon;
+                iconRenderer.gameObject.SetActive(true);
                 SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
 
             }
@@ -93,7 +96,7 @@ public class CharacterInteraction : WorldInteractable
 
     public void AddPoint()
     {
-        Debug.Log("trying to click");
+        
         if (currentClicks < maxClicks)
         {
                 
@@ -128,6 +131,7 @@ public class CharacterInteraction : WorldInteractable
             if (currentClicks >= maxClicks)
             {
                 iconRenderer.sprite = unclickableIcon;
+                iconRenderer.gameObject.SetActive(false);
             }
             else
             {
@@ -149,6 +153,7 @@ public class CharacterInteraction : WorldInteractable
         {
             SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
             iconRenderer.sprite = clickableIcon;
+            iconRenderer.gameObject.SetActive(true);
         }
         _enabledRuaMode = true;
         // if ()
@@ -160,6 +165,7 @@ public class CharacterInteraction : WorldInteractable
         
         _enabledRuaMode = false;
         iconRenderer.sprite = unclickableIcon;
+        iconRenderer.gameObject.SetActive(false);
     }
 
     public void EnterRuaState()
@@ -173,6 +179,7 @@ public class CharacterInteraction : WorldInteractable
         
         currentTime = 0;
         iconRenderer.sprite = clickableIcon;
+        iconRenderer.gameObject.SetActive(true);
     }
 
     public void Initialize(CharacterBasicStats initialStats)
@@ -193,7 +200,6 @@ public class CharacterInteraction : WorldInteractable
             _characterMovement.SetTargetPosition(transform.position);
             _characterMovement.StopHangingOut();
             
-            Debug.Log("Mouse Hover!");
             // _characterMovement.navMeshAgent.enabled = false;
         }
     }
@@ -204,7 +210,6 @@ public class CharacterInteraction : WorldInteractable
         if (_enabledRuaMode)
         {
             _characterMovement.SetTargetPosition(_lastTargetPosition);
-            Debug.Log("Mouse Leave!");
             _characterMovement.StartHangingOut();
             // _characterMovement.navMeshAgent.enabled = true;
         }
