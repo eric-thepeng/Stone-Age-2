@@ -3,6 +3,7 @@ using Live2D.Cubism.Core;
 using Live2D.Cubism.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -53,8 +54,15 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        _model = GetComponentInChildren<CubismModel>();
-        _visual = _model.transform;
+        if (GetComponentInChildren<CubismModel>() != null)
+        {
+            _model = GetComponentInChildren<CubismModel>();
+            _visual = _model.transform;
+        }
+        else
+        {
+            _visual = GetComponentInChildren<SkeletonMecanim>().transform;
+        }
         _originalScale = _visual.transform.localScale;
         // _leafShadow = _model.Parameters[8];
 
@@ -245,7 +253,7 @@ public class CharacterMovement : MonoBehaviour
             _leafValue = 0;
             _visual.localScale = new Vector3(_originalScale.x, _originalScale.y, _originalScale.z);
         }
-        _leafShadow.Value = _leafValue;
+        if (_leafShadow != null) _leafShadow.Value = _leafValue;
     }
 
 }

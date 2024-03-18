@@ -361,7 +361,7 @@ public class Character : MonoBehaviour
 
         charExperience = 0;
         
-        _behaviors.CheckState();
+        if (initialStats != null) _behaviors.CheckState();
     }
 
 

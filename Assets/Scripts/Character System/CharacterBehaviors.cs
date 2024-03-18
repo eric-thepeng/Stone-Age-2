@@ -202,6 +202,7 @@ public class CharacterBehaviors : MonoBehaviour
             
             // sleeping <25%
             
+            
             if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) 
             {
                 characterMovement.moveSpeed = moveSpeed * 0.5f;
