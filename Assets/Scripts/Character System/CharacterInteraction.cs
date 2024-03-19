@@ -24,6 +24,8 @@ public class CharacterInteraction : WorldInteractable
     [SerializeField]
     private float duration;
 
+    [SerializeField] private GameObject clickParticle;
+
     private Vector3 originalScale;
 
     [Header("Click Cycle")]
@@ -126,6 +128,8 @@ public class CharacterInteraction : WorldInteractable
                 transform.localScale = originalScale;
             });
 
+            if (clickParticle != null) Instantiate(clickParticle, transform.position, Quaternion.identity);
+
             
             currentClicks++;
             if (currentClicks >= maxClicks)
@@ -152,6 +156,7 @@ public class CharacterInteraction : WorldInteractable
         if (currentClicks < maxClicks)
         {
             SetCurrentInteraction(new WorldInteractable.InteractionType(WorldInteractable.InteractionType.TypeName.Click, AddPoint));
+            // currentTime = 0;
             iconRenderer.sprite = clickableIcon;
             iconRenderer.gameObject.SetActive(true);
         }
@@ -213,5 +218,10 @@ public class CharacterInteraction : WorldInteractable
             _characterMovement.StartHangingOut();
             // _characterMovement.navMeshAgent.enabled = true;
         }
+    }
+
+    public bool GetIfEnabledRuaMode()
+    {
+        return _enabledRuaMode;
     }
 }
