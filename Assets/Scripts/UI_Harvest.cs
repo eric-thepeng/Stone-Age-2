@@ -156,7 +156,7 @@ public class UI_Harvest : MonoBehaviour
         //    }
         //}
         //create new
-        GameObject newDisplayGO = Instantiate(uiTemplate,this.transform);
+        GameObject newDisplayGO = Instantiate(uiTemplate, this.transform);
         harvestInfoList.Add(new HarvestInfo(iso, amount, newDisplayGO));
         newDisplayGO.SetActive(true);
         //newDisplayGO.transform.localPosition += new Vector3(0, 0.5f, 0) * (harvestInfoList.Count-1);
@@ -187,12 +187,14 @@ public class UI_Harvest : MonoBehaviour
 
     private void UpdatePosition()
     {
-        float moveAmount = 0.8f;
+        float moveAmount_y = 0.8f;
+        float moveAmount_x = 0.08f;
 
         for (int i = 0; i < harvestInfoList.Count - 1; i++)
          {
             Vector3 _pos = harvestInfoList[i].displayGO.transform.position;
-            _pos.y = (harvestInfoList[harvestInfoList.Count - 1].displayGO.transform.position.y + ((harvestInfoList.Count - 1 - i) * moveAmount));
+            _pos.x = (harvestInfoList[harvestInfoList.Count - 1].displayGO.transform.position.x + ((harvestInfoList.Count - 1 - i) * moveAmount_x));
+            _pos.y = (harvestInfoList[harvestInfoList.Count - 1].displayGO.transform.position.y + ((harvestInfoList.Count - 1 - i) * moveAmount_y));
             harvestInfoList[i].displayGO.transform.position = _pos;
          }
     }
