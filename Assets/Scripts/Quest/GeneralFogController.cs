@@ -48,10 +48,39 @@ public class GeneralFogController : MonoBehaviour, IUniActionInteraction
 
     void AdjustSDF(SDFNaming naming, SDFVariables variables)
     {
+        /*
         fogVFX.SetFloat(naming.sizeX, variables.sizeX);
         fogVFX.SetFloat(naming.sizeZ, variables.sizeZ);
         fogVFX.SetFloat(naming.centerX, variables.centerX);
-        fogVFX.SetFloat(naming.centerZ, variables.centerZ);
+        fogVFX.SetFloat(naming.centerZ, variables.centerZ);*/
+        StartCoroutine(AdjustSDFCor(naming, variables, 1f));
+    }
+
+    IEnumerator AdjustSDFCor(SDFNaming naming, SDFVariables variables, float duration)
+    {
+        float orgSizeX = fogVFX.GetFloat(naming.sizeX);
+        float orgSizeZ = fogVFX.GetFloat(naming.sizeZ);
+        float orgCenterX = fogVFX.GetFloat(naming.centerX);
+        float orgCenterZ = fogVFX.GetFloat(naming.centerZ);
+        
+        float finalSizeX = variables.sizeX;
+        float finalSizeZ = variables.sizeZ;
+        float finalCenterX = variables.centerX;
+        float finalCenterZ = variables.centerZ;
+
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            
+            fogVFX.SetFloat(naming.sizeX, orgSizeX + (finalSizeX - orgSizeX) * (time/duration));
+            fogVFX.SetFloat(naming.sizeZ, orgSizeZ + (finalSizeZ - orgSizeZ) * (time/duration));
+            fogVFX.SetFloat(naming.centerX, orgCenterX + (finalCenterX - orgCenterX) * (time/duration));
+            fogVFX.SetFloat(naming.centerZ, orgCenterZ + (finalCenterZ - orgCenterZ) * (time/duration));
+            
+            yield return new WaitForSeconds(0);
+        }
+        
     }
     
     void DeleteClouds()
