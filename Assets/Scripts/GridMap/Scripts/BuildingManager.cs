@@ -45,6 +45,8 @@ public class BuildingManager : MonoBehaviour
     Vector3 hitPoint;
     float gridCellSize;
 
+    public GameObject buildingIconPrefab;
+
     [SerializeField]
     private Transform initialTransform;
 

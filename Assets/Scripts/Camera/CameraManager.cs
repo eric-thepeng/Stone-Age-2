@@ -37,7 +37,7 @@ public class CameraManager : MonoBehaviour, IUniActionInteraction
 
     // For camera movement space restriction
     bool restrainedCamera = true;
-    float cameraXMinOnFloor = -50, cameraXMaxOnFloor = 50, cameraZMinOnFloor = -150, cameraZMaxOnFloor = -10;
+    float cameraXMinOnFloor = -100, cameraXMaxOnFloor = 100, cameraZMinOnFloor = -200, cameraZMaxOnFloor = 20;
     private bool freezeCamera = false;
 
     // Animation Curves

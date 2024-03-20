@@ -203,6 +203,7 @@ public class PlaceableObject : MonoBehaviour
                     SetCurrentInteraction(null);
             };
         }
+        
     }
 
     public Vector3 GetInteractionPoint()
