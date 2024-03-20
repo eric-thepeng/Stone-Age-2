@@ -70,6 +70,8 @@ namespace Hypertonic.GridPlacement
             GridDisplay = GenerateGridCanvas(gridSettings);
             GenerateGridBackground(GridSettings, GridDisplay.transform);
             
+            // placingObject.FindTilemap();
+            
         }
 
         private void DestroyExistingGrid()
@@ -143,7 +145,7 @@ namespace Hypertonic.GridPlacement
             backgroundImage.layer = LayerMask.NameToLayer("Grid");
 
             Grid grid = backgroundImage.AddComponent<Grid>();
-            GameObject tilemapGameObject = new GameObject("Tilemap - " + GridSettings.name);
+            GameObject tilemapGameObject = new GameObject("TilemapData - " + GridSettings.name);
             tilemapGameObject.transform.parent = backgroundImage.transform;
 
             Tilemap tilemap = tilemapGameObject.AddComponent<Tilemap>();

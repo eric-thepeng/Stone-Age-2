@@ -8,11 +8,29 @@ using UnityEngine;
 public class ExploreMap : MonoBehaviour
 {
     float momentum = 0f;
-    [SerializeField]private float moveSpeed = 1f;
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private Transform allExploreSpotsParent;
+    [SerializeField] private Transform allBillboardsParent;
+
     Vector2 direction = new Vector2(0,0);
 
     private float mapXMax = -12.5f;
     private float mapXMin = -31f;
+
+    private List<LevelUp> allExploreSpotsLevelUp = null;
+    
+    static ExploreMap instance;
+    public static ExploreMap i
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<ExploreMap>();
+            }
+            return instance;
+        }
+    }
 
     private void Update()
     {
@@ -38,5 +56,23 @@ public class ExploreMap : MonoBehaviour
                 transform.localPosition.y,
                 transform.localPosition.z);
         //if(restrainedCamera) transform.position = new Vector3(Mathf.Clamp(transform.position.x, cameraXMin, cameraXMax), transform.position.y, Mathf.Clamp(transform.position.z, cameraZMin, cameraZMax));
+    }
+
+    public List<LevelUp> GetAllExploreSpotsLevelUp()
+    {
+        if (allExploreSpotsLevelUp == null)
+        {
+            allExploreSpotsLevelUp = new List<LevelUp>();
+            foreach (Transform exp in allExploreSpotsParent)
+            {
+                LevelUp tryLevelUp = exp.gameObject.GetComponent<LevelUp>();
+                if (tryLevelUp != null)
+                {
+                    allExploreSpotsLevelUp.Add(tryLevelUp);
+                }
+            }
+        }
+
+        return allExploreSpotsLevelUp;
     }
 }

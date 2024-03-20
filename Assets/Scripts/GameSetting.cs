@@ -20,43 +20,15 @@ public class GameSetting : SerializedMonoBehaviour
             return instance;
         }
     }
-    
-    public enum LanguageOption
-    {
-        English,
-        Chinese
-    }
-
-    public static LanguageOption language = LanguageOption.English;
-    
-    [SerializeField]private Dictionary<LanguageOption, TMP_FontAsset> fonts = new Dictionary<LanguageOption, TMP_FontAsset>()
-    {
-        {LanguageOption.Chinese, null },
-        {LanguageOption.English, null }
-    };
-
-    public TMP_FontAsset GetFontAsset()
-    {
-        return fonts[language];
-    }
-
-    public void SwitchLanguage(LanguageOption targetLanguage)
-    {
-        language = targetLanguage;
-        foreach (var VARIABLE in FindObjectsOfType<LocalizableTextMeshPro>())
-        {
-            VARIABLE.Localize(targetLanguage);
-        }
-    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            SwitchLanguage(LanguageOption.English);
+            LocalizationManager.SwitchLanguage(LocalizationManager.LanguageOption.English);
         }else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            SwitchLanguage(LanguageOption.Chinese);
+            LocalizationManager.SwitchLanguage(LocalizationManager.LanguageOption.Chinese);
         }
     }
 }

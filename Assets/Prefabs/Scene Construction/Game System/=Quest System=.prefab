@@ -5228,7 +5228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566335053606180563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 16.7, y: 0, z: -38.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22448,7 +22448,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 2
-        text: Drag and drop 7 straws from your inventory and place them accordingly
+        text: Drag and drop 7 straws from your backpack and place them accordingly
         duration: 0
       characterStatAction:
         note: leave a note for editor
@@ -30513,7 +30513,7 @@ MonoBehaviour:
   hasCompleted: 0
   currentUniAction: 0
   totalUniActions: 0
-  uponGameStart: 0
+  uponGameStart: 1
   uniActionSequence:
     allUniActions:
     - delayTime: 0
@@ -45521,7 +45521,7 @@ MonoBehaviour:
         note: leave a note for editor
         triggerAndQueNext: 0
         actionType: 2
-        text: Open inventory, select Buildings, and select the straw bed.
+        text: Open backpack, select Buildings, and select the straw bed.
         duration: 0
       characterStatAction:
         note: leave a note for editor
@@ -45574,98 +45574,6 @@ MonoBehaviour:
         triggerAndQueNext: 0
         actionType: 2
         targetPanel: 4
-      cameraAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetAction: 0
-        i: 0
-      iuaiAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        actionIndex: 0
-      characterGatherAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGatherSpot: {fileID: 0}
-        targetCharacter: {fileID: 0}
-      blueprintAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        blueprints: []
-      timelineAnimationAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      characterInteractionAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetCBS: {fileID: 0}
-      screenNotificationAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        text: Text Not Assigned
-        duration: 0
-      characterStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetCBS: {fileID: 0}
-        targetNumber: 0
-    - delayTime: 0
-      uniActionType: 2
-      gameObjectAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetVector: {x: 0, y: 0, z: 0}
-        moveTime: 1
-      narrativeSequenceAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 1
-        targetNSSO: {fileID: 11400000, guid: 567ebbfce6ce841709d1dcb0599610ea, type: 2}
-      uniQuestAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 1
-        targetUniQuest: {fileID: 6231096946907931197}
-      playerStatAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPlayerStatType: 0
-        targetISO: {fileID: 0}
-        targetAmount: 0
-      buttonAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetGameObject: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-      levelUpAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetLevelUp: {fileID: 0}
-        targetGameObjectSetUpIdentifierID: 
-        targetUnlockLevel: 0
-      gamePanelAction:
-        note: leave a note for editor
-        triggerAndQueNext: 0
-        actionType: 0
-        targetPanel: 0
       cameraAction:
         note: leave a note for editor
         triggerAndQueNext: 0
@@ -46919,11 +46827,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 57834606840205776, guid: 370c2bc4a42164a1f88ce3dbe7edc26d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 57834606840205776, guid: 370c2bc4a42164a1f88ce3dbe7edc26d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.6
+      value: -39.27
       objectReference: {fileID: 0}
     - target: {fileID: 57834606840205776, guid: 370c2bc4a42164a1f88ce3dbe7edc26d, type: 3}
       propertyPath: m_LocalRotation.w
