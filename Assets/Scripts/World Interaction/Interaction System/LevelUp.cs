@@ -64,6 +64,9 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
 
     [SerializeField] List<UnlockState> allUnlockStates;
     
+    // UnityEvents
+    public UnityEvent OnUnlockFinalState = new UnityEvent();
+    
     // IUniActionTrigger
     public UnityEvent<int> uniActionEventToTriggerInstance = new UnityEvent<int>();
     public UnityEvent<int> uniActionEventToTrigger
@@ -136,7 +139,7 @@ public class LevelUp : WorldInteractable, IResourceSetProvider, IUniActionTrigge
 
     protected virtual void ReachFinalState()
     {
-        
+        OnUnlockFinalState.Invoke();
     }
     
     #region IResourceSetProvider

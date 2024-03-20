@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class LocalizationAction : SerializedMonoBehaviour
 {
-    public virtual void Localize(GameSetting.LanguageOption targetLanguage)
+    public virtual void Localize(LocalizationManager.LanguageOption targetLanguage)
     {
         throw new NotImplementedException();
     }
 
     private void OnEnable()
     {
-        Localize(GameSetting.language);
+        Localize(LocalizationManager.currentLanguage);
     }
 }
