@@ -504,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Size.x
-      value: 4.7526264
+      value: 9.614916
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Size.y
@@ -512,11 +512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Size.z
-      value: 4.394104
+      value: 3.9402885
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Center.x
-      value: 0.029406548
+      value: 0.5156355
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Center.y
@@ -524,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Center.z
-      value: -0.9128609
+      value: 0.8051472
       objectReference: {fileID: 0}
     - target: {fileID: 5185010615069990550, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -659,6 +659,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: timeToClear
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.spiritPoint
       value: 0
       objectReference: {fileID: 0}
@@ -668,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 6740351624469362035, guid: 8e9a2832e8561f54db05fb954c2bc62d, type: 3}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].iso
@@ -681,10 +685,10 @@ PrefabInstance:
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[2].iso
       value: 
-      objectReference: {fileID: 11400000, guid: dcb32aa5c20044a5a82e61b92f61a7d5, type: 2}
+      objectReference: {fileID: 11400000, guid: 15c1f524b47bd4550a511d76ab8b4e52, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].amount
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[1].amount
@@ -738,6 +742,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7855024002291406674, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
   m_PrefabInstance: {fileID: 6133961795820811675}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &2654804026234481189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044957555968467657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.363802, y: 2, z: 2.6905384}
+  m_Center: {x: -3.0517569, y: 1, z: -5.3250647}
+--- !u!65 &4518683660963386166
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044957555968467657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.2763014, y: 2, z: 2.3988018}
+  m_Center: {x: 0.043900967, y: 1, z: -2.1321592}
 --- !u!114 &26574194177898642
 MonoBehaviour:
   m_ObjectHideFlags: 0

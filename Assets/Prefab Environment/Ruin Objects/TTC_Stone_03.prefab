@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Size.x
-      value: 5.635271
+      value: 4.031044
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Size.y
@@ -471,7 +471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Center.x
-      value: 0.5161009
+      value: 0.62548065
       objectReference: {fileID: 0}
     - target: {fileID: 5095632380477038549, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: m_Center.y
@@ -614,6 +614,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: timeToClear
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.spiritPoint
       value: 0
       objectReference: {fileID: 0}
@@ -623,7 +627,7 @@ PrefabInstance:
       objectReference: {fileID: 6740351624469362035, guid: 8e9a2832e8561f54db05fb954c2bc62d, type: 3}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].iso
@@ -636,14 +640,14 @@ PrefabInstance:
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[2].iso
       value: 
-      objectReference: {fileID: 11400000, guid: dcb32aa5c20044a5a82e61b92f61a7d5, type: 2}
+      objectReference: {fileID: 11400000, guid: 64ca0caf3c0dd4ae993fcb37199bbe6b, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[0].amount
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[1].amount
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: gainResourceSet.resources.Array.data[2].amount
@@ -655,14 +659,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.data[0].iso
       value: 
       objectReference: {fileID: 11400000, guid: 2d5ee1dc64b81574280fb51ac2ab869f, type: 2}
     - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.data[1].iso
+      value: 
+      objectReference: {fileID: 11400000, guid: a936cc27c6f314f87b477b8634da5e24, type: 2}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
       propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.data[0].amount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855024002291406675, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
+      propertyPath: allUnlockStates.Array.data[0].unlockCost.resources.Array.data[1].amount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7855024002398852591, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
@@ -693,6 +705,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7855024002291406674, guid: 587a72bd242cf412f8d760d138328fa8, type: 3}
   m_PrefabInstance: {fileID: 6133961795820811675}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &5456571450874643526
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044957555968467657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.401516, y: 2, z: 4.4129524}
+  m_Center: {x: 4.0178776, y: 1, z: -3.3649921}
+--- !u!65 &8624802987307487616
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044957555968467657}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.750519, y: 2, z: 3.5379238}
+  m_Center: {x: -3.474575, y: 1, z: -3.7660475}
 --- !u!114 &26574194177898642
 MonoBehaviour:
   m_ObjectHideFlags: 0
