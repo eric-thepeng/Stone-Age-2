@@ -135,7 +135,7 @@ public class WorldInteractable : MonoBehaviour
         get { return this is BuildingInteractable; }
     }
 
-    protected bool CanInteract()
+    protected virtual bool CanInteract()
     {
         if (GridManagerAccessor.GridManager.IsPlacingGridObject) return false;
         return allowInteraction;

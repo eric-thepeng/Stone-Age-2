@@ -10,11 +10,11 @@ public class NarrativeSequenceScriptableObject : ScriptableObject
 
     public NarrativeSequence GetLocalizedNarrativeSequence()
     {
-        switch (GameSetting.language)
+        switch (LocalizationManager.currentLanguage)
         {
-            case GameSetting.LanguageOption.English:
+            case LocalizationManager.LanguageOption.English:
                 return NS_English;
-            case GameSetting.LanguageOption.Chinese:
+            case LocalizationManager.LanguageOption.Chinese:
                 return NS_Chinese;
         }
 
