@@ -202,6 +202,7 @@ public class CharacterBehaviors : MonoBehaviour
             
             // sleeping <25%
             
+            
             if (character.CharacterStats.energy.EnergyLessThanRestingPercentage()) 
             {
                 characterMovement.moveSpeed = moveSpeed * 0.5f;
@@ -460,6 +461,7 @@ public class CharacterBehaviors : MonoBehaviour
     }
 
     // private bool isInWorkingState = false;
+    private bool _wasAbleToInteract = false;
 
     public void EnterWorkingState()
     {
@@ -474,7 +476,20 @@ public class CharacterBehaviors : MonoBehaviour
             characterMovement.StartSleeping();
 
             // _l2dCharacterOldPosition = characterMovement.transform.GetChild(1).position;
-            characterMovement.transform.GetChild(0).position = _targetObject.transform.position + new Vector3(0f, 2.8f, 0);
+            // RaycastHit
+            
+            RaycastHit hit;
+            float heightAboveGround = 0;
+            if (Physics.Raycast(_targetObject.transform.position + new Vector3(0f, 2.8f, 0) ,
+                    -Vector3.up, out hit, Mathf.Infinity
+                ))
+            {
+                heightAboveGround = hit.distance;
+                Debug.Log(heightAboveGround);
+            }
+            
+
+            characterMovement.transform.GetChild(0).position = _targetObject.transform.position + new Vector3(0f, 2.8f - heightAboveGround, 0);
             // Debug.Log("Set sit");
             // characterMovement.animator.SetTrigger("Sit");
 
@@ -530,6 +545,10 @@ public class CharacterBehaviors : MonoBehaviour
 
         if (currentState != HomeState.HangingAround)
         {
+            
+            _wasAbleToInteract = character.charInteractions.GetIfEnabledRuaMode();
+            character.charInteractions.DisableRuaCountdown();
+            
             if (workingCoroutine != null)
             {
                 // Debug.Log("Still in counting!");
@@ -568,7 +587,12 @@ public class CharacterBehaviors : MonoBehaviour
             // Debug.Log("set stand");
             characterMovement.animator.SetTrigger("Stand");
         }
-        
+
+
+        if (_wasAbleToInteract)
+        {
+            character.charInteractions.EnableRuaCountdown();
+        }
         // characterMovement.transform.GetChild(1).localPosition = _l2dCharacterOldPosition;
         
         // Debug.Log("Set crafting false");
