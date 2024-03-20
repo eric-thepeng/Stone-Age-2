@@ -675,6 +675,7 @@ public class BuildingManager : MonoBehaviour
                     GridValidator placingObject = hitInfo.collider.gameObject.GetComponent<GridValidator>();
                     placingObject.enabled = true;
                     placingObject.FindTilemap();
+                    Debug.Log("Find Tile map");
                     placeableObject.GetComponent<NavMeshObstacle>().enabled = false;
                     hitInfo.collider.gameObject.GetComponent<PlaceableObject>().DisableEffects();
                 }

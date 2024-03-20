@@ -19,6 +19,7 @@ public class GridValidator : MonoBehaviour
 
     private BoxCollider _boxCollider;
     Bounds _bounds;
+    [SerializeField]
     private Tilemap tilemap;
 
     private GridSettings _gridSettings;
@@ -68,6 +69,7 @@ public class GridValidator : MonoBehaviour
     
     private void Update()
     {
+        FindTilemap();
         if (_validation != _lastFrameValidation)
         {
             if (_validation == 1)
