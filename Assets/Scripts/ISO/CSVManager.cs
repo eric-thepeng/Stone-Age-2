@@ -21,6 +21,8 @@ public enum ISOFolder
 public class csvManager : MonoBehaviour
 { 
 
+    /*
+    
     //private void Awake()
     //{
     //    LocalizationManager.Read();
@@ -81,4 +83,5 @@ public class csvManager : MonoBehaviour
         }
         return result;
     }
+    */
 }
