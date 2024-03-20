@@ -48,9 +48,14 @@ public class CharacterIcon : MonoBehaviour
     private void Start()
     {
         character.SetUp(this);
+
+        homePosition = transform.localPosition;
         //gatherCircularUI = transform.Find("Gathering Circular UI").GetComponent<CircularUI>();
         //energyCircularUI = transform.Find("Energy Circular UI").GetComponent<CircularUI>();
     }
+    
+    private float lastClickTime = 0f; // 上一次点击的时间
+    private float doubleClickThreshold = 0.4f; // 双击的时间阈值，可以根据需要调整
 
     private void Update()
     {
@@ -111,40 +116,91 @@ public class CharacterIcon : MonoBehaviour
 
     private void OnMouseDown() // HOME -> DRAGGING
     {
-        if (iconState == IconState.Home && (PlayerState.IsExploreMap()) && character.GetHomeStatus().CurrentState != CharacterBehaviors.HomeState.Sleeping1)
+        float timeSinceLastClick = Time.time - lastClickTime;
+        if (timeSinceLastClick <= doubleClickThreshold)
         {
-            UI_FullScreenUIDragCollider.i.Open(this);
-            homePosition = transform.localPosition;
-            // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
-            UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
-            iconState = IconState.Dragging;
-            if(onCharacterPickedUp!=null)onCharacterPickedUp();
+            HandleDoubleClick();
         }
-        else if(iconState == IconState.Gathering)
+        else
         {
+            if (iconState == IconState.Home && (PlayerState.IsExploreMap()) && !character.CharacterStats.energy.EnergyLessThanRestingPercentage())
+            {
+                UI_FullScreenUIDragCollider.i.Open(this);
+                // homePosition = transform.localPosition;
+                // placeholderPosition = homePosition + new Vector3(-10, 0, 0);
+                UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.C);
+                iconState = IconState.Dragging;
+                if (onCharacterPickedUp != null) onCharacterPickedUp();
+            }
+            else if(iconState == IconState.Gathering)
+            {
 
+            }
         }
+        lastClickTime = Time.time; // 更新最后一次点击时间
+        
+        
     }
+    
+    void HandleDoubleClick()
+    {
+        CameraManager.i.MoveToDisplayLocation(character.l2dCharacter.transform.position);
+    }
+
+    // private void OnMouseUp()
+    // {
+    //     if (iconState == IconState.Dragging)
+    //     {
+    //         UI_FullScreenUIDragCollider.i.Close();
+    //         if (WorldUtility.TryMouseHitPoint(WorldUtility.LAYER.EXPLORATION_SPOT,
+    //                 true)) // DRAGGING -> find a explore spot
+    //         {
+    //             GatherSpot toGather = WorldUtility.GetMouseHitObject(WorldUtility.LAYER.EXPLORATION_SPOT, true)
+    //                 .GetComponent<GatherSpot>();
+    //             toGather.PlaceCharacter(gameObject.GetComponent<SpriteRenderer>().sprite, character);
+    //             character.StartGatherUI(toGather, this);
+    //             //transform.localPosition = placeholderPosition;
+    //             transform.localPosition = homePosition;
+    //             ChangeIconColor(gatherColor);
+    //             iconState = IconState.Gathering;
+    //             if (onCharacterStartGathering != null) onCharacterStartGathering();
+    //             return;
+    //         }
+    //
+    //         // DRAGGING -> HOME
+    //         if (onCharacterQuitPickUp != null) onCharacterQuitPickUp();
+    //         iconState = IconState.Home;
+    //         transform.localPosition = homePosition;
+    //
+    //         CancelGather();
+    //     }
+    // }
 
     private void OnMouseEnter()
     {
-        DisplayStatusPanel();
         
         UniversalUIManager.i.DisplayCursor(UniversalUIManager.CursorType.B);
         if (iconState == IconState.Gathering)
         {
             DisplayRecallButton();
         }
+        else
+        {
+            DisplayStatusPanel();
+        }
     }
 
     private void OnMouseExit()
     {
-        CancelStatusPanel();
         UniversalUIManager.i.CancelDisplayCursor();
         if (iconState == IconState.Gathering)
         {
             CancelRecallButton();
-        }   
+        }
+        else
+        {
+            CancelStatusPanel();
+        }
     }
 
     private void DisplayRecallButton()

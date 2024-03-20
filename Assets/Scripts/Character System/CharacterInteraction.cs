@@ -39,6 +39,8 @@ public class CharacterInteraction : WorldInteractable
     [SerializeField] private SpriteRenderer iconRenderer;
     [SerializeField] private Sprite clickableIcon;
     [SerializeField] private Sprite unclickableIcon;
+    
+    CharacterMovement _characterMovement;
 
     private bool _enabledRuaMode = true;
 
@@ -49,6 +51,8 @@ public class CharacterInteraction : WorldInteractable
         currentTime = countdownTime;
 
         SetCurrentInteraction(null);
+
+        _characterMovement = GetComponent<CharacterMovement>();
     }
 
     public void Update()
@@ -177,5 +181,32 @@ public class CharacterInteraction : WorldInteractable
         PointToAdd = initialStats.pointsToAdd;
         clickInterval = initialStats.clickInterval;
         countdownTime = initialStats.countdownTime;
+    }
+
+    private Vector3 _lastTargetPosition;
+    protected override void BeginMouseHover()
+    {
+        base.BeginMouseHover();
+        if (_enabledRuaMode)
+        {
+            _lastTargetPosition = _characterMovement.navMeshAgent.steeringTarget;
+            _characterMovement.SetTargetPosition(transform.position);
+            _characterMovement.StopHangingOut();
+            
+            Debug.Log("Mouse Hover!");
+            // _characterMovement.navMeshAgent.enabled = false;
+        }
+    }
+
+    protected override void EndMouseHover()
+    {
+        base.EndMouseHover();
+        if (_enabledRuaMode)
+        {
+            _characterMovement.SetTargetPosition(_lastTargetPosition);
+            Debug.Log("Mouse Leave!");
+            _characterMovement.StartHangingOut();
+            // _characterMovement.navMeshAgent.enabled = true;
+        }
     }
 }

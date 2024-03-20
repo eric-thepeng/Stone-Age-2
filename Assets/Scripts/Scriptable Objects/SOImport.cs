@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SOImport : MonoBehaviour
 {
-    [MenuItem("Assets/Update ScriptableObjects")]
+    /*[MenuItem("Assets/Update ScriptableObjects")]
     static void UpdateScriptableObjects()
     {
         Dictionary<string, string> data = SOReadCSV.ReadCSV("C:/Unity/ExportedData.txt");
@@ -21,5 +21,5 @@ public class SOImport : MonoBehaviour
         }
 
         AssetDatabase.SaveAssets();
-    }
+    }*/
 }
