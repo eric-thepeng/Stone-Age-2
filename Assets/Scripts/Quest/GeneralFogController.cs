@@ -68,6 +68,8 @@ public class GeneralFogController : MonoBehaviour, IUniActionInteraction
         float finalCenterX = variables.centerX;
         float finalCenterZ = variables.centerZ;
 
+        duration = (finalSizeX - orgSizeX) / 25;
+
         float time = 0;
         while (time < duration)
         {
