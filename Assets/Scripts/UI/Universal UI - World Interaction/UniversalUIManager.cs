@@ -74,24 +74,24 @@ public class UniversalUIManager : MonoBehaviour
         }
     }
 
-    [Serializable]
-    public class DefaultUI : UniversalUIComponent
-    {
+    //[Serializable]
+    //public class DefaultUI : UniversalUIComponent
+    //{
 
-    }
+    //}
 
     private WorldInteractable.InteractionType displayingWIIT;
     private UniversalUIComponent displayingUIComponent;
     
     public LongPressUI myLongPressUI;
     public ClickUI myClickUI;
-    public DefaultUI myDefaultUI;
-
+    //public DefaultUI myDefaultUI;
+    [Header("Mouse Icons")]
     public Texture2D cursorDefault;
-    public Texture2D cursorB;
-    public Texture2D cursorC;
-    public Texture2D cursorD;
-    public Texture2D cursorE;
+    public Texture2D cursorHover;
+    public Texture2D cursorGrab;
+    public Texture2D cursorDefaultWithBubble;
+    public Texture2D cursorE;//spare
     private Texture2D[] cursors;
     public enum CursorType
     {
@@ -107,7 +107,7 @@ public class UniversalUIManager : MonoBehaviour
     private void Start()
     {
         //cursor
-        cursors = new Texture2D[] { cursorDefault, cursorB, cursorC, cursorD };
+        cursors = new Texture2D[] { cursorDefault, cursorHover, cursorGrab, cursorDefaultWithBubble };
         int c = 0;
         foreach (CursorType cursorType in Enum.GetValues(typeof(CursorType)))
         {
