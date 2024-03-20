@@ -26,6 +26,12 @@ public class BLDTrashToClear : LevelUp
         SetCurrentInteraction(new InteractionType(InteractionType.TypeName.LongPress,TryClearTrash,timeToClear));
     }
 
+    protected override bool CanInteract()
+    {
+        if(!PlayerState.IsBrowsing())return false;
+        return base.CanInteract();
+    }
+
     protected override void BeginMouseHover()
     {
         base.BeginMouseHover();
