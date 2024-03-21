@@ -88,7 +88,7 @@ public class CharacterManager : MonoBehaviour
         newCharacterConfig.character.CharacterStats = new CharacterStats(newCharacterConfig.characterSettings);
 
         behaviors.hangOutArea = newCharacterConfig.hangOutArea;
-        characterObject.transform.position = behaviors.hangOutArea.center;
+        characterObject.transform.position = behaviors.hangOutArea.bounds.center;
         characterObject.transform.SetParent(transform.GetChild(0));
 
         GameObject characterIcon = Instantiate(characterIconPrefab, GameObject.Find("Character Icon").transform);
