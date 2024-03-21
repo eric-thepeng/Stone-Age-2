@@ -174,9 +174,17 @@ public class CharacterMovement : MonoBehaviour
         float randomZ = Random.Range(hangOutAreaMin.z, hangOutAreaMax.z);
         _targetPosition = new Vector3(randomX, transform.position.y, randomZ);
         bool isPathValid = false;
-        while (!isPathValid)
+        int i = 0;
+        while (!isPathValid && i < 5)
         {
+            i++;
             isPathValid = SetTargetPosition(_targetPosition);
+        }
+
+        if (!isPathValid)
+        {
+            Debug.Log("No valid path found!");
+            isPathValid = SetTargetPosition(transform.position);
         }
         
         // navMeshAgent.SetDestination(new Vector3(randomX, 0, randomZ));
