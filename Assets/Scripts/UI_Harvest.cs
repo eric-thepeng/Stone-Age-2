@@ -120,9 +120,9 @@ public class UI_Harvest : MonoBehaviour
                 if (child.GetComponent<TextMeshProUGUI>() != null)
                 {
                     TextMeshProUGUI textMeshPro = child.GetComponent<TextMeshProUGUI>();
-                    Color newColor = textMeshPro.color;
+                    Color newColor = textMeshPro.faceColor;
                     newColor.a = opacityPercent;
-                    textMeshPro.color = newColor;
+                    textMeshPro.faceColor = newColor;
                 }
                 else if (child.GetComponent<SpriteRenderer>() != null)
                 {
